@@ -1,0 +1,24 @@
+{
+    "name": "webmens-ru/yii2-admin",
+    "description": "",
+    "keywords": [
+        "yii2"
+    ],
+    "type": "library",
+    "license": "MIT",    
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "~2.0.14"
+    },    
+    "autoload": {
+        "psr-4": {
+            "wm\\admin\\": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}

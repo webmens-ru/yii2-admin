@@ -1,0 +1,50 @@
+/*---------BUTTONS---------*/
+.btn-success {
+    box-shadow: 0 4px 0 #095E00;
+    transition: .3s;
+}
+.btn-success:hover {
+    background: #28a745e0;
+}
+
+.btn-danger {
+    box-shadow: 0 4px 0 #7d3545;
+    transition: .3s;
+}
+.btn-danger:hover {
+    background: #dc3545e0;
+}
+
+.btn-primary {
+    box-shadow: 0 4px 0 #007b7c;
+    transition: .3s;
+}
+.btn-primary:hover {
+    background: #007bffd6;
+}
+/*---------BUTTONS---------*/
+.breadcrumb > li + li::before {
+    padding: 0 5px;
+    color: #ccc;
+    content: '\1F8A7';
+}
+
+.logo {
+    width: 90px;
+    height: 40px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer .container .text {
+    text-align: center !important;
+    
+}
+
+.wrap > .container {
+    padding: 0px 0px 0px !important;
+}
