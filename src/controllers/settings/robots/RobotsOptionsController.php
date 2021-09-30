@@ -15,6 +15,8 @@ use yii\web\Controller;
  */
 class RobotsOptionsController extends Controller {
 
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

@@ -17,6 +17,8 @@ use yii\data\ArrayDataProvider;
  */
 class EventsController extends Controller {
 
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

@@ -15,6 +15,8 @@ use yii\filters\VerbFilter;
  */
 class PlacementController extends Controller {
 
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

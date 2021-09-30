@@ -15,6 +15,8 @@ use yii\filters\VerbFilter;
  */
 class EventsDirectoryController extends Controller
 {
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

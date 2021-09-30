@@ -15,6 +15,8 @@ use yii\helpers\ArrayHelper;
  */
 class PlacementDirectoryController extends Controller
 {
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

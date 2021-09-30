@@ -4,10 +4,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_b24portal`
+-- Структура таблицы `admin_b24portal`
 --
 
-CREATE TABLE IF NOT EXISTS `baseapp_b24portal` (
+CREATE TABLE IF NOT EXISTS `admin_b24portal` (
   `PORTAL` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `ACCESS_TOKEN` char(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `REFRESH_TOKEN` char(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS `baseapp_b24portal` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_settings`
+-- Структура таблицы `admin_settings`
 --
 
-CREATE TABLE `baseapp_settings` (
+CREATE TABLE `admin_settings` (
   `name_id` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `value` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `name` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
@@ -30,32 +30,32 @@ CREATE TABLE `baseapp_settings` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_b24_connect_settings`
+-- Структура таблицы `admin_b24_connect_settings`
 --
 
-CREATE TABLE IF NOT EXISTS `baseapp_b24_connect_settings` (
+CREATE TABLE IF NOT EXISTS `admin_b24_connect_settings` (
   `name_id` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `value` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `name` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `baseapp_b24_connect_settings`
+-- Дамп данных таблицы `admin_b24_connect_settings`
 --
 
-INSERT INTO `baseapp_b24_connect_settings` (`name_id`, `value`, `name`) VALUES
+INSERT INTO `admin_b24_connect_settings` (`name_id`, `value`, `name`) VALUES
 ('applicationId', 'local.000000000000000', 'applicationId'),
 ('applicationSecret', '00000000000000000', 'applicationSecret'),
 ('b24PortalName', '00.bitrix24.ru', 'b24PortalName'),
-('b24PortalTable', 'baseapp_b24portal', 'b24PortalTable');
+('b24PortalTable', 'admin_b24portal', 'b24PortalTable');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_robots`
+-- Структура таблицы `admin_robots`
 --
 
-CREATE TABLE `baseapp_robots` (
+CREATE TABLE `admin_robots` (
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `handler` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `auth_user_id` int(11) DEFAULT NULL,
@@ -68,10 +68,10 @@ CREATE TABLE `baseapp_robots` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_robots_options`
+-- Структура таблицы `admin_robots_options`
 --
 
-CREATE TABLE `baseapp_robots_options` (
+CREATE TABLE `admin_robots_options` (
   `property_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `robot_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -82,10 +82,10 @@ CREATE TABLE `baseapp_robots_options` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_robots_properties`
+-- Структура таблицы `admin_robots_properties`
 --
 
-CREATE TABLE `baseapp_robots_properties` (
+CREATE TABLE `admin_robots_properties` (
   `robot_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_in` int(1) DEFAULT NULL,
   `system_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -101,10 +101,10 @@ CREATE TABLE `baseapp_robots_properties` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_robots_types`
+-- Структура таблицы `admin_robots_types`
 --
 
-CREATE TABLE `baseapp_robots_types` (
+CREATE TABLE `admin_robots_types` (
   `id` int(11) NOT NULL,
   `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -112,10 +112,10 @@ CREATE TABLE `baseapp_robots_types` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_events`
+-- Структура таблицы `admin_events`
 --
 
-CREATE TABLE `baseapp_events` (
+CREATE TABLE `admin_events` (
   `id` int(11) NOT NULL,
   `event_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `handler` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -126,20 +126,20 @@ CREATE TABLE `baseapp_events` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_events_directory`
+-- Структура таблицы `admin_events_directory`
 --
 
-CREATE TABLE `baseapp_events_directory` (
+CREATE TABLE `admin_events_directory` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Структура таблицы `baseapp_placement`
+-- Структура таблицы `admin_placement`
 --
 
-CREATE TABLE `baseapp_placement` (
+CREATE TABLE `admin_placement` (
   `id` int(11) NOT NULL,
   `placement_name` varchar(50) NOT NULL,
   `handler` varchar(255) NOT NULL,
@@ -151,10 +151,10 @@ CREATE TABLE `baseapp_placement` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `baseapp_placement_directory`
+-- Структура таблицы `admin_placement_directory`
 --
 
-CREATE TABLE `baseapp_placement_directory` (
+CREATE TABLE `admin_placement_directory` (
   `name_id` varchar(50) CHARACTER SET utf8 NOT NULL,
   `description` varchar(255) CHARACTER SET utf8 NOT NULL,
   `category_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -162,10 +162,10 @@ CREATE TABLE `baseapp_placement_directory` (
 
 
 --
--- Дамп данных таблицы `baseapp_robots_types`
+-- Дамп данных таблицы `admin_robots_types`
 --
 
-INSERT INTO `baseapp_robots_types` (`id`, `name`) VALUES
+INSERT INTO `admin_robots_types` (`id`, `name`) VALUES
 (1, 'bool'),
 (2, 'date'),
 (3, 'datetime'),
@@ -179,10 +179,10 @@ INSERT INTO `baseapp_robots_types` (`id`, `name`) VALUES
 
 
 --
--- Дамп данных таблицы `baseapp_placement_directory`
+-- Дамп данных таблицы `admin_placement_directory`
 --
 
-INSERT INTO `baseapp_placement_directory` (`name_id`, `description`, `category_name`) VALUES
+INSERT INTO `admin_placement_directory` (`name_id`, `description`, `category_name`) VALUES
 ('CALENDAR_GRIDVIEW', 'Список видов отображения календаря', 'Календарь'),
 ('CALL_CARD', 'Карточка звонка', 'Карточка звонка'),
 ('CONTACT_CENTER', '\"Квадратик\" в списке Контакт центра.', 'Контакты'),
@@ -240,7 +240,7 @@ INSERT INTO `baseapp_placement_directory` (`name_id`, `description`, `category_n
 ('USER_PROFILE_MENU', 'Кнопка в главном меню портала.', 'Профиль пользователя'),
 ('USER_PROFILE_TOOLBAR', 'Кнопка в профиле .', 'Профиль пользователя');
 
-INSERT INTO `baseapp_events_directory` (`name`, `description`, `category_name`) VALUES
+INSERT INTO `admin_events_directory` (`name`, `description`, `category_name`) VALUES
 ('bizproc.event.send', 'Метод возвращает действию выходные параметры, заданные в описании действия', 'Бизнес-процессы'),
 ('OnAppInstall', 'при установке приложения', 'Приложение'),
 ('OnAppMethodConfirm', 'при получении решения администратора портала по запросу на использование методов, требующих подтверждения', 'Приложение'),
@@ -365,74 +365,74 @@ INSERT INTO `baseapp_events_directory` (`name`, `description`, `category_name`) 
 --
 
 --
--- Индексы таблицы `baseapp_b24portal`
+-- Индексы таблицы `admin_b24portal`
 --
-ALTER TABLE `baseapp_b24portal`
+ALTER TABLE `admin_b24portal`
   ADD PRIMARY KEY (`PORTAL`);
 
 --
--- Индексы таблицы `baseapp_settings`
+-- Индексы таблицы `admin_settings`
 --
-ALTER TABLE `baseapp_settings`
+ALTER TABLE `admin_settings`
   ADD PRIMARY KEY (`name_id`);
 
 --
--- Индексы таблицы `baseapp_b24_connect_settings`
+-- Индексы таблицы `admin_b24_connect_settings`
 --
-ALTER TABLE `baseapp_b24_connect_settings`
+ALTER TABLE `admin_b24_connect_settings`
   ADD PRIMARY KEY (`name_id`);
   
   --
--- Индексы таблицы `baseapp_robots`
+-- Индексы таблицы `admin_robots`
 --
-ALTER TABLE `baseapp_robots`
+ALTER TABLE `admin_robots`
   ADD PRIMARY KEY (`code`);
 
 --
--- Индексы таблицы `baseapp_robots_options`
+-- Индексы таблицы `admin_robots_options`
 --
-ALTER TABLE `baseapp_robots_options`
+ALTER TABLE `admin_robots_options`
   ADD PRIMARY KEY (`property_name`,`robot_code`,`value`),
-  ADD KEY `baseapp_robots_options_fk0` (`robot_code`,`property_name`);
+  ADD KEY `admin_robots_options_fk0` (`robot_code`,`property_name`);
 
 --
--- Индексы таблицы `baseapp_robots_properties`
+-- Индексы таблицы `admin_robots_properties`
 --
-ALTER TABLE `baseapp_robots_properties`
+ALTER TABLE `admin_robots_properties`
   ADD PRIMARY KEY (`robot_code`,`system_name`),
-  ADD KEY `baseapp_robots_properties_fk1` (`type_id`);
+  ADD KEY `admin_robots_properties_fk1` (`type_id`);
 
 --
--- Индексы таблицы `baseapp_robots_types`
+-- Индексы таблицы `admin_robots_types`
 --
-ALTER TABLE `baseapp_robots_types`
+ALTER TABLE `admin_robots_types`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Индексы таблицы `baseapp_events`
+-- Индексы таблицы `admin_events`
 --
-ALTER TABLE `baseapp_events`
+ALTER TABLE `admin_events`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `baseapp_events_fk0` (`event_name`);
+  ADD KEY `admin_events_fk0` (`event_name`);
 
 --
--- Индексы таблицы `baseapp_events_directory`
+-- Индексы таблицы `admin_events_directory`
 --
-ALTER TABLE `baseapp_events_directory`
+ALTER TABLE `admin_events_directory`
   ADD PRIMARY KEY (`name`);
 
 --
--- Индексы таблицы `baseapp_placement`
+-- Индексы таблицы `admin_placement`
 --
-ALTER TABLE `baseapp_placement`
+ALTER TABLE `admin_placement`
   ADD PRIMARY KEY (`id`),
   ADD KEY `placement_name` (`placement_name`);
 
 --
--- Индексы таблицы `baseapp_placement_directory`
+-- Индексы таблицы `admin_placement_directory`
 --
-ALTER TABLE `baseapp_placement_directory`
+ALTER TABLE `admin_placement_directory`
   ADD PRIMARY KEY (`name_id`);
 
 --
@@ -440,21 +440,21 @@ ALTER TABLE `baseapp_placement_directory`
 --
 
 --
--- AUTO_INCREMENT для таблицы `baseapp_robots_types`
+-- AUTO_INCREMENT для таблицы `admin_robots_types`
 --
-ALTER TABLE `baseapp_robots_types`
+ALTER TABLE `admin_robots_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT для таблицы `baseapp_events`
+-- AUTO_INCREMENT для таблицы `admin_events`
 --
-ALTER TABLE `baseapp_events`
+ALTER TABLE `admin_events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `baseapp_placement`
+-- AUTO_INCREMENT для таблицы `admin_placement`
 --
-ALTER TABLE `baseapp_placement`
+ALTER TABLE `admin_placement`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -462,27 +462,27 @@ ALTER TABLE `baseapp_placement`
 --
 
 --
--- Ограничения внешнего ключа таблицы `baseapp_robots_options`
+-- Ограничения внешнего ключа таблицы `admin_robots_options`
 --
-ALTER TABLE `baseapp_robots_options`
-  ADD CONSTRAINT `baseapp_robots_options_fk0` FOREIGN KEY (`robot_code`,`property_name`) REFERENCES `baseapp_robots_properties` (`robot_code`, `system_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `admin_robots_options`
+  ADD CONSTRAINT `admin_robots_options_fk0` FOREIGN KEY (`robot_code`,`property_name`) REFERENCES `admin_robots_properties` (`robot_code`, `system_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `baseapp_robots_properties`
+-- Ограничения внешнего ключа таблицы `admin_robots_properties`
 --
-ALTER TABLE `baseapp_robots_properties`
-  ADD CONSTRAINT `baseapp_robots_properties_fk0` FOREIGN KEY (`robot_code`) REFERENCES `baseapp_robots` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `baseapp_robots_properties_fk1` FOREIGN KEY (`type_id`) REFERENCES `baseapp_robots_types` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `admin_robots_properties`
+  ADD CONSTRAINT `admin_robots_properties_fk0` FOREIGN KEY (`robot_code`) REFERENCES `admin_robots` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `admin_robots_properties_fk1` FOREIGN KEY (`type_id`) REFERENCES `admin_robots_types` (`id`) ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `baseapp_events`
+-- Ограничения внешнего ключа таблицы `admin_events`
 --
-ALTER TABLE `baseapp_events`
-  ADD CONSTRAINT `baseapp_events_fk0` FOREIGN KEY (`event_name`) REFERENCES `baseapp_events_directory` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `admin_events`
+  ADD CONSTRAINT `admin_events_fk0` FOREIGN KEY (`event_name`) REFERENCES `admin_events_directory` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `baseapp_placement`
+-- Ограничения внешнего ключа таблицы `admin_placement`
 --
-ALTER TABLE `baseapp_placement`
-  ADD CONSTRAINT `baseapp_placement_ibfk_1` FOREIGN KEY (`placement_name`) REFERENCES `baseapp_placement_directory` (`name_id`);
+ALTER TABLE `admin_placement`
+  ADD CONSTRAINT `admin_placement_ibfk_1` FOREIGN KEY (`placement_name`) REFERENCES `admin_placement_directory` (`name_id`);
 COMMIT;

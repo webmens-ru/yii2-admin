@@ -19,6 +19,8 @@ use yii\data\ArrayDataProvider;
  */
 class ChatbotController extends Controller
 {
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

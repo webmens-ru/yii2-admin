@@ -20,6 +20,8 @@ use yii\helpers\ArrayHelper;
  */
 class TemplatesController extends Controller {
 
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

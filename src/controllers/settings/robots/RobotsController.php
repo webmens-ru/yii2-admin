@@ -18,6 +18,8 @@ use yii\web\UploadedFile;
  */
 class RobotsController extends Controller {
 
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

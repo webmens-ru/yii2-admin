@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class AppJsMethodDirectoryController extends Controller
 {
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */

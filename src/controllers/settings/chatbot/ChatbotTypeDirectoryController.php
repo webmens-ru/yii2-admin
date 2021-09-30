@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class ChatbotTypeDirectoryController extends Controller
 {
+    public $layout = 'admin.php';
+    
     /**
      * {@inheritdoc}
      */
