@@ -84,7 +84,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
                 <div class="container">
                     <?=
                     Breadcrumbs::widget([
-                        'homeLink' => ['label' => 'Приложение', 'url' => ['/' . Yii::getAlias('@moduleName') . '/admin-base/index']],
+                        'homeLink' => ['label' => 'Приложение', 'url' => ['/admin/base/index']],
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                         'options' => [
                             'class' => 'shadow-sm p-3 mb-5',
