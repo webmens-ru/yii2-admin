@@ -6,14 +6,14 @@ use Yii;
 use wm\admin\models\settings\placements\Placement;
 use wm\admin\models\settings\placements\PlacementSearch;
 use wm\admin\models\settings\placements\PlacementDirectory;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * PlacementController implements the CRUD actions for Placement model.
  */
-class PlacementController extends AdminSecondController {
+class PlacementController extends Controller {
 
     /**
      * {@inheritdoc}

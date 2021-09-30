@@ -7,14 +7,14 @@ use wm\admin\models\settings\chatbot\App;
 use wm\admin\models\settings\chatbot\AppContexDirectory;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 use wm\admin\models\settings\chatbot\AppSearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AppController implements the CRUD actions for App model.
  */
-class AppController extends AdminSecondController {
+class AppController extends Controller {
 
     /**
      * {@inheritdoc}

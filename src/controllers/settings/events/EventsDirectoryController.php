@@ -6,14 +6,14 @@ use Yii;
 use wm\admin\models\settings\events\EventsDirectory;
 use wm\admin\models\settings\events\EventsDirectorySearch;
 use wm\admin\models\settings\events\EventsCategories;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * EventsDirectoryController implements the CRUD actions for EventsDirectory model.
  */
-class EventsDirectoryController extends AdminSecondController
+class EventsDirectoryController extends Controller
 {
     /**
      * {@inheritdoc}

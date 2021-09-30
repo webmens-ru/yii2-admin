@@ -10,13 +10,13 @@ use wm\admin\models\settings\robots\RobotsPropertiesSearch;
 use wm\admin\models\settings\robots\RobotsTypes;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\UploadedFile;
 
 /**
  * RobotsController implements the CRUD actions for Robots model.
  */
-class RobotsController extends AdminSecondController {
+class RobotsController extends Controller {
 
     /**
      * {@inheritdoc}

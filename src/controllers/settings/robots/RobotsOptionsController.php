@@ -8,12 +8,12 @@ use wm\admin\models\settings\robots\RobotsOptionsSearch;
 use wm\admin\models\settings\robots\RobotsProperties;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 
 /**
  * RobotsOptionsController implements the CRUD actions for RobotsOptions model.
  */
-class RobotsOptionsController extends AdminSecondController {
+class RobotsOptionsController extends Controller {
 
     /**
      * {@inheritdoc}

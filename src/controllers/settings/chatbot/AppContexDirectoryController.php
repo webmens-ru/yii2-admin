@@ -5,14 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\AppContexDirectory;
 use wm\admin\models\settings\chatbot\AppContexDirectorySearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AppContexDirectoryController implements the CRUD actions for AppContexDirectory model.
  */
-class AppContexDirectoryController extends AdminSecondController
+class AppContexDirectoryController extends Controller
 {
     /**
      * {@inheritdoc}

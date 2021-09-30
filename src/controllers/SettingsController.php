@@ -5,14 +5,14 @@ namespace wm\admin\controllers;
 use Yii;
 use wm\admin\models\Settings;
 use wm\admin\models\SettingsSearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * SettingsController implements the CRUD actions for Settings model.
  */
-class SettingsController extends AdminSecondController
+class SettingsController extends Controller
 {
     /**
      * {@inheritdoc}

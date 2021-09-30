@@ -5,7 +5,7 @@ namespace wm\admin\controllers\settings\placements;
 use Yii;
 use wm\admin\models\settings\placements\PlacementDirectory;
 use wm\admin\models\settings\placements\PlacementDirectorySearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /**
  * PlacementDirectoryController implements the CRUD actions for PlacementDirectory model.
  */
-class PlacementDirectoryController extends AdminSecondController
+class PlacementDirectoryController extends Controller
 {
     /**
      * {@inheritdoc}

@@ -5,14 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\ChatbotCommand;
 use wm\admin\models\settings\chatbot\ChatbotCommandSearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ChatbotCommandController implements the CRUD actions for ChatbotCommand model.
  */
-class ChatbotCommandController extends AdminSecondController
+class ChatbotCommandController extends Controller
 {
     /**
      * {@inheritdoc}

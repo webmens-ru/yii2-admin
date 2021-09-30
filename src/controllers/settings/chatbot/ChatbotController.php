@@ -7,7 +7,7 @@ use wm\admin\models\settings\chatbot\Chatbot;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectory;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 use wm\admin\models\settings\chatbot\ChatbotSearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use wm\admin\models\settings\chatbot\ChatbotCommandSearch;
 use wm\admin\models\settings\chatbot\AppSearch;
 use yii\web\NotFoundHttpException;
@@ -17,7 +17,7 @@ use yii\data\ArrayDataProvider;
 /**
  * ChatbotController implements the CRUD actions for Chatbot model.
  */
-class ChatbotController extends AdminSecondController
+class ChatbotController extends Controller
 {
     /**
      * {@inheritdoc}

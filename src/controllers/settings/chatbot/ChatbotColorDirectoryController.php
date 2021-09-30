@@ -5,14 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectory;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectorySearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ChatbotColorDirectoryController implements the CRUD actions for ChatbotColorDirectory model.
  */
-class ChatbotColorDirectoryController extends AdminSecondController
+class ChatbotColorDirectoryController extends Controller
 {
     /**
      * {@inheritdoc}

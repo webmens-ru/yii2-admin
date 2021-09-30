@@ -7,7 +7,7 @@ use wm\admin\models\settings\events\Events;
 use wm\admin\models\settings\events\EventsSearch;
 use wm\admin\models\settings\events\EventsDirectory;
 use wm\admin\models\settings\events\EventsDirectorySearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
@@ -15,7 +15,7 @@ use yii\data\ArrayDataProvider;
 /**
  * EventsController implements the CRUD actions for Events model.
  */
-class EventsController extends AdminSecondController {
+class EventsController extends Controller {
 
     /**
      * {@inheritdoc}

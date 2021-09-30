@@ -5,14 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectorySearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AppJsMethodDirectoryController implements the CRUD actions for AppJsMethodDirectory model.
  */
-class AppJsMethodDirectoryController extends AdminSecondController
+class AppJsMethodDirectoryController extends Controller
 {
     /**
      * {@inheritdoc}

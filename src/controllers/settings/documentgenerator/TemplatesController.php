@@ -5,7 +5,7 @@ namespace wm\admin\controllers\settings\documentgenerator;
 use Yii;
 use wm\admin\models\settings\documentgenerator\Templates;
 use wm\admin\models\settings\documentgenerator\TemplatesSearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 //use Bitrix24\B24Object;
@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
 /**
  * TemplatesController implements the CRUD actions for Templates model.
  */
-class TemplatesController extends AdminSecondController {
+class TemplatesController extends Controller {
 
     /**
      * {@inheritdoc}

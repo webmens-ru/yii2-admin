@@ -5,14 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectorySearch;
-use wm\admin\controllers\AdminSecondController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ChatbotTypeDirectoryController implements the CRUD actions for ChatbotTypeDirectory model.
  */
-class ChatbotTypeDirectoryController extends AdminSecondController
+class ChatbotTypeDirectoryController extends Controller
 {
     /**
      * {@inheritdoc}
