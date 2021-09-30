@@ -19,9 +19,9 @@ class module extends \yii\base\Module {
         $this->layout = 'main';
         $this->moduleName = 'admin';
         $this->setAliases([
-            '@moduleName' => $this->moduleName,
-            '@webModuleAsset' => '@web' . '/' . $this->moduleName . '/assets/web',
-            '@appModuleLayouts' => '@app' . '/modules/' . $this->moduleName . '/views/layouts',
+//            '@moduleName' => $this->moduleName,
+//            '@webModuleAsset' => '@web' . '/' . $this->moduleName . '/assets/web',
+//            '@appModuleLayouts' => '@app' . '/modules/' . $this->moduleName . '/views/layouts',
 //            '@webMmoduleApp' => '/' . $this->moduleName,
 //            '@appMmoduleApp' => '/modules/' . $this->moduleName ,            
         ]);
