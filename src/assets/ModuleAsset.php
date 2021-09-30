@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 class ModuleAsset extends AssetBundle
 {
     public $baseUrl = '@web';
-    public $sourcePath = '@vendor/webmens-ru/yii2-admin/assets/web/'; //---
+    public $sourcePath = '@vendor/webmens-ru/yii2-admin/src/assets/web/'; //---
     public $css = [
     	'css/style.css',
     ];
