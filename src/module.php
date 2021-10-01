@@ -7,7 +7,7 @@ use Yii;
 /**
  * b24 module definition class
  */
-class module extends \yii\base\Module {
+class Module extends \yii\base\Module {
 
     public $controllerNamespace = 'wm\admin\controllers';
     
