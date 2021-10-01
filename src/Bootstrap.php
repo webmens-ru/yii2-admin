@@ -23,6 +23,8 @@ class Bootstrap implements BootstrapInterface
          * Регистрация модуля в приложении
          * (вместо указания в файле frontend/config/main.php
          */
-         $app->setModule('admin', 'wm\admin\Module');
+         $app->setModule('admin', [
+            'class' => 'wm\admin\module',
+        ]);
     }
 }
