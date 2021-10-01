@@ -8,6 +8,7 @@
     "license": "MIT",    
     "minimum-stability": "dev",
     "require": {
+        "rmrevin/yii2-fontawesome": "~3.5",
         "yiisoft/yii2": "~2.0.14"
     },    
     "autoload": {
