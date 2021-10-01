@@ -17,7 +17,7 @@ class Bootstrap implements BootstrapInterface
     {
         //Правила маршрутизации
         $app->getUrlManager()->addRules([
-            'admin' => 'admin/index',
+            'admin' => 'admin/base/index',
         ], false);
         /*
          * Регистрация модуля в приложении
