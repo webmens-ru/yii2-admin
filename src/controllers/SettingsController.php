@@ -5,16 +5,14 @@ namespace wm\admin\controllers;
 use Yii;
 use wm\admin\models\Settings;
 use wm\admin\models\SettingsSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * SettingsController implements the CRUD actions for Settings model.
  */
-class SettingsController extends Controller
+class SettingsController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
     
     /**
      * {@inheritdoc}
@@ -26,6 +24,19 @@ class SettingsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

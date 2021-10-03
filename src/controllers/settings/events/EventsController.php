@@ -6,8 +6,6 @@ use Yii;
 use wm\admin\models\settings\events\Events;
 use wm\admin\models\settings\events\EventsSearch;
 use wm\admin\models\settings\events\EventsDirectory;
-use wm\admin\models\settings\events\EventsDirectorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
@@ -15,19 +13,28 @@ use yii\data\ArrayDataProvider;
 /**
  * EventsController implements the CRUD actions for Events model.
  */
-class EventsController extends Controller {
+class EventsController extends \wm\admin\controllers\BaseModuleController {
 
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

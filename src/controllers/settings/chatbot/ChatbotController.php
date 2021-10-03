@@ -7,7 +7,6 @@ use wm\admin\models\settings\chatbot\Chatbot;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectory;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 use wm\admin\models\settings\chatbot\ChatbotSearch;
-use yii\web\Controller;
 use wm\admin\models\settings\chatbot\ChatbotCommandSearch;
 use wm\admin\models\settings\chatbot\AppSearch;
 use yii\web\NotFoundHttpException;
@@ -17,13 +16,8 @@ use yii\data\ArrayDataProvider;
 /**
  * ChatbotController implements the CRUD actions for Chatbot model.
  */
-class ChatbotController extends Controller
+class ChatbotController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -31,6 +25,19 @@ class ChatbotController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

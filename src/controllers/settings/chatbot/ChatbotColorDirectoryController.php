@@ -5,20 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectory;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ChatbotColorDirectoryController implements the CRUD actions for ChatbotColorDirectory model.
  */
-class ChatbotColorDirectoryController extends Controller
+class ChatbotColorDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -26,6 +20,19 @@ class ChatbotColorDirectoryController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

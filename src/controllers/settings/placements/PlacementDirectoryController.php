@@ -5,7 +5,6 @@ namespace wm\admin\controllers\settings\placements;
 use Yii;
 use wm\admin\models\settings\placements\PlacementDirectory;
 use wm\admin\models\settings\placements\PlacementDirectorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -13,13 +12,8 @@ use yii\helpers\ArrayHelper;
 /**
  * PlacementDirectoryController implements the CRUD actions for PlacementDirectory model.
  */
-class PlacementDirectoryController extends Controller
+class PlacementDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -27,6 +21,19 @@ class PlacementDirectoryController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

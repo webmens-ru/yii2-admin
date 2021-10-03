@@ -5,20 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AppJsMethodDirectoryController implements the CRUD actions for AppJsMethodDirectory model.
  */
-class AppJsMethodDirectoryController extends Controller
+class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -26,6 +20,19 @@ class AppJsMethodDirectoryController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

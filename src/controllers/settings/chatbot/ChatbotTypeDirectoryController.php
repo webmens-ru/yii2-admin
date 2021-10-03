@@ -5,20 +5,14 @@ namespace wm\admin\controllers\settings\chatbot;
 use Yii;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ChatbotTypeDirectoryController implements the CRUD actions for ChatbotTypeDirectory model.
  */
-class ChatbotTypeDirectoryController extends Controller
+class ChatbotTypeDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -26,6 +20,19 @@ class ChatbotTypeDirectoryController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

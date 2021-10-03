@@ -7,26 +7,34 @@ use wm\admin\models\settings\chatbot\App;
 use wm\admin\models\settings\chatbot\AppContexDirectory;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 use wm\admin\models\settings\chatbot\AppSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AppController implements the CRUD actions for App model.
  */
-class AppController extends Controller {
+class AppController extends \wm\admin\controllers\BaseModuleController {
 
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

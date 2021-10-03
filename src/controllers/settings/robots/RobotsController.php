@@ -16,14 +16,10 @@ use yii\web\UploadedFile;
 /**
  * RobotsController implements the CRUD actions for Robots model.
  */
-class RobotsController extends Controller {
+class RobotsController extends \wm\admin\controllers\BaseModuleController {
 
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -31,9 +27,22 @@ class RobotsController extends Controller {
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            '*',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
+                ],
+            ],
         ];
     }
-
+    
     /**
      * Lists all Robots models.
      * @return mixed

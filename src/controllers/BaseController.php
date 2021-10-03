@@ -2,13 +2,32 @@
 
 namespace wm\admin\controllers;
 
-use Yii;
-use \yii\web\HttpException;
-use wm\admin\models\B24ConnectSettings;
-
-class BaseController extends \yii\web\Controller {
-
-    public $layout = 'admin.php';
+class BaseController extends \wm\admin\controllers\BaseModuleController {
+    
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
+                ],
+            ],
+        ];
+    }
     
     public function actionIndex() {
         return $this->render('index');

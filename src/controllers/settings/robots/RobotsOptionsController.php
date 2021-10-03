@@ -8,24 +8,34 @@ use wm\admin\models\settings\robots\RobotsOptionsSearch;
 use wm\admin\models\settings\robots\RobotsProperties;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Controller;
 
 /**
  * RobotsOptionsController implements the CRUD actions for RobotsOptions model.
  */
-class RobotsOptionsController extends Controller {
+class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController {
 
     public $layout = 'admin.php';
     
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

@@ -5,7 +5,6 @@ namespace wm\admin\controllers\settings\documentgenerator;
 use Yii;
 use wm\admin\models\settings\documentgenerator\Templates;
 use wm\admin\models\settings\documentgenerator\TemplatesSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 //use Bitrix24\B24Object;
@@ -18,19 +17,28 @@ use yii\helpers\ArrayHelper;
 /**
  * TemplatesController implements the CRUD actions for Templates model.
  */
-class TemplatesController extends Controller {
+class TemplatesController extends \wm\admin\controllers\BaseModuleController {
 
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

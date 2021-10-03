@@ -6,26 +6,34 @@ use Yii;
 use wm\admin\models\settings\placements\Placement;
 use wm\admin\models\settings\placements\PlacementSearch;
 use wm\admin\models\settings\placements\PlacementDirectory;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * PlacementController implements the CRUD actions for Placement model.
  */
-class PlacementController extends Controller {
+class PlacementController extends \wm\admin\controllers\BaseModuleController {
 
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];

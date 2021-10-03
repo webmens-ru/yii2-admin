@@ -6,20 +6,14 @@ use Yii;
 use wm\admin\models\settings\events\EventsDirectory;
 use wm\admin\models\settings\events\EventsDirectorySearch;
 use wm\admin\models\settings\events\EventsCategories;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * EventsDirectoryController implements the CRUD actions for EventsDirectory model.
  */
-class EventsDirectoryController extends Controller
+class EventsDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public $layout = 'admin.php';
-    
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -27,6 +21,19 @@ class EventsDirectoryController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only' => ['about'],
+                'rules' => [                    
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'view',
+                        ],
+                        'allow' => true,
+                        'roles' => ['canAdmin'],
+                    ],                    
                 ],
             ],
         ];
