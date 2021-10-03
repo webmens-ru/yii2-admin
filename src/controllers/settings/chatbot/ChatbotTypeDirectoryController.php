@@ -7,6 +7,7 @@ use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectorySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ChatbotTypeDirectoryController implements the CRUD actions for ChatbotTypeDirectory model.

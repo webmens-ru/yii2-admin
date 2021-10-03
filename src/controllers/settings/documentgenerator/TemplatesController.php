@@ -7,6 +7,7 @@ use wm\admin\models\settings\documentgenerator\Templates;
 use wm\admin\models\settings\documentgenerator\TemplatesSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 //use Bitrix24\B24Object;
 use wm\admin\models\B24ConnectSettings;
 //use yii\helpers\ArrayHelper;

@@ -10,6 +10,7 @@ use wm\admin\models\settings\robots\RobotsOptionsSearch;
 use wm\admin\models\settings\robots\RobotsTypes;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * RobotsPropertiesController implements the CRUD actions for RobotsProperties model.

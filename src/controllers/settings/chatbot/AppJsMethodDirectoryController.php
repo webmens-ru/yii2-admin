@@ -7,6 +7,7 @@ use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectorySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AppJsMethodDirectoryController implements the CRUD actions for AppJsMethodDirectory model.

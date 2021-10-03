@@ -7,6 +7,7 @@ use wm\admin\models\settings\chatbot\ChatbotCommand;
 use wm\admin\models\settings\chatbot\ChatbotCommandSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ChatbotCommandController implements the CRUD actions for ChatbotCommand model.

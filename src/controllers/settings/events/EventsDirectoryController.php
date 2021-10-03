@@ -8,6 +8,7 @@ use wm\admin\models\settings\events\EventsDirectorySearch;
 use wm\admin\models\settings\events\EventsCategories;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * EventsDirectoryController implements the CRUD actions for EventsDirectory model.

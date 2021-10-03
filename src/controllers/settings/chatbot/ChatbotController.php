@@ -11,6 +11,7 @@ use wm\admin\models\settings\chatbot\ChatbotCommandSearch;
 use wm\admin\models\settings\chatbot\AppSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\data\ArrayDataProvider;
 
 /**

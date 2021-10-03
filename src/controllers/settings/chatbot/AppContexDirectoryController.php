@@ -7,6 +7,7 @@ use wm\admin\models\settings\chatbot\AppContexDirectory;
 use wm\admin\models\settings\chatbot\AppContexDirectorySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AppContexDirectoryController implements the CRUD actions for AppContexDirectory model.

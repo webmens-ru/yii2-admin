@@ -7,6 +7,7 @@ use wm\admin\models\Settings;
 use wm\admin\models\SettingsSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SettingsController implements the CRUD actions for Settings model.

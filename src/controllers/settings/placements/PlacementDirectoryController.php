@@ -7,6 +7,7 @@ use wm\admin\models\settings\placements\PlacementDirectory;
 use wm\admin\models\settings\placements\PlacementDirectorySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 
 /**

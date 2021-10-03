@@ -9,6 +9,7 @@ use wm\admin\models\settings\events\EventsDirectory;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
+use yii\filters\AccessControl;
 
 /**
  * EventsController implements the CRUD actions for Events model.

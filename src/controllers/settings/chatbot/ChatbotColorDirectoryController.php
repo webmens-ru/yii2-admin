@@ -7,6 +7,7 @@ use wm\admin\models\settings\chatbot\ChatbotColorDirectory;
 use wm\admin\models\settings\chatbot\ChatbotColorDirectorySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ChatbotColorDirectoryController implements the CRUD actions for ChatbotColorDirectory model.

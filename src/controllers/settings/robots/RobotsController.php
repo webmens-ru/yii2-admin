@@ -10,7 +10,7 @@ use wm\admin\models\settings\robots\RobotsPropertiesSearch;
 use wm\admin\models\settings\robots\RobotsTypes;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Controller;
+use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 
 /**
