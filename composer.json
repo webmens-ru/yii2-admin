@@ -4,7 +4,7 @@
     "keywords": [
         "yii2"
     ],
-    "type": "library",
+    "type": "yii2-extension",
     "license": "MIT",    
     "minimum-stability": "dev",
     "require": {
