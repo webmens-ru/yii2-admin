@@ -33,7 +33,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
                 'rules' => [                    
                     [
                         'actions' => [
-                            '*',
+                            'index', 'create', 'update', 'delete', 'view',
                         ],
                         'allow' => true,
                         'roles' => ['canAdmin'],
