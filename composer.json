@@ -18,6 +18,9 @@
             "wm\\admin\\": "src"
         }
     },
+    "extra": {
+        "bootstrap": "wm\\admin\\Bootstrap"
+    },
     "repositories": [
         {
             "type": "composer",
