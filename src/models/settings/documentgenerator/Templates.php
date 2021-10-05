@@ -93,7 +93,7 @@ class Templates extends \yii\db\ActiveRecord {
     }
     
     public function toBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -124,7 +124,7 @@ class Templates extends \yii\db\ActiveRecord {
     }
     
     public function fieldsBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -145,7 +145,7 @@ class Templates extends \yii\db\ActiveRecord {
     }
     
     public function updateBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -175,7 +175,7 @@ class Templates extends \yii\db\ActiveRecord {
     }
     
     public static function getB24List() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -187,7 +187,7 @@ class Templates extends \yii\db\ActiveRecord {
     }
     
     public function removeBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),

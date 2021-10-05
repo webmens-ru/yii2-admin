@@ -5,7 +5,7 @@ namespace wm\admin\models\settings\robots;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use app\components\b24Tools;
+use wm\b24tools\b24Tools;
 use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 use yii\helpers\Json;
@@ -75,7 +75,7 @@ class Robots extends \yii\db\ActiveRecord {
     }
 
     public function toBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -97,7 +97,7 @@ class Robots extends \yii\db\ActiveRecord {
     }
 
     public function removeBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),

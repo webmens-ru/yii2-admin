@@ -176,8 +176,8 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     
     public function actionB24List() {
         $result = Chatbot::getB24List()['result'];
-//        $resultOnline = array_filter($result, 'app\components\b24Tools::isEventOnline');
-//        $resultOffline = array_filter($result, 'app\components\b24Tools::isEventOffline');
+//        $resultOnline = array_filter($result, 'wm\b24tools\b24Tools::isEventOnline');
+//        $resultOffline = array_filter($result, 'wm\b24tools\b24Tools::isEventOffline');
         $dataProvider = new ArrayDataProvider([
             'allModels' => $result,
             'pagination' => [

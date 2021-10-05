@@ -6,7 +6,7 @@ use Bitrix24\Im\Im;
 //use Cassandra\Date;
 use Yii;
 use yii\base\Model;
-use app\components\b24Tools;
+use wm\b24tools\b24Tools;
 use Bitrix24\B24Object;
 use yii\helpers\ArrayHelper;
 use wm\admin\models\B24ConnectSettings;
@@ -33,7 +33,7 @@ class ChatbotHelpDeskHelper extends Model {
         $request = Yii::$app->request;
         $auth = $request->post('auth');
         $data = $request->post('data');
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connectFromChat(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -48,7 +48,7 @@ class ChatbotHelpDeskHelper extends Model {
         $request = Yii::$app->request;
         $auth = $request->post('auth');
         $data = $request->post('data');
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connectFromChat(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),

@@ -113,7 +113,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
     }
 
     private function connectBitrix24() {
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),

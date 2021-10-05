@@ -5,7 +5,7 @@ namespace wm\admin\models\settings\robots;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use app\components\b24Tools;
+use wm\b24tools\b24Tools;
 use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 use yii\helpers\Json;

@@ -95,7 +95,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
             return $this->redirect(['view', 'code' => $model->code]);
         }
 
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),
@@ -150,7 +150,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
 //            return $this->redirect(['view', 'code' => $model->code]);
 //        }
 
-        $component = new \app\components\b24Tools();
+        $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'),
                 B24ConnectSettings::getParametrByName('applicationSecret'),

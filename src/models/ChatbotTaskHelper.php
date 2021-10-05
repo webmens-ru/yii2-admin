@@ -6,7 +6,7 @@ use Bitrix24\Im\Im;
 //use Cassandra\Date;
 use Yii;
 use yii\base\Model;
-use app\components\b24Tools;
+use wm\b24tools\b24Tools;
 use Bitrix24\B24Object;
 use yii\helpers\ArrayHelper;
 use wm\admin\models\B24ConnectSettings;
