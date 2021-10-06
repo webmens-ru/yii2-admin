@@ -161,6 +161,168 @@ CREATE TABLE `admin_placement_directory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `admin_chatbot_app_js_method_directory`
+--
+-- Создание: Июл 04 2021 г., 12:04
+--
+
+CREATE TABLE `admin_chatbot_app_js_method_directory` (
+  `code` varchar(32) NOT NULL,
+  `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `admin_chatbot_color_directory`
+--
+-- Создание: Июн 23 2021 г., 15:46
+--
+
+CREATE TABLE `admin_chatbot_color_directory` (
+  `name` varchar(20) NOT NULL COMMENT 'Имя',
+  `title` varchar(255) DEFAULT NULL COMMENT 'Описание'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `admin_chatbot_command`
+--
+-- Создание: Июн 24 2021 г., 17:03
+--
+
+CREATE TABLE `admin_chatbot_command` (
+  `bot_code` varchar(64) NOT NULL,
+  `command` varchar(255) NOT NULL,
+  `common` char(1) NOT NULL,
+  `hidden` char(1) NOT NULL,
+  `extranet_support` char(1) NOT NULL,
+  `title_ru` varchar(255) NOT NULL,
+  `params_ru` varchar(255) NOT NULL,
+  `title_en` varchar(255) NOT NULL,
+  `params_en` varchar(255) NOT NULL,
+  `event_command_add` varchar(255) NOT NULL,
+  `command_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `admin_chatbot_type_directory`
+--
+-- Создание: Июн 23 2021 г., 15:45
+--
+
+CREATE TABLE `admin_chatbot_type_directory` (
+  `name` char(1) NOT NULL COMMENT 'Имя',
+  `title` varchar(255) NOT NULL COMMENT 'Описание'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Структура таблицы `admin_dg_templates`
+--
+-- Создание: Июл 28 2021 г., 06:40
+--
+
+CREATE TABLE `admin_dg_templates` (
+  `name` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `numerator_id` int(11) NOT NULL,
+  `region_id` char(2) NOT NULL,
+  `code` varchar(32) NOT NULL,
+  `active` char(1) NOT NULL,
+  `with_stamps` char(1) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `template_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Структура таблицы `admin_chatbot_app_contex_directory`
+--
+-- Создание: Июл 04 2021 г., 12:04
+--
+
+CREATE TABLE `admin_chatbot_app_contex_directory` (
+  `code` varchar(32) NOT NULL,
+  `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Структура таблицы `admin_chatbot`
+--
+-- Создание: Июн 24 2021 г., 04:58
+--
+
+CREATE TABLE `admin_chatbot` (
+  `code` varchar(255) NOT NULL COMMENT 'Код',
+  `type_id` char(1) NOT NULL COMMENT 'Тип',
+  `openline` char(1) DEFAULT NULL COMMENT 'Является открытой линией',
+  `p_name` varchar(255) NOT NULL COMMENT 'Имя',
+  `p_last_name` varchar(255) NOT NULL COMMENT 'Фамилия',
+  `p_color_name` varchar(20) NOT NULL COMMENT 'Цвет',
+  `p_email` varchar(255) NOT NULL COMMENT 'email',
+  `p_personal_birthday` date DEFAULT NULL COMMENT 'День рождения',
+  `p_work_position` varchar(255) DEFAULT NULL COMMENT 'Должность',
+  `p_personal_www` varchar(255) DEFAULT NULL COMMENT 'Персональный сайт',
+  `p_personal_gender` tinyint(1) DEFAULT NULL COMMENT 'Пол',
+  `p_personal_photo_url` varchar(255) DEFAULT NULL COMMENT 'Фото',
+  `event_handler` varchar(255) DEFAULT NULL,
+  `event_massege_add` varchar(255) DEFAULT NULL,
+  `event_massege_update` varchar(255) DEFAULT NULL,
+  `event_massege_delete` varchar(255) DEFAULT NULL,
+  `event_welcome_massege` varchar(255) DEFAULT NULL,
+  `event_bot_delete` varchar(255) DEFAULT NULL,
+  `bot_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Структура таблицы `admin_chatbot_app`
+--
+-- Создание: Июл 04 2021 г., 18:06
+--
+
+CREATE TABLE `admin_chatbot_app` (
+  `bot_code` varchar(32) NOT NULL,
+  `code` varchar(32) NOT NULL,
+  `js_method_code` varchar(32) DEFAULT NULL,
+  `js_param` varchar(32) DEFAULT NULL,
+  `icon_file` text,
+  `contex_code` varchar(32) NOT NULL,
+  `extranet_support` char(1) NOT NULL,
+  `iframe_popup` char(1) NOT NULL,
+  `title_ru` varchar(255) NOT NULL,
+  `title_en` varchar(255) NOT NULL,
+  `iframe` varchar(255) DEFAULT NULL,
+  `iframe_height` int(11) DEFAULT NULL,
+  `iframe_width` int(11) DEFAULT NULL,
+  `hash` char(32) DEFAULT NULL,
+  `hidden` varchar(1) DEFAULT NULL,
+  `livechat_support` varchar(1) NOT NULL,
+  `type` varchar(32) NOT NULL,
+  `app_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Структура таблицы `admin_agents`
+--
+
+CREATE TABLE `admin_agents` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `class` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `params` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_run` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `period` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 --
 -- Дамп данных таблицы `admin_robots_types`
 --
@@ -360,6 +522,75 @@ INSERT INTO `admin_events_directory` (`name`, `description`, `category_name`) VA
 ('OnTaskDelete', 'при удалении задачи.', 'Задачи'),
 ('OnTaskUpdate', 'при обновлении задачи.', 'Задачи'),
 ('OnUserAdd', 'при добавлении пользователя в Битрикс24', 'Портал');
+
+--
+-- Дамп данных таблицы `admin_chatbot_app_contex_directory`
+--
+
+INSERT INTO `admin_chatbot_app_contex_directory` (`code`, `title`) VALUES
+('ALL', 'приложение будет доступно во всех чатах'),
+('BOT', 'приложение будет доступно только у чат-бота, который установил приложение'),
+('CALL', 'приложение будет доступно только в чатах, созданных в рамках Телефонии'),
+('CHAT', 'приложение будет доступно только в групповых чатах'),
+('LINES', 'приложение будет доступно только в чатах Открытых линий'),
+('USER', 'приложение будет доступно только в чатах Один-на-один');
+
+
+
+--
+-- Дамп данных таблицы `admin_chatbot_app_js_method_directory`
+--
+
+INSERT INTO `admin_chatbot_app_js_method_directory` (`code`, `title`) VALUES
+('CALL', 'вызов телефонного номера'),
+('PUT', 'вставка команды чат-боту в textarea'),
+('SEND', 'отправка команды чат-боту'),
+('SUPPORT', 'открытие чат-бота техподдержки работающего через Открытые линии');
+
+
+
+--
+-- Дамп данных таблицы `admin_chatbot_color_directory`
+--
+
+INSERT INTO `admin_chatbot_color_directory` (`name`, `title`) VALUES
+('AQUA', 'Аква'),
+('AZURE', 'Лазурный'),
+('BROWN', 'Коричневый'),
+('DARK_BLUE', 'Синий'),
+('GRAPHITE', 'Графитовый'),
+('GRAY', 'Серый'),
+('GREEN', 'Зелёный'),
+('KHAKI', 'Хаки'),
+('LIGHT_BLUE', 'Голубой'),
+('LIME', 'Лайм'),
+('MARENGO', 'Маренго'),
+('MINT', 'Мятный'),
+('PINK', 'Розовый'),
+('PURPLE', 'Фиолетовый'),
+('RED', 'Красный'),
+('SAND', 'Песочный');
+
+
+
+--
+-- Дамп данных таблицы `admin_chatbot_type_directory`
+--
+
+INSERT INTO `admin_chatbot_type_directory` (`name`, `title`) VALUES
+('B', 'чат-бот, ответы поступают сразу'),
+('H', 'человек, ответы поступают с задержкой от 2-х до 10 секунд'),
+('O', 'чат-бот для Открытых линий'),
+('S', 'чат-бот с повышенными привилегиями (supervisor)');
+
+--
+-- Дамп данных таблицы `admin_agents`
+--
+
+INSERT INTO `admin_agents` (`id`, `name`, `class`, `method`, `params`, `date_run`, `period`, `status_id`) VALUES
+(1, 'События', 'wm\\admin\\models\\settings\\events\\Events', 'getOflineEventsHendlersRun', '-', '2021-01-01 00:00:00', 55, 1);
+
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -436,6 +667,65 @@ ALTER TABLE `admin_placement_directory`
   ADD PRIMARY KEY (`name_id`);
 
 --
+-- Индексы таблицы `admin_chatbot`
+--
+ALTER TABLE `admin_chatbot`
+  ADD PRIMARY KEY (`code`),
+  ADD KEY `type_id` (`type_id`),
+  ADD KEY `p_color_name` (`p_color_name`);
+
+--
+-- Индексы таблицы `admin_chatbot_app`
+--
+ALTER TABLE `admin_chatbot_app`
+  ADD UNIQUE KEY `bot_code` (`bot_code`,`code`),
+  ADD KEY `contex_code` (`contex_code`),
+  ADD KEY `js_method_code` (`js_method_code`);
+
+--
+-- Индексы таблицы `admin_chatbot_app_contex_directory`
+--
+ALTER TABLE `admin_chatbot_app_contex_directory`
+  ADD PRIMARY KEY (`code`);
+
+--
+-- Индексы таблицы `admin_chatbot_app_js_method_directory`
+--
+ALTER TABLE `admin_chatbot_app_js_method_directory`
+  ADD PRIMARY KEY (`code`);
+
+--
+-- Индексы таблицы `admin_chatbot_color_directory`
+--
+ALTER TABLE `admin_chatbot_color_directory`
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Индексы таблицы `admin_chatbot_command`
+--
+ALTER TABLE `admin_chatbot_command`
+  ADD UNIQUE KEY `bot_code_command` (`bot_code`,`command`);
+
+--
+-- Индексы таблицы `admin_chatbot_type_directory`
+--
+ALTER TABLE `admin_chatbot_type_directory`
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Индексы таблицы `admin_dg_templates`
+--
+ALTER TABLE `admin_dg_templates`
+  ADD UNIQUE KEY `code` (`code`);
+
+--
+-- Индексы таблицы `admin_agents`
+--
+ALTER TABLE `admin_agents`
+  ADD PRIMARY KEY (`id`);
+
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -456,6 +746,12 @@ ALTER TABLE `admin_events`
 --
 ALTER TABLE `admin_placement`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `admin_agents`
+--
+ALTER TABLE `admin_agents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -485,4 +781,25 @@ ALTER TABLE `admin_events`
 --
 ALTER TABLE `admin_placement`
   ADD CONSTRAINT `admin_placement_ibfk_1` FOREIGN KEY (`placement_name`) REFERENCES `admin_placement_directory` (`name_id`);
+
+--
+-- Ограничения внешнего ключа таблицы `admin_chatbot`
+--
+ALTER TABLE `admin_chatbot`
+  ADD CONSTRAINT `admin_chatbot_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `admin_chatbot_type_directory` (`name`),
+  ADD CONSTRAINT `admin_chatbot_ibfk_2` FOREIGN KEY (`p_color_name`) REFERENCES `admin_chatbot_color_directory` (`name`);
+
+--
+-- Ограничения внешнего ключа таблицы `admin_chatbot_app`
+--
+ALTER TABLE `admin_chatbot_app`
+  ADD CONSTRAINT `admin_chatbot_app_ibfk_1` FOREIGN KEY (`contex_code`) REFERENCES `admin_chatbot_app_contex_directory` (`code`),
+  ADD CONSTRAINT `admin_chatbot_app_ibfk_2` FOREIGN KEY (`js_method_code`) REFERENCES `admin_chatbot_app_js_method_directory` (`code`),
+  ADD CONSTRAINT `admin_chatbot_app_ibfk_3` FOREIGN KEY (`bot_code`) REFERENCES `admin_chatbot` (`code`);
+
+--
+-- Ограничения внешнего ключа таблицы `admin_chatbot_command`
+--
+ALTER TABLE `admin_chatbot_command`
+  ADD CONSTRAINT `admin_chatbot_command_ibfk_1` FOREIGN KEY (`bot_code`) REFERENCES `admin_chatbot` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;

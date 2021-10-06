@@ -68,6 +68,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
                                     ['label' => 'Встраивание', 'url' => '/admin/settings/placements/placement/index'],
                                     ['label' => 'Справочник мест встраивания', 'url' => '/admin/settings/placements/placement-directory/index'],
                                     ['label' => 'Чатботы', 'url' => '/admin/settings/chatbot/chatbot/index'],
+                                    ['label' => 'Агенты', 'url' => '/admin/settings/agents/index'],
                                     ['label' => 'Справочник типов чатботов', 'url' => '/admin/settings/chatbot/chatbot-type-directory/index'],
                                     ['label' => 'Справочник цветов чатботов', 'url' => '/admin/settings/chatbot/chatbot-color-directory/index'],
                                     ['label' => 'Команды чатботов', 'url' => '/admin/settings/chatbot/chatbot-command/index'],

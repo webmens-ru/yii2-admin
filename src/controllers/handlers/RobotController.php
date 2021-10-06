@@ -3,13 +3,12 @@
 namespace wm\admin\controllers\handlers;
 
 use Yii;
-use app\modules\b24\controllers\B24Controller;
 use app\modules\baseapp\models\settings\robots\Robots;
 use app\modules\baseapp\models\B24ConnectSettings;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
 
-class RobotController extends B24Controller {
+class RobotController extends \yii\web\Controller {
 
     public function beforeAction($action) {
         $this->enableCsrfValidation = false;
