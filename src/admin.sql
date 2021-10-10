@@ -106,7 +106,9 @@ CREATE TABLE `admin_robots_properties` (
 
 CREATE TABLE `admin_robots_types` (
   `id` int(11) NOT NULL,
-  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_static` tinyint(1) NOT NULL,
+  `is_options` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -327,17 +329,17 @@ CREATE TABLE `admin_agents` (
 -- Дамп данных таблицы `admin_robots_types`
 --
 
-INSERT INTO `admin_robots_types` (`id`, `name`) VALUES
-(1, 'bool'),
-(2, 'date'),
-(3, 'datetime'),
-(4, 'double'),
-(5, 'int'),
-(6, 'select_dynamic'),
-(7, 'select_static'),
-(8, 'string'),
-(9, 'text'),
-(10, 'user');
+INSERT INTO `admin_robots_types` (`id`, `name`, `is_static`, `is_options`) VALUES
+(1, 'bool', 0, 0),
+(2, 'date', 0, 0),
+(3, 'datetime', 0, 0),
+(4, 'double', 0, 0),
+(5, 'int', 0, 0),
+(6, 'select_dynamic', 0, 1),
+(7, 'select_static', 0, 1),
+(8, 'string', 0, 0),
+(9, 'text', 0, 0),
+(10, 'user', 0, 0);
 
 
 --
