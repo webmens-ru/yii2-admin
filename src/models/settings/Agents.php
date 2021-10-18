@@ -1,9 +1,7 @@
 <?php
-
 namespace wm\admin\models\settings;
 
 use Yii;
-use DateTime;
 
 /**
  * This is the model class for table "baseapp_agents".
@@ -16,19 +14,22 @@ use DateTime;
  * @property string $date_run
  * @property int $period
  */
-class Agents extends \yii\db\ActiveRecord {
+class Agents extends \yii\db\ActiveRecord
+{
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_agents';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['name', 'class', 'method', 'params', 'date_run', 'period', 'status_id'], 'required'],
             [['params'], 'string'],
@@ -42,7 +43,8 @@ class Agents extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -55,10 +57,8 @@ class Agents extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function shedulRun() {
-//        $date = new DateTime();
-        Yii::warning('shedulRun()');
-
+    public function shedulRun()
+    {
         $dateTimestamp = date("Y-m-d H:i:s");
 
         $models = self::find()->where(['<=', 'date_run', $dateTimestamp])->andWhere(['status_id' => 1])->all();
@@ -68,20 +68,9 @@ class Agents extends \yii\db\ActiveRecord {
             } catch (\Exception $e) {
                 
             }
-            $timestamp = strtotime($dateTimestamp)+ $model->period;
+            $timestamp = strtotime($dateTimestamp) + $model->period;
             $model->date_run = date("Y-m-d H:i:s", $timestamp);
             $model->save();
         }
-
-//        return [
-//            'id' => 'ID',
-//            'name' => 'Name',
-//            'class' => 'Class',
-//            'method' => 'Method',
-//            'params' => 'Params',
-//            'date_run' => 'Date Run',
-//            'period' => 'Period',
-//        ];
     }
-
 }
