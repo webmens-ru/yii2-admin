@@ -34,11 +34,11 @@ class Events extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-                [['event_name', 'handler', 'event_type'], 'required'],
-                [['auth_type'], 'integer'],
-                [['event_name', 'handler'], 'string', 'max' => 255],
-                [['event_type'], 'string', 'max' => 10],
-                [['event_name'], 'exist', 'skipOnError' => true, 'targetClass' => EventsDirectory::className(), 'targetAttribute' => ['event_name' => 'name']],
+            [['event_name', 'handler', 'event_type'], 'required'],
+            [['auth_type'], 'integer'],
+            [['event_name', 'handler'], 'string', 'max' => 255],
+            [['event_type'], 'string', 'max' => 10],
+            [['event_name'], 'exist', 'skipOnError' => true, 'targetClass' => EventsDirectory::className(), 'targetAttribute' => ['event_name' => 'name']],
         ];
     }
 
@@ -87,7 +87,7 @@ class Events extends \yii\db\ActiveRecord {
         return $this->hasOne(EventsDirectory::className(), ['name' => 'event_name']);
     }
 
-    public static function getB24EventsList(){
+    public static function getB24EventsList() {
         $component = new b24Tools();
         $b24App = $component->connect(
                 B24ConnectSettings::getParametrByName('applicationId'), B24ConnectSettings::getParametrByName('applicationSecret'), B24ConnectSettings::getParametrByName('b24PortalTable'), B24ConnectSettings::getParametrByName('b24PortalName'));
@@ -109,6 +109,21 @@ class Events extends \yii\db\ActiveRecord {
             $url = Url::toRoute(self::$BASE_URL_HANDLER . $this->handler, 'https');
         }
         return $url;
+    }
+
+    public static function getOffline($eventName) {
+        $component = new b24Tools();
+        $b24App = $component->connectFromAdmin();
+        $obB24 = new \Bitrix24\B24Object($b24App); //
+        $fullResult = $obB24->client->call(
+                'event.offline.get',
+                array(
+                    'filter' => [
+                        'EVENT_NAME' => $eventName,
+                    ]
+                )
+        );
+        return $fullResult;
     }
 
 }
