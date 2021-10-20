@@ -57,7 +57,7 @@ class Agents extends \yii\db\ActiveRecord
         ];
     }
 
-    public function shedulRun()
+    public static function shedulRun()
     {
         $dateTimestamp = date("Y-m-d H:i:s");
 
