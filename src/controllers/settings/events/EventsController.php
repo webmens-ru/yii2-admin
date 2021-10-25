@@ -29,10 +29,7 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
                 'rules' => [                    
-                    [
-                        'actions' => [
-                            'index', 'create', 'update', 'delete', 'view', 'b24-install', 'b24-delete', 'b24-list'
-                        ],
+                    [                        
                         'allow' => true,
                         'roles' => ['canAdmin'],
                     ],                    

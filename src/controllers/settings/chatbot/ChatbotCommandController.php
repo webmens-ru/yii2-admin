@@ -27,10 +27,7 @@ class ChatbotCommandController extends \wm\admin\controllers\BaseModuleControlle
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
                 'rules' => [                    
-                    [
-                        'actions' => [
-                            'index', 'create', 'update', 'delete', 'view',
-                        ],
+                    [                        
                         'allow' => true,
                         'roles' => ['canAdmin'],
                     ],                    

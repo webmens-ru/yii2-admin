@@ -33,10 +33,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
                 'rules' => [                    
-                    [
-                        'actions' => [
-                            'index', 'create', 'update', 'delete', 'view',
-                        ],
+                    [                        
                         'allow' => true,
                         'roles' => ['canAdmin'],
                     ],                    

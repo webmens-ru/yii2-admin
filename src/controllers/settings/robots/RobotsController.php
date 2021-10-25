@@ -31,10 +31,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
                 'rules' => [                    
-                    [
-                        'actions' => [
-                            'index', 'create', 'update', 'delete', 'view', 'install', 'b24-delete', 'export', 'file-import',
-                        ],
+                    [                        
                         'allow' => true,
                         'roles' => ['canAdmin'],
                     ],                    

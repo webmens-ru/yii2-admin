@@ -28,10 +28,7 @@ class EventsDirectoryController extends \wm\admin\controllers\BaseModuleControll
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
                 'rules' => [                    
-                    [
-                        'actions' => [
-                            'index', 'create', 'update', 'delete', 'view',
-                        ],
+                    [                        
                         'allow' => true,
                         'roles' => ['canAdmin'],
                     ],                    
