@@ -20,7 +20,7 @@ class Entity extends \wm\yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'entity';
+        return 'admin_entity';
     }
 
     /**
