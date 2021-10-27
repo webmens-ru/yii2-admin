@@ -4,6 +4,7 @@ namespace wm\admin\models\ui\filter;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use wm\admin\models\ui\Entity;
 
 class Filter extends \wm\yii\db\ActiveRecord {
 

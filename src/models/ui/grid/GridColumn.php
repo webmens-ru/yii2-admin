@@ -3,6 +3,7 @@
 namespace wm\admin\models\ui\grid;
 
 use Yii;
+use wm\admin\models\ui\Entity;
 
 /**
  * This is the model class for table "grid_column".
