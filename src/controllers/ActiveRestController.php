@@ -67,7 +67,7 @@ class ActiveRestController extends \yii\rest\ActiveController
         return $searchModel->search(Yii::$app->request->queryParams);
     }
 
-    public function actionSchema()
+    public function actionSchema($entity = null)
     {
         $model = new $this->modelClass();
         return $model->schema;
