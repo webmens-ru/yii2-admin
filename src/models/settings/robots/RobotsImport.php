@@ -56,7 +56,7 @@ class RobotsImport extends \yii\base\Model {
             for ($i = 0; $i < $zip->count(); $i++) {
                 //Yii::warning($zip->statIndex($i), '$fileZip->statIndex($i)');
                 if (preg_match('/Action.php$/', $zip->statIndex($i)['name'])) {
-                    $filePatch = '../modules/admin/controllers/handlers/robots/';
+                    $filePatch = '../controllers/handlers/robots/';
                     $zip->extractTo($filePatch, array($zip->statIndex($i)['name']));
                     //Yii::warning('action');
                 } elseif ($zip->statIndex($i)['name'] == 'robot.json') {
