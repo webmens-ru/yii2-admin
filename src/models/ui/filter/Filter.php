@@ -127,6 +127,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
         $model->parentId = ArrayHelper::getValue($filterParams, 'parentId');
         $model->order = ArrayHelper::getValue($filterParams, 'order');
         $model->isName = 1;
+        $model->userId = $userId;
         $model->title = ArrayHelper::getValue($filterParams, 'title');
         $model->save();
 
