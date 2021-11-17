@@ -67,7 +67,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         $userId = Yii::$app->user->id;
 
         if (($model = Filter::find()->where(['id' => $id, 'userId' => $userId])->one()) === null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new ServerErrorHttpException('The requested page does not exist.');
         }
 
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
