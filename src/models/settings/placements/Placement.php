@@ -21,7 +21,7 @@ use yii\helpers\Url;
  */
 class Placement extends \yii\db\ActiveRecord {
 
-    public static $BASE_URL_HANDLER = '/admin/handlers/placement/';
+    public static $BASE_URL_HANDLER = '/';
 
     /**
      * {@inheritdoc}
