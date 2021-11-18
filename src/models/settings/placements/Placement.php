@@ -21,8 +21,6 @@ use yii\helpers\Url;
  */
 class Placement extends \yii\db\ActiveRecord {
 
-    public static $BASE_URL_HANDLER = '/';
-
     /**
      * {@inheritdoc}
      */
@@ -83,8 +81,7 @@ class Placement extends \yii\db\ActiveRecord {
                 B24ConnectSettings::getParametrByName('b24PortalTable'), 
                 B24ConnectSettings::getParametrByName('b24PortalName'));
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
-        $handler = $this->getUrlHandler();
-        //Yii::warning($this->placement_name, 'ЧТО ТЫ ЗА ИМЯ');
+        $handler = Url::toRoute($this->handler, 'https');
         $b24 = $obB24->unbind(
             $this->placement_name,
             $handler
@@ -104,16 +101,4 @@ class Placement extends \yii\db\ActiveRecord {
         $parent = $this->placement_name;
         return $parent ? $parent->name : '';
     }
-
-    private function getUrlHandler(){
-        $url = '';
-        if(strpos($this->handler, '/')){
-            $url = Url::toRoute($this->handler, 'https');
-        }
-        else{
-            $url = Url::toRoute(self::$BASE_URL_HANDLER . $this->handler, 'https');    
-        }
-        return $url;
-    }
-
 }
