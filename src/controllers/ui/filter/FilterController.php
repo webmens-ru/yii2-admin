@@ -5,7 +5,7 @@ namespace wm\admin\controllers\ui\filter;
 use wm\admin\models\ui\filter\FilterSearch;
 use wm\admin\models\ui\filter\Filter;
 use wm\admin\models\ui\filter\FilterField;
-use wm\admin\models\ui\filter\FilterFieldSetting;
+//use wm\admin\models\ui\filter\FilterFieldSetting;
 use Yii;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
@@ -44,7 +44,6 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
-
         return $model;
     }
 
@@ -74,7 +73,6 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         if ($model->save() === false && !$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
         }
-
         return $model;
     }
 
@@ -85,7 +83,6 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         if ($model->delete() === false) {
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
         }
-
         Yii::$app->getResponse()->setStatusCode(204);
     }
 

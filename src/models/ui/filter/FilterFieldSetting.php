@@ -77,23 +77,6 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
         }
     }
 
-//    public static function add($params, $filter)
-//    {
-//        foreach ($params as $value) {
-//            $model = new FilterFieldSetting();
-//            $model->filterId = $filter->id;
-//            $model->filterFieldId = $value['fieldId'];
-//            $model->value = json_encode($value['value']);
-//            $model->order = $value['order'];
-//            $model->save();
-//            if ($model->errors) {
-//                Yii::error($model->errors, 'FilterFieldSetting add');
-//                //return false;
-//            }
-//        }
-//        return true;
-//    }
-
     public static function add($params, $filter) {
         foreach ($params as $value) {
             $value['filterId'] = $filter->id;
@@ -115,7 +98,7 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
             $model->order = ArrayHelper::getValue($param, 'order');
             $model->save();
             if ($model->errors) {
-                Yii::error($models->error(), 'FilterFieldSetting editOrder');
+                Yii::error($model->errors, 'FilterFieldSetting editOrder');
             }
         }
     }

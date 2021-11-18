@@ -30,12 +30,6 @@ class Filter extends \wm\yii\db\ActiveRecord {
             [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
         ];
     }
-
-//    public function rulesSearch() {
-//        return [
-//            [['entityCode', 'title', 'isName', 'order', 'isBase', 'parentId'], 'string'],];
-//    }
-
     public function attributeLabels() {
         return [
             'id' => 'ID',
@@ -87,9 +81,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
      */
 
     public static function addBaseItems($entityCode, $userId) {
-        /*
-         * 
-         */
+        
         $models = self::find()->where(['entityCode' => $entityCode, 'isBase' => 1])->all();
         foreach ($models as $value) {
             $model = new Filter();
@@ -118,8 +110,6 @@ class Filter extends \wm\yii\db\ActiveRecord {
     }
 
     public static function add($filterParams, $userId) {
-        //$model = new Filter();
-        // $model = Filter::find()->where(['id' => $filterId, 'userId' => $userId])->one();
         $parentModel = self::find()->where(['id' => $filterParams['parentId'],])->one();
         $model = new Filter();
         $model->load(ArrayHelper::toArray($parentModel));
@@ -132,7 +122,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
         $model->save();
 
         if ($model->errors) {
-            Yii::error($model->error(), 'Filter add');
+            Yii::error($model->errors, 'Filter add');
             return false;
         } else {
             return $model;
@@ -145,7 +135,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
             $model->order = ArrayHelper::getValue($param, 'order');
             $model->save();
             if ($model->errors) {
-                Yii::error($model->errors(), 'Filter editOrder');
+                Yii::error($model->errors, 'Filter editOrder');
             }
         }
     }
