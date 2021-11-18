@@ -132,7 +132,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
         $model->save();
 
         if ($model->errors) {
-            Yii::error($models->error(), 'Filter add');
+            Yii::error($model->error(), 'Filter add');
             return false;
         } else {
             return $model;
@@ -145,7 +145,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
             $model->order = ArrayHelper::getValue($param, 'order');
             $model->save();
             if ($model->errors) {
-                Yii::error($models->error(), 'Filter editOrder');
+                Yii::error($model->errors(), 'Filter editOrder');
             }
         }
     }

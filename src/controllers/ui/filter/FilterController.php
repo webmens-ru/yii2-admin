@@ -41,7 +41,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
             $response->setStatusCode(201);
             $id = implode(',', $model->getPrimaryKey(true));
             $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
-        }elseif (!$model->hasErrors()) {
+        } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
 
@@ -79,20 +79,19 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
     }
 
     public function actionDelete($id) {
-       $userId = Yii::$app->user->id;
+        $userId = Yii::$app->user->id;
         $model = Filter::find()->where(['id' => $id, 'userId' => $userId])->one();
-        
+
         if ($model->delete() === false) {
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
         }
 
         Yii::$app->getResponse()->setStatusCode(204);
     }
-    
+
     public function actionEditOrder() {
         $params = Yii::$app->getRequest()->getBodyParams();
         Filter::editOrder($params);
-        
     }
 
 }
