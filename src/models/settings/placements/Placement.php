@@ -62,7 +62,7 @@ class Placement extends \yii\db\ActiveRecord {
                 B24ConnectSettings::getParametrByName('b24PortalTable'), 
                 B24ConnectSettings::getParametrByName('b24PortalName'));
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
-        $handler = $this->getUrlHandler();
+        $handler = Url::toRoute($this->handler, 'https');
         $b24 = $obB24->bind(
             $this->placement_name,
             $handler,
