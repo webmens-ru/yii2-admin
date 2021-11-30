@@ -3,14 +3,23 @@
 namespace wm\admin\models;
 
 use yii\data\ActiveDataProvider;
+use Yii;
 
 trait TraitSearch {
 
     public function search($params) {
-        $query = parent::find();
+        $query = parent::find();        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+//            'pageSizeLimit' => [1, 10000],
+//            'defaultPageSize' => 10000,
+            'pagination' =>
+            [
+                'pageSizeLimit' => [1, 10000],
+                'defaultPageSize' => 10000,
+            ]
         ]);
+        
         $this->load($params);
         if (!$this->validate()) {
             $query->where('0=1');
