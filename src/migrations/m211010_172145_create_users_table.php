@@ -12,7 +12,7 @@ class m211010_172145_create_users_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%users}}', [
+        $this->createTable('{{%admin_users}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull(),
             'password' => $this->string()->notNull(),
@@ -30,6 +30,6 @@ class m211010_172145_create_users_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%users}}');
+        $this->dropTable('{{%admin_users}}');
     }
 }
