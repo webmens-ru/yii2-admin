@@ -19,7 +19,7 @@ class m211203_221100_cteate_robots_init extends Migration
 
         //admin_robots_types
         $this->createTable('{{%admin_robots_types%}}', [
-            'id' => primaryKey(),
+            'id' => $this->primaryKey(),
             'name' => $this->string(20)->notNull()->unique(),
             'is_static' => $this->tinyInteger(1)->notNull(),
             'is_options' => $this->tinyInteger(1)->notNull(),
