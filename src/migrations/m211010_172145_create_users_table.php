@@ -22,6 +22,7 @@ class m211010_172145_create_users_table extends Migration
             'access_token' => $this->string(),
             'date_expired' => $this->string(),
             'auth_key' => $this->string(),
+            'b24AccessParams' => $this->text(),
         ]);
     }
 
