@@ -8,7 +8,7 @@ class m211204_112500_cteate_events_init extends Migration
     {
         //admin_events_directory
         $this->createTable('{{%admin_events_directory%}}', [
-            'code' => $this->string(255)->notNull(),
+            'name' => $this->string(255)->notNull(),
             'description' => $this->string(255)->notNull(),
             'category_name' => $this->string(255)->notNull(),
         ]);
