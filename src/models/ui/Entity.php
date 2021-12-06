@@ -30,7 +30,7 @@ class Entity extends \wm\yii\db\ActiveRecord
     {
         return [
             [['code', 'name'], 'required'],
-            [['code'], 'string', 'max' => 32],
+            [['code'], 'string', 'max' => 64],
             [['name'], 'string', 'max' => 255],
             [['code'], 'unique'],
         ];
