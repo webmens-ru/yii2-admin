@@ -135,7 +135,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
                 Array('LANGUAGE_ID' => 'en', 'TITLE' => $this->title_en, 'PARAMS' => $this->params_en), // Язык, описание команды, какие данные после команды нужно вводить.
                 Array('LANGUAGE_ID' => 'ru', 'TITLE' => $this->title_ru, 'PARAMS' => $this->params_ru)
             ),
-            'EVENT_COMMAND_ADD' => Url::toRoute('/admin/handlers/chatbot/' . $this->bot_code . '/' . $this->event_command_add, 'https'),
+            'EVENT_COMMAND_ADD' => Url::toRoute('/handlers/chatbot/' . $this->bot_code . '/' . $this->event_command_add, 'https'),
         ]);
         
         if(array_key_exists($b24['result'], self::$registerErrors)){
@@ -172,7 +172,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
                     Array('LANGUAGE_ID' => 'en', 'TITLE' => $this->title_en, 'PARAMS' => $this->params_en), // Язык, описание команды, какие данные после команды нужно вводить.
                     Array('LANGUAGE_ID' => 'ru', 'TITLE' => $this->title_ru, 'PARAMS' => $this->params_ru)
                 ),
-                'EVENT_COMMAND_ADD' => Url::toRoute('/admin/handlers/chatbot/' . $this->bot_code . '/' . $this->event_command_add, 'https'),
+                'EVENT_COMMAND_ADD' => Url::toRoute('/handlers/chatbot/' . $this->bot_code . '/' . $this->event_command_add, 'https'),
             ),
         ]);
         if(array_key_exists($b24['result'], self::$updateErrors)){
