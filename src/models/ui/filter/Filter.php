@@ -25,7 +25,7 @@ class Filter extends \wm\yii\db\ActiveRecord {
         return [
             [['entityCode', 'title', 'isName', 'order', 'isBase'], 'required'],
             [['isName', 'order', 'isBase', 'userId'], 'integer'],
-            [['entityCode'], 'string', 'max' => 32],
+            [['entityCode'], 'string', 'max' => 64],
             [['title'], 'string', 'max' => 255],
             [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
         ];
