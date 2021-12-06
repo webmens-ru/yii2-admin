@@ -8,7 +8,7 @@ class m211206_215000_cteate_entity_table extends Migration
     {
         //admin_agents
         $this->createTable('{{%admin_entity%}}', [
-            'code' => $this->string(32)->notNull(),
+            'code' => $this->string(64)->notNull(),
             'name' => $this->string(255)->notNull(),
 
         ]);
