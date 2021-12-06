@@ -1,19 +1,14 @@
 <?php
+
 namespace wm\admin\controllers;
 
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
-class ActiveRestController extends \yii\rest\ActiveController
-{
+class ActiveRestController extends \yii\rest\ActiveController {
 
-    public function behaviors()
-    {
-
+    public function behaviors() {
         $behaviors = parent::behaviors();
-
-
-
         return [
             'corsFilter' => [
                 'class' => \yii\filters\Cors::class,
@@ -48,8 +43,7 @@ class ActiveRestController extends \yii\rest\ActiveController
         ];
     }
 
-    public function actions()
-    {
+    public function actions() {
         $actions = parent::actions();
 
         // отключить действия "delete" и "create"
@@ -57,38 +51,32 @@ class ActiveRestController extends \yii\rest\ActiveController
         // настроить подготовку провайдера данных с помощью метода 
         // "prepareDataProvider()"
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-        
+
         return $actions;
     }
 
-    public function prepareDataProvider()
-    {
+    public function prepareDataProvider() {
         $searchModel = new $this->modelClassSearch();
         return $searchModel->search(Yii::$app->request->queryParams);
     }
 
-    public function actionSchema($entity = null)
-    {
+    public function actionSchema($entity = null) {
         $model = new $this->modelClass();
         return $model->schema;
     }
 
-    public function actionValidation()
-    {
+    public function actionValidation() {
         $model = new $this->modelClass();
         return $model->restRules;
     }
-    
-    public function actionData()
-    {
-        //Yii::warning(ArrayHelper::toArray($this->prepareDataProvider()->getModels()), 'prepareDataProvider()'); 
+
+    public function actionData() {
         $dataProvider = $this->prepareDataProvider()->getModels();
-        
         $res = [
             'grid' => $dataProvider,
             'footer' => $this->modelClass::getFooter($dataProvider)
         ];
-
         return $res;
     }
+
 }
