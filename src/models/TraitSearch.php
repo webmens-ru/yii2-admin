@@ -11,8 +11,6 @@ trait TraitSearch {
         $query = parent::find();        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-//            'pageSizeLimit' => [1, 10000],
-//            'defaultPageSize' => 10000,
             'pagination' =>
             [
                 'pageSizeLimit' => [1, 10000],
