@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="chatbot-command-index">
 
-        <h1><?= Html::encode(Команды) ?></h1>
+        <h1><?= Html::encode('Команды') ?></h1>
 
         <p>
             <?= Html::a('Создать', ['settings/chatbot/chatbot-command/create', 'chatbotCode' => $model->code], ['class' => 'btn btn-success']) ?>
