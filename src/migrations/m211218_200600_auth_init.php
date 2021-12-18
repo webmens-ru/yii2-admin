@@ -23,7 +23,7 @@ class m211218_200600_auth_init extends Migration {
             ]
         );
 
-        $this->batchInsert('auth_item',
+        $this->batchInsert('auth_item_child',
             [
                 'parent',
                 'child',
