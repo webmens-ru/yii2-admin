@@ -11,6 +11,7 @@ class m211218_200600_auth_init extends Migration {
             [
                 'name',
                 'type',
+                'description',
                 'rule_name',
                 'data',
                 'created_at',
