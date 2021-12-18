@@ -42,8 +42,8 @@ class m211206_233700_cteate_menu_init extends Migration {
                     'type'
                 ],
                 [
-                    [1, 'Админка', 1, 1, '{\"url\":\"https://webmens.ru/admin\"}', 1, 'openLink'],
-                    [2, 'Основная', 1, 2, '{\"entity\":\" \"}', 1, 'updatePage'],
+                    [1, 'Основная', 1, 1, '{}', 1, 'updatePage'],
+                    [2, 'Админка', 0, 2, '{"url":"https://webmens.ru/admin"}', 1, 'openLink'],
                 ]
         );
 
