@@ -16,7 +16,7 @@ class m211206_225100_cteate_filter_init extends Migration {
             'userId' => $this->integer()->null(),
             'parentId' => $this->integer()->null(),
         ]);
-        $this->addForeignKey('admin_filter_ibfk_1', 'admin_filter', ['parentId'], 'admin_filter', ['id']);
+        $this->addForeignKey('admin_filter_ibfk_1', 'admin_filter', ['parentId'], 'admin_filter', ['id'], 'SET NULL', 'SET NULL');
         $this->addForeignKey('filter_fk0', 'admin_filter', ['entityCode'], 'admin_entity', ['code']);
 
         //$this->addPrimaryKey('name', 'admin_events_directory', 'name');
