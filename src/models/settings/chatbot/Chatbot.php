@@ -131,13 +131,13 @@ class Chatbot extends \yii\db\ActiveRecord {
         ];
         
         if($this->event_handler){
-            $botParams['EVENT_HANDLER'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_handler, 'https');
+            $botParams['EVENT_HANDLER'] = Url::toRoute($this->event_handler, 'https');
         }else{
-            $botParams['EVENT_MESSAGE_ADD'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_massege_add, 'https');
-            $botParams['EVENT_WELCOME_MESSAGE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_welcome_massege, 'https');
-            $botParams['EVENT_BOT_DELETE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_bot_delete, 'https');
-            $botParams['EVENT_MESSAGE_UPDATE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_massege_update, 'https');
-            $botParams['EVENT_MESSAGE_DELETE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_massege_delete, 'https');
+            $botParams['EVENT_MESSAGE_ADD'] = Url::toRoute($this->event_massege_add, 'https');
+            $botParams['EVENT_WELCOME_MESSAGE'] = Url::toRoute($this->event_welcome_massege, 'https');
+            $botParams['EVENT_BOT_DELETE'] = Url::toRoute($this->event_bot_delete, 'https');
+            $botParams['EVENT_MESSAGE_UPDATE'] = Url::toRoute($this->event_massege_update, 'https');
+            $botParams['EVENT_MESSAGE_DELETE'] = Url::toRoute($this->event_massege_delete, 'https');
         }
 
 
@@ -199,13 +199,13 @@ class Chatbot extends \yii\db\ActiveRecord {
         ];
         
         if($this->event_handler){
-            $botParams['EVENT_HANDLER'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_handler, 'https');
+            $botParams['EVENT_HANDLER'] = Url::toRoute($this->event_handler, 'https');
         }else{
-            $botParams['EVENT_MESSAGE_ADD'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_massege_add, 'https');
-            $botParams['EVENT_WELCOME_MESSAGE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_welcome_massege, 'https');
-            $botParams['EVENT_BOT_DELETE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_bot_delete, 'https');
-            $botParams['EVENT_MESSAGE_UPDATE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_massege_update, 'https');
-            $botParams['EVENT_MESSAGE_DELETE'] = Url::toRoute('/admin/handlers/chatbot/' . $this->code . '/' . $this->event_massege_delete, 'https');
+            $botParams['EVENT_MESSAGE_ADD'] = Url::toRoute($this->event_massege_add, 'https');
+            $botParams['EVENT_WELCOME_MESSAGE'] = Url::toRoute($this->event_welcome_massege, 'https');
+            $botParams['EVENT_BOT_DELETE'] = Url::toRoute($this->event_bot_delete, 'https');
+            $botParams['EVENT_MESSAGE_UPDATE'] = Url::toRoute($this->event_massege_update, 'https');
+            $botParams['EVENT_MESSAGE_DELETE'] = Url::toRoute($this->event_massege_delete, 'https');
         }
 
 
