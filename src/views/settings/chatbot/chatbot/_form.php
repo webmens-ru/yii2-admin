@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
-use yii;
+//use yii;
 
 /* @var $this yii\web\View */
 /* @var $model wm\admin\models\settings\chatbot\Chatbot */
