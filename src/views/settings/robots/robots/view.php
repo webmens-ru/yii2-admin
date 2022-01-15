@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'filter' => false,
                     'value' => function ($searchModel, $index, $widget) {
-                        return Html::checkbox('is_in[]', $searchModel->is_in, ['value' => $index, 'disabled' => true]);
+                        return Html::checkbox('is_in[]', $searchModel->is_in, [/*'value' => $index,*/ 'disabled' => true]);
                     },
                 ],
                 'system_name',
@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'filter' => false,
                     'value' => function ($searchModel, $index, $widget) {
-                        return Html::checkbox('required[]', $searchModel->required, ['value' => $index, 'disabled' => true]);
+                        return Html::checkbox('required[]', $searchModel->required, [/*'value' => $index,*/ 'disabled' => true]);
                     },
                 ],
                     [
