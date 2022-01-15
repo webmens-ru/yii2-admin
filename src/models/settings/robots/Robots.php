@@ -83,7 +83,7 @@ class Robots extends \yii\db\ActiveRecord {
                 B24ConnectSettings::getParametrByName('b24PortalName'));
         $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
         $use_subscription = $this->use_subscription > 0 ? true : false;
-        $handler = Url::toRoute('/admin/handlers/robot/' . $this->handler, 'https');
+        $handler = Url::toRoute($this->handler, 'https');
         $b24 = $obB24->add(
                 $this->code,
                 $handler,
@@ -127,7 +127,7 @@ class Robots extends \yii\db\ActiveRecord {
             }
             $result['properties'][] = $propertyArr;
         }
-        $file = '../controllers/handlers/robots/' . Inflector::id2camel($this->handler) . 'Action.php';
+        $file = '../controllers/' . Inflector::id2camel($this->handler) . 'Action.php';
         //Yii::warning($file, '$file');
         $zip = new \ZipArchive();
         $tempName = mt_rand(100000, 999999) . '.zip';
@@ -182,7 +182,7 @@ class Robots extends \yii\db\ActiveRecord {
 
     public function delete()
     {
-        $file = '../controllers/handlers/robots/' . Inflector::id2camel($this->handler) . 'Action.php';
+        $file = '../controllers/' . Inflector::id2camel($this->handler) . 'Action.php';
         if(file_exists($file)){
             unlink($file);
         }
