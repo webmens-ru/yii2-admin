@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'filter' => false,
                     'value' => function ($searchModel, $index, $widget) {
-                        return Html::checkbox('multiple[]', $searchModel->multiple, ['value' => $index, 'disabled' => true]);
+                        return Html::checkbox('multiple[]', $searchModel->multiple, [/*'value' => $index,*/ 'disabled' => true]);
                     },
                 ],
                 //'default',
