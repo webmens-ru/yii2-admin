@@ -51,12 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'handler',
             'auth_user_id',
             'name',
-                [
+            [
                 'label' => $model->getAttributeLabel('use_subscription'),
                 'attribute' => 'use_subscription',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::checkbox('use_subscription[]', $model->use_subscription, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox('use_subscription[]', $model->use_subscription, [/*'value' => $index,*/ 'disabled' => true]);
                 },
             ],
                 [
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'use_placement',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::checkbox('use_placement[]', $model->use_placement, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox('use_placement[]', $model->use_placement, [/*'value' => $index, */'disabled' => true]);
                 },
             ],
         ],
