@@ -183,7 +183,9 @@ class Robots extends \yii\db\ActiveRecord {
     public function delete()
     {
         $file = '../controllers/handlers/robots/' . Inflector::id2camel($this->handler) . 'Action.php';
-        unlink($file);
+        if(file_exists($file)){
+            unlink($file);
+        }       
         parent::delete();
     }
     
