@@ -6,12 +6,23 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use wm\admin\models\ui\Entity;
 
+/**
+ * Class Filter
+ * @package wm\admin\models\ui\filter
+ */
 class Filter extends \wm\yii\db\ActiveRecord {
 
+    /**
+     * @return string
+     */
     public static function tableName() {
         return 'admin_filter';
     }
 
+    /**
+     * @param $insert
+     * @param $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes) {
         if ($insert) {
             if ($this->parentId) {
@@ -21,6 +32,9 @@ class Filter extends \wm\yii\db\ActiveRecord {
         parent::afterSave($insert, $changedAttributes);
     }
 
+    /**
+     * @return array
+     */
     public function rules() {
         return [
             [['entityCode', 'title', 'isName', 'order', 'isBase'], 'required'],
@@ -30,6 +44,10 @@ class Filter extends \wm\yii\db\ActiveRecord {
             [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
         ];
     }
+
+    /**
+     * @return array
+     */
     public function attributeLabels() {
         return [
             'id' => 'ID',
@@ -43,15 +61,27 @@ class Filter extends \wm\yii\db\ActiveRecord {
         ];
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntity() {
         return $this->hasOne(Entity::className(), ['code' => 'entityCode']);
     }
 
+    /**
+     * @return mixed
+     */
     public function getFilterFieldSettings() {
         return $this->hasMany(FilterFieldSetting::className(), ['filterId' => 'id']);
     }
 
     //первоначальное построение списка элементов фильтра
+
+    /**
+     * @param $entityCode
+     * @param $userId
+     * @return string
+     */
     public static function getItems($entityCode, $userId) {
 
         // проверка на наличие в БД запрошенной сущности
@@ -80,6 +110,10 @@ class Filter extends \wm\yii\db\ActiveRecord {
      * userId == id пользователя(присваивается при записи в таблицу user)
      */
 
+    /**
+     * @param $entityCode
+     * @param $userId
+     */
     public static function addBaseItems($entityCode, $userId) {
         
         $models = self::find()->where(['entityCode' => $entityCode, 'isBase' => 1])->all();
@@ -100,6 +134,11 @@ class Filter extends \wm\yii\db\ActiveRecord {
         }
     }
 
+    /**
+     * @param $entityCode
+     * @param $userId
+     * @return Filter
+     */
     protected static function getFilter($entityCode, $userId) {
         $filter = self::find()->where(['entityCode' => $entityCode, 'userId' => $userId])->one();
         if (!$filter) {
@@ -109,6 +148,11 @@ class Filter extends \wm\yii\db\ActiveRecord {
         return $filter;
     }
 
+    /**
+     * @param $filterParams
+     * @param $userId
+     * @return bool|Filter
+     */
     public static function add($filterParams, $userId) {
         $parentModel = self::find()->where(['id' => $filterParams['parentId'],])->one();
         $model = new Filter();
@@ -129,6 +173,9 @@ class Filter extends \wm\yii\db\ActiveRecord {
         }
     }
 
+    /**
+     * @param $params
+     */
     public static function editOrder($params) {
         foreach ($params as $param) {
             $model = self::find()->where(['id' => $param['id'],])->one();

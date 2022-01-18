@@ -5,8 +5,15 @@ namespace wm\admin\controllers;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
+/**
+ * Class ActiveRestController
+ * @package wm\admin\controllers
+ */
 class ActiveRestController extends \yii\rest\ActiveController {
 
+    /**
+     * @return array
+     */
     public function behaviors() {
         $behaviors = parent::behaviors();
         return [
@@ -43,6 +50,11 @@ class ActiveRestController extends \yii\rest\ActiveController {
         ];
     }
 
+    /**
+     * @return mixed
+     * Возвращается массив actions
+     * `index`, `view`, `create`, `update`, `delete`, `options`
+     */
     public function actions() {
         $actions = parent::actions();
 
@@ -55,21 +67,34 @@ class ActiveRestController extends \yii\rest\ActiveController {
         return $actions;
     }
 
+    /**
+     * @return mixed
+     */
     public function prepareDataProvider() {
         $searchModel = new $this->modelClassSearch();
         return $searchModel->search(Yii::$app->request->queryParams);
     }
 
+    /**
+     * @param null $entity
+     * @return mixed
+     */
     public function actionSchema($entity = null) {
         $model = new $this->modelClass();
         return $model->schema;
     }
 
+    /**
+     * @return mixed
+     */
     public function actionValidation() {
         $model = new $this->modelClass();
         return $model->restRules;
     }
 
+    /**
+     * @return array
+     */
     public function actionData() {
         $dataProvider = $this->prepareDataProvider()->getModels();
         $res = [

@@ -10,18 +10,36 @@ use Yii;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
 
+/**
+ * Class FilterController
+ * @package wm\admin\controllers\ui\filter
+ */
 class FilterController extends \wm\admin\controllers\ActiveRestController {
 
+    /**
+     * @var string
+     */
     public $modelClass = Filter::class;
+    /**
+     * @var string
+     */
     public $modelClassSearch = FilterSearch::class;
 
 //для первоначального построение списка элементов фильтра
+
+    /**
+     * @param $entity
+     * @return string
+     */
     public function actionItems($entity) {
         $userId = Yii::$app->user->id;
         $model = Filter::getItems($entity, $userId);
         return $model;
     }
 
+    /**
+     * @return mixed
+     */
     public function actions() {
         $actions = parent::actions();
         unset($actions['create']);
@@ -30,6 +48,9 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         return $actions;
     }
 
+    /**
+     * @return bool|Filter
+     */
     public function actionCreate() {
 
         //Yii::warning(Yii::$app->getRequest()->getBodyParams());
@@ -47,6 +68,10 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         return $model;
     }
 
+    /**
+     * @param $filterId
+     * @return array
+     */
     public function actionFieldsSettings($filterId) {
         $userId = Yii::$app->user->id;
         $model = Filter::find()->where(['id' => $filterId, 'userId' => $userId])->one();
@@ -57,11 +82,19 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         return $res;
     }
 
+    /**
+     * @param $entity
+     * @return mixed
+     */
     public function actionFields($entity) {
         $model = FilterField::find()->where(['entityCode' => $entity])->all();
         return $model;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function actionUpdate($id) {
         $userId = Yii::$app->user->id;
 
@@ -76,6 +109,9 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         return $model;
     }
 
+    /**
+     * @param $id
+     */
     public function actionDelete($id) {
         $userId = Yii::$app->user->id;
         $model = Filter::find()->where(['id' => $id, 'userId' => $userId])->one();
@@ -86,6 +122,9 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         Yii::$app->getResponse()->setStatusCode(204);
     }
 
+    /**
+     *
+     */
     public function actionEditOrder() {
         $params = Yii::$app->getRequest()->getBodyParams();
         Filter::editOrder($params);

@@ -6,37 +6,29 @@ use wm\admin\models\ui\filter\FilterFieldSettingSearch;
 use wm\admin\models\ui\filter\FilterFieldSetting;
 use Yii;
 
+/**
+ * Class FilterFieldSettingController
+ * @package wm\admin\controllers\ui\filter
+ */
 class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestController{
-       
+
+    /**
+     * @var string
+     */
     public $modelClass = FilterFieldSetting::class;
-    
-    
+
+
+    /**
+     * @var string
+     */
     public $modelClassSearch = FilterFieldSettingSearch::class;
-    
-     public function actionEditOrder() {
+
+    /**
+     * @return bool
+     */
+    public function actionEditOrder() {
         $params = Yii::$app->getRequest()->getBodyParams();
         FilterFieldSetting::editOrder($params);
         return true;
     }
-//    
-//     public function actions() {
-//        $actions = parent::actions();
-//        unset($actions['create']);
-//        //unset($actions['update']);
-//        //unset($actions['delete']);
-//        return $actions;
-//    }
-//    
-//    public function actionCreate() {
-//         $params = Yii::$app->getRequest()->getBodyParams();
-//         $model = new FilterFieldSetting();
-//         if($model->load($params) && $model->save()){
-//             return true;
-//         }
-//         
-//        Yii::error($model->errors, 'FilterFieldSettingController actionCreate');
-//        return false;
-//    }
-    
-    
 }
