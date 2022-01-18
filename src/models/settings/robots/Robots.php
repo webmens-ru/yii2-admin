@@ -83,7 +83,7 @@ class Robots extends \yii\db\ActiveRecord {
                 B24ConnectSettings::getParametrByName('b24PortalName'));
         $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
         $use_subscription = $this->use_subscription > 0 ? true : false;
-        $handler = Url::toRoute($this->handler, 'https');
+        $handler = Url::toRoute('/admin/handlers/robot/'.$this->handler, 'https');
         $b24 = $obB24->add(
                 $this->code,
                 $handler,
@@ -127,8 +127,8 @@ class Robots extends \yii\db\ActiveRecord {
             }
             $result['properties'][] = $propertyArr;
         }
-        //$file = '../controllers/' . Inflector::id2camel($this->handler) . 'Action.php';
-        $file = '../controllers/handlers/robot/GenerateQrCodeAction.php';
+        $file = '../controllers/handlers/robot/' . Inflector::id2camel($this->handler) . 'Action.php';
+        //$file = '../controllers/handlers/robot/GenerateQrCodeAction.php';
         Yii::warning($file, '$file');
         $zip = new \ZipArchive();
         $tempName = mt_rand(100000, 999999) . '.zip';
