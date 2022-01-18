@@ -127,7 +127,8 @@ class Robots extends \yii\db\ActiveRecord {
             }
             $result['properties'][] = $propertyArr;
         }
-        $file = '../controllers/' . Inflector::id2camel($this->handler) . 'Action.php';
+        //$file = '../controllers/' . Inflector::id2camel($this->handler) . 'Action.php';
+        $file = '../controllers/handlers/robot/generateQrCodeAction.php';
         Yii::warning($file, '$file');
         $zip = new \ZipArchive();
         $tempName = mt_rand(100000, 999999) . '.zip';
