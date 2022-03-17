@@ -2,7 +2,7 @@
 namespace wm\admin\controllers;
 
 use Yii;
-use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\CompositeAuth;
 
 class RestController extends \yii\rest\Controller
 {
@@ -40,7 +40,10 @@ class RestController extends \yii\rest\Controller
                 ],
             ],
             'authenticator' => [
-                'class' => HttpBearerAuth::class,
+                'class' => CompositeAuth::className(),
+                'authMethods' => [
+                    \wm\yii\filters\auth\HttpBearerAuth::className(),
+                ],
             ],
         ];
     }
