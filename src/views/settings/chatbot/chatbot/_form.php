@@ -21,7 +21,6 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'openline')->dropDownList($openLineList, ['prompt'=>'Нет']) ?>
     
-    <?php Yii::warning($openLineList, '$openLineList'); ?>
     <?= $form->field($model, 'p_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'p_last_name')->textInput(['maxlength' => true]) ?>

@@ -55,8 +55,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findByBitrixId($id)
     {
-//        Yii::warning($id, '$id');
-//        Yii::warning(self::findOne(['b24_user_id' => $id]), 'user');
         return self::findOne(['b24_user_id' => $id]);
     }
 
@@ -109,16 +107,10 @@ $timestamp = time() + 3600 * (11);
         $date = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
         $date->setTimestamp($timestamp);
         $this->date_expired = $date->format($datetimeFormat);
-        Yii::warning($this->date_expired, '');
-//------------------------------------
 
         $this->access_token = \Yii::$app->security->generateRandomString();
         $this->auth_key = $this->access_token;
     }
-
-//    public function generateAccessTokenTest() {        
-//        Yii::warning(date( "Y-m-d h:i:s", strtotime( date("Y-m-d h:i:s")."+1 hours")), 'date');
-//    }
 
     public function getAccessToken()
     {

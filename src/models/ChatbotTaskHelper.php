@@ -97,7 +97,6 @@ class ChatbotTaskHelper extends Model {
         $b24App = self::b24Connect($auth);
         $properties = $request->post('data');
         $obB24 = new B24Object($b24App);
-        //Yii::warning($properties['COMMAND'], 'Номер');
         $source = 0;
         $information = [];
         $receiver = 0;
@@ -112,7 +111,6 @@ class ChatbotTaskHelper extends Model {
         $currentUser = $obB24->client->call('user.current', [])['result'];
 
         $task = [];
-        //Yii::warning($information, '$information');
         $obB24->client->addBatchCall(
                 'user.get',
                 ['ID' => $source],
@@ -168,7 +166,6 @@ class ChatbotTaskHelper extends Model {
         $b24App = self::b24Connect($auth);
         $properties = $request->post('data');
         $obB24 = new B24Object($b24App);
-        //Yii::warning($properties['COMMAND'], 'Номер');
         $source = 0;
         $information = [];
         $receiver = 0;
@@ -183,7 +180,6 @@ class ChatbotTaskHelper extends Model {
         $currentUser = $obB24->client->call('user.current', [])['result'];
 
         $task = [];
-        //Yii::warning($information, '$information');
         $obB24->client->addBatchCall(
                 'user.get',
                 ['ID' => $source],

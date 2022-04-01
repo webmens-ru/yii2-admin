@@ -128,7 +128,6 @@ class Robots extends \yii\db\ActiveRecord {
             $result['properties'][] = $propertyArr;
         }
         $file = '../controllers/handlers/robots/' . Inflector::id2camel($this->handler) . 'Action.php';
-        Yii::warning($file, '$file');
         $zip = new \ZipArchive();
         $tempName = mt_rand(100000, 999999) . '.zip';
         $zip->open($tempName, \ZipArchive::CREATE);

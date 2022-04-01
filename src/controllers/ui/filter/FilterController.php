@@ -52,8 +52,6 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
      * @return bool|Filter
      */
     public function actionCreate() {
-
-        //Yii::warning(Yii::$app->getRequest()->getBodyParams());
         $userId = Yii::$app->user->id;
         $params = Yii::$app->getRequest()->getBodyParams();
         $model = Filter::add($params, $userId);

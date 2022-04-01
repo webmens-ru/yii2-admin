@@ -87,7 +87,6 @@ class Templates extends \yii\db\ActiveRecord {
     public static function getNumeratorsList($b24App) {
         $obB24 = new B24Object($b24App);
         $res = $obB24->client->call('documentgenerator.numerator.list')['result'];
-        Yii::warning($res, '$res');
         $numerators = ArrayHelper::map($res['numerators'], 'id', 'name');        
         return $numerators;
     }

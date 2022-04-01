@@ -15,7 +15,6 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php $data = ArrayHelper::map($eventsNameModel, 'name', 'description', 'category_name'); 
-    //Yii::warning($data);
     ?>
     
     <?= $form->field($model, 'event_name')->widget(Select2::classname(), [

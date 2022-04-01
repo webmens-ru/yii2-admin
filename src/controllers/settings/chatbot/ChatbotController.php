@@ -119,7 +119,6 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
         $colors = ChatbotColorDirectory::find()->all();
         $typies = ChatbotTypeDirectory::find()->all();
         $openLineList = Chatbot::getOpenLineList();
-        //Yii::warning($openLineList, '$openLineListC');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'code' => $model->code]);

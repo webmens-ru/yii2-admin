@@ -51,23 +51,18 @@ class RobotsImport extends \yii\base\Model {
     public function import() {
         $zip = new \ZipArchive();
         $res = $zip->open($this->file->tempName);
-        //Yii::warning($this->file->tempName, '$this->file->tempName');
         if ($res === TRUE) {
             for ($i = 0; $i < $zip->count(); $i++) {
-                //Yii::warning($zip->statIndex($i), '$fileZip->statIndex($i)');
                 if (preg_match('/Action.php$/', $zip->statIndex($i)['name'])) {
                     $filePatch = '../controllers/handlers/robots/';
                     $zip->extractTo($filePatch, array($zip->statIndex($i)['name']));
-                    //Yii::warning('action');
                 } elseif ($zip->statIndex($i)['name'] == 'robot.json') {
-                    //Yii::warning('robot');                    
-                    //Yii::warning(ArrayHelper::toArray(json_decode($zip->getFromIndex($i))), '$zip->getFromIndex($i)');
                     Robots::import(ArrayHelper::toArray(json_decode($zip->getFromIndex($i))));
                 }
             }
             $zip->close();
         } else {
-            Yii::warning('ошибка с кодом:' . $res);
+            Yii::error('ошибка с кодом:' . $res);
         }        
     }
 

@@ -81,8 +81,6 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['view', 'bot_code' => $model->bot_code, 'code' => $model->code]);
         }
-        
-        //Yii::warning($model->errors, '$model->errors');
 
         if (!$type) {
             $type = $model->type;

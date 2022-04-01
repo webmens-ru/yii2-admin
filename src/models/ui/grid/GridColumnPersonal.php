@@ -65,7 +65,6 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     
     public static function saveColumns($columns, $userId)
     {
-        Yii::warning($columns, '$columns');
         foreach ($columns as $column) {
             $columnId = ArrayHelper::getValue($column, 'id');
             $model = self::getColumnPersonalSettings($columnId, $userId);
@@ -75,7 +74,6 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
             $model->visible = ArrayHelper::getValue($column, 'visible');
             $model->width = ArrayHelper::getValue($column, 'width');
             $model->save();
-            Yii::warning($model->errors, '$model->errors');
         }
 
 

@@ -79,8 +79,6 @@ class GridColumn extends \wm\yii\db\ActiveRecord
     }
     
     public static function getColumns($entityCode, $userId) {
-        Yii::warning($entityCode, '$entityCode');
-        Yii::warning($userId, '$userId');
         if (!Entity::find()->where(['code' => $entityCode])->one()) {
             Yii::error('$entityCode не содержится в Базе данных');
             return [];

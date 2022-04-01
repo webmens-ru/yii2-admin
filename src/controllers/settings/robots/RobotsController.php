@@ -158,7 +158,6 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
         }
         if ($model->validate()) {
             if ($model->file) {
-                //Yii::warning($model->file, 'file true');
                 $model->import();
             }
             return $this->redirect(['index']);           

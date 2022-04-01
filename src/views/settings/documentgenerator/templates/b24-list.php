@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Шаблон',
                 'format' => 'raw',
                 'value' => function($data) {
-                    Yii::warning($data, '$data');
                     return Html::a(
                                     'Скачать',
                                     $data['downloadMachine'],

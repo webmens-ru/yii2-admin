@@ -172,11 +172,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      */
     public function actionDelete($code) {
         $model = $this->findModel($code);
-        //$files = glob($model->file_path); // get all file names
-        //Yii::warning($files);
-        Yii::warning(is_file($model->file_path));
         if (is_file($model->file_path)) {
-            Yii::warning($model->file_path);
             unlink($model->file_path); // delete file
         }
         $model->delete();
@@ -223,7 +219,6 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
     public function actionB24Fields($code) {
         $model = $this->findModel($code);
         $fielsds = $model->fieldsBitrix24();
-        Yii::warning($fielsds, '$fielsds');
         $arrFields = [];
         foreach ($fielsds['templateFields'] as $key => $value) {
             $value['name'] = $key;

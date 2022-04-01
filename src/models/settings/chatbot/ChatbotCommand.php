@@ -144,7 +144,6 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
         
         $this->command_id = $b24['result'];
         $this->save();
-        Yii::warning($b24, '$b24 imbot.command.register');
         return $b24;
     }
 

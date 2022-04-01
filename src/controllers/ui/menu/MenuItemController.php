@@ -35,17 +35,7 @@ class MenuItemController extends \wm\admin\controllers\ActiveRestController {
      * @return mixed
      */
     public function actionSaveItems() {
-
-        Yii::warning('actionSaveItems','action');
-        
-        //$request = Yii::$app->request;
-        //$name = json_decode($request->post());
-		
-		Yii::warning(Yii::$app->getRequest()->getBodyParams());
 		$name = Yii::$app->getRequest()->getBodyParams(); 
-		
-//        
-//        $name = isset($_POST['name']) ? $_POST['name'] : null;
 
        return $name;
     }

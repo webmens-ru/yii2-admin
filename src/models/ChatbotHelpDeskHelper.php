@@ -41,7 +41,6 @@ class ChatbotHelpDeskHelper extends Model {
         );
         $obB24 = new Im($b24App);
         $b24 = $obB24->client->call('im.chat.user.list', ['CHAT_ID' => ArrayHelper::getValue($data, 'PARAMS.CHAT_ID')]);
-        //Yii::warning($b24, '$b24');
     }
 
     public function MassegeWelcome() {
@@ -56,7 +55,6 @@ class ChatbotHelpDeskHelper extends Model {
         );
         $obB24 = new Im($b24App);
         $b24 = $obB24->client->call('im.chat.user.list', ['CHAT_ID' => ArrayHelper::getValue($data, 'PARAMS.CHAT_ID')]);
-        //Yii::warning($b24, '$b24');
     }
 
 }
