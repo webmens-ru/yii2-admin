@@ -34,9 +34,9 @@ class Action extends \wm\yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['entityCode', 'title', 'handler'], 'required'],
+            [['entityCode', 'label', 'handler'], 'required'],
             [['entityCode'], 'string', 'max' => 64],
-            [['title', 'handler', 'params'], 'string', 'max' => 255],
+            [['label', 'handler', 'params'], 'string', 'max' => 255],
             [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
         ];
     }
@@ -49,7 +49,7 @@ class Action extends \wm\yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'entityCode' => 'Entity Code',
-            'title' => 'Title',
+            'label' => 'Title',
             'handler' => 'Handler',
             'params' => 'Params',
         ];
