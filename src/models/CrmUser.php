@@ -41,7 +41,7 @@ class CrmUser extends \wm\yii\db\ActiveRecord
     {
         return [
             [['ID'], 'required'],
-            [['ID'], 'integer', 'max' => 11],
+            [['ID'], 'integer'],
             [['ID'], 'unique'],
             [[
                 'DATE_REGISTER',
