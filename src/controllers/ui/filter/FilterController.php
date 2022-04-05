@@ -12,9 +12,13 @@ use yii\web\ServerErrorHttpException;
 
 /**
  * Class FilterController
+ *
+ * Данныый контроллер позволяет работать с сущностью Фильтр
+ *
  * @package wm\admin\controllers\ui\filter
  */
-class FilterController extends \wm\admin\controllers\ActiveRestController {
+class FilterController extends \wm\admin\controllers\ActiveRestController
+{
 
     /**
      * @var string
@@ -25,13 +29,29 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
      */
     public $modelClassSearch = FilterSearch::class;
 
-//для первоначального построение списка элементов фильтра
-
     /**
-     * @param $entity
-     * @return string
+     * Получение списка фильтров конкретной сущности
+     *
+     * @param $entity Название сущности
+     * @return array
+     *
+     * ```php
+     * [
+     *    {
+     *        "id": 2,
+     *        "title": "project",
+     *        "entityCode": "project",
+     *        "isName": 0,
+     *        "order": 1,
+     *        "isBase": 0,
+     *        "userId": 1,
+     *        "parentId": 1
+     *    }
+     * ]
+     * ```
      */
-    public function actionItems($entity) {
+    public function actionItems($entity)
+    {
         $userId = Yii::$app->user->id;
         $model = Filter::getItems($entity, $userId);
         return $model;
@@ -40,7 +60,8 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
     /**
      * @return mixed
      */
-    public function actions() {
+    public function actions()
+    {
         $actions = parent::actions();
         unset($actions['create']);
         unset($actions['update']);
@@ -49,9 +70,26 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
     }
 
     /**
-     * @return bool|Filter
+     * Создание фильтра
+     *
+     * Для создания фильтра в теле запроса необходимо передать следующие данные
+     *
+     * ```php
+     * //title - Название фильтра
+     * //order - Сортировка
+     * //parentId - На основании какого фильтра создаётся данный фильтр.
+     * //Все фильтры кроме базовых создаются на основании других фильтров
+     * {
+     *    "title":"Магазин",
+     *    "order":3,
+     *    "parentId":12
+     * }
+     * ```
+     *
      */
-    public function actionCreate() {
+
+    public function actionCreate()
+    {
         $userId = Yii::$app->user->id;
         $params = Yii::$app->getRequest()->getBodyParams();
         $model = Filter::add($params, $userId);
@@ -67,10 +105,42 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
     }
 
     /**
+     * Получение параметров полей конкретного фильтра
+     *
      * @param $filterId
      * @return array
+     *
+     * ```php
+     * [
+     *    {
+     *        "id": 17,
+     *        "filterId": 7,
+     *        "filterFieldId": 4,
+     *        "value": [
+     *            "=>",
+     *            "20",
+     *            ""
+     *        ],
+     *        "title": "",
+     *        "order": 0
+     *    },
+     *    {
+     *        "id": 18,
+     *        "filterId": 7,
+     *        "filterFieldId": 5,
+     *        "value": [
+     *            "",
+     *            "",
+     *            ""
+     *        ],
+     *        "title": "",
+     *        "order": 0
+     *    }
+     * ]
+     * ```
      */
-    public function actionFieldsSettings($filterId) {
+    public function actionFieldsSettings($filterId)
+    {
         $userId = Yii::$app->user->id;
         $model = Filter::find()->where(['id' => $filterId, 'userId' => $userId])->one();
         $res = [];
@@ -81,19 +151,66 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
     }
 
     /**
+     * Получение списка полей фильтра
+     *
      * @param $entity
      * @return mixed
+     *
+     * ```php
+     * [
+     *    {
+     *        "id": 1,
+     *        "entityCode": "project",
+     *        "typeId": 5,
+     *        "title": "Id",
+     *        "order": 1,
+     *        "type": {
+     *            "id": 5,
+     *            "name": "integer"
+     *        },
+     *        "filterFieldOptions": [],
+     *        "code": "id"
+     *    },
+     *    {
+     *        "id": 2,
+     *        "entityCode": "project",
+     *        "typeId": 1,
+     *        "title": "Название",
+     *        "order": 2,
+     *        "type": {
+     *            "id": 1,
+     *            "name": "string"
+     *        },
+     *        "filterFieldOptions": [],
+     *        "code": "title"
+     *    }
+     * ]
+     * ```
+     *
      */
-    public function actionFields($entity) {
+    public function actionFields($entity)
+    {
         $model = FilterField::find()->where(['entityCode' => $entity])->all();
         return $model;
     }
 
     /**
+     * Изменение фильтра
+     *
+     * Для изменения фильтра в теле запроса необходимо передать следующие данные
+     *
+     * ```php
+     * {
+     *    "id":53,
+     *    "title":"Название фильтра"
+     * }
+     * ```
+     *
      * @param $id
      * @return mixed
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $userId = Yii::$app->user->id;
 
         if (($model = Filter::find()->where(['id' => $id, 'userId' => $userId])->one()) === null) {
@@ -108,9 +225,12 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
     }
 
     /**
+     * Удаление фильтра
+     *
      * @param $id
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $userId = Yii::$app->user->id;
         $model = Filter::find()->where(['id' => $id, 'userId' => $userId])->one();
 
@@ -120,10 +240,29 @@ class FilterController extends \wm\admin\controllers\ActiveRestController {
         Yii::$app->getResponse()->setStatusCode(204);
     }
 
+
     /**
+     * Изменение сортировки фильтра
      *
+     * Тело запроса
+     *
+     * ```php
+     * [
+     *    {
+     *        "id":12,
+     *        "order":2
+     *    },
+     *    {
+     *        "id":13,
+     *        "order":1
+     *    }
+     * ]
+     * ```
+     *
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionEditOrder() {
+    public function actionEditOrder()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
         Filter::editOrder($params);
     }
