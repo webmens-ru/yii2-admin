@@ -5,13 +5,23 @@ namespace wm\admin\models\ui\filter;
 use Yii;
 use yii\helpers\ArrayHelper;
 
+/**
+ * Class FilterItemPersonalSettings
+ * @package wm\admin\models\ui\filter
+ */
 class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord 
 {
 
+    /**
+     * @return string
+     */
     public static function tableName() {
         return 'admin_filter_item_personal_settings';
     }
 
+    /**
+     * @return array
+     */
     public function rules() {
         return [
             [['itemId', 'userId', 'order', 'visible', 'value'], 'required'],
@@ -21,6 +31,9 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels() {
         return [
             'id' => 'ID',
@@ -32,12 +45,21 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getItem() {
         return $this->hasOne(FilterItem::className(), ['id' => 'itemId']);
     }
-    
-    
-     public static function saveItems($items, $userId)
+
+
+    /**
+     * @param $items
+     * @param $userId
+     * @return bool
+     * @throws \Exception
+     */
+    public static function saveItems($items, $userId)
     {
         foreach ($items as $item) {
             $itemId = ArrayHelper::getValue($item, 'id');
@@ -52,8 +74,13 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
 
         return true;
     }
-    
-     protected static function getItemPersonalSettings($itemId, $userId)
+
+    /**
+     * @param $itemId
+     * @param $userId
+     * @return array|FilterItemPersonalSettings|\yii\db\ActiveRecord|null
+     */
+    protected static function getItemPersonalSettings($itemId, $userId)
     {
         $item = self::find()->where(['itemId' => $itemId, 'userId' => $userId])->one();
         if (!$item) {

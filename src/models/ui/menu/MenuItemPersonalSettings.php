@@ -62,6 +62,12 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
         return $this->hasOne(MenuItem::className(), ['id' => 'itemId']);
     }
 
+    /**
+     * @param $items
+     * @param $userId
+     * @return bool
+     * @throws \Exception
+     */
     public static function saveItems($items, $userId)
     {
         foreach ($items as $item) {
@@ -78,6 +84,11 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
         return true;
     }
 
+    /**
+     * @param $itemId
+     * @param $userId
+     * @return array|MenuItemPersonalSettings|\yii\db\ActiveRecord|null
+     */
     protected static function getItemPersonalSettings($itemId, $userId)
     {
         $item = self::find()->where(['itemId' => $itemId, 'userId' => $userId])->one();

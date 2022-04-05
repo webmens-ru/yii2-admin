@@ -18,8 +18,9 @@ use Yii;
  */
 class MenuItem extends \wm\yii\db\ActiveRecord {
 
+
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName() {
         return 'admin_menu_item';
@@ -61,6 +62,9 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
         return $this->hasOne(Menu::className(), ['id' => 'menuId']);
     }
 
+    /**
+     * @return array|false
+     */
     public function fields() {
         return [
             'id', 'title', 'visible', 'order', 'menuId', 'type',
@@ -71,6 +75,9 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getSchema() {
         $attributeLabels = $this->attributeLabels();
         unset($attributeLabels['menuId']);
@@ -78,6 +85,11 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
         return $this->convertShema($attributeLabels);
     }
 
+    /**
+     * @param $menuId
+     * @param $userId
+     * @return array
+     */
     public static function getItems($menuId, $userId) {
         if (!Menu::find()->where(['id' => $menuId])->one()) {
             Yii::error('$menuId не содержится в Базе данных');

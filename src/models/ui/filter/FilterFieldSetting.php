@@ -19,10 +19,16 @@ use yii\helpers\ArrayHelper;
  */
 class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
 
+    /**
+     * @return string
+     */
     public static function tableName() {
         return 'admin_filter_field_setting';
     }
 
+    /**
+     * @return array
+     */
     public function rules() {
         return [
             [['filterId', 'filterFieldId', 'order'], 'required'],
@@ -34,6 +40,9 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels() {
         return [
             'id' => 'ID',
@@ -62,6 +71,10 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
         return $this->hasOne(FilterField::className(), ['id' => 'filterFieldId']);
     }
 
+    /**
+     * @param $oldFilterId
+     * @param $newFilterId
+     */
     public static function copyField($oldFilterId, $newFilterId) {
         $models = self::find()->where(['filterId' => $oldFilterId])->all();
         foreach ($models as $value) {
@@ -77,6 +90,11 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
         }
     }
 
+    /**
+     * @param $params
+     * @param $filter
+     * @return bool
+     */
     public static function add($params, $filter) {
         foreach ($params as $value) {
             $value['filterId'] = $filter->id;
@@ -91,8 +109,12 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
         }
         return true;
     }
-    
-      public static function editOrder($params) {
+
+    /**
+     * @param $params
+     * @throws \Exception
+     */
+    public static function editOrder($params) {
         foreach ($params as $param) {
             $model = self::find()->where(['id' => $param['id'],])->one();
             $model->order = ArrayHelper::getValue($param, 'order');

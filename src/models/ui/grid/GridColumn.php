@@ -77,7 +77,12 @@ class GridColumn extends \wm\yii\db\ActiveRecord
     {
         return $this->hasMany(GridColumnPersonal::className(), ['columnId' => 'id']);
     }
-    
+
+    /**
+     * @param $entityCode
+     * @param $userId
+     * @return array
+     */
     public static function getColumns($entityCode, $userId) {
         if (!Entity::find()->where(['code' => $entityCode])->one()) {
             Yii::error('$entityCode не содержится в Базе данных');

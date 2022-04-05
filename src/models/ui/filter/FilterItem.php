@@ -60,6 +60,9 @@ class FilterItem extends ActiveRecordExtended {
         return $this->hasOne(Filter::className(), ['id' => 'filterId']);
     }
 
+    /**
+     * @return array
+     */
     public function fields() {
         return [
             'id', 'itemName', 'visible', 'order', 'value', 'filterId',
@@ -70,6 +73,9 @@ class FilterItem extends ActiveRecordExtended {
         ];
     }
 
+    /**
+     * @return mixed
+     */
     public function getSchema() {
         $attributeLabels = $this->attributeLabels();
         unset($attributeLabels['filterId']);
@@ -77,6 +83,11 @@ class FilterItem extends ActiveRecordExtended {
         return $this->convertShema($attributeLabels);
     }
 
+    /**
+     * @param $filterId
+     * @param $userId
+     * @return array
+     */
     public static function getItems($filterId, $userId) {
         if (!Filters::find()->where(['id' => $filterId])->one()) {
             Yii::error('$filterId не содержится в Базе данных');

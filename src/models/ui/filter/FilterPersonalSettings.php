@@ -4,12 +4,22 @@ namespace wm\admin\models\ui\filter;
 
 use Yii;
 
+/**
+ * Class FilterPersonalSettings
+ * @package wm\admin\models\ui\filter
+ */
 class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExtended {
 
+    /**
+     * @return string
+     */
     public static function tableName() {
         return 'admin_filter_personal_settings';
     }
 
+    /**
+     * @return array
+     */
     public function rules() {
         return [
             [['filterId', 'name', 'order', 'fixed'], 'required'],
@@ -19,6 +29,9 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels() {
         return [
             'id' => 'ID',
@@ -29,6 +42,9 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
         ];
     }
 
+    /**
+     * @return mixed
+     */
     public function getFilters() {
         return $this->hasOne(Filter::className(), ['id' => 'filteId']);
     }

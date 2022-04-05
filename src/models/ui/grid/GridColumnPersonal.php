@@ -62,7 +62,13 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     {
         return $this->hasOne(GridColumn::className(), ['id' => 'columnId']);
     }
-    
+
+    /**
+     * @param $columns
+     * @param $userId
+     * @return bool
+     * @throws \Exception
+     */
     public static function saveColumns($columns, $userId)
     {
         foreach ($columns as $column) {
@@ -79,7 +85,12 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
 
         return true;
     }
-    
+
+    /**
+     * @param $columnId
+     * @param $userId
+     * @return array|GridColumnPersonal|\yii\db\ActiveRecord|null
+     */
     protected static function getColumnPersonalSettings($columnId, $userId)
     {
         $column = self::find()->where(['columnId' => $columnId, 'userId' => $userId])->one();
