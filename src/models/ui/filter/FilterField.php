@@ -13,6 +13,7 @@ use wm\admin\models\ui\Entity;
  * @property int $typeId
  * @property string $title
  * @property int $order
+ * @property int $params
  *
  * @property Entity $entityCode0
  * @property FilterFieldOptions[] $filterFieldOptions
@@ -39,6 +40,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
             [['typeId', 'order'], 'integer'],
             [['entityCode', 'code'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
+            [['params'], 'safe'],
             [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
             [['typeId'], 'exist', 'skipOnError' => true, 'targetClass' => FilterFieldType::className(), 'targetAttribute' => ['typeId' => 'id']],
         ];
@@ -56,6 +58,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
             'title' => 'Title',
             'order' => 'Order', 
             'code' => 'Code',
+            'params' => 'Params',
         ];
     }
 
@@ -108,7 +111,11 @@ class FilterField extends \wm\yii\db\ActiveRecord
             'order',
             'type',
             'filterFieldOptions',
-            'code'
+            'code',
+            'params' => function () {
+                $res = json_decode($this->params);
+                return $res;
+            },
         ];
     }
 }
