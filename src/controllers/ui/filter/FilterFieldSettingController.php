@@ -107,6 +107,7 @@ class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestContr
      * Данный метод вызывается при перетаскивании полей фильтра.
      * Для выполнения данного метода в теле запроса необходимо передать данные в следующей структуре
      *
+     * ```php
      * [
      *    {
      *        "id":14,
@@ -117,6 +118,7 @@ class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestContr
      *        "order":6
      *    }
      * ]
+     * ```
      *
      * @return bool
      */
