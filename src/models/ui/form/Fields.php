@@ -36,7 +36,9 @@ class Fields extends \wm\yii\db\ActiveRecord
                 'fieldsetId',
                 'type',
                 'name',
-                'label'
+                'label',
+                'visible',
+                'order'
             ], 'required'],
             [['id' , 'fieldsetId', 'order', 'value'], 'integer'],
             [['id'], 'unique'],
@@ -55,5 +57,16 @@ class Fields extends \wm\yii\db\ActiveRecord
     {
         return $this->hasOne(Forms::class, ['id' => 'formId'])
             ->via('fieldset');
+    }
+
+    public function addUserSettings($field)
+    {
+        if($userSettings = UserSettings::find()->where(['fieldId' => $field->id, 'userId' => Yii::$app->user->id]));
+        {
+            $field->visible = $userSettings->visible;
+            $field->order = $userSettings->order;
+        }
+
+        return $field;
     }
 }

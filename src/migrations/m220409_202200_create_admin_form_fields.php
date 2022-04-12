@@ -11,11 +11,11 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
             'type' => $this->string(20)->notNull(),
             'name' => $this->string(255)->notNull(),
             'label' => $this->string(255)->notNull(),
-            'readOnly' => $this->boolean(),
+            'readOnly' => $this->boolean()->notNull(),
             'value' => $this->integer(),
             'fieldParams' => $this->json(),
-            'visible' => $this->boolean(),
-            'order' => $this->integer(),
+            'visible' => $this->boolean()->notNull(),
+            'order' => $this->integer()->notNull(),
         ]);
 
         $this->addForeignKey(
@@ -24,7 +24,7 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
             'fieldsetId',
             'admin_form_fieldset',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

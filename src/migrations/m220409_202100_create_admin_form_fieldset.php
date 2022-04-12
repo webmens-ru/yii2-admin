@@ -9,7 +9,8 @@ class m220409_202100_create_admin_form_fieldset extends \yii\db\Migration
             'id' => $this->primaryKey(),
             'formId' => $this->integer()->notNull(),
             'order' => $this->integer(),
-            'title' => $this->string(255)
+            'title' => $this->string(255),
+            'userId' => $this->integer(),
         ]);
 
         $this->addForeignKey(
@@ -18,7 +19,7 @@ class m220409_202100_create_admin_form_fieldset extends \yii\db\Migration
           'formId',
           'admin_forms',
           'id',
-          'CASCADE'
+          'NO ACTION'
         );
     }
 
