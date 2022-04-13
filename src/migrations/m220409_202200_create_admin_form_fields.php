@@ -26,11 +26,11 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
 
     public function down()
     {
-        $this->dropTable('{{%admin_form_fields%}}');
-
         $this->dropForeignKey(
             'formId',
             'admin_forms'
         );
+
+        $this->dropTable('{{%admin_form_fields%}}');
     }
 }

@@ -31,16 +31,17 @@ class Forms extends \wm\yii\db\ActiveRecord
     {
         return [
             [[
-                'id',
                 'mode',
                 'title',
                 'canToggleMode'
             ], 'required'],
-            [['id'], 'integer'],
-            [['id'], 'unique'],
             [['mode',], 'string', 'max' => 5],
             [['title',], 'string', 'max' => 255],
             [['canToggleMode'], 'boolean'],
+            [[
+                'action',
+                'params',
+                'buttons'], 'safe']
         ];
     }
 

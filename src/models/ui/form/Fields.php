@@ -31,16 +31,15 @@ class Fields extends \wm\yii\db\ActiveRecord
     {
         return [
             [[
-                'id',
                 'type',
                 'name',
                 'label',
                 'formId'
             ], 'required'],
-            [['id' , 'formId'], 'integer'],
-            [['id'], 'unique'],
+            [['formId'], 'integer'],
             [['type',], 'string', 'max' => 20],
-            [['name', 'label'], 'string', 'max' => 255]
+            [['name', 'label'], 'string', 'max' => 255],
+            [['fieldParams'], 'safe']
         ];
     }
 
