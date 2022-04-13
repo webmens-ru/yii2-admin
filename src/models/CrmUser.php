@@ -10,18 +10,38 @@ use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "windows_settings".
+ * This is the model class for table "admin_crm_user".
  *
- * @property string $ID
- * @property string $CATEGORY_ID
- * @property string $COLOR
- * @property string $ENTITY_ID
+ * @property string $DATE_REGISTER
+ * @property string $IS_ONLINE
+ * @property string $LAST_NAME
  * @property string $NAME
- * @property string $NAME_INIT
- * @property string $SEMANTICS
- * @property string $SORT
- * @property string $STATUS_ID
- * @property string $SYSTEM
+ * @property string $PERSONAL_BIRTHDAY
+ * @property string $PERSONAL_CITY
+ * @property string $PERSONAL_COUNTRY
+ * @property string $PERSONAL_GENDER
+ * @property string $PERSONAL_PHOTO
+ * @property string $PERSONAL_PROFESSION
+ * @property string $PERSONAL_STATE
+ * @property string $SECOND_NAME
+ * @property string $TIME_ZONE
+ * @property string $TIME_ZONE_OFFSET
+ * @property string $TITLE
+ * @property string $UF_EMPLOYMENT_DATE
+ * @property string $UF_INTERESTS
+ * @property string $UF_PHONE_INNER
+ * @property string $UF_SKILLS
+ * @property string $UF_TIMEMAN
+ * @property string $USER_TYPE
+ * @property string $WORK_CITY
+ * @property string $WORK_COUNTRY
+ * @property string $WORK_POSITION
+ * @property string $WORK_STATE
+ * @property string $XML_ID
+ * @property boolean $ACTIVE
+ * @property array $UF_DEPARTMENT
+ * @property array $LAST_ACTIVITY_DATE
+ * @property array TIMESTAMP_X
  */
 class CrmUser extends \wm\yii\db\ActiveRecord
 {
