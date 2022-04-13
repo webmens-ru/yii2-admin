@@ -7,9 +7,12 @@ namespace wm\admin\models\ui\form;
  *
  * @property integer $id
  * @property integer formId
+ *
  * @property string $type
  * @property string $name
  * @property string $label
+ *
+ * @property Forms[] $form
  */
 class Fields extends \wm\yii\db\ActiveRecord
 {
@@ -41,6 +44,11 @@ class Fields extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Gets query for [[Form]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getForm()
     {
         return $this->hasOne(Forms::class, ['id' => 'formId']);

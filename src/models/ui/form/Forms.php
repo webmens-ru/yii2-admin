@@ -6,9 +6,13 @@ namespace wm\admin\models\ui\form;
  * This is the model class for table "admin_form_fields".
  *
  * @property integer $id
+ *
  * @property string $mode
  * @property string $title
+ *
  * @property boolean $canToggleMode
+ *
+ * @property Fields[] $fields
  */
 class Forms extends \wm\yii\db\ActiveRecord
 {
@@ -40,11 +44,19 @@ class Forms extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Gets query for [[Fields]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getFields()
     {
         return $this->hasMany(Fields::class, ['formId' => 'id']);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function fields()
     {
         return [
