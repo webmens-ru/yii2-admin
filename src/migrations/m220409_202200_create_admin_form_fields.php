@@ -7,8 +7,8 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
     {
         $this->createTable('{{%admin_form_fields%}}', [
             'id' => $this->primaryKey(),
-            'type' => $this->string(20)->notNull(),
             'name' => $this->string(255)->notNull(),
+            'type' => $this->string(20)->notNull(),
             'label' => $this->string(255)->notNull(),
             'fieldParams' => $this->json(),
             'formId' => $this->integer()->notNull()
@@ -18,7 +18,7 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
             'formId',
             'admin_form_fields',
             'formId',
-            'admin_forms',
+            'admin_form',
             'id',
             'NO ACTION'
         );
@@ -28,7 +28,7 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
     {
         $this->dropForeignKey(
             'formId',
-            'admin_forms'
+            'admin_form'
         );
 
         $this->dropTable('{{%admin_form_fields%}}');

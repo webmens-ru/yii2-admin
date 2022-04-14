@@ -14,14 +14,14 @@ namespace wm\admin\models\ui\form;
  *
  * @property Fields[] $fields
  */
-class Forms extends \wm\yii\db\ActiveRecord
+class Form extends \wm\yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'admin_forms';
+        return 'admin_form';
     }
 
     /**
@@ -31,8 +31,8 @@ class Forms extends \wm\yii\db\ActiveRecord
     {
         return [
             [[
-                'mode',
                 'title',
+                'mode',
                 'canToggleMode'
             ], 'required'],
             [['mode',], 'string', 'max' => 5],
@@ -64,7 +64,9 @@ class Forms extends \wm\yii\db\ActiveRecord
             'id',
             'mode',
             'title',
-            'canToggleMode',
+            'canToggleMode' => function() {
+                return boolval($this->canToggleMode);
+            },
             'action',
             'params',
             'buttons',
