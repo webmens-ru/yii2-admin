@@ -31,8 +31,8 @@ class Fields extends \wm\yii\db\ActiveRecord
     {
         return [
             [[
-                'type',
                 'name',
+                'type',
                 'label',
                 'formId'
             ], 'required'],
