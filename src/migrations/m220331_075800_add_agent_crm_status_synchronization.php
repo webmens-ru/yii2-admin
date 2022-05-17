@@ -18,7 +18,7 @@ class m220331_075800_add_agent_crm_status_synchronization extends Migration
                 'status_id'
             ],
             [
-                ['Обновление справочников', 'wm\admin\models\CrmStatus', 'synchronization', '-', '2021-00-00 00:00:00', 86395, 1],
+                ['Обновление справочников', 'wm\admin\models\CrmStatus', 'synchronization', '-', '2021-01-00 00:00:00', 86395, 1],
             ]
         );
     }
