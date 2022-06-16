@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Yii;
 use yii\filters\auth\CompositeAuth;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 class ExcelController extends Controller
@@ -52,10 +53,11 @@ class ExcelController extends Controller
     public static function actionGetExcel()
     {
         $requestArr = Yii::$app->getRequest()->getBodyParams();
+        $data = self::prepareDate($requestArr);
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()
             ->fromArray(
-                $requestArr,
+                $data,
                 NULL,
                 'A1'
             );
@@ -65,5 +67,18 @@ class ExcelController extends Controller
         $file = ob_get_contents();
         ob_clean();
         return $file;
+    }
+
+    public static function prepareDate($data){
+        $result = [];
+        foreach ($data as $row){
+            $tempRow = [];
+            foreach ($row as $key=> $value){
+                $tempRow[$key] =  is_array($value)?ArrayHelper::getValue($value, 'title'):$value;
+
+            }
+            $result[] = $tempRow;
+        }
+        return $result;
     }
 }
