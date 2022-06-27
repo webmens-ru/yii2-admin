@@ -9,7 +9,7 @@
     "require": {
         "rmrevin/yii2-fontawesome": "~3.5",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kartik-v/yii2-widget-fileinput": "~1.1.*",
+        "kartik-v/yii2-widget-fileinput": "@dev",
         "yiisoft/yii2": "~2.0.14"
     },
     "autoload": {
