@@ -3,6 +3,7 @@
 namespace wm\admin\controllers;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Yii;
 use yii\filters\auth\CompositeAuth;
@@ -61,6 +62,29 @@ class ExcelController extends Controller
                 NULL,
                 'A1'
             );
+        $spreadsheet->getActiveSheet()
+            ->getStyle(self::getHeadRange($data))
+            ->applyFromArray(
+                [
+                    'font' => [
+                        'bold' => true,
+                    ],
+                ]
+            );
+        $spreadsheet->getActiveSheet()
+            ->getStyle(self::getRange($data))
+            ->applyFromArray(
+                [
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => [
+                                'rgb' => '000000']
+                        ],
+                    ],
+                ]
+            );
+        self::setAutoWidthForColumns('A', self::getNameFromNumber(count(reset($data))), $spreadsheet);
         $writer = new Xlsx($spreadsheet);
         ob_start();
         $writer->save('php://output');
@@ -69,12 +93,64 @@ class ExcelController extends Controller
         return $file;
     }
 
-    public static function prepareDate($data){
+    /**
+     * @param $data
+     * @return string
+     */
+    public static function getHeadRange($data)
+    {
+        $result = 'A1:Z1';
+        if (is_array($data)) {
+            $count = count(reset($data));
+            $result = 'A1:' . self::getNameFromNumber($count) . '1';
+        }
+        return $result;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public static function getRange($data)
+    {
+        $result = 'A1:Z1';
+        if (is_array($data)) {
+            $countRow = count($data);
+            $count = count(reset($data));
+            $result = 'A1:' . self::getNameFromNumber($count) . $countRow;
+        }
+        return $result;
+    }
+
+    /**
+     * @param $num
+     * @return string
+     */
+    public static function getNameFromNumber($num)
+    {
+        $numeric = ($num - 1) % 26;
+        $letter = chr(65 + $numeric);
+        $num2 = intval(($num - 1) / 26);
+        if ($num2 > 0) {
+            return getNameFromNumber($num2) . $letter;
+        } else {
+            return $letter;
+        }
+    }
+
+
+    /**
+     * @param $data
+     * @return array
+     * @throws \Exception
+     */
+    public static function prepareDate($data)
+    {
         $result = [];
-        foreach ($data as $row){
+        foreach ($data as $row) {
             $tempRow = [];
-            foreach ($row as $key=> $value){
-                $tempRow[$key] =  is_array($value)?ArrayHelper::getValue($value, 'title'):$value;
+            foreach ($row as $key => $value) {
+                $tempRow[$key] = is_array($value) ? ArrayHelper::getValue($value, 'title') : $value;
 
             }
             $result[] = $tempRow;
@@ -84,42 +160,6 @@ class ExcelController extends Controller
 
     /**
      * Устанавливает стили для ячейки (ячеек)
-     * <code>
-     *     $styleArray =
-     *      [
-     *         'font' => [
-     *             'name' => 'Arial',
-     *             'bold' => true,
-     *             'italic' => false,
-     *             'underline' => Font::UNDERLINE_DOUBLE,
-     *             'strikethrough' => false,
-     *             'color' => [
-     *                 'rgb' => '808080'
-     *             ]
-     *         ],
-     *         'borders' => [
-     *             'bottom' => [
-     *                 'borderStyle' => Border::BORDER_DASHDOT,
-     *                 'color' => [
-     *                     'rgb' => '808080'
-     *                 ]
-     *             ],
-     *             'top' => [
-     *                 'borderStyle' => Border::BORDER_DASHDOT,
-     *                 'color' => [
-     *                     'rgb' => '808080'
-     *                 ]
-     *             ]
-     *         ],
-     *         'alignment' => [
-     *             'horizontal' => Alignment::HORIZONTAL_CENTER,
-     *             'vertical' => Alignment::VERTICAL_CENTER,
-     *             'wrapText' => true,
-     *         ],
-     *         'quotePrefix'    => true
-     *     ]
-     * );
-     * </code>
      * @param string $cell Координаты ячейки (ячеек), пример: 'A1:A5'
      * @param array $styleArray
      * @param Spreadsheet $spreadsheet
@@ -139,7 +179,7 @@ class ExcelController extends Controller
      */
     public static function setAutoWidthForColumns($columnStart, $columnEnd, Spreadsheet $spreadsheet)
     {
-        foreach(range($columnStart, $columnEnd) as $columnID) {
+        foreach (range($columnStart, $columnEnd) as $columnID) {
             $spreadsheet->getActiveSheet()
                 ->getColumnDimension($columnID)
                 ->setAutoSize(true);
