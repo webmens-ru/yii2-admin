@@ -81,4 +81,69 @@ class ExcelController extends Controller
         }
         return $result;
     }
+
+    /**
+     * Устанавливает стили для ячейки (ячеек)
+     * <code>
+     *     $styleArray =
+     *      [
+     *         'font' => [
+     *             'name' => 'Arial',
+     *             'bold' => true,
+     *             'italic' => false,
+     *             'underline' => Font::UNDERLINE_DOUBLE,
+     *             'strikethrough' => false,
+     *             'color' => [
+     *                 'rgb' => '808080'
+     *             ]
+     *         ],
+     *         'borders' => [
+     *             'bottom' => [
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
+     *                 'color' => [
+     *                     'rgb' => '808080'
+     *                 ]
+     *             ],
+     *             'top' => [
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
+     *                 'color' => [
+     *                     'rgb' => '808080'
+     *                 ]
+     *             ]
+     *         ],
+     *         'alignment' => [
+     *             'horizontal' => Alignment::HORIZONTAL_CENTER,
+     *             'vertical' => Alignment::VERTICAL_CENTER,
+     *             'wrapText' => true,
+     *         ],
+     *         'quotePrefix'    => true
+     *     ]
+     * );
+     * </code>
+     * @param string $cell Координаты ячейки (ячеек), пример: 'A1:A5'
+     * @param array $styleArray
+     * @param Spreadsheet $spreadsheet
+     */
+    public static function setStyleForExcell($cell, $styleArray, Spreadsheet $spreadsheet)
+    {
+        $spreadsheet->getActiveSheet()
+            ->getStyle($cell)
+            ->applyFromArray($styleArray);
+    }
+
+    /**
+     * Устанавливает автоматическую ширину для столбцов
+     * @param string $columnStart
+     * @param string $columnEnd
+     * @param Spreadsheet $spreadsheet
+     */
+    public static function setAutoWidthForColumns($columnStart, $columnEnd, Spreadsheet $spreadsheet)
+    {
+        foreach(range($columnStart, $columnEnd) as $columnID) {
+            $spreadsheet->getActiveSheet()
+                ->getColumnDimension($columnID)
+                ->setAutoSize(true);
+        }
+    }
+
 }
