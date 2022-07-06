@@ -54,7 +54,7 @@ class ExcelController extends Controller
     public static function actionGetExcel()
     {
         $requestArr = Yii::$app->getRequest()->getBodyParams();
-        $data = self::prepareDate($requestArr);
+        $data = self::prepareDate(ArrayHelper::toArray($requestArr));
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()
             ->fromArray(
@@ -147,6 +147,12 @@ class ExcelController extends Controller
     public static function prepareDate($data)
     {
         $result = [];
+        if (ArrayHelper::getValue($data, 'schema')) {
+            $columns = ArrayHelper::getColumn(ArrayHelper::getValue($data, 'schema'),'code');
+            $temp = [ArrayHelper::map(ArrayHelper::getValue($data, 'schema'), 'code', 'title')];
+            $temp = array_merge($temp, self::getValues(ArrayHelper::getValue($data, 'grid'), $columns));
+            $data = array_merge($temp, self::getValues(ArrayHelper::getValue($data, 'footer'), $columns));
+        }
         foreach ($data as $row) {
             $tempRow = [];
             foreach ($row as $key => $value) {
@@ -154,6 +160,19 @@ class ExcelController extends Controller
 
             }
             $result[] = $tempRow;
+        }
+        return $result;
+    }
+
+    public static function getValues($data, $keys = ['id']){
+        $result = [];
+        foreach ($data as $value){
+            $temp = [];
+            foreach ($keys as $key){
+                $temp[$key] = ArrayHelper::getValue($value, $key);
+            }
+
+            $result[] = $temp;
         }
         return $result;
     }
