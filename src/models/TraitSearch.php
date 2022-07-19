@@ -30,7 +30,7 @@ trait TraitSearch {
     }
 
     public function rules() {
-        return [[array_keys($this->attributes), 'string']];
+        return [[array_keys($this->attributes), 'safe']];
     }
 
 }
