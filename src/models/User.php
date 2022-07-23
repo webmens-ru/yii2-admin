@@ -1,4 +1,5 @@
 <?php
+
 namespace wm\admin\models;
 
 use yii\db\ActiveRecord;
@@ -6,7 +7,6 @@ use Yii;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-
     public static function tableName()
     {
         return 'admin_users';
@@ -101,7 +101,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     public function generateAccessToken()
     {
-$timestamp = time() + 3600 * (11);
+        $timestamp = time() + 3600 * (11);
         //echo $timestamp;
         $datetimeFormat = 'Y-m-d H:i:s';
         $date = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));

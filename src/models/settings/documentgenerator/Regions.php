@@ -18,5 +18,4 @@ use Yii;
  */
 class Templates extends \yii\base\Model
 {
-    
 }

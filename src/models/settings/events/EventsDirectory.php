@@ -12,8 +12,8 @@ use Yii;
  *
  * @property AdminEvents[] $adminEvents
  */
-class EventsDirectory extends \yii\db\ActiveRecord {
-
+class EventsDirectory extends \yii\db\ActiveRecord
+{
     public static $CATEGORIES = [
             ['name' => 'Компания'],
             ['name' => 'Контакт'],
@@ -28,14 +28,16 @@ class EventsDirectory extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_events_directory';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
                 [['name', 'description', 'category_name'], 'required'],
                 [['name', 'description'], 'string', 'max' => 255],
@@ -46,7 +48,8 @@ class EventsDirectory extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'name' => 'Имя события',
             'description' => 'Описание',
@@ -59,7 +62,8 @@ class EventsDirectory extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEvents() {
+    public function getEvents()
+    {
         return $this->hasMany(Events::className(), ['event_name' => 'name']);
     }
 
@@ -67,9 +71,9 @@ class EventsDirectory extends \yii\db\ActiveRecord {
 //        return $this->hasOne(Category::className(), ['category_id' => 'id']);
 //    }
 
-    public function getCategoryName() {
+    public function getCategoryName()
+    {
         $parent = $this->category_name;
         return $parent ? $parent->name : '';
     }
-
 }

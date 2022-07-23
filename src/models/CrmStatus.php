@@ -23,7 +23,6 @@ use yii\helpers\ArrayHelper;
  */
 class CrmStatus extends \wm\yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
@@ -66,11 +65,9 @@ class CrmStatus extends \wm\yii\db\ActiveRecord
         $obB24 = new B24Object($b24App);
 
         $statuses = ArrayHelper::getValue($obB24->client->call('crm.status.list', []), 'result');
-        foreach ($statuses as $status)
-        {
+        foreach ($statuses as $status) {
             $statusObj = new CrmStatus();
-            if(!($statusObj->load($status, '') && $statusObj->save()))
-            {
+            if (!($statusObj->load($status, '') && $statusObj->save())) {
                 Yii::error([
                     $status,
                     $statusObj->errors
@@ -78,17 +75,13 @@ class CrmStatus extends \wm\yii\db\ActiveRecord
 
                 $errors[] = $statusObj->errors;
             }
-
         }
-        if($errors)
-        {
-           return [
+        if ($errors) {
+            return [
                'success' => false,
                'errors' => $errors
-           ];
-        }
-        else
-        {
+            ];
+        } else {
             return [
                 'success' => true
             ];

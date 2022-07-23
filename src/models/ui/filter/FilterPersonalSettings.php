@@ -8,19 +8,21 @@ use Yii;
  * Class FilterPersonalSettings
  * @package wm\admin\models\ui\filter
  */
-class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExtended {
-
+class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExtended
+{
     /**
      * @return string
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_filter_personal_settings';
     }
 
     /**
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['filterId', 'name', 'order', 'fixed'], 'required'],
             [['itemId', 'userId', 'order', 'visible'], 'integer'],[['value'], 'string'],
@@ -32,7 +34,8 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
     /**
      * @return array
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'filterId' => 'Filter ID',
@@ -45,8 +48,8 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
     /**
      * @return mixed
      */
-    public function getFilters() {
+    public function getFilters()
+    {
         return $this->hasOne(Filter::className(), ['id' => 'filteId']);
     }
-
 }

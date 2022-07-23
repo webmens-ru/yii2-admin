@@ -5,10 +5,11 @@ namespace wm\admin\models;
 use yii\data\ActiveDataProvider;
 use Yii;
 
-trait TraitSearch {
-
-    public function search($params) {
-        $query = parent::find();        
+trait TraitSearch
+{
+    public function search($params)
+    {
+        $query = parent::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' =>
@@ -17,7 +18,7 @@ trait TraitSearch {
                 'defaultPageSize' => 10000,
             ]
         ]);
-        
+
         $this->load($params);
         if (!$this->validate()) {
             $query->where('0=1');
@@ -29,8 +30,8 @@ trait TraitSearch {
         return $dataProvider;
     }
 
-    public function rules() {
+    public function rules()
+    {
         return [[array_keys($this->attributes), 'safe']];
     }
-
 }

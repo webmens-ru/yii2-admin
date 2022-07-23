@@ -2,7 +2,7 @@
 
 namespace wm\admin\models\gii;
 
-interface  TableGeneratorInterface 
+interface TableGeneratorInterface
 {
     public $tableName;
     public $deleteOldTable;

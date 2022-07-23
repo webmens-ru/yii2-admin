@@ -22,19 +22,21 @@ use Yii;
  * @property AdminRobots $robotCode
  * @property AdminRobotsTypes $type
  */
-class RobotsProperties extends \yii\db\ActiveRecord {
-
+class RobotsProperties extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_robots_properties';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
                 [['robot_code', 'system_name', 'name', 'description', 'type_id', 'required', 'multiple', 'sort'], 'required'],
                 [['is_in', 'type_id', 'required', 'multiple', 'sort'], 'integer'],
@@ -48,7 +50,8 @@ class RobotsProperties extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'robot_code' => 'ID робота',
             'is_in' => 'Входящий',
@@ -66,38 +69,43 @@ class RobotsProperties extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         return $this->hasMany(RobotsOptions::className(), ['robot_code' => 'robot_code', 'property_name' => 'system_name']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRobot() {
+    public function getRobot()
+    {
         return $this->hasOne(Robots::className(), ['code' => 'robot_code']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->hasOne(RobotsTypes::className(), ['id' => 'type_id']);
     }
 
-    public function getRobotName() {
+    public function getRobotName()
+    {
         $parent = $this->robot;
         return $parent ? $parent->name : '';
     }
 
-    public function getTypeName() {
+    public function getTypeName()
+    {
         $parent = $this->type;
         return $parent ? $parent->name : '';
     }
 
-    public static function getPropertiesTypeSelectStatic() {
+    public static function getPropertiesTypeSelectStatic()
+    {
         $typeId = RobotsOptions::find()->where(['name' => 'select_static'])->one()->id;
         $properties = self::find()->where(['type_id' => $typeId])->all();
         return $properties;
     }
-
 }

@@ -2,21 +2,23 @@
 
 use yii\db\Migration;
 
-class m211206_233700_cteate_menu_init extends Migration {
-
-    public function up() {
+class m211206_233700_cteate_menu_init extends Migration
+{
+    public function up()
+    {
 
         $this->createTable('{{%admin_menu%}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
         ]);
 
-        $this->batchInsert('admin_menu',
-                [
+        $this->batchInsert(
+            'admin_menu',
+            [
                     'id',
                     'name'
                 ],
-                [
+            [
                     [1, 'main']
                 ]
         );
@@ -31,8 +33,9 @@ class m211206_233700_cteate_menu_init extends Migration {
             'type' => $this->string(32)->notNull(),
         ]);
 
-        $this->batchInsert('admin_menu_item',
-                [
+        $this->batchInsert(
+            'admin_menu_item',
+            [
                     'id',
                     'title',
                     'visible',
@@ -41,7 +44,7 @@ class m211206_233700_cteate_menu_init extends Migration {
                     'menuId',
                     'type'
                 ],
-                [
+            [
                     [1, 'Основная', 1, 1, '{}', 1, 'updatePage'],
                     [2, 'Админка', 0, 2, '{"url":"https://webmens.ru/admin"}', 1, 'openLink'],
                 ]
@@ -59,10 +62,10 @@ class m211206_233700_cteate_menu_init extends Migration {
         $this->addForeignKey('menu_item_personal_fk0', 'admin_menu_item_personal', ['itemId'], 'admin_menu_item', ['id'], 'CASCADE', 'CASCADE');
     }
 
-    public function down() {
+    public function down()
+    {
         $this->dropTable('{{%admin_menu_item_personal%}}');
         $this->dropTable('{{%admin_menu_item%}}');
         $this->dropTable('{{%admin_menu%}}');
     }
-
 }

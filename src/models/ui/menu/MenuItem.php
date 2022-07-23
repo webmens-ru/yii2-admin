@@ -16,20 +16,21 @@ use Yii;
  * @property int $menuId
  * @property Menu $menu
  */
-class MenuItem extends \wm\yii\db\ActiveRecord {
-
-
+class MenuItem extends \wm\yii\db\ActiveRecord
+{
     /**
      * @return string
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_menu_item';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['title', 'visible', 'order', 'params', 'menuId', 'type'], 'required'],
             [['visible', 'menuId'], 'integer'],
@@ -41,7 +42,8 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'id',
             'title' => 'Надпись ',
@@ -58,14 +60,16 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMenu() {
+    public function getMenu()
+    {
         return $this->hasOne(Menu::className(), ['id' => 'menuId']);
     }
 
     /**
      * @return array|false
      */
-    public function fields() {
+    public function fields()
+    {
         return [
             'id', 'title', 'visible', 'order', 'menuId', 'type',
             'params' => function () {
@@ -78,7 +82,8 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
     /**
      * @return array
      */
-    public function getSchema() {
+    public function getSchema()
+    {
         $attributeLabels = $this->attributeLabels();
         unset($attributeLabels['menuId']);
         $attributeLabels['menu'] = 'меню';
@@ -90,7 +95,8 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
      * @param $userId
      * @return array
      */
-    public static function getItems($menuId, $userId) {
+    public static function getItems($menuId, $userId)
+    {
         if (!Menu::find()->where(['id' => $menuId])->one()) {
             Yii::error('$menuId не содержится в Базе данных');
             return [];
@@ -113,8 +119,8 @@ class MenuItem extends \wm\yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMenuItemPersonalSettings() {
+    public function getMenuItemPersonalSettings()
+    {
         return $this->hasMany(MenuItemPersonalSettings::className(), ['itemId' => 'id']);
     }
-
 }

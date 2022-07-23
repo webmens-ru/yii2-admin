@@ -10,8 +10,8 @@ use Yii;
  * Class FilterItemPersonalSettingsController
  * @package wm\admin\controllers\ui\filter
  */
-class FilterItemPersonalSettingsController extends \wm\admin\controllers\ActiveRestController {
-
+class FilterItemPersonalSettingsController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -24,7 +24,8 @@ class FilterItemPersonalSettingsController extends \wm\admin\controllers\ActiveR
     /**
      * @return bool
      */
-    public function actionSaveItems() {
+    public function actionSaveItems()
+    {
         $userId = Yii::$app->user->id;
         $items = Yii::$app->getRequest()->getBodyParams();
         FilterItemPersonalSettings::saveItems($items, $userId);

@@ -16,7 +16,7 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
 
-    <?php if ($model->file_path): ?> 
+    <?php if ($model->file_path) : ?> 
         <a href="<?= '/web/' . $model->file_path ?>" target="_blank">Сохраненный файл</a>
         </br>
     <?php endif; ?>                                                            

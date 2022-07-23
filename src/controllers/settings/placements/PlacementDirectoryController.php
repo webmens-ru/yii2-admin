@@ -27,11 +27,11 @@ class PlacementDirectoryController extends \wm\admin\controllers\BaseModuleContr
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];

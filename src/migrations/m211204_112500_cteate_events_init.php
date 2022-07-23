@@ -12,7 +12,8 @@ class m211204_112500_cteate_events_init extends Migration
             'description' => $this->string(255)->notNull(),
             'category_name' => $this->string(255)->notNull(),
         ]);
-        $this->batchInsert('admin_events_directory',
+        $this->batchInsert(
+            'admin_events_directory',
             [
                 'name',
                 'description',
@@ -109,7 +110,6 @@ class m211204_112500_cteate_events_init extends Migration
                 ['OnTaskUpdate', 'при обновлении задачи.', 'Задачи'],
                 ['OnUserAdd', 'при добавлении пользователя в Битрикс24', 'Портал'],
             ]
-
         );
         $this->addPrimaryKey('name', 'admin_events_directory', 'name');
 

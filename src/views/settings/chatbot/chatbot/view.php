@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'params_ru',
                 //'title_en',
                 //'params_en',
-                //'event_command_add', 
+                //'event_command_add',
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',

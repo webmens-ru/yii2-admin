@@ -23,8 +23,5 @@ class TableGenerator extends BaseB24TableGenerator
 
         $request = $obB24->client->call('crm.deal.fields');
         return ArrayHelper::getValue($request, 'result');
-
     }
-
-
 }

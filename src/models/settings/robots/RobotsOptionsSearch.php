@@ -9,12 +9,13 @@ use wm\admin\models\settings\robots\RobotsOptions;
 /**
  * RobotsOptionsSearch represents the model behind the search form of `wm\admin\models\RobotsOptions`.
  */
-class RobotsOptionsSearch extends RobotsOptions {
-
+class RobotsOptionsSearch extends RobotsOptions
+{
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
                 [['property_name', 'robot_code', 'value', 'name'], 'safe'],
                 [['sort'], 'integer'],
@@ -24,7 +25,8 @@ class RobotsOptionsSearch extends RobotsOptions {
     /**
      * {@inheritdoc}
      */
-    public function scenarios() {
+    public function scenarios()
+    {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -36,7 +38,8 @@ class RobotsOptionsSearch extends RobotsOptions {
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $robotCode = '', $systemName = '') {
+    public function search($params, $robotCode = '', $systemName = '')
+    {
         $query = RobotsOptions::find();
 
         // add conditions that should always apply here
@@ -74,5 +77,4 @@ class RobotsOptionsSearch extends RobotsOptions {
 
         return $dataProvider;
     }
-
 }

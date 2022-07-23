@@ -24,7 +24,8 @@ class m211203_221100_cteate_robots_init extends Migration
             'is_static' => $this->tinyInteger(1)->notNull(),
             'is_options' => $this->tinyInteger(1)->notNull(),
         ]);
-        $this->batchInsert('admin_robots_types',
+        $this->batchInsert(
+            'admin_robots_types',
             [
                 'id',
                 'name',
@@ -43,7 +44,6 @@ class m211203_221100_cteate_robots_init extends Migration
                 [9, 'text', 0, 0],
                 [10, 'user', 0, 0],
             ]
-
         );
 
         //admin_robots_properties

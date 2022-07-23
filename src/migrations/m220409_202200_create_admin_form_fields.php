@@ -1,6 +1,5 @@
 <?php
 
-
 class m220409_202200_create_admin_form_fields extends \yii\db\Migration
 {
     public function up()

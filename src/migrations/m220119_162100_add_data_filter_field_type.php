@@ -2,10 +2,12 @@
 
 use yii\db\Migration;
 
-class m220119_162100_add_data_filter_field_type extends Migration {
-
-    public function up() {
-        $this->batchInsert('admin_filter_field_type',
+class m220119_162100_add_data_filter_field_type extends Migration
+{
+    public function up()
+    {
+        $this->batchInsert(
+            'admin_filter_field_type',
             [
                 'id',
                 'name'
@@ -20,11 +22,10 @@ class m220119_162100_add_data_filter_field_type extends Migration {
                 [7, 'multiple_select'],
                 [8, 'select_dynamic'],
             ]
-
         );
     }
 
-    public function down() {
+    public function down()
+    {
     }
-
 }

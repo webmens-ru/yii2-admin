@@ -17,14 +17,14 @@ class m211204_120900_cteate_agents_init extends Migration
             'period' => $this->integer()->notNull(),
             'status_id' => $this->integer()->notNull(),
         ]);
-        $this->batchInsert('admin_agents',
+        $this->batchInsert(
+            'admin_agents',
             [
                 'id', 'name', 'class', 'method', 'params', 'date_run', 'period', 'status_id'
             ],
             [
                 [1, 'События', 'wm\\admin\\models\\settings\\events\\Events', 'getOflineEventsHendlersRun', '-', '2021-01-01 00:00:00', 55, 1],
             ]
-
         );
     }
 

@@ -88,8 +88,8 @@ use Yii;
  * ```
  *
  */
-class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestController{
-
+class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -122,7 +122,8 @@ class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestContr
      *
      * @return bool
      */
-    public function actionEditOrder() {
+    public function actionEditOrder()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
         FilterFieldSetting::editOrder($params);
         return true;

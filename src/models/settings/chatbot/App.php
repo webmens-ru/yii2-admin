@@ -31,24 +31,26 @@ use yii\helpers\Url;
  * @property AdminChatbotAppJsMethodDirectory $jsMethodCode
  * @property AdminChatbot $botCode
  */
-class App extends \yii\db\ActiveRecord {
-
+class App extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_chatbot_app';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [
                 ['js_method_code', 'js_param',],
                 'required',
-                'when' => function($model) {
+                'when' => function ($model) {
                     return $model->type == 'js';
                 },
                 'whenClient' => "function (attribute, value) {return $('#app-type').val()=='js';}"
@@ -56,7 +58,7 @@ class App extends \yii\db\ActiveRecord {
             [
                 ['iframe', 'iframe_height', 'iframe_width', 'hash', 'hidden',],
                 'required',
-                'when' => function($model) {
+                'when' => function ($model) {
                     return $model->type == 'iframe';
                 },
                 'whenClient' => "function (attribute, value) {return $('#app-type').val()=='iframe';}"
@@ -68,7 +70,7 @@ class App extends \yii\db\ActiveRecord {
 //                    return $model->type == 'iframe';
 //                },
 //                'whenClient' => "function (attribute, value) {return $('#app-type').val()=='iframe';}"
-//            ],            
+//            ],
             [['bot_code', 'code', /* 'js_method_code', 'js_param', */ 'contex_code', 'extranet_support', 'iframe_popup', 'title_ru', 'title_en', /* 'iframe', 'iframe_height', 'iframe_width', 'hash', 'hidden', */ 'livechat_support', 'type'], 'required'],
             [['icon_file'], 'string'],
             [['iframe_height', 'iframe_width', 'app_id'], 'integer'],
@@ -85,7 +87,8 @@ class App extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'bot_code' => 'Bot Code',
             'code' => 'Код приложения для чата',
@@ -112,7 +115,8 @@ class App extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getContexCode() {
+    public function getContexCode()
+    {
         return $this->hasOne(AdminChatbotAppContexDirectory::className(), ['code' => 'contex_code']);
     }
 
@@ -121,7 +125,8 @@ class App extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getJsMethodCode() {
+    public function getJsMethodCode()
+    {
         return $this->hasOne(AdminChatbotAppJsMethodDirectory::className(), ['code' => 'js_method_code']);
     }
 
@@ -130,17 +135,20 @@ class App extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBotCode() {
+    public function getBotCode()
+    {
         return $this->hasOne(Chatbot::className(), ['code' => 'bot_code']);
     }
 
-    public function toBitrix24() {
+    public function toBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24Im = new Im($b24App);
         $appParams = [
             'BOT_ID' => $this->botCode->bot_id,
@@ -160,7 +168,7 @@ class App extends \yii\db\ActiveRecord {
             $appParams['ICON_FILE'] = $this->icon_file;
         }
         if ($this->type == 'iframe') {
-            $appParams['IFRAME'] = Url::toRoute('/admin/handlers/chatbot/' .$this->bot_code. '/' . $this->iframe, 'https');
+            $appParams['IFRAME'] = Url::toRoute('/admin/handlers/chatbot/' . $this->bot_code . '/' . $this->iframe, 'https');
             $appParams['IFRAME_WIDTH'] = $this->iframe_width;
             $appParams['IFRAME_HEIGHT'] = $this->iframe_height;
             $appParams['HASH'] = $this->hash;
@@ -173,13 +181,15 @@ class App extends \yii\db\ActiveRecord {
         return $b24;
     }
 
-    public function updateBitrix24() {
+    public function updateBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24Im = new Im($b24App);
         $appParams = [];
         if ($this->type == 'js') {
@@ -200,7 +210,7 @@ class App extends \yii\db\ActiveRecord {
                 ]
             ];
         }
-        if ($this->type == 'iframe') {            
+        if ($this->type == 'iframe') {
             $appParams['APP_ID'] = $this->app_id;
             $appParams['FIELDS'] = [
                 'BOT_ID' => $this->botCode->bot_id,
@@ -210,7 +220,7 @@ class App extends \yii\db\ActiveRecord {
                 'EXTRANET_SUPPORT' => $this->extranet_support,
                 'LIVECHAT_SUPPORT' => $this->livechat_support,
                 'IFRAME_POPUP' => $this->iframe_popup,
-                'IFRAME' => Url::toRoute('/admin/handlers/chatbot/' .$this->bot_code. '/' . $this->iframe, 'https'),
+                'IFRAME' => Url::toRoute('/admin/handlers/chatbot/' . $this->bot_code . '/' . $this->iframe, 'https'),
                 'IFRAME_WIDTH' => $this->iframe_width,
                 'IFRAME_HEIGHT' => $this->iframe_height,
                 'HASH' => $this->hash,
@@ -225,5 +235,4 @@ class App extends \yii\db\ActiveRecord {
         $b24 = $obB24Im->client->call('imbot.app.update', $appParams);
         return $b24;
     }
-
 }

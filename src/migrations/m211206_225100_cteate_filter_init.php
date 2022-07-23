@@ -2,9 +2,10 @@
 
 use yii\db\Migration;
 
-class m211206_225100_cteate_filter_init extends Migration {
-
-    public function up() {
+class m211206_225100_cteate_filter_init extends Migration
+{
+    public function up()
+    {
         //admin_events_directory
         $this->createTable('{{%admin_filter%}}', [
             'id' => $this->primaryKey(),
@@ -60,12 +61,12 @@ class m211206_225100_cteate_filter_init extends Migration {
         $this->addForeignKey('filter_field_setting_fk1', 'admin_filter_field_setting', ['filterFieldId'], 'admin_filter_field', ['id']);
     }
 
-    public function down() {
+    public function down()
+    {
         $this->dropTable('{{%admin_filter_field_setting%}}');
         $this->dropTable('{{%admin_filter_field_options%}}');
         $this->dropTable('{{%admin_filter_field%}}');
         $this->dropTable('{{%admin_filter_field_type%}}');
         $this->dropTable('{{%admin_filter%}}');
     }
-
 }

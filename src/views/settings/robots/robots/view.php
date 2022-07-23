@@ -93,17 +93,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($searchModel, $index, $widget) {
                         return Html::checkbox('is_in[]', $searchModel->is_in, [/*'value' => $index,*/ 'disabled' => true]);
                     },
-                ],
-                'system_name',
-                'name',
-                'description',
+                    ],
+                    'system_name',
+                    'name',
+                    'description',
                     [
                     'attribute' => 'type_id',
-                    'content' => function($data) {
+                    'content' => function ($data) {
                         return $data->getTypeName();
                     },
                     'filter' => ArrayHelper::map($robotsTypesModel, 'id', 'name'),
-                ],
+                    ],
                     [
                     'attribute' => 'required',
                     'format' => 'raw',
@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($searchModel, $index, $widget) {
                         return Html::checkbox('required[]', $searchModel->required, [/*'value' => $index,*/ 'disabled' => true]);
                     },
-                ],
+                    ],
                     [
                     'attribute' => 'multiple',
                     'format' => 'raw',
@@ -119,9 +119,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($searchModel, $index, $widget) {
                         return Html::checkbox('multiple[]', $searchModel->multiple, [/*'value' => $index,*/ 'disabled' => true]);
                     },
-                ],
+                    ],
                 //'default',
-                [
+                    [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',
                     'headerOptions' => ['width' => '80'],
@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('', ['settings/robots/robots-properties/delete', 'robot_code' => $model->robot_code, 'system_name' => $model->system_name], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
                         },
                     ],
-                ],
+                    ],
             ],
         ]);
         ?>

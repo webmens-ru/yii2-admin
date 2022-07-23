@@ -9,20 +9,21 @@ use yii\helpers\ArrayHelper;
  * Class FilterItemPersonalSettings
  * @package wm\admin\models\ui\filter
  */
-class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord 
+class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
 {
-
     /**
      * @return string
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_filter_item_personal_settings';
     }
 
     /**
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['itemId', 'userId', 'order', 'visible', 'value'], 'required'],
             [['itemId', 'userId', 'order', 'visible'], 'integer'],
@@ -34,7 +35,8 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'itemId' => 'Item ID',
@@ -48,7 +50,8 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItem() {
+    public function getItem()
+    {
         return $this->hasOne(FilterItem::className(), ['id' => 'itemId']);
     }
 
@@ -89,5 +92,4 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
         }
         return $item;
     }
-
 }

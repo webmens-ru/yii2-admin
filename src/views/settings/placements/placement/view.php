@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'post',
                     ],
                 ])
-                ?>
+?>
             </p>
         </div>
         <div class="btn-group" role="group" aria-label="First group">

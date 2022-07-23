@@ -1,5 +1,6 @@
 <?php
-$this->title = 'Таблица '.$model->tableName .' успешно создана!';
+
+$this->title = 'Таблица ' . $model->tableName . ' успешно создана!';
 ?>
 
 <div class="py-5 text-center">

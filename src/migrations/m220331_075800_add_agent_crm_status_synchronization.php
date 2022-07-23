@@ -4,10 +4,10 @@ use yii\db\Migration;
 
 class m220331_075800_add_agent_crm_status_synchronization extends Migration
 {
-
     public function up()
     {
-        $this->batchInsert('admin_agents',
+        $this->batchInsert(
+            'admin_agents',
             [
                 'name',
                 'class',
@@ -26,5 +26,4 @@ class m220331_075800_add_agent_crm_status_synchronization extends Migration
     public function down()
     {
     }
-
 }

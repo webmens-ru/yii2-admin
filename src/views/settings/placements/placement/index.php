@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
                     },
                 ],
-            ],
+                ],
         ],
     ]);
     ?>

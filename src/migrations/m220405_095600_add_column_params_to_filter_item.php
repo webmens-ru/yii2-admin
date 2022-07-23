@@ -1,6 +1,5 @@
 <?php
 
-
 class m220405_095600_add_column_params_to_filter_item extends \yii\db\Migration
 {
     public function up()

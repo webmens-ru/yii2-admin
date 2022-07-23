@@ -35,11 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'auth_type',
                 [
                 'attribute' => 'event_type',
-                'content' => function($data) {
+                'content' => function ($data) {
                     return $data->event_type;
                 },
                 'filter' => ArrayHelper::map($eventsType, 'value', 'name'),
-            ],
+                ],
                 [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
                     },
                 ],
-            ],
+                ],
         ],
     ]);
     ?>

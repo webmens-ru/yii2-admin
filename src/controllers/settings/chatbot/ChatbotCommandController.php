@@ -26,11 +26,11 @@ class ChatbotCommandController extends \wm\admin\controllers\BaseModuleControlle
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -78,8 +78,8 @@ class ChatbotCommandController extends \wm\admin\controllers\BaseModuleControlle
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['view', 'bot_code' => $model->bot_code, 'command' => $model->command]);
         }
-        
-        if ($request->post('action') != 'submit') {            
+
+        if ($request->post('action') != 'submit') {
             $model->bot_code = $chatbotCode;
         }
 
@@ -123,8 +123,9 @@ class ChatbotCommandController extends \wm\admin\controllers\BaseModuleControlle
 
         return $this->redirect(['index']);
     }
-    
-    public function actionB24Delete($bot_code, $command) {
+
+    public function actionB24Delete($bot_code, $command)
+    {
         $model = $this->findModel($bot_code, $command);
         $model->removeBitrix24();
         return $this->render('delete', [
@@ -132,15 +133,17 @@ class ChatbotCommandController extends \wm\admin\controllers\BaseModuleControlle
         ]);
     }
 
-    public function actionInstall($bot_code, $command) {
+    public function actionInstall($bot_code, $command)
+    {
         $model = $this->findModel($bot_code, $command);
         $model->toBitrix24();
         return $this->render('install', [
                     'model' => $model
         ]);
     }
-    
-    public function actionB24Update($bot_code, $command) {
+
+    public function actionB24Update($bot_code, $command)
+    {
         $model = $this->findModel($bot_code, $command);
         $model->updateBitrix24();
         return $this->render('b24-update', [

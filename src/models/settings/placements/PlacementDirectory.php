@@ -12,8 +12,8 @@ use Yii;
  *
  * @property AdminPlacement[] $adminPlacements
  */
-class PlacementDirectory extends \yii\db\ActiveRecord {
-
+class PlacementDirectory extends \yii\db\ActiveRecord
+{
     public static $CATEGORIES = [
             ['name' => 'Компания'],
             ['name' => 'Контакт'],
@@ -24,14 +24,16 @@ class PlacementDirectory extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_placement_directory';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
                 [['name_id', 'description', 'category_name'], 'required'],
                 [['name_id'], 'string', 'max' => 50],
@@ -44,7 +46,8 @@ class PlacementDirectory extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'name_id' => 'Идентификатор места встройки',
             'description' => 'Описание',
@@ -57,8 +60,8 @@ class PlacementDirectory extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacements() {
+    public function getPlacements()
+    {
         return $this->hasMany(Placement::className(), ['placement_name' => 'name_id']);
     }
-
 }

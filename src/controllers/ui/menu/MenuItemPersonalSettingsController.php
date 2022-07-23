@@ -6,13 +6,12 @@ use wm\admin\models\ui\menu\MenuItemPersonalSettings;
 use wm\admin\models\ui\menu\MenuItemPersonalSettingsSearch;
 use Yii;
 
-
 /**
  * Class MenuItemPersonalSettingsController
  * @package wm\admin\controllers\ui\menu
  */
-class MenuItemPersonalSettingsController extends \wm\admin\controllers\ActiveRestController{
-
+class MenuItemPersonalSettingsController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -25,11 +24,12 @@ class MenuItemPersonalSettingsController extends \wm\admin\controllers\ActiveRes
     /**
      * @return bool
      */
-    public function actionSaveItems() {
+    public function actionSaveItems()
+    {
         $userId = Yii::$app->user->id;
-		$items = Yii::$app->getRequest()->getBodyParams();
+        $items = Yii::$app->getRequest()->getBodyParams();
         MenuItemPersonalSettings::saveItems($items, $userId);
 
-       return true;
+        return true;
     }
 }

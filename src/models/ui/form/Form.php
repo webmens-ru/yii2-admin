@@ -64,7 +64,7 @@ class Form extends \wm\yii\db\ActiveRecord
             'id',
             'mode',
             'title',
-            'canToggleMode' => function() {
+            'canToggleMode' => function () {
                 return boolval($this->canToggleMode);
             },
             'action',
@@ -73,5 +73,4 @@ class Form extends \wm\yii\db\ActiveRecord
             'fields'
         ];
     }
-
 }

@@ -14,7 +14,6 @@ use yii\filters\AccessControl;
  */
 class SettingsController extends \wm\admin\controllers\BaseModuleController
 {
-    
     /**
      * {@inheritdoc}
      */
@@ -30,11 +29,11 @@ class SettingsController extends \wm\admin\controllers\BaseModuleController
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];

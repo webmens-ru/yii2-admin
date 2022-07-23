@@ -30,16 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
                 [
                 'attribute' => 'property_id',
-                'content' => function($data) {
+                'content' => function ($data) {
                     return $data->getPropertyName();
                 },
                 'filter' => ArrayHelper::map($robotsPropertiesModel, 'id', 'name'),
-            ],
-            'property_name',
-            'robot_code',
-            'value',
-            'name',
-            'sort',
+                ],
+                'property_name',
+                'robot_code',
+                'value',
+                'name',
+                'sort',
                 [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
                     },
                 ],
-            ],
+                ],
         ],
     ]);
     ?>

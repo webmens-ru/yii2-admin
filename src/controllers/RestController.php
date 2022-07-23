@@ -1,4 +1,5 @@
 <?php
+
 namespace wm\admin\controllers;
 
 use Yii;
@@ -6,7 +7,6 @@ use yii\filters\auth\CompositeAuth;
 
 class RestController extends \yii\rest\Controller
 {
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -47,5 +47,4 @@ class RestController extends \yii\rest\Controller
             ],
         ];
     }
-
 }

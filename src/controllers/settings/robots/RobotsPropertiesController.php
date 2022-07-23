@@ -15,8 +15,8 @@ use yii\filters\AccessControl;
 /**
  * RobotsPropertiesController implements the CRUD actions for RobotsProperties model.
  */
-class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleController {
-
+class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -29,11 +29,11 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -43,7 +43,8 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      * Lists all RobotsProperties models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new RobotsPropertiesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $robotsModel = Robots::find()->all();
@@ -63,11 +64,12 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($robot_code, $system_name) {
+    public function actionView($robot_code, $system_name)
+    {
         $model = $this->findModel($robot_code, $system_name);
         $searchModel = new RobotsOptionsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->robot_code, $model->system_name);
-        
+
         return $this->render('view', [
             'model' => $model,
             'searchModel' => $searchModel,
@@ -80,7 +82,8 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($robotCode) {
+    public function actionCreate($robotCode)
+    {
         $model = new RobotsProperties();
         $robotsTypesModel = RobotsTypes::find()->all();
 
@@ -106,7 +109,8 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($robot_code, $system_name) {
+    public function actionUpdate($robot_code, $system_name)
+    {
         $model = $this->findModel($robot_code, $system_name);
         $robotsModel = Robots::find()->all();
         $robotsTypesModel = RobotsTypes::find()->all();
@@ -129,9 +133,10 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($robot_code, $system_name) {
+    public function actionDelete($robot_code, $system_name)
+    {
         $this->findModel($robot_code, $system_name)->delete();
-       
+
         return $this->redirect(['settings/robots/robots/view', 'code' => $robot_code]);
     }
 
@@ -142,12 +147,12 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      * @return RobotsProperties the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($robot_code, $system_name) {
+    protected function findModel($robot_code, $system_name)
+    {
         if (($model = RobotsProperties::findOne(['robot_code' => $robot_code, 'system_name' => $system_name])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

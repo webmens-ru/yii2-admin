@@ -13,8 +13,8 @@ use yii\filters\AccessControl;
 /**
  * PlacementController implements the CRUD actions for Placement model.
  */
-class PlacementController extends \wm\admin\controllers\BaseModuleController {
-
+class PlacementController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -27,11 +27,11 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -41,7 +41,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
      * Lists all Placement models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new PlacementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $placementDirectoryModel = PlacementDirectory::find()->all();
@@ -59,7 +60,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -70,7 +72,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Placement();
         $placementDirectoryModel = PlacementDirectory::find()->all();
 
@@ -91,7 +94,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
         $placementDirectoryModel = PlacementDirectory::find()->all();
 
@@ -112,17 +116,19 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    public function actionB24PlacementsList() {
-        
+    public function actionB24PlacementsList()
+    {
     }
 
-    public function actionB24Delete($id) {
+    public function actionB24Delete($id)
+    {
         $model = $this->findModel($id);
         $model->removeBitrix24();
         return $this->render('b24-delete', [
@@ -130,7 +136,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24Install($id) {
+    public function actionB24Install($id)
+    {
         $model = $this->findModel($id);
         $model->toBitrix24();
         return $this->render('b24-install', [
@@ -145,12 +152,12 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController {
      * @return Placement the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = Placement::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

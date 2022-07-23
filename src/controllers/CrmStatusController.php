@@ -10,10 +10,10 @@ class CrmStatusController extends \wm\admin\controllers\ActiveRestController
 
     public function actionSynchronization()
     {
-        if($this->modelClass::synchronization()['success'])
+        if ($this->modelClass::synchronization()['success']) {
             return true;
-        else
+        } else {
             return false;
-
+        }
     }
 }

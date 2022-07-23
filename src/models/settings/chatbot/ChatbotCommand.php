@@ -23,15 +23,16 @@ use yii\helpers\Url;
  *
  * @property AdminChatbot $botCode
  */
-class ChatbotCommand extends \yii\db\ActiveRecord {
-
+class ChatbotCommand extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_chatbot_command';
     }
-    
+
     public static $registerErrors = [
         'EVENT_COMMAND_ADD' => 'Ссылка обработчик события невалидная или не указана.',
         'COMMAND_ERROR' => 'Не указан текст команды, на которую должен откликаться чат-бот.',
@@ -40,21 +41,21 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
         'LANG_ERROR' => 'Не переданы языковые фразы для видимой команды.',
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
-    
-    public static $unregisterErrors = [        
+
+    public static $unregisterErrors = [
         'COMMAND_ERROR' => 'Команда не найдена.',
         'APP_ID_ERROR' => 'Чат-бот не принадлежит этому приложению, работать можно только с чат-ботами, установленными в рамках приложения.',
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
-    
-    public static $updateErrors = [        
+
+    public static $updateErrors = [
         'COMMAND_ID_ERROR' => 'Команда не найдена.',
         'APP_ID_ERROR' => 'Чат-бот не принадлежит этому приложению, работать можно только с чат-ботами, установленными в рамках приложения.',
         'EVENT_COMMAND_ADD' => 'Ссылка обработчик события невалидная или не указана.',
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
-    
-    public static $answerErrors = [        
+
+    public static $answerErrors = [
         'COMMAND_ID_ERROR' => 'Команда не найдена.',
         'APP_ID_ERROR' => 'Чат-бот не принадлежит этому приложению, работать можно только с чат-ботами, установленными в рамках приложения.',
         'MESSAGE_EMPTY' => 'Не передан текст сообщения.',
@@ -66,13 +67,14 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
         'MENU_OVERSIZE' => 'Превышен максимально допустимый размер меню (30 Кб).',
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
-    
-    
+
+
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['bot_code', 'command', 'common', 'hidden', 'extranet_support', 'title_ru', 'params_ru', 'title_en', 'params_en', 'event_command_add'], 'required'],
             [['bot_code'], 'string', 'max' => 64],
@@ -87,7 +89,8 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'bot_code' => 'Идентификатор чат-бота',
             'command' => 'Текст команды',
@@ -108,21 +111,25 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBot() {
+    public function getBot()
+    {
         return $this->hasOne(Chatbot::className(), ['code' => 'bot_code']);
     }
 
-    private function connectBitrix24() {
+    private function connectBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         return $b24App;
     }
 
-    public function toBitrix24() {
+    public function toBitrix24()
+    {
         $b24App = $this->connectBitrix24();
         $obB24Im = new Im($b24App);
         $b24 = $obB24Im->client->call('imbot.command.register', [
@@ -131,53 +138,54 @@ class ChatbotCommand extends \yii\db\ActiveRecord {
             'COMMON' => $this->common,
             'HIDDEN' => $this->hidden,
             'EXTRANET_SUPPORT' => $this->extranet_support,
-            'LANG' => Array(// Массив переводов, обязательно указывать, как минимум, для RU и EN
-                Array('LANGUAGE_ID' => 'en', 'TITLE' => $this->title_en, 'PARAMS' => $this->params_en), // Язык, описание команды, какие данные после команды нужно вводить.
-                Array('LANGUAGE_ID' => 'ru', 'TITLE' => $this->title_ru, 'PARAMS' => $this->params_ru)
+            'LANG' => array(// Массив переводов, обязательно указывать, как минимум, для RU и EN
+                array('LANGUAGE_ID' => 'en', 'TITLE' => $this->title_en, 'PARAMS' => $this->params_en), // Язык, описание команды, какие данные после команды нужно вводить.
+                array('LANGUAGE_ID' => 'ru', 'TITLE' => $this->title_ru, 'PARAMS' => $this->params_ru)
             ),
             'EVENT_COMMAND_ADD' => Url::toRoute('/handlers/chatbot/' . $this->bot_code . '/' . $this->event_command_add, 'https'),
         ]);
-        
-        if(array_key_exists($b24['result'], self::$registerErrors)){
+
+        if (array_key_exists($b24['result'], self::$registerErrors)) {
             return ['errors' => self::$registerErrors[$b24['result']]];
         }
-        
+
         $this->command_id = $b24['result'];
         $this->save();
         return $b24;
     }
 
-    public function removeBitrix24() {
+    public function removeBitrix24()
+    {
         $b24App = $this->connectBitrix24();
         $obB24Im = new Im($b24App);
         $b24 = $obB24Im->client->call('imbot.command.unregister', ['COMMAND_ID' => $this->command_id]);
-        if(array_key_exists($b24['result'], self::$unregisterErrors)){
+        if (array_key_exists($b24['result'], self::$unregisterErrors)) {
             return ['errors' => self::$unregisterErrors[$b24['result']]];
         }
         $this->command_id = null;
         $this->save();
     }
 
-    public function updateBitrix24() {
+    public function updateBitrix24()
+    {
         $b24App = $this->connectBitrix24();
         $obB24Im = new Im($b24App);
         $b24 = $obB24Im->client->call('imbot.command.update', [
             'COMMAND_ID' => $this->command_id,
-            'FIELDS' => Array(
+            'FIELDS' => array(
                 'COMMON' => $this->common,
                 'HIDDEN' => $this->hidden,
                 'EXTRANET_SUPPORT' => $this->extranet_support,
-                'LANG' => Array(// Массив переводов, обязательно указывать, как минимум, для RU и EN
-                    Array('LANGUAGE_ID' => 'en', 'TITLE' => $this->title_en, 'PARAMS' => $this->params_en), // Язык, описание команды, какие данные после команды нужно вводить.
-                    Array('LANGUAGE_ID' => 'ru', 'TITLE' => $this->title_ru, 'PARAMS' => $this->params_ru)
+                'LANG' => array(// Массив переводов, обязательно указывать, как минимум, для RU и EN
+                    array('LANGUAGE_ID' => 'en', 'TITLE' => $this->title_en, 'PARAMS' => $this->params_en), // Язык, описание команды, какие данные после команды нужно вводить.
+                    array('LANGUAGE_ID' => 'ru', 'TITLE' => $this->title_ru, 'PARAMS' => $this->params_ru)
                 ),
                 'EVENT_COMMAND_ADD' => Url::toRoute('/handlers/chatbot/' . $this->bot_code . '/' . $this->event_command_add, 'https'),
             ),
         ]);
-        if(array_key_exists($b24['result'], self::$updateErrors)){
+        if (array_key_exists($b24['result'], self::$updateErrors)) {
             return ['errors' => self::$updateErrors[$b24['result']]];
         }
         return $b24;
     }
-
 }

@@ -59,7 +59,7 @@ class ChatbotSearch extends Chatbot
         // grid filtering conditions
         $query->andFilterWhere([
             'openline' => $this->openline,
-            'p_personal_birthday' => $this->p_personal_birthday,            
+            'p_personal_birthday' => $this->p_personal_birthday,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code])

@@ -26,11 +26,11 @@ class ChatbotTypeDirectoryController extends \wm\admin\controllers\BaseModuleCon
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];

@@ -11,19 +11,21 @@ use Yii;
  * @property string $value
  * @property string $name
  */
-class Settings extends \yii\db\ActiveRecord {
-
+class Settings extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_settings';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['name_id', 'value', 'name'], 'required'],
             [['name_id', 'value', 'name'], 'string', 'max' => 255],
@@ -34,7 +36,8 @@ class Settings extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'name_id' => 'Системное имя',
             'value' => 'Значение',
@@ -42,7 +45,8 @@ class Settings extends \yii\db\ActiveRecord {
         ];
     }
 
-    public static function getParametrByName($name){
-       return self::find()->where(['name_id' => $name])->one()->value;
+    public static function getParametrByName($name)
+    {
+        return self::find()->where(['name_id' => $name])->one()->value;
     }
 }

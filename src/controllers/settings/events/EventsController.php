@@ -14,8 +14,8 @@ use yii\filters\AccessControl;
 /**
  * EventsController implements the CRUD actions for Events model.
  */
-class EventsController extends \wm\admin\controllers\BaseModuleController {
-
+class EventsController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -28,11 +28,11 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -42,7 +42,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
      * Lists all Events models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new EventsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $eventsNameModel = EventsDirectory::find()->all();
@@ -56,7 +57,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24List() {
+    public function actionB24List()
+    {
         $result = Events::getB24EventsList()['result'];
         $resultOnline = array_filter($result, 'wm\b24tools\b24Tools::isEventOnline');
         $resultOffline = array_filter($result, 'wm\b24tools\b24Tools::isEventOffline');
@@ -78,7 +80,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24Delete($id) {
+    public function actionB24Delete($id)
+    {
         $model = $this->findModel($id);
         $model->removeBitrix24();
         return $this->render('b24-delete', [
@@ -86,7 +89,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24Install($id) {
+    public function actionB24Install($id)
+    {
         $model = $this->findModel($id);
         $model->toBitrix24();
         return $this->render('b24-install', [
@@ -100,7 +104,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -111,7 +116,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Events();
         $eventsNameModel = EventsDirectory::find()->all();
         $eventsType = EventsDirectory::$EVENT_TYPES;
@@ -134,7 +140,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
         $eventsNameModel = EventsDirectory::find()->all();
         $eventsType = EventsDirectory::$EVENT_TYPES;
@@ -157,7 +164,8 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -170,12 +178,12 @@ class EventsController extends \wm\admin\controllers\BaseModuleController {
      * @return Events the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = Events::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

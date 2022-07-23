@@ -20,31 +20,34 @@ use yii\web\UploadedFile;
  * @property string $with_stamps
  * @property int $sort
  */
-class Templates extends \yii\db\ActiveRecord {
-
+class Templates extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_dg_templates';
     }
-    
+
     public $file;
-    
-    public function beforeSave($insert){
-        if($file = UploadedFile::getInstance($this, 'file')){
+
+    public function beforeSave($insert)
+    {
+        if ($file = UploadedFile::getInstance($this, 'file')) {
             $dir = 'uploads/';
             $this->file_path = $dir . $this->code . '-' . $file->baseName . '.' . $file->extension;
             $file->saveAs($this->file_path);
         }
         return parent::beforeSave($insert);
     }
-    
+
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['name', 'numerator_id', 'region_id', 'code', 'active', 'with_stamps', 'sort'], 'required'],
             [['numerator_id', 'sort', 'template_id'], 'integer'],
@@ -60,7 +63,8 @@ class Templates extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'name' => 'Название шаблона',
             'file_path' => 'Файл',
@@ -74,7 +78,8 @@ class Templates extends \yii\db\ActiveRecord {
         ];
     }
 
-    public static function getRegionsList($b24App) {
+    public static function getRegionsList($b24App)
+    {
         $obB24 = new B24Object($b24App);
         $res = $obB24->client->call('documentgenerator.region.list')['result'];
         $regions = [];
@@ -83,27 +88,30 @@ class Templates extends \yii\db\ActiveRecord {
         }
         return $regions;
     }
-    
-    public static function getNumeratorsList($b24App) {
+
+    public static function getNumeratorsList($b24App)
+    {
         $obB24 = new B24Object($b24App);
         $res = $obB24->client->call('documentgenerator.numerator.list')['result'];
-        $numerators = ArrayHelper::map($res['numerators'], 'id', 'name');        
+        $numerators = ArrayHelper::map($res['numerators'], 'id', 'name');
         return $numerators;
     }
-    
-    public function toBitrix24() {
+
+    public function toBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
-        $obB24 = new \Bitrix24\B24Object($b24App);        
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
+        $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
                 call(
-                        'documentgenerator.template.add', 
-                        [
+                    'documentgenerator.template.add',
+                    [
                             'fields' => [
                                 'name' => $this->name,
                                 'file' => base64_encode(file_get_contents($this->file_path)),
@@ -116,46 +124,50 @@ class Templates extends \yii\db\ActiveRecord {
                                 'sort' => $this->sort
                             ]
                         ]
-                    );
+                );
         $this->template_id = ArrayHelper::getValue($b24, 'result.template.id');
         $this->save();
         return $b24;
     }
-    
-    public function fieldsBitrix24() {
+
+    public function fieldsBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
-        $obB24 = new \Bitrix24\B24Object($b24App);        
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
+        $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
                 call(
-                        'documentgenerator.template.getfields', 
-                        [
+                    'documentgenerator.template.getfields',
+                    [
                             'id' => $this->template_id,
                             'providerClassName' => '\\Bitrix\\DocumentGenerator\\DataProvider\\Rest',
                             'value' => 1,
                         ]
-                    );        
+                );
         return $b24['result'];
     }
-    
-    public function updateBitrix24() {
+
+    public function updateBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
-        $obB24 = new \Bitrix24\B24Object($b24App);        
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
+        $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
                 call(
-                        'documentgenerator.template.update', 
-                        [
+                    'documentgenerator.template.update',
+                    [
                             'id' => $this->template_id,
                             'fields' => [
                                 'name' => $this->name,
@@ -169,34 +181,37 @@ class Templates extends \yii\db\ActiveRecord {
                                 'sort' => $this->sort
                             ]
                         ]
-                    );        
+                );
         return $b24;
     }
-    
-    public static function getB24List() {
+
+    public static function getB24List()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
-        $obB24 = new \Bitrix24\B24Object($b24App);        
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
+        $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->client->call('documentgenerator.template.list', []);
         return $b24;
     }
-    
-    public function removeBitrix24() {
+
+    public function removeBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
 
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->client->call('documentgenerator.template.delete', ['id' => $this->template_id]);
         $this->template_id = null;
         $this->save();
     }
-
 }

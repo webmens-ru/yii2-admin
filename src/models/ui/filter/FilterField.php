@@ -56,7 +56,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
             'entityCode' => 'Entity Code',
             'typeId' => 'Type ID',
             'title' => 'Title',
-            'order' => 'Order', 
+            'order' => 'Order',
             'code' => 'Code',
             'params' => 'Params',
         ];
@@ -101,8 +101,9 @@ class FilterField extends \wm\yii\db\ActiveRecord
     {
         return $this->hasOne(FilterFieldType::className(), ['id' => 'typeId']);
     }
-    
-    public function fields(){
+
+    public function fields()
+    {
         return [
             'id',
             'entityCode',

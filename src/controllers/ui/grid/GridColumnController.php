@@ -10,8 +10,8 @@ use Yii;
  * Class GridColumnController
  * @package wm\admin\controllers\ui\grid
  */
-class GridColumnController extends \wm\admin\controllers\ActiveRestController{
-
+class GridColumnController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -25,13 +25,10 @@ class GridColumnController extends \wm\admin\controllers\ActiveRestController{
      * @param null $entity
      * @return array|mixed
      */
-    public function actionSchema($entity=null){
+    public function actionSchema($entity = null)
+    {
         $userId = Yii::$app->user->id;
         $model = GridColumn::getColumns($entity, $userId);
         return $model;
     }
-    
-    
-    
-    
 }

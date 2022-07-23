@@ -31,11 +31,11 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -49,7 +49,7 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     {
         $searchModel = new ChatbotSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -65,13 +65,13 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     public function actionView($code)
     {
         $model = $this->findModel($code);
-        
+
         $searchModel = new ChatbotCommandSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->code);
-        
+
         $AppSearchModel = new AppSearch();
         $AppDataProvider = $AppSearchModel->search(Yii::$app->request->queryParams, $model->code);
-        
+
         return $this->render('view', [
             'model' => $model,
             'searchModel' => $searchModel,
@@ -89,7 +89,7 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     public function actionCreate()
     {
         $model = new Chatbot();
-        
+
         $colors = ChatbotColorDirectory::find()->all();
         $typies = ChatbotTypeDirectory::find()->all();
         $openLineList = Chatbot::getOpenLineList();
@@ -145,16 +145,18 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
 
         return $this->redirect(['index']);
     }
-    
-    public function actionB24Delete($code) {
+
+    public function actionB24Delete($code)
+    {
         $model = $this->findModel($code);
         $model->removeBitrix24();
         return $this->render('delete', [
                     'model' => $model
         ]);
     }
-    
-    public function actionB24Update($code) {
+
+    public function actionB24Update($code)
+    {
         $model = $this->findModel($code);
         $model->updateBitrix24();
         return $this->render('b24-update', [
@@ -162,15 +164,17 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
         ]);
     }
 
-    public function actionInstall($code) {
+    public function actionInstall($code)
+    {
         $model = $this->findModel($code);
         $model->toBitrix24();
         return $this->render('install', [
                     'model' => $model
         ]);
     }
-    
-    public function actionB24List() {
+
+    public function actionB24List()
+    {
         $result = Chatbot::getB24List()['result'];
 //        $resultOnline = array_filter($result, 'wm\b24tools\b24Tools::isEventOnline');
 //        $resultOffline = array_filter($result, 'wm\b24tools\b24Tools::isEventOffline');

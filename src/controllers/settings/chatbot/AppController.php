@@ -14,8 +14,8 @@ use yii\filters\AccessControl;
 /**
  * AppController implements the CRUD actions for App model.
  */
-class AppController extends \wm\admin\controllers\BaseModuleController {
-
+class AppController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -28,11 +28,11 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -42,7 +42,8 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
      * Lists all App models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new AppSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,7 +60,8 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($bot_code, $code) {
+    public function actionView($bot_code, $code)
+    {
         return $this->render('view', [
                     'model' => $this->findModel($bot_code, $code),
         ]);
@@ -70,7 +72,8 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($chatbotCode, $type = null) {
+    public function actionCreate($chatbotCode, $type = null)
+    {
         $request = Yii::$app->request;
 
         $model = new App();
@@ -111,9 +114,10 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($bot_code, $code) {
+    public function actionUpdate($bot_code, $code)
+    {
         $model = $this->findModel($bot_code, $code);
-        
+
         $jsMethods = AppJsMethodDirectory::find()->all();
         $contects = AppContexDirectory::find()->all();
 
@@ -137,7 +141,8 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($bot_code, $code) {
+    public function actionDelete($bot_code, $code)
+    {
         $this->findModel($bot_code, $code)->delete();
 
         return $this->redirect(['index']);
@@ -151,28 +156,30 @@ class AppController extends \wm\admin\controllers\BaseModuleController {
      * @return App the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($bot_code, $code) {
+    protected function findModel($bot_code, $code)
+    {
         if (($model = App::findOne(['bot_code' => $bot_code, 'code' => $code])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    
-    public function actionInstall($bot_code, $code) {
+
+    public function actionInstall($bot_code, $code)
+    {
         $model = $this->findModel($bot_code, $code);
         $model->toBitrix24();
         return $this->render('install', [
                     'model' => $model
         ]);
     }
-    
-    public function actionB24Update($bot_code, $code) {
+
+    public function actionB24Update($bot_code, $code)
+    {
         $model = $this->findModel($bot_code, $code);
         $model->updateBitrix24();
         return $this->render('b24-update', [
                     'model' => $model
         ]);
     }
-
 }
