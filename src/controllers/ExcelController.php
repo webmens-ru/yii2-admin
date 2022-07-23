@@ -59,7 +59,7 @@ class ExcelController extends Controller
         $spreadsheet->getActiveSheet()
             ->fromArray(
                 $data,
-                NULL,
+                null,
                 'A1'
             );
         $spreadsheet->getActiveSheet()
@@ -148,7 +148,7 @@ class ExcelController extends Controller
     {
         $result = [];
         if (ArrayHelper::getValue($data, 'schema')) {
-            $columns = ArrayHelper::getColumn(ArrayHelper::getValue($data, 'schema'),'code');
+            $columns = ArrayHelper::getColumn(ArrayHelper::getValue($data, 'schema'), 'code');
             $temp = [ArrayHelper::map(ArrayHelper::getValue($data, 'schema'), 'code', 'title')];
             $temp = array_merge($temp, self::getValues(ArrayHelper::getValue($data, 'grid'), $columns));
             $data = array_merge($temp, self::getValues(ArrayHelper::getValue($data, 'footer'), $columns));
@@ -157,18 +157,18 @@ class ExcelController extends Controller
             $tempRow = [];
             foreach ($row as $key => $value) {
                 $tempRow[$key] = is_array($value) ? ArrayHelper::getValue($value, 'title') : $value;
-
             }
             $result[] = $tempRow;
         }
         return $result;
     }
 
-    public static function getValues($data, $keys = ['id']){
+    public static function getValues($data, $keys = ['id'])
+    {
         $result = [];
-        foreach ($data as $value){
+        foreach ($data as $value) {
             $temp = [];
-            foreach ($keys as $key){
+            foreach ($keys as $key) {
                 $temp[$key] = ArrayHelper::getValue($value, $key);
             }
 
@@ -204,5 +204,4 @@ class ExcelController extends Controller
                 ->setAutoSize(true);
         }
     }
-
 }

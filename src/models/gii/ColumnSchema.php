@@ -5,7 +5,6 @@ namespace wm\admin\models\gii;
 use yii\base\BaseObject;
 use yii\db\Schema;
 
-
 class ColumnSchema extends BaseObject
 {
     public static function getDbType($params)
@@ -61,7 +60,7 @@ class ColumnSchema extends BaseObject
                 case 'address':
                     return Schema::TYPE_STRING;
                 case 'resourcebooking':
-                return Schema::TYPE_STRING;
+                    return Schema::TYPE_STRING;
                 case 'employee':
                     return Schema::TYPE_STRING . '(32)';
 

@@ -95,7 +95,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     {
         $column = self::find()->where(['columnId' => $columnId, 'userId' => $userId])->one();
         if (!$column) {
-            $column = new GridColumnPersonal();           
+            $column = new GridColumnPersonal();
         }
         return $column;
     }

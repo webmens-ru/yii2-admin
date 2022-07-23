@@ -2,7 +2,7 @@
 
 namespace wm\admin\models\ui\menu;
 
-class MenuItemSearch extends MenuItem {
-
+class MenuItemSearch extends MenuItem
+{
     use \wm\admin\models\TraitSearch;
 }

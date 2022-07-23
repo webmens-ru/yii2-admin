@@ -27,11 +27,11 @@ class EventsDirectoryController extends \wm\admin\controllers\BaseModuleControll
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -87,7 +87,7 @@ class EventsDirectoryController extends \wm\admin\controllers\BaseModuleControll
         return $this->render('create', [
             'model' => $model,
             'eventsCategories' => $eventsCategories,
-            
+
         ]);
     }
 

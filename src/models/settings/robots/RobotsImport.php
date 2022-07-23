@@ -25,14 +25,15 @@ use yii\base\Model;
  *
  * @property AdminRobotsProperties[] $adminRobotsProperties
  */
-class RobotsImport extends \yii\base\Model {
-
+class RobotsImport extends \yii\base\Model
+{
     public $file;
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['file'], 'required'],
             [['file'], 'file', 'checkExtensionByMimeType' => false, 'extensions' => ['zip']],
@@ -42,16 +43,18 @@ class RobotsImport extends \yii\base\Model {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'file' => 'Файл с роботом',
         ];
     }
 
-    public function import() {
+    public function import()
+    {
         $zip = new \ZipArchive();
         $res = $zip->open($this->file->tempName);
-        if ($res === TRUE) {
+        if ($res === true) {
             for ($i = 0; $i < $zip->count(); $i++) {
                 if (preg_match('/Action.php$/', $zip->statIndex($i)['name'])) {
                     $filePatch = '../controllers/handlers/robots/';
@@ -63,14 +66,14 @@ class RobotsImport extends \yii\base\Model {
             $zip->close();
         } else {
             Yii::error('ошибка с кодом:' . $res);
-        }        
+        }
     }
 
-    private function addRobotToDb($file) {
-        
+    private function addRobotToDb($file)
+    {
     }
 
-    private function addRobotActionFile($file) {
-        
+    private function addRobotActionFile($file)
+    {
     }
 }

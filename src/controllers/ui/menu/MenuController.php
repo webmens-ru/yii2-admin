@@ -9,8 +9,8 @@ use wm\admin\models\ui\menu\Menu;
  * Class MenuController
  * @package wm\admin\controllers\ui\menu
  */
-class MenuController extends \wm\admin\controllers\ActiveRestController{
-
+class MenuController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */

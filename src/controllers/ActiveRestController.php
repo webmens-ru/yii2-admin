@@ -9,12 +9,13 @@ use yii\filters\auth\CompositeAuth;
  * Class ActiveRestController
  * @package wm\admin\controllers
  */
-class ActiveRestController extends \yii\rest\ActiveController {
-
+class ActiveRestController extends \yii\rest\ActiveController
+{
     /**
      * @return array
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         $behaviors = parent::behaviors();
         return [
             'corsFilter' => [
@@ -58,12 +59,13 @@ class ActiveRestController extends \yii\rest\ActiveController {
      * Возвращается массив actions
      * `index`, `view`, `create`, `update`, `delete`, `options`
      */
-    public function actions() {
+    public function actions()
+    {
         $actions = parent::actions();
 
         // отключить действия "delete" и "create"
         // unset($actions['delete'], $actions['create']);
-        // настроить подготовку провайдера данных с помощью метода 
+        // настроить подготовку провайдера данных с помощью метода
         // "prepareDataProvider()"
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
@@ -73,7 +75,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
     /**
      * @return mixed
      */
-    public function prepareDataProvider() {
+    public function prepareDataProvider()
+    {
         $searchModel = new $this->modelClassSearch();
         return $searchModel->search(Yii::$app->request->queryParams);
     }
@@ -82,7 +85,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
      * @param null $entity
      * @return mixed
      */
-    public function actionSchema($entity = null) {
+    public function actionSchema($entity = null)
+    {
         $model = new $this->modelClass();
         return $model->schema;
     }
@@ -90,7 +94,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
     /**
      * @return mixed
      */
-    public function actionValidation() {
+    public function actionValidation()
+    {
         $model = new $this->modelClass();
         return $model->restRules;
     }
@@ -98,7 +103,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
     /**
      * @return array
      */
-    public function actionData() {
+    public function actionData()
+    {
         $dataProvider = $this->prepareDataProvider()->getModels();
         $res = [
             'grid' => $dataProvider,
@@ -106,5 +112,4 @@ class ActiveRestController extends \yii\rest\ActiveController {
         ];
         return $res;
     }
-
 }

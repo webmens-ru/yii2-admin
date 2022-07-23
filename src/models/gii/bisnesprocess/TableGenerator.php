@@ -13,7 +13,6 @@ use  wm\admin\models\gii\BaseB24TableGenerator;
 
 class TableGenerator extends BaseB24TableGenerator
 {
-
     public $bpId;
     public $bpType;
     public $groupId;
@@ -54,13 +53,15 @@ class TableGenerator extends BaseB24TableGenerator
         $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
         $types = ArrayHelper::getValue($request, 'result.types');
         if (count($types) != $request['total']) {
-            for ($i = 1; $i < $countCalls; $i++)
-                $obB24->client->addBatchCall('crm.type.list',
+            for ($i = 1; $i < $countCalls; $i++) {
+                $obB24->client->addBatchCall(
+                    'crm.type.list',
                     array_merge([], ['start' => $obB24->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use (&$types) {
                         $types = array_merge($types, ArrayHelper::getValue($result, 'result.types'));
                     }
                 );
+            }
             $obB24->client->processBatchCalls();
         }
         return $types;
@@ -79,8 +80,5 @@ class TableGenerator extends BaseB24TableGenerator
 
         $request = $obB24->client->call('crm.item.fields', ['entityTypeId' => $this->spId]);
         return ArrayHelper::getValue($request, 'result.fields');
-
     }
-
-
 }

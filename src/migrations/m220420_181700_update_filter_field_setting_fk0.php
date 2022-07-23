@@ -1,6 +1,5 @@
 <?php
 
-
 class m220420_181700_update_filter_field_setting_fk0 extends \yii\db\Migration
 {
     public function up()
@@ -11,6 +10,5 @@ class m220420_181700_update_filter_field_setting_fk0 extends \yii\db\Migration
 
     public function down()
     {
-        
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 class m220331_184700_create_admin_crm_user extends \yii\db\Migration
 {
     public function up()

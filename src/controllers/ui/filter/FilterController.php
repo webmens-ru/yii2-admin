@@ -19,7 +19,6 @@ use yii\web\ServerErrorHttpException;
  */
 class FilterController extends \wm\admin\controllers\ActiveRestController
 {
-
     /**
      * @var string
      */
@@ -266,5 +265,4 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
         $params = Yii::$app->getRequest()->getBodyParams();
         Filter::editOrder($params);
     }
-
 }

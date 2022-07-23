@@ -8,14 +8,16 @@ use app\modules\baseapp\models\B24ConnectSettings;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
 
-class RobotController extends \yii\web\Controller {
-
-    public function beforeAction($action) {
+class RobotController extends \yii\web\Controller
+{
+    public function beforeAction($action)
+    {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
 
-    public function actions() {
+    public function actions()
+    {
         $result = [];
         $actionFiles = FileHelper::findFiles('../controllers/handlers/robots');
         foreach ($actionFiles as $actionFile) {
@@ -23,5 +25,4 @@ class RobotController extends \yii\web\Controller {
         }
         return $result;
     }
-
 }

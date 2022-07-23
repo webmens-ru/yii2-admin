@@ -13,10 +13,10 @@ use yii\filters\AccessControl;
 /**
  * RobotsOptionsController implements the CRUD actions for RobotsOptions model.
  */
-class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController {
-
+class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
+{
     public $layout = 'admin.php';
-    
+
     public function behaviors()
     {
         return [
@@ -29,11 +29,11 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -43,7 +43,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
      * Lists all RobotsOptions models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new RobotsOptionsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $robotsPropertiesModel = RobotsProperties::find()->all();
@@ -61,7 +62,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($property_name, $robot_code, $value) {
+    public function actionView($property_name, $robot_code, $value)
+    {
         return $this->render('view', [
                     'model' => $this->findModel($property_name, $robot_code, $value),
         ]);
@@ -72,7 +74,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($robotCode, $propertyName) {
+    public function actionCreate($robotCode, $propertyName)
+    {
         $model = new RobotsOptions();
         $robotsPropertiesModel = RobotsProperties::find()->where(['type_id' => '6'])->all();
 
@@ -99,7 +102,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($property_name, $robot_code, $value) {
+    public function actionUpdate($property_name, $robot_code, $value)
+    {
         $model = $this->findModel($property_name, $robot_code, $value);
         $robotsPropertiesModel = RobotsProperties::getPropertiesTypeSelectStatic();
 
@@ -120,7 +124,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($property_name, $robot_code, $value) {
+    public function actionDelete($property_name, $robot_code, $value)
+    {
         $this->findModel($property_name, $robot_code, $value)->delete();
 
         return $this->redirect(['settings/robots/robots-properties/view', 'system_name' => $property_name, 'robot_code' => $robot_code]);
@@ -133,12 +138,12 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
      * @return RobotsOptions the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($property_name, $robot_code, $value) {
+    protected function findModel($property_name, $robot_code, $value)
+    {
         if (($model = RobotsOptions::findOne($property_name, $robot_code, $value)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

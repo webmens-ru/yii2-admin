@@ -9,23 +9,25 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property int $is_static 
+ * @property int $is_static
  *
  * @property AdminRobotsProperties[] $adminRobotsProperties
  */
-class RobotsTypes extends \yii\db\ActiveRecord {
-
+class RobotsTypes extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_robots_types';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['name', 'is_options'], 'required'],
             [['name'], 'unique'],
@@ -37,7 +39,8 @@ class RobotsTypes extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -49,8 +52,8 @@ class RobotsTypes extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->hasMany(RobotsProperties::className(), ['type_id' => 'id']);
     }
-
 }

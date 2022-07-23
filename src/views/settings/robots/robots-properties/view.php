@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                 'label' => $model->getAttributeLabel('robot_code'),
                 'value' => $model->robotName,
-            ],
+                ],
                 [
                 'label' => $model->getAttributeLabel('is_in'),
                 'attribute' => 'is_in',
@@ -46,14 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Html::checkbox('is_in[]', $model->is_in, ['value' => $index, 'disabled' => true]);
                 },
-            ],
-            'system_name',
-            'name',
-            'description',
+                ],
+                'system_name',
+                'name',
+                'description',
                 [
                 'label' => $model->getAttributeLabel('type_id'),
                 'value' => $model->typeName,
-            ],
+                ],
                 [
                 'label' => $model->getAttributeLabel('required'),
                 'attribute' => 'required',
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Html::checkbox('required[]', $model->required, ['value' => $index, 'disabled' => true]);
                 },
-            ],
+                ],
                 [
                 'label' => $model->getAttributeLabel('multiple'),
                 'attribute' => 'multiple',
@@ -69,9 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Html::checkbox('multiple[]', $model->multiple, ['value' => $index, 'disabled' => true]);
                 },
-            ],
-            'default',
-            'sort',
+                ],
+                'default',
+                'sort',
         ],
     ])
     ?>
@@ -123,11 +123,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'data-method' => 'post']);
                             },
                         ],
-                    ],
+                        ],
                 ],
             ]);
             ?>
         </div>
-        <?php } ?>
+    <?php } ?>
 
 </div>

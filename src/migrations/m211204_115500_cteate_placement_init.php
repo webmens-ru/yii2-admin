@@ -12,7 +12,8 @@ class m211204_115500_cteate_placement_init extends Migration
             'description' => $this->string(255)->notNull(),
             'category_name' => $this->string(255)->notNull(),
         ]);
-        $this->batchInsert('admin_placement_directory',
+        $this->batchInsert(
+            'admin_placement_directory',
             [
                 'name_id',
                 'description',
@@ -76,7 +77,6 @@ class m211204_115500_cteate_placement_init extends Migration
                 ['USER_PROFILE_MENU', 'Кнопка в главном меню портала.', 'Профиль пользователя'],
                 ['USER_PROFILE_TOOLBAR', 'Кнопка в профиле .', 'Профиль пользователя'],
             ]
-
         );
         $this->addPrimaryKey('name_id', 'admin_placement_directory', 'name_id');
 

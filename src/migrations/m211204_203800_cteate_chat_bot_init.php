@@ -11,7 +11,8 @@ class m211204_203800_cteate_chat_bot_init extends Migration
             'name' => $this->char(1)->notNull(),
             'title' => $this->string(255)->notNull(),
         ]);
-        $this->batchInsert('admin_chatbot_type_directory',
+        $this->batchInsert(
+            'admin_chatbot_type_directory',
             [
                 'name',
                 'title',
@@ -22,7 +23,6 @@ class m211204_203800_cteate_chat_bot_init extends Migration
                 ['O', 'чат-бот для Открытых линий'],
                 ['S', 'чат-бот с повышенными привилегиями (supervisor)'],
             ]
-
         );
         $this->addPrimaryKey('name', 'admin_chatbot_type_directory', 'name');
 
@@ -31,7 +31,8 @@ class m211204_203800_cteate_chat_bot_init extends Migration
             'code' => $this->string(32)->notNull(),
             'title' => $this->string(255)->notNull(),
         ]);
-        $this->batchInsert('admin_chatbot_app_contex_directory',
+        $this->batchInsert(
+            'admin_chatbot_app_contex_directory',
             [
                 'code',
                 'title',
@@ -44,7 +45,6 @@ class m211204_203800_cteate_chat_bot_init extends Migration
                 ['LINES', 'приложение будет доступно только в чатах Открытых линий'],
                 ['USER', 'приложение будет доступно только в чатах Один-на-один'],
             ]
-
         );
         $this->addPrimaryKey('code', 'admin_chatbot_app_contex_directory', 'code');
 
@@ -53,7 +53,8 @@ class m211204_203800_cteate_chat_bot_init extends Migration
             'name' => $this->string(20)->notNull(),
             'title' => $this->string(255)->notNull(),
         ]);
-        $this->batchInsert('admin_chatbot_color_directory',
+        $this->batchInsert(
+            'admin_chatbot_color_directory',
             [
                 'name',
                 'title',
@@ -84,7 +85,8 @@ class m211204_203800_cteate_chat_bot_init extends Migration
             'code' => $this->string(32)->notNull(),
             'title' => $this->string(255)->notNull(),
         ]);
-        $this->batchInsert('admin_chatbot_app_js_method_directory',
+        $this->batchInsert(
+            'admin_chatbot_app_js_method_directory',
             [
                 'code',
                 'title',

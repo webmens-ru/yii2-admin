@@ -13,23 +13,25 @@ use Yii;
 * @property string $robot_code
 * @property string $value
 * @property string $name
-* @property int $sort 
+* @property int $sort
 *
 * @property AdminRobotsProperties $robotCode
  */
-class RobotsOptions extends \yii\db\ActiveRecord {
-
+class RobotsOptions extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_robots_options';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['property_name', 'robot_code', 'value', 'name'], 'required'],
            [['sort'], 'integer'],
@@ -42,7 +44,8 @@ class RobotsOptions extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'property_name' => 'Название параметра',
            'robot_code' => 'ID робота',
@@ -56,9 +59,9 @@ class RobotsOptions extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getProperty()
-   {
-       return $this->hasOne(RobotsProperties::className(), ['robot_code' => 'robot_code', 'system_name' => 'property_name']);
-   }
+    {
+        return $this->hasOne(RobotsProperties::className(), ['robot_code' => 'robot_code', 'system_name' => 'property_name']);
+    }
 
     /*public function getProperty() {
         return $this->hasOne(RobotsProperties::className(), ['id' => 'property_id']);
@@ -68,5 +71,4 @@ class RobotsOptions extends \yii\db\ActiveRecord {
         $parent = $this->property;
         return $parent ? $parent->name : '';
     }*/
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace wm\admin\models\settings;
 
 use Yii;
@@ -16,7 +17,6 @@ use Yii;
  */
 class Agents extends \yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
@@ -66,7 +66,6 @@ class Agents extends \yii\db\ActiveRecord
             try {
                 call_user_func(array($model->class, $model->method));
             } catch (\Exception $e) {
-                
             }
             $timestamp = strtotime($dateTimestamp) + $model->period;
             $model->date_run = date("Y-m-d H:i:s", $timestamp);

@@ -17,19 +17,21 @@ use yii\helpers\ArrayHelper;
  * @property Filter $filter
  * @property FilterField $filterField
  */
-class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
-
+class FilterFieldSetting extends \wm\yii\db\ActiveRecord
+{
     /**
      * @return string
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_filter_field_setting';
     }
 
     /**
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['filterId', 'filterFieldId', 'order'], 'required'],
             [['filterId', 'filterFieldId', 'order'], 'integer'],
@@ -43,7 +45,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
     /**
      * @return array
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'filterId' => 'Filter ID',
@@ -58,7 +61,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         return $this->hasOne(Filter::className(), ['id' => 'filterId']);
     }
 
@@ -67,7 +71,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFilterField() {
+    public function getFilterField()
+    {
         return $this->hasOne(FilterField::className(), ['id' => 'filterFieldId']);
     }
 
@@ -75,7 +80,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
      * @param $oldFilterId
      * @param $newFilterId
      */
-    public static function copyField($oldFilterId, $newFilterId) {
+    public static function copyField($oldFilterId, $newFilterId)
+    {
         $models = self::find()->where(['filterId' => $oldFilterId])->all();
         foreach ($models as $value) {
             $model = new FilterFieldSetting();
@@ -95,7 +101,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
      * @param $filter
      * @return bool
      */
-    public static function add($params, $filter) {
+    public static function add($params, $filter)
+    {
         foreach ($params as $value) {
             $value['filterId'] = $filter->id;
             $value['value'] = json_encode($value['value']);
@@ -114,7 +121,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
      * @param $params
      * @throws \Exception
      */
-    public static function editOrder($params) {
+    public static function editOrder($params)
+    {
         foreach ($params as $param) {
             $model = self::find()->where(['id' => $param['id'],])->one();
             $model->order = ArrayHelper::getValue($param, 'order');
@@ -124,5 +132,4 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord {
             }
         }
     }
-
 }

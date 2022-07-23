@@ -2,10 +2,12 @@
 
 use yii\db\Migration;
 
-class m220318_171800_add_events_directory extends Migration {
-
-    public function up() {
-        $this->batchInsert('admin_events_directory',
+class m220318_171800_add_events_directory extends Migration
+{
+    public function up()
+    {
+        $this->batchInsert(
+            'admin_events_directory',
             [
                 'name',
                 'description',
@@ -65,7 +67,7 @@ class m220318_171800_add_events_directory extends Migration {
         );
     }
 
-    public function down() {
+    public function down()
+    {
     }
-
 }

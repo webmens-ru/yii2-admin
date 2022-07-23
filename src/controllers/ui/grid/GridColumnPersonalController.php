@@ -10,8 +10,8 @@ use Yii;
  * Class GridColumnPersonalController
  * @package wm\admin\controllers\ui\grid
  */
-class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestController {
-
+class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -24,12 +24,12 @@ class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestContr
     /**
      * @return bool
      */
-    public function actionSaveSchema() {
+    public function actionSaveSchema()
+    {
         $userId = Yii::$app->user->id;
         $columns = Yii::$app->getRequest()->getBodyParams();
         GridColumnPersonal::saveColumns($columns, $userId);
 
         return true;
     }
-
 }

@@ -9,8 +9,8 @@ use wm\admin\models\ui\filter\FilterFieldOptions;
  * Class FilterFieldOptionsController
  * @package wm\admin\controllers\ui\filter
  */
-class FilterFieldOptionsController extends \wm\admin\controllers\ActiveRestController{
-
+class FilterFieldOptionsController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */

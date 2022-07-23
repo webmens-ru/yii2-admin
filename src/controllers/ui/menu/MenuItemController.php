@@ -10,8 +10,8 @@ use Yii;
  * Class MenuItemController
  * @package wm\admin\controllers\ui\menu
  */
-class MenuItemController extends \wm\admin\controllers\ActiveRestController {
-
+class MenuItemController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -25,7 +25,8 @@ class MenuItemController extends \wm\admin\controllers\ActiveRestController {
      * @param $menuId
      * @return array
      */
-    public function actionItems($menuId) {
+    public function actionItems($menuId)
+    {
         $userId = Yii::$app->user->id;
         $model = MenuItem::getItems($menuId, $userId);
         return $model;
@@ -34,10 +35,11 @@ class MenuItemController extends \wm\admin\controllers\ActiveRestController {
     /**
      * @return mixed
      */
-    public function actionSaveItems() {
-		$name = Yii::$app->getRequest()->getBodyParams(); 
+    public function actionSaveItems()
+    {
+        $name = Yii::$app->getRequest()->getBodyParams();
 
-       return $name;
+        return $name;
     }
 }
 
@@ -51,16 +53,16 @@ class MenuItemController extends \wm\admin\controllers\ActiveRestController {
 
 
 
-        
-        // эквивалентно: 
+
+        // эквивалентно:
 //        $name = isset($_POST['id']) ? $_POST['name'] : null;
-       
+
 //    $request=Yii::$app->getRequest();
 //    $myData= $request->bodyParams['myData'];
-    
 
-        
-        
+
+
+
 //        $data=[
 //            'id'=>26,
 //        ];

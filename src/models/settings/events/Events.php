@@ -18,21 +18,23 @@ use yii\helpers\Url;
  *
  * @property AdminEventsDirectory $eventName
  */
-class Events extends \yii\db\ActiveRecord {
-
+class Events extends \yii\db\ActiveRecord
+{
     public static $BASE_URL_HANDLER = '/admin/handlers/event/';
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_events';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['event_name', 'handler', 'event_type'], 'required'],
             [['auth_type'], 'integer'],
@@ -45,7 +47,8 @@ class Events extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'event_name' => 'Название события',
@@ -55,26 +58,42 @@ class Events extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function toBitrix24() {
+    public function toBitrix24()
+    {
         $component = new b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'), B24ConnectSettings::getParametrByName('applicationSecret'), B24ConnectSettings::getParametrByName('b24PortalTable'), B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $handler = $this->getUrlHandler();
         $b24 = $obB24->bind(
-                $this->event_name, $handler, $this->auth_type, $this->event_type
+            $this->event_name,
+            $handler,
+            $this->auth_type,
+            $this->event_type
         );
         return $b24;
     }
 
-    public function removeBitrix24() {
+    public function removeBitrix24()
+    {
         $component = new b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'), B24ConnectSettings::getParametrByName('applicationSecret'), B24ConnectSettings::getParametrByName('b24PortalTable'), B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $handler = $this->getUrlHandler();
         $b24 = $obB24->unbind(
-                $this->event_name, $handler, $this->auth_type, $this->event_type
+            $this->event_name,
+            $handler,
+            $this->auth_type,
+            $this->event_type
         );
     }
 
@@ -83,25 +102,33 @@ class Events extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEvent() {
+    public function getEvent()
+    {
         return $this->hasOne(EventsDirectory::className(), ['name' => 'event_name']);
     }
 
-    public static function getB24EventsList() {
+    public static function getB24EventsList()
+    {
         $component = new b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'), B24ConnectSettings::getParametrByName('applicationSecret'), B24ConnectSettings::getParametrByName('b24PortalTable'), B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $b24 = $obB24->get();
         return $b24;
     }
 
-    public function getEventName() {
+    public function getEventName()
+    {
         $parent = $this->event_type;
         return $parent ? $parent->name : '';
     }
 
-    private function getUrlHandler() {
+    private function getUrlHandler()
+    {
         $url = '';
         if (strpos($this->handler, '/')) {
             $url = Url::toRoute($this->handler, 'https');
@@ -111,13 +138,14 @@ class Events extends \yii\db\ActiveRecord {
         return $url;
     }
 
-    public static function getOffline($eventName) {
+    public static function getOffline($eventName)
+    {
         $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App); //
         $fullResult = $obB24->client->call(
-                'event.offline.get',
-                array(
+            'event.offline.get',
+            array(
                     'filter' => [
                         'EVENT_NAME' => $eventName,
                     ]
@@ -125,5 +153,4 @@ class Events extends \yii\db\ActiveRecord {
         );
         return $fullResult;
     }
-
 }

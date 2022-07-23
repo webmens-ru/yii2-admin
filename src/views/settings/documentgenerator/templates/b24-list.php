@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Шаблон',
                 'format' => 'raw',
-                'value' => function($data) {
+                'value' => function ($data) {
                     return Html::a(
-                                    'Скачать',
-                                    $data['downloadMachine'],
-                                    [
+                        'Скачать',
+                        $data['downloadMachine'],
+                        [
                                         'title' => 'Смелей вперед!',
                                         'target' => '_blank'
                                     ]

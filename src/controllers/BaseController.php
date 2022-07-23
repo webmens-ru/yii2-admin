@@ -5,8 +5,8 @@ namespace wm\admin\controllers;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
-class BaseController extends \wm\admin\controllers\BaseModuleController {
-    
+class BaseController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -19,21 +19,21 @@ class BaseController extends \wm\admin\controllers\BaseModuleController {
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
+                'rules' => [
                     [
                         'actions' => [
                             'index',
                         ],
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
     }
-    
-    public function actionIndex() {
+
+    public function actionIndex()
+    {
         return $this->render('index');
     }
-
 }

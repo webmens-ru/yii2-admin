@@ -18,8 +18,8 @@ use yii\helpers\ArrayHelper;
 /**
  * TemplatesController implements the CRUD actions for Templates model.
  */
-class TemplatesController extends \wm\admin\controllers\BaseModuleController {
-
+class TemplatesController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -32,11 +32,11 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
@@ -46,7 +46,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      * Lists all Templates models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new TemplatesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -62,7 +63,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($code) {
+    public function actionView($code)
+    {
         return $this->render('view', [
                     'model' => $this->findModel($code),
         ]);
@@ -73,7 +75,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Templates();
         $request = Yii::$app->request;
 
@@ -94,10 +97,11 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
 
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $regions = Templates::getRegionsList($b24App);
         $numerators = Templates::getNumeratorsList($b24App);
 
@@ -124,7 +128,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($code) {
+    public function actionUpdate($code)
+    {
         $model = $this->findModel($code);
         $request = Yii::$app->request;
 
@@ -149,10 +154,11 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
 
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $regions = Templates::getRegionsList($b24App);
         $numerators = Templates::getNumeratorsList($b24App);
 
@@ -170,7 +176,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($code) {
+    public function actionDelete($code)
+    {
         $model = $this->findModel($code);
         if (is_file($model->file_path)) {
             unlink($model->file_path); // delete file
@@ -179,7 +186,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
         return $this->redirect(['index']);
     }
 
-    public function actionInstall($code) {
+    public function actionInstall($code)
+    {
         $model = $this->findModel($code);
         $model->toBitrix24();
         return $this->render('install', [
@@ -187,7 +195,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24Update($code) {
+    public function actionB24Update($code)
+    {
         $model = $this->findModel($code);
         $model->updateBitrix24();
         return $this->render('b24-update', [
@@ -195,7 +204,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24Delete($code) {
+    public function actionB24Delete($code)
+    {
         $model = $this->findModel($code);
         $model->removeBitrix24();
         return $this->render('delete', [
@@ -203,7 +213,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24List() {
+    public function actionB24List()
+    {
         $result = \yii\helpers\ArrayHelper::getValue(Templates::getB24List(), 'result.templates');
         $dataProvider = new ArrayDataProvider([
             'allModels' => $result,
@@ -216,7 +227,8 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionB24Fields($code) {
+    public function actionB24Fields($code)
+    {
         $model = $this->findModel($code);
         $fielsds = $model->fieldsBitrix24();
         $arrFields = [];
@@ -242,12 +254,12 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController {
      * @return Templates the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($code) {
+    protected function findModel($code)
+    {
         if (($model = Templates::findOne($code)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

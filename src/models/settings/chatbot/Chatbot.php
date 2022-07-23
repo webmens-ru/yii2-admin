@@ -28,25 +28,27 @@ use yii\helpers\Url;
  * @property string|null $event_massege_delete
  * @property string|null $event_welcome_massege
  * @property string|null $event_bot_delete
- * @property int|null $bot_id 
+ * @property int|null $bot_id
  *
  * @property AdminChatbotTypeDirectory $type
  * @property AdminChatbotColorDirectory $pColorName
  * @property AdminChatbotCommand[] $adminChatbotCommands
  */
-class Chatbot extends \yii\db\ActiveRecord {
-
+class Chatbot extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_chatbot';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['code', 'type_id', 'p_name', 'p_last_name', 'p_color_name', 'p_email'], 'required'],
             [['p_personal_gender', 'bot_id'], 'integer'],
@@ -64,7 +66,8 @@ class Chatbot extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'code' => 'Код',
             'type_id' => 'Тип',
@@ -93,7 +96,8 @@ class Chatbot extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->hasOne(ChatbotTypeDirectory::className(), ['name' => 'type_id']);
     }
 
@@ -102,21 +106,25 @@ class Chatbot extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPColorName() {
+    public function getPColorName()
+    {
         return $this->hasOne(ChatbotColorDirectory::className(), ['name' => 'p_color_name']);
     }
 
-    public static function getOpenLineList() {
+    public static function getOpenLineList()
+    {
         return ['Y' => 'Да'];
     }
 
-    public function toBitrix24() {
+    public function toBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24Im = new Im($b24App);
         $botParams = [
             'CODE' => $this->code,
@@ -127,10 +135,10 @@ class Chatbot extends \yii\db\ActiveRecord {
                 'COLOR' => $this->p_color_name,
                 ]
         ];
-        
-        if($this->event_handler){
+
+        if ($this->event_handler) {
             $botParams['EVENT_HANDLER'] = Url::toRoute($this->event_handler, 'https');
-        }else{
+        } else {
             $botParams['EVENT_MESSAGE_ADD'] = Url::toRoute($this->event_massege_add, 'https');
             $botParams['EVENT_WELCOME_MESSAGE'] = Url::toRoute($this->event_welcome_massege, 'https');
             $botParams['EVENT_BOT_DELETE'] = Url::toRoute($this->event_bot_delete, 'https');
@@ -144,14 +152,16 @@ class Chatbot extends \yii\db\ActiveRecord {
         $this->save();
         return $b24;
     }
-    
-    public function updateBitrix24() {
+
+    public function updateBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24Im = new Im($b24App);
         $botParams = [
             'CODE' => $this->code,
@@ -162,10 +172,10 @@ class Chatbot extends \yii\db\ActiveRecord {
                 'COLOR' => $this->p_color_name,
                 ]
         ];
-        
-        if($this->event_handler){
+
+        if ($this->event_handler) {
             $botParams['EVENT_HANDLER'] = Url::toRoute($this->event_handler, 'https');
-        }else{
+        } else {
             $botParams['EVENT_MESSAGE_ADD'] = Url::toRoute($this->event_massege_add, 'https');
             $botParams['EVENT_WELCOME_MESSAGE'] = Url::toRoute($this->event_welcome_massege, 'https');
             $botParams['EVENT_BOT_DELETE'] = Url::toRoute($this->event_bot_delete, 'https');
@@ -174,29 +184,33 @@ class Chatbot extends \yii\db\ActiveRecord {
         }
 
 
-        $b24 = $obB24Im->client->call('imbot.update', $botParams);        
+        $b24 = $obB24Im->client->call('imbot.update', $botParams);
         return $b24;
     }
 
-    public static function getB24List() {
+    public static function getB24List()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24Im = new Im($b24App);
         $b24 = $obB24Im->client->call('imbot.bot.list', []);
         return $b24;
     }
 
-    public function removeBitrix24() {
+    public function removeBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
 //        $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
 //        $b24 = $obB24->delete($this->code);
 
@@ -211,17 +225,18 @@ class Chatbot extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getChatbotCommands() {
+    public function getChatbotCommands()
+    {
         return $this->hasMany(ChatbotCommand::className(), ['bot_code' => 'code']);
     }
-    
+
     /**
     * Gets query for [[AdminChatbotApps]].
     *
     * @return \yii\db\ActiveQuery
     */
-    public function getApps() {
+    public function getApps()
+    {
         return $this->hasMany(App::className(), ['bot_code' => 'code']);
     }
-
 }

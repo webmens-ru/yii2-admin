@@ -12,7 +12,8 @@ use Yii;
  *
  * @property Menuitem[] $menuitems
  */
-class Menu extends \wm\yii\db\ActiveRecord{
+class Menu extends \wm\yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
@@ -52,6 +53,4 @@ class Menu extends \wm\yii\db\ActiveRecord{
     {
         return $this->hasMany(MenuItem::className(), ['menuId' => 'id']);
     }
-    
-    
 }

@@ -16,8 +16,8 @@ use yii\web\UploadedFile;
 /**
  * RobotsController implements the CRUD actions for Robots model.
  */
-class RobotsController extends \wm\admin\controllers\BaseModuleController {
-
+class RobotsController extends \wm\admin\controllers\BaseModuleController
+{
     public function behaviors()
     {
         return [
@@ -30,21 +30,22 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
             'access' => [
                 'class' => AccessControl::className(),
                 //'only' => ['about'],
-                'rules' => [                    
-                    [                        
+                'rules' => [
+                    [
                         'allow' => true,
                         'roles' => ['canAdmin'],
-                    ],                    
+                    ],
                 ],
             ],
         ];
     }
-    
+
     /**
      * Lists all Robots models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new RobotsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,7 +61,8 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($code) {
+    public function actionView($code)
+    {
         $model = $this->findModel($code);
         $searchModel = new RobotsPropertiesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->code);
@@ -79,7 +81,8 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Robots();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,7 +101,8 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($code) {
+    public function actionUpdate($code)
+    {
         $model = $this->findModel($code);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -117,13 +121,15 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($code) {
+    public function actionDelete($code)
+    {
         $this->findModel($code)->delete();
 
         return $this->redirect(['settings/robots/robots/index']);
     }
 
-    public function actionB24Delete($code) {
+    public function actionB24Delete($code)
+    {
         $model = $this->findModel($code);
         $model->removeBitrix24();
         return $this->render('delete', [
@@ -131,7 +137,8 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionInstall($code) {
+    public function actionInstall($code)
+    {
         $model = $this->findModel($code);
         $model->toBitrix24();
         return $this->render('install', [
@@ -139,7 +146,8 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
         ]);
     }
 
-    public function actionExport($code) {
+    public function actionExport($code)
+    {
         $model = $this->findModel($code);
         $fileName = $model->export();
         header("Content-type: application/zip");
@@ -150,9 +158,10 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
         readfile("$fileName");
         unlink($fileName);
     }
-    
-    public function actionFileImport() {
-        $model = new RobotsImport();        
+
+    public function actionFileImport()
+    {
+        $model = new RobotsImport();
         if ($model->load(Yii::$app->request->post())) {
             $model->file = UploadedFile::getInstance($model, 'file');
         }
@@ -160,7 +169,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
             if ($model->file) {
                 $model->import();
             }
-            return $this->redirect(['index']);           
+            return $this->redirect(['index']);
         }
         return $this->render('file-import', [
                     'model' => $model,
@@ -174,12 +183,12 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController {
      * @return Robots the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($code) {
+    protected function findModel($code)
+    {
         if (($model = Robots::findOne($code)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

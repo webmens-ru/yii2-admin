@@ -30,9 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'robot_code',
-                'content' => function($data) {
-            return $data->getRobotName();
-        },
+                'content' => function ($data) {
+                    return $data->getRobotName();
+                },
                 'filter' => ArrayHelper::map($robotsModel, 'id', 'name'),
             ],
             [
@@ -40,17 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-            return Html::checkbox('is_in[]', $searchModel->is_in, ['value' => $index, 'disabled' => true]);
-        },
+                    return Html::checkbox('is_in[]', $searchModel->is_in, ['value' => $index, 'disabled' => true]);
+                },
             ],
             'system_name',
             'name',
             'description',
             [
                 'attribute' => 'type_id',
-                'content' => function($data) {
-            return $data->getTypeName();
-        },
+                'content' => function ($data) {
+                    return $data->getTypeName();
+                },
                 'filter' => ArrayHelper::map($robotsTypesModel, 'id', 'name'),
             ],
             [
@@ -58,16 +58,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-            return Html::checkbox('required[]', $searchModel->required, ['value' => $index, 'disabled' => true]);
-        },
+                    return Html::checkbox('required[]', $searchModel->required, ['value' => $index, 'disabled' => true]);
+                },
             ],
             [
                 'attribute' => 'multiple',
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-            return Html::checkbox('multiple[]', $searchModel->multiple, ['value' => $index, 'disabled' => true]);
-        },
+                    return Html::checkbox('multiple[]', $searchModel->multiple, ['value' => $index, 'disabled' => true]);
+                },
             ],
             //'default',
             [
@@ -77,14 +77,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
-                return Html::a('', ['update', 'id' => $key], ['class' => 'fas fa-edit']);
-            },
+                        return Html::a('', ['update', 'id' => $key], ['class' => 'fas fa-edit']);
+                    },
                     'view' => function ($url, $model, $key) {
-                return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
-            },
+                        return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
+                    },
                     'delete' => function ($url, $model, $key) {
-                return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
-            },
+                        return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                    },
                 ],
             ],
         ],

@@ -12,7 +12,8 @@ class m211203_213400_cteate_b24_connect_settings_table extends Migration
             'name' => $this->string(255)->notNull(),
         ]);
         $this->addPrimaryKey('name_id', 'admin_b24_connect_settings', 'name_id');
-        $this->batchInsert('admin_b24_connect_settings',
+        $this->batchInsert(
+            'admin_b24_connect_settings',
             [
                 'name_id',
                 'value',
@@ -25,7 +26,6 @@ class m211203_213400_cteate_b24_connect_settings_table extends Migration
                 ['b24PortalTable', 'admin_b24portal', 'b24PortalTable'],
                 ['appId', '0', 'Id приложения'],
             ]
-
         );
     }
 

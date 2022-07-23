@@ -10,6 +10,7 @@ use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\helpers\Inflector;
+
 //
 /**
  * This is the model class for table "admin_robots".
@@ -24,19 +25,21 @@ use yii\helpers\Inflector;
  *
  * @property AdminRobotsProperties[] $adminRobotsProperties
  */
-class Robots extends \yii\db\ActiveRecord {
-
+class Robots extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_robots';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['code', 'handler', 'name'], 'required'],
             [['auth_user_id', 'use_subscription', 'use_placement'], 'integer'],
@@ -48,7 +51,8 @@ class Robots extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'code' => 'Идентификатор',
             'handler' => 'URL',
@@ -62,52 +66,61 @@ class Robots extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->hasMany(RobotsProperties::className(), ['robot_code' => 'code']);
     }
 
-    public function getPropertiesIn() {
+    public function getPropertiesIn()
+    {
         return RobotsProperties::find()->where(['is_in' => 1, 'robot_code' => $this->code])->all();
     }
 
-    public function getPropertiesNotIn() {
+    public function getPropertiesNotIn()
+    {
         return RobotsProperties::find()->where(['is_in' => 0, 'robot_code' => $this->code])->all();
     }
 
-    public function toBitrix24() {
+    public function toBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
         $use_subscription = $this->use_subscription > 0 ? true : false;
-        $handler = Url::toRoute('/admin/handlers/robot/'.$this->handler, 'https');
+        $handler = Url::toRoute('/admin/handlers/robot/' . $this->handler, 'https');
         $b24 = $obB24->add(
-                $this->code,
-                $handler,
-                $this->name,
-                $this->auth_user_id,
-                $this->toB24Properties($this->propertiesIn),
-                $this->toB24Properties($this->propertiesNotIn),
-                $this->use_placement,
-                $use_subscription);
+            $this->code,
+            $handler,
+            $this->name,
+            $this->auth_user_id,
+            $this->toB24Properties($this->propertiesIn),
+            $this->toB24Properties($this->propertiesNotIn),
+            $this->use_placement,
+            $use_subscription
+        );
         return $b24;
     }
 
-    public function removeBitrix24() {
+    public function removeBitrix24()
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'),
-                B24ConnectSettings::getParametrByName('applicationSecret'),
-                B24ConnectSettings::getParametrByName('b24PortalTable'),
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
         $b24 = $obB24->delete($this->code);
     }
 
-    public function export() {
+    public function export()
+    {
         $result = ArrayHelper::toArray($this);
         $properties = $this->properties;
         foreach ($properties as $property) {
@@ -137,7 +150,8 @@ class Robots extends \yii\db\ActiveRecord {
         return $tempName;
     }
 
-    public static function import($data) {
+    public static function import($data)
+    {
         $robot = new Robots();
         $robot->code = $data['code'];
         $robot->handler = $data['handler'];
@@ -146,7 +160,7 @@ class Robots extends \yii\db\ActiveRecord {
         $robot->use_subscription = $data['use_subscription'];
         $robot->use_placement = $data['use_placement'];
         $transaction = Robots::getDb()->beginTransaction();
-        try {            
+        try {
             $robot->save();
             foreach ($data['properties'] as $property) {
                 $robotProperty = new RobotsProperties();
@@ -161,7 +175,7 @@ class Robots extends \yii\db\ActiveRecord {
                 $robotProperty->default = $property['default'];
                 $robotProperty->sort = $property['sort'];
                 $robotProperty->save();
-                if(ArrayHelper::getValue($property, 'options')){
+                if (ArrayHelper::getValue($property, 'options')) {
                     foreach (ArrayHelper::getValue($property, 'options') as $option) {
                         $propertyOption = new RobotsOptions();
                         $propertyOption->robot_code = $robot->code;
@@ -182,13 +196,14 @@ class Robots extends \yii\db\ActiveRecord {
     public function delete()
     {
         $file = '../controllers/' . Inflector::id2camel($this->handler) . 'Action.php';
-        if(file_exists($file)){
+        if (file_exists($file)) {
             unlink($file);
         }
         parent::delete();
     }
 
-    private function toB24Properties($data) {
+    private function toB24Properties($data)
+    {
         $properties = [];
         foreach ($data as $property) {
             $properties[$property->system_name] = [
@@ -209,5 +224,4 @@ class Robots extends \yii\db\ActiveRecord {
         }
         return $properties;
     }
-
 }

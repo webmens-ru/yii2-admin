@@ -35,14 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
-                return Html::a('', ['update', 'id' => $key], ['class' => 'fas fa-edit']);
-            },
+                        return Html::a('', ['update', 'id' => $key], ['class' => 'fas fa-edit']);
+                    },
                     'view' => function ($url, $model, $key) {
-                return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
-            },
+                        return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
+                    },
                     'delete' => function ($url, $model, $key) {
-                return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
-            },
+                        return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                    },
                 ],
             ],
         ],

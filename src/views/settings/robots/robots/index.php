@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($searchModel, $index, $widget) {
                     return Html::checkbox('use_subscription[]', $searchModel->use_subscription, ['value' => $index, 'disabled' => true]);
                 },
-            ],
+                ],
                 [
                 'attribute' => 'use_placement',
                 'format' => 'raw',
@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($searchModel, $index, $widget) {
                     return Html::checkbox('use_placement[]', $searchModel->use_placement, ['value' => $index, 'disabled' => true]);
                 },
-            ],
+                ],
             //'use_subscription',
             //'use_placement',
-            [
+                [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
                 'headerOptions' => ['width' => '80'],
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['delete', 'code' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
                     },
                 ],
-            ],
+                ],
         ],
     ]);
     ?>

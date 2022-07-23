@@ -16,19 +16,21 @@ use Yii;
  * @property int $menuId
  * @property Menu $menu
  */
-class FilterItem extends ActiveRecordExtended {
-
+class FilterItem extends ActiveRecordExtended
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'filters_item';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['itemName', 'visible', 'order', 'value', 'filterId'], 'required'],
             [['visible', 'order', 'filterId'], 'integer'],
@@ -40,7 +42,8 @@ class FilterItem extends ActiveRecordExtended {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'id',
             'itemName' => 'Название фильтра ',
@@ -56,14 +59,16 @@ class FilterItem extends ActiveRecordExtended {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         return $this->hasOne(Filter::className(), ['id' => 'filterId']);
     }
 
     /**
      * @return array
      */
-    public function fields() {
+    public function fields()
+    {
         return [
             'id', 'itemName', 'visible', 'order', 'value', 'filterId',
             'filter' => function () {
@@ -76,7 +81,8 @@ class FilterItem extends ActiveRecordExtended {
     /**
      * @return mixed
      */
-    public function getSchema() {
+    public function getSchema()
+    {
         $attributeLabels = $this->attributeLabels();
         unset($attributeLabels['filterId']);
         $attributeLabels['filter'] = 'фильтр';
@@ -88,7 +94,8 @@ class FilterItem extends ActiveRecordExtended {
      * @param $userId
      * @return array
      */
-    public static function getItems($filterId, $userId) {
+    public static function getItems($filterId, $userId)
+    {
         if (!Filters::find()->where(['id' => $filterId])->one()) {
             Yii::error('$filterId не содержится в Базе данных');
             return [];
@@ -111,7 +118,8 @@ class FilterItem extends ActiveRecordExtended {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFilterItemPersonalSettings() {
+    public function getFilterItemPersonalSettings()
+    {
         return $this->hasMany(FilterItemPersonalSettings::className(), ['itemId' => 'id']);
     }
 }

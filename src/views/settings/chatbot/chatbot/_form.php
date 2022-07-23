@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
+
 //use yii;
 
 /* @var $this yii\web\View */
@@ -19,7 +20,7 @@ use yii\jui\DatePicker;
     
     <?= $form->field($model, 'type_id')->dropDownList(ArrayHelper::map($typies, 'name', 'title')) ?>
 
-    <?= $form->field($model, 'openline')->dropDownList($openLineList, ['prompt'=>'Нет']) ?>
+    <?= $form->field($model, 'openline')->dropDownList($openLineList, ['prompt' => 'Нет']) ?>
     
     <?= $form->field($model, 'p_name')->textInput(['maxlength' => true]) ?>
 

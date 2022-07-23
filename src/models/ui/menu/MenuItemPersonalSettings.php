@@ -1,4 +1,5 @@
 <?php
+
 namespace wm\admin\models\ui\menu;
 
 use Yii;
@@ -17,7 +18,6 @@ use yii\helpers\ArrayHelper;
  */
 class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */

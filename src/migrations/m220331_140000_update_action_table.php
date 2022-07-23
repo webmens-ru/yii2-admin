@@ -12,7 +12,7 @@ class m220331_140000_update_action_table extends Migration
      */
     public function safeUp()
     {
-        $this->renameColumn('{{%admin_grid_action}}','title', 'label');
+        $this->renameColumn('{{%admin_grid_action}}', 'title', 'label');
     }
 
     /**
@@ -20,6 +20,6 @@ class m220331_140000_update_action_table extends Migration
      */
     public function safeDown()
     {
-        $this->renameColumn('{{%admin_grid_action}}', 'label','title');
+        $this->renameColumn('{{%admin_grid_action}}', 'label', 'title');
     }
 }

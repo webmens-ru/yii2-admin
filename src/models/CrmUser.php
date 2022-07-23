@@ -45,7 +45,6 @@ use yii\helpers\ArrayHelper;
  */
 class CrmUser extends \wm\yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
@@ -115,13 +114,15 @@ class CrmUser extends \wm\yii\db\ActiveRecord
         $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
         $users = ArrayHelper::getValue($request, 'result');
         if (count($users) != $request['total']) {
-            for ($i = 1; $i < $countCalls; $i++)
-                $obB24->client->addBatchCall('user.get',
+            for ($i = 1; $i < $countCalls; $i++) {
+                $obB24->client->addBatchCall(
+                    'user.get',
                     array_merge([], ['start' => $obB24->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use (&$users) {
                         $users = array_merge($users, ArrayHelper::getValue($result, 'result'));
                     }
                 );
+            }
             $obB24->client->processBatchCalls();
         }
         //$users = ArrayHelper::getValue($obB24->client->call('user.get', []), 'result');
@@ -135,7 +136,6 @@ class CrmUser extends \wm\yii\db\ActiveRecord
 
                 $errors[] = $userObj->errors;
             }
-
         }
         if ($errors) {
             return [

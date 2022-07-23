@@ -9,8 +9,8 @@ use wm\admin\models\ui\filter\FilterField;
  * Class FilterFieldController
  * @package wm\admin\controllers\ui\filter
  */
-class FilterFieldController extends \wm\admin\controllers\ActiveRestController{
-
+class FilterFieldController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -18,5 +18,5 @@ class FilterFieldController extends \wm\admin\controllers\ActiveRestController{
     /**
      * @var string
      */
-    public $modelClassSearch = FilterFieldSearch::class; 
+    public $modelClassSearch = FilterFieldSearch::class;
 }

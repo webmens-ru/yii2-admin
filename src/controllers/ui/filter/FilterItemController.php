@@ -10,8 +10,8 @@ use Yii;
  * Class FilterItemController
  * @package wm\admin\controllers\ui\filter
  */
-class FilterItemController extends \wm\admin\controllers\ActiveRestController {
-
+class FilterItemController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -25,7 +25,8 @@ class FilterItemController extends \wm\admin\controllers\ActiveRestController {
      * @param $menuId
      * @return array
      */
-    public function actionItems($menuId) {
+    public function actionItems($menuId)
+    {
         $userId = Yii::$app->user->id;
         $model = FilterItem::getItems($menuId, $userId);
         return $model;
@@ -34,9 +35,10 @@ class FilterItemController extends \wm\admin\controllers\ActiveRestController {
     /**
      * @return mixed
      */
-    public function actionSaveItems() {
-		$name = Yii::$app->getRequest()->getBodyParams(); 
+    public function actionSaveItems()
+    {
+        $name = Yii::$app->getRequest()->getBodyParams();
 
-       return $name;
+        return $name;
     }
 }

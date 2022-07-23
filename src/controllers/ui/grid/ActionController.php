@@ -10,8 +10,8 @@ use Yii;
  * Class GridColumnController
  * @package wm\admin\controllers\ui\grid
  */
-class ActionController extends \wm\admin\controllers\ActiveRestController{
-
+class ActionController extends \wm\admin\controllers\ActiveRestController
+{
     /**
      * @var string
      */
@@ -21,7 +21,8 @@ class ActionController extends \wm\admin\controllers\ActiveRestController{
      */
     public $modelClassSearch = ActionSearch::class;
 
-    public function actionEntityActions($entity){
+    public function actionEntityActions($entity)
+    {
         return $this->modelClass::find()->where(['entityCode' => $entity])->all();
     }
 }

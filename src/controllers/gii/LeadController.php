@@ -13,7 +13,6 @@ use yii\helpers\ArrayHelper;
  */
 class LeadController extends \wm\admin\controllers\BaseModuleController
 {
-
     public function behaviors()
     {
         return [
@@ -43,14 +42,13 @@ class LeadController extends \wm\admin\controllers\BaseModuleController
         $error = null;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if($model->createTable()){
+            if ($model->createTable()) {
                 return $this->render('table-generator-confirm', [
                     'model' => $model,
                 ]);
-            }else{
+            } else {
                 $error = 'Произошла ошибка при создании таблицы! Возможно таблица с таким именем уже существует';
             }
-
         }
 
         $fieldsList = $model->getFieldsList();

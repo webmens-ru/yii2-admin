@@ -21,10 +21,7 @@ class TableGenerator extends BaseB24TableGenerator
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
 
-        $request = $obB24->client->call('crm.lead.fields');        
+        $request = $obB24->client->call('crm.lead.fields');
         return ArrayHelper::getValue($request, 'result');
-
     }
-
-
 }

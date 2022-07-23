@@ -19,19 +19,21 @@ use yii\helpers\Url;
  *
  * @property AdminPlacementDirectory $placementName
  */
-class Placement extends \yii\db\ActiveRecord {
-
+class Placement extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'admin_placement';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
                 [['placement_name', 'handler', 'title'], 'required'],
                 [['placement_name'], 'string', 'max' => 50],
@@ -43,7 +45,8 @@ class Placement extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'placement_name' => 'Место встройки',
@@ -54,13 +57,15 @@ class Placement extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function toBitrix24() {
+    public function toBitrix24()
+    {
         $component = new b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'), 
-                B24ConnectSettings::getParametrByName('applicationSecret'), 
-                B24ConnectSettings::getParametrByName('b24PortalTable'), 
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
         $b24 = $obB24->bind(
@@ -73,13 +78,15 @@ class Placement extends \yii\db\ActiveRecord {
         return $b24;
     }
 
-    public function removeBitrix24() {
+    public function removeBitrix24()
+    {
         $component = new b24Tools();
         $b24App = $component->connect(
-                B24ConnectSettings::getParametrByName('applicationId'), 
-                B24ConnectSettings::getParametrByName('applicationSecret'), 
-                B24ConnectSettings::getParametrByName('b24PortalTable'), 
-                B24ConnectSettings::getParametrByName('b24PortalName'));
+            B24ConnectSettings::getParametrByName('applicationId'),
+            B24ConnectSettings::getParametrByName('applicationSecret'),
+            B24ConnectSettings::getParametrByName('b24PortalTable'),
+            B24ConnectSettings::getParametrByName('b24PortalName')
+        );
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
         $b24 = $obB24->unbind(
@@ -93,11 +100,13 @@ class Placement extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacement() {
+    public function getPlacement()
+    {
         return $this->hasOne(PlacementDirectory::className(), ['name_id' => 'placement_name']);
     }
 
-    public function getPlacementName() {
+    public function getPlacementName()
+    {
         $parent = $this->placement_name;
         return $parent ? $parent->name : '';
     }
