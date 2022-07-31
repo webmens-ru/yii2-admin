@@ -4,7 +4,6 @@ namespace wm\admin\models\settings\chatbot;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use wm\admin\models\settings\chatbot\App;
 
 /**
  * AppSearch represents the model behind the search form of `wm\admin\models\settings\chatbot\App`.
@@ -17,7 +16,25 @@ class AppSearch extends App
     public function rules()
     {
         return [
-            [['bot_code', 'code', 'js_method_code', 'js_param', 'icon_file', 'contex_code', 'extranet_support', 'iframe_popup', 'title_ru', 'title_en', 'iframe', 'hash', 'hidden', 'livechat_support'], 'safe'],
+            [
+                [
+                    'bot_code',
+                    'code',
+                    'js_method_code',
+                    'js_param',
+                    'icon_file',
+                    'contex_code',
+                    'extranet_support',
+                    'iframe_popup',
+                    'title_ru',
+                    'title_en',
+                    'iframe',
+                    'hash',
+                    'hidden',
+                    'livechat_support'
+                ],
+                'safe'
+            ],
             [['iframe_height', 'iframe_width'], 'integer'],
         ];
     }

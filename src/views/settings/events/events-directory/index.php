@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel wm\admin\models\settings\events\EventsDirectorySearch */
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-<?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             'name',
             'description',
             [
@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->category_name;
                 },
                 'filter' => ArrayHelper::map($eventsCategories, 'name', 'name'),
-                ],
-                [
+            ],
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
                 'headerOptions' => ['width' => '80'],
@@ -52,14 +52,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                        return Html::a(
+                            '',
+                            ['delete', 'id' => $key],
+                            [
+                                'class' => 'fas fa-trash',
+                                'title' => 'Удалить',
+                                'aria-label' => 'Удалить',
+                                'data-pjax' => 0,
+                                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                'data-method' => 'post'
+                            ]
+                        );
                     },
                 ],
-                ],
+            ],
         ],
     ]);
     ?>
 
-<?php Pjax::end(); ?>
+    <?php Pjax::end(); ?>
 
 </div>

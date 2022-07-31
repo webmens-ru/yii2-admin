@@ -35,7 +35,12 @@ class MenuItem extends \wm\yii\db\ActiveRecord
             [['title', 'visible', 'order', 'params', 'menuId', 'type'], 'required'],
             [['visible', 'menuId'], 'integer'],
             [['title', 'params', 'type'], 'string', 'max' => 255],
-            [['menuId'], 'exist', 'skipOnError' => true, 'targetClass' => Menu::className(), 'targetAttribute' => ['menuId' => 'id']],
+            [
+                ['menuId'],
+                'exist', 'skipOnError' => true,
+                'targetClass' => Menu::className(),
+                'targetAttribute' => ['menuId' => 'id']
+            ],
         ];
     }
 

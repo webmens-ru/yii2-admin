@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -29,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             'placement_name',
             'handler',
             'title',
             'description',
             'group_name',
-                [
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
                 'headerOptions' => ['width' => '80'],
@@ -48,10 +48,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                        return Html::a(
+                            '',
+                            ['delete', 'id' => $key],
+                            [
+                                'class' => 'fas fa-trash',
+                                'title' => 'Удалить',
+                                'aria-label' => 'Удалить',
+                                'data-pjax' => 0,
+                                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                'data-method' => 'post'
+                            ]
+                        );
                     },
                 ],
-                ],
+            ],
         ],
     ]);
     ?>

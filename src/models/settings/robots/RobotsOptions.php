@@ -2,20 +2,18 @@
 
 namespace wm\admin\models\settings\robots;
 
-use Yii;
-
 /**
  * This is the model class for table "admin_robots_options".
  *
-* @property int $id
-* @property int $property_id
-* @property string $property_name
-* @property string $robot_code
-* @property string $value
-* @property string $name
-* @property int $sort
-*
-* @property AdminRobotsProperties $robotCode
+ * @property int $id
+ * @property int $property_id
+ * @property string $property_name
+ * @property string $robot_code
+ * @property string $value
+ * @property string $name
+ * @property int $sort
+ *
+ * @property AdminRobotsProperties $robotCode
  */
 class RobotsOptions extends \yii\db\ActiveRecord
 {
@@ -34,10 +32,20 @@ class RobotsOptions extends \yii\db\ActiveRecord
     {
         return [
             [['property_name', 'robot_code', 'value', 'name'], 'required'],
-           [['sort'], 'integer'],
-           [['property_name', 'robot_code', 'value', 'name'], 'string', 'max' => 255],
-           [['property_name', 'robot_code', 'value'], 'unique', 'targetAttribute' => ['property_name', 'robot_code', 'value']],
-           [['robot_code', 'property_name'], 'exist', 'skipOnError' => true, 'targetClass' => RobotsProperties::className(), 'targetAttribute' => ['robot_code' => 'robot_code', 'property_name' => 'system_name']],
+            [['sort'], 'integer'],
+            [['property_name', 'robot_code', 'value', 'name'], 'string', 'max' => 255],
+            [
+                ['property_name', 'robot_code', 'value'],
+                'unique',
+                'targetAttribute' => ['property_name', 'robot_code', 'value']
+            ],
+            [
+                ['robot_code', 'property_name'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => RobotsProperties::className(),
+                'targetAttribute' => ['robot_code' => 'robot_code', 'property_name' => 'system_name']
+            ],
         ];
     }
 
@@ -48,10 +56,10 @@ class RobotsOptions extends \yii\db\ActiveRecord
     {
         return [
             'property_name' => 'Название параметра',
-           'robot_code' => 'ID робота',
-           'value' => 'Значение',
-           'name' => 'Имя',
-           'sort' => 'Сортировка',
+            'robot_code' => 'ID робота',
+            'value' => 'Значение',
+            'name' => 'Имя',
+            'sort' => 'Сортировка',
         ];
     }
 
@@ -60,7 +68,11 @@ class RobotsOptions extends \yii\db\ActiveRecord
      */
     public function getProperty()
     {
-        return $this->hasOne(RobotsProperties::className(), ['robot_code' => 'robot_code', 'system_name' => 'property_name']);
+        return $this
+            ->hasOne(
+                RobotsProperties::className(),
+                ['robot_code' => 'robot_code', 'system_name' => 'property_name']
+            );
     }
 
     /*public function getProperty() {

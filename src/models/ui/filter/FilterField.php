@@ -2,7 +2,6 @@
 
 namespace wm\admin\models\ui\filter;
 
-use Yii;
 use wm\admin\models\ui\Entity;
 
 /**
@@ -41,8 +40,20 @@ class FilterField extends \wm\yii\db\ActiveRecord
             [['entityCode', 'code'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
             [['params'], 'safe'],
-            [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
-            [['typeId'], 'exist', 'skipOnError' => true, 'targetClass' => FilterFieldType::className(), 'targetAttribute' => ['typeId' => 'id']],
+            [
+                ['entityCode'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Entity::className(),
+                'targetAttribute' => ['entityCode' => 'code']
+            ],
+            [
+                ['typeId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => FilterFieldType::className(),
+                'targetAttribute' => ['typeId' => 'id']
+            ],
         ];
     }
 

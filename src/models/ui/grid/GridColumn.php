@@ -2,8 +2,8 @@
 
 namespace wm\admin\models\ui\grid;
 
-use Yii;
 use wm\admin\models\ui\Entity;
+use Yii;
 
 /**
  * This is the model class for table "grid_column".
@@ -34,11 +34,17 @@ class GridColumn extends \wm\yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['entityCode', 'code', 'title', 'visible', 'order', 'width', ], 'required'],
+            [['entityCode', 'code', 'title', 'visible', 'order', 'width',], 'required'],
             [['visible', 'order', 'width'], 'integer'],
             [['entityCode', 'code'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
-            [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
+            [
+                ['entityCode'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Entity::className(),
+                'targetAttribute' => ['entityCode' => 'code']
+            ],
         ];
     }
 

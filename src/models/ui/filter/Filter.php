@@ -2,9 +2,9 @@
 
 namespace wm\admin\models\ui\filter;
 
+use wm\admin\models\ui\Entity;
 use Yii;
 use yii\helpers\ArrayHelper;
-use wm\admin\models\ui\Entity;
 
 /**
  * Class Filter
@@ -44,7 +44,13 @@ class Filter extends \wm\yii\db\ActiveRecord
             [['isName', 'order', 'isBase', 'userId'], 'integer'],
             [['entityCode'], 'string', 'max' => 64],
             [['title'], 'string', 'max' => 255],
-            [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
+            [
+                ['entityCode'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Entity::className(),
+                'targetAttribute' => ['entityCode' => 'code']
+            ],
         ];
     }
 

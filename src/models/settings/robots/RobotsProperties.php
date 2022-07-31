@@ -2,8 +2,6 @@
 
 namespace wm\admin\models\settings\robots;
 
-use Yii;
-
 /**
  * This is the model class for table "admin_robots_properties".
  *
@@ -38,12 +36,27 @@ class RobotsProperties extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-                [['robot_code', 'system_name', 'name', 'description', 'type_id', 'required', 'multiple', 'sort'], 'required'],
-                [['is_in', 'type_id', 'required', 'multiple', 'sort'], 'integer'],
-                [['robot_code', 'system_name', 'name', 'description', 'default'], 'string', 'max' => 255],
-                [['robot_code', 'system_name'], 'unique', 'targetAttribute' => ['robot_code', 'system_name']],
-                [['robot_code'], 'exist', 'skipOnError' => true, 'targetClass' => Robots::className(), 'targetAttribute' => ['robot_code' => 'code']],
-                [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RobotsTypes::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [
+                ['robot_code', 'system_name', 'name', 'description', 'type_id', 'required', 'multiple', 'sort'],
+                'required'
+            ],
+            [['is_in', 'type_id', 'required', 'multiple', 'sort'], 'integer'],
+            [['robot_code', 'system_name', 'name', 'description', 'default'], 'string', 'max' => 255],
+            [['robot_code', 'system_name'], 'unique', 'targetAttribute' => ['robot_code', 'system_name']],
+            [
+                ['robot_code'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Robots::className(),
+                'targetAttribute' => ['robot_code' => 'code']
+            ],
+            [
+                ['type_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => RobotsTypes::className(),
+                'targetAttribute' => ['type_id' => 'id']
+            ],
         ];
     }
 
@@ -71,7 +84,13 @@ class RobotsProperties extends \yii\db\ActiveRecord
      */
     public function getOptions()
     {
-        return $this->hasMany(RobotsOptions::className(), ['robot_code' => 'robot_code', 'property_name' => 'system_name']);
+        return $this->hasMany(
+            RobotsOptions::className(),
+            [
+                'robot_code' => 'robot_code',
+                'property_name' => 'system_name'
+            ]
+        );
     }
 
     /**

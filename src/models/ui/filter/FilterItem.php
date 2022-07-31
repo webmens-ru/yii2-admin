@@ -35,7 +35,13 @@ class FilterItem extends ActiveRecordExtended
             [['itemName', 'visible', 'order', 'value', 'filterId'], 'required'],
             [['visible', 'order', 'filterId'], 'integer'],
             [['itemName', 'value'], 'string', 'max' => 255],
-            [['filterId'], 'exist', 'skipOnError' => true, 'targetClass' => Filter::className(), 'targetAttribute' => ['filterId' => 'id']],
+            [
+                ['filterId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Filter::className(),
+                'targetAttribute' => ['filterId' => 'id']
+            ],
         ];
     }
 

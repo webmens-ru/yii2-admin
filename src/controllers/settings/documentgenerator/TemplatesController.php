@@ -86,8 +86,10 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
 
         if ($model->load($request->post()) && $model->save()) {
             // //            if ($model->file) {
-//                $model->file->saveAs('uploads/' . $model->code . '-' . $model->file->baseName . '.' . $model->file->extension);
-//                $model->file_path = 'uploads/' . $model->code . '-' . $model->file->baseName . '.' . $model->file->extension;
+//                $model->file->saveAs('uploads/' . $model->code . '-'
+// . $model->file->baseName . '.' . $model->file->extension);
+//                $model->file_path = 'uploads/' . $model->code . '-'
+// . $model->file->baseName . '.' . $model->file->extension;
 //                $model->file = null;
 //            }
 
@@ -143,8 +145,10 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
 //
 //        if ($model->validate()) {
 //            if ($model->file) {
-//                $model->file->saveAs('uploads/' . $model->code . '-' . $model->file->baseName . '.' . $model->file->extension);
-//                $model->file_path = 'uploads/' . $model->code . '-' . $model->file->baseName . '.' . $model->file->extension;
+//                $model->file->saveAs('uploads/' . $model->code . '-'
+// . $model->file->baseName . '.' . $model->file->extension);
+//                $model->file_path = 'uploads/' . $model->code . '-'
+// . $model->file->baseName . '.' . $model->file->extension;
 //                $model->file = null;
 //            }
 //            $model->save(false);

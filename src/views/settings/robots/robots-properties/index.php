@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel wm\admin\models\RobotsPropertiesSearch */
@@ -40,7 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-                    return Html::checkbox('is_in[]', $searchModel->is_in, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox(
+                        'is_in[]',
+                        $searchModel->is_in,
+                        ['value' => $index, 'disabled' => true]
+                    );
                 },
             ],
             'system_name',
@@ -58,7 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-                    return Html::checkbox('required[]', $searchModel->required, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox(
+                        'required[]',
+                        $searchModel->required,
+                        ['value' => $index, 'disabled' => true]
+                    );
                 },
             ],
             [
@@ -66,7 +74,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-                    return Html::checkbox('multiple[]', $searchModel->multiple, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox(
+                        'multiple[]',
+                        $searchModel->multiple,
+                        ['value' => $index, 'disabled' => true]
+                    );
                 },
             ],
             //'default',
@@ -83,7 +95,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['view', 'id' => $key], ['class' => 'fas fa-eye']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('', ['delete', 'id' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                        return Html::a(
+                            '',
+                            ['delete', 'id' => $key],
+                            [
+                                'class' => 'fas fa-trash',
+                                'title' => 'Удалить',
+                                'aria-label' => 'Удалить',
+                                'data-pjax' => 0,
+                                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                'data-method' => 'post'
+                            ]
+                        );
                     },
                 ],
             ],

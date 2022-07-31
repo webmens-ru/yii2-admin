@@ -37,8 +37,20 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
             [['filterId', 'filterFieldId', 'order'], 'integer'],
             //[['filterId', 'filterFieldId'], 'unique'],
             [['value'], 'safe'],
-            [['filterId'], 'exist', 'skipOnError' => true, 'targetClass' => Filter::className(), 'targetAttribute' => ['filterId' => 'id']],
-            [['filterFieldId'], 'exist', 'skipOnError' => true, 'targetClass' => FilterField::className(), 'targetAttribute' => ['filterFieldId' => 'id']],
+            [
+                ['filterId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Filter::className(),
+                'targetAttribute' => ['filterId' => 'id']
+            ],
+            [
+                ['filterFieldId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => FilterField::className(),
+                'targetAttribute' => ['filterFieldId' => 'id']
+            ],
         ];
     }
 

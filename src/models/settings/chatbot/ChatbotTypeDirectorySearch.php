@@ -7,7 +7,8 @@ use yii\data\ActiveDataProvider;
 use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 
 /**
- * ChatbotTypeDirectorySearch represents the model behind the search form of `wm\admin\models\settings\chatbot\ChatbotTypeDirectory`.
+ * ChatbotTypeDirectorySearch represents the model behind the search form of
+ * `wm\admin\models\settings\chatbot\ChatbotTypeDirectory`.
  */
 class ChatbotTypeDirectorySearch extends ChatbotTypeDirectory
 {

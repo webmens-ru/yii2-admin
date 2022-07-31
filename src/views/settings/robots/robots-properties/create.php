@@ -8,7 +8,10 @@ use yii\helpers\Html;
 $this->title = 'Создать параметр';
 $this->params['breadcrumbs'][] = 'Настройки';
 $this->params['breadcrumbs'][] = ['label' => 'Роботы', 'url' => ['settings/robots/robots/index']];
-$this->params['breadcrumbs'][] = ['label' => $model->robot->name, 'url' => ['settings/robots/robots/view', 'code' => $model->robot_code]];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->robot->name,
+    'url' => ['settings/robots/robots/view', 'code' => $model->robot_code]
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="robots-properties-create">

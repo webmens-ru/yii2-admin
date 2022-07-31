@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="templates-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>    
+    <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="btn-toolbar justify-content-between" role="toolbar" >
+    <div class="btn-toolbar justify-content-between" role="toolbar">
         <div class="btn-group" role="group" aria-label="First group">
             <p>
                 <?= Html::a('Изменить', ['update', 'code' => $model->code], ['class' => 'btn btn-primary']) ?>
@@ -34,10 +34,26 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="btn-group" role="group" aria-label="First group">
             <p>
-                <?= Html::a('Установить на портал', ['install', 'code' => $model->code], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Обновить на портале', ['b24-update', 'code' => $model->code], ['class' => 'btn btn-primary']) ?>
-                <?= Html::a('Удалить с портала', ['b24-delete', 'code' => $model->code], ['class' => 'btn btn-danger']) ?>
-                <?= Html::a('Поля шаблона', ['b24-fields', 'code' => $model->code], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(
+                    'Установить на портал',
+                    ['install', 'code' => $model->code],
+                    ['class' => 'btn btn-success']
+                ) ?>
+                <?= Html::a(
+                    'Обновить на портале',
+                    ['b24-update', 'code' => $model->code],
+                    ['class' => 'btn btn-primary']
+                ) ?>
+                <?= Html::a(
+                    'Удалить с портала',
+                    ['b24-delete', 'code' => $model->code],
+                    ['class' => 'btn btn-danger']
+                ) ?>
+                <?= Html::a(
+                    'Поля шаблона',
+                    ['b24-fields', 'code' => $model->code],
+                    ['class' => 'btn btn-primary']
+                ) ?>
             </p>
         </div>
     </div>

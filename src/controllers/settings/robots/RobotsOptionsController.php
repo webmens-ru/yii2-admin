@@ -2,13 +2,13 @@
 
 namespace wm\admin\controllers\settings\robots;
 
-use Yii;
 use wm\admin\models\settings\robots\RobotsOptions;
 use wm\admin\models\settings\robots\RobotsOptionsSearch;
 use wm\admin\models\settings\robots\RobotsProperties;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * RobotsOptionsController implements the CRUD actions for RobotsOptions model.
@@ -50,9 +50,9 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
         $robotsPropertiesModel = RobotsProperties::find()->all();
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'robotsPropertiesModel' => $robotsPropertiesModel,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'robotsPropertiesModel' => $robotsPropertiesModel,
         ]);
     }
 
@@ -65,7 +65,7 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
     public function actionView($property_name, $robot_code, $value)
     {
         return $this->render('view', [
-                    'model' => $this->findModel($property_name, $robot_code, $value),
+            'model' => $this->findModel($property_name, $robot_code, $value),
         ]);
     }
 
@@ -80,7 +80,13 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
         $robotsPropertiesModel = RobotsProperties::find()->where(['type_id' => '6'])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['settings/robots/robots-properties/view', 'system_name' => $model->property_name, 'robot_code' => $model->robot_code]);
+            return $this->redirect(
+                [
+                    'settings/robots/robots-properties/view',
+                    'system_name' => $model->property_name,
+                    'robot_code' => $model->robot_code
+                ]
+            );
         }
         $request = Yii::$app->request;
         if ($request->post('action') != 'submit') {
@@ -90,8 +96,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
         }
 
         return $this->render('create', [
-                    'model' => $model,
-                    'robotsPropertiesModel' => $robotsPropertiesModel,
+            'model' => $model,
+            'robotsPropertiesModel' => $robotsPropertiesModel,
         ]);
     }
 
@@ -108,12 +114,18 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
         $robotsPropertiesModel = RobotsProperties::getPropertiesTypeSelectStatic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['settings/robots/robots-properties/view', 'system_name' => $model->property_name, 'robot_code' => $model->robot_code]);
+            return $this->redirect(
+                [
+                    'settings/robots/robots-properties/view',
+                    'system_name' => $model->property_name,
+                    'robot_code' => $model->robot_code
+                ]
+            );
         }
 
         return $this->render('update', [
-                    'model' => $model,
-                    'robotsPropertiesModel' => $robotsPropertiesModel,
+            'model' => $model,
+            'robotsPropertiesModel' => $robotsPropertiesModel,
         ]);
     }
 
@@ -128,7 +140,13 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
     {
         $this->findModel($property_name, $robot_code, $value)->delete();
 
-        return $this->redirect(['settings/robots/robots-properties/view', 'system_name' => $property_name, 'robot_code' => $robot_code]);
+        return $this->redirect(
+            [
+                'settings/robots/robots-properties/view',
+                'system_name' => $property_name,
+                'robot_code' => $robot_code
+            ]
+        );
     }
 
     /**

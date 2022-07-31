@@ -1,12 +1,12 @@
 <?php
 
+use app\assets\AppAsset;
 use app\widgets\Alert;
-use yii\helpers\Html;
+use wm\admin\assets\ModuleAsset;
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use yii\bootstrap4\Breadcrumbs;
-use app\assets\AppAsset;
-use wm\admin\assets\ModuleAsset;
+use yii\helpers\Html;
 
 $assetsUrl = ModuleAsset::register($this);
 AppAsset::register($this);
@@ -66,26 +66,39 @@ $this->registerJs($script, yii\web\View::POS_READY);
                         ['label' => 'События', 'url' => '/admin/settings/events/events/index'],
                         ['label' => 'Справочник событий', 'url' => '/admin/settings/events/events-directory/index'],
                         ['label' => 'Встраивание', 'url' => '/admin/settings/placements/placement/index'],
-                        ['label' => 'Справочник мест встраивания', 'url' => '/admin/settings/placements/placement-directory/index'],
+                        [
+                            'label' => 'Справочник мест встраивания',
+                            'url' => '/admin/settings/placements/placement-directory/index'
+                        ],
                         ['label' => 'Чатботы', 'url' => '/admin/settings/chatbot/chatbot/index'],
                         ['label' => 'Агенты', 'url' => '/admin/settings/agents/index'],
-                        ['label' => 'Справочник типов чатботов', 'url' => '/admin/settings/chatbot/chatbot-type-directory/index'],
-                        ['label' => 'Справочник цветов чатботов', 'url' => '/admin/settings/chatbot/chatbot-color-directory/index'],
+                        [
+                            'label' => 'Справочник типов чатботов',
+                            'url' => '/admin/settings/chatbot/chatbot-type-directory/index'
+                        ],
+                        [
+                            'label' => 'Справочник цветов чатботов',
+                            'url' => '/admin/settings/chatbot/chatbot-color-directory/index'
+                        ],
                         ['label' => 'Команды чатботов', 'url' => '/admin/settings/chatbot/chatbot-command/index'],
-                        ['label' => 'Генератор документов', 'url' => '/admin/settings/documentgenerator/templates/index'],
+                        [
+                            'label' => 'Генератор документов',
+                            'url' => '/admin/settings/documentgenerator/templates/index'
+                        ],
                         [
                             'label' => 'Синхронизация',
                             'items' => [
                                 ['label' => 'Пользователи', 'url' => '#'],
                             ]
                         ],
-                        ['label' => 'Смарт-процессвы - Генератор таблиц', 'url' => '/admin/gii/smart-process/table-generator'],
-                        ['label' => 'Сделки - Генератор таблиц', 'url' => '/admin/gii/deal/table-generator'],
+                        [
+                            'label' => 'Смарт-процессвы - Генератор таблиц',
+                            'url' => '/admin/gii/smart-process/table-generator'],
+                        ['label' => 'Сделки - Генератор таблиц', 'url' => '/admin/gii/deal/table-generator'
+                        ],
                         ['label' => 'Лиды - Генератор таблиц', 'url' => '/admin/gii/lead/table-generator'],
                         ['label' => 'Контакты - Генератор таблиц', 'url' => '/admin/gii/contact/table-generator'],
                         ['label' => 'Компании - Генератор таблиц', 'url' => '/admin/gii/company/table-generator'],
-                        //['label' => 'Справочник js методов приложений чатботов', 'url' => '/web/' . Yii::getAlias('@moduleName') . '/settings/chatbot/app-js-method-directory/index'],
-                        //['label' => 'Справочник типов контекста приложений чатботов', 'url' => '/web/' . Yii::getAlias('@moduleName') . '/settings/chatbot/app-contex-directory/index'],
                     ],
                 ],
                 Yii::$app->user->isGuest ? (

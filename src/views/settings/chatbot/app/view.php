@@ -18,23 +18,46 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group" role="group" aria-label="First group">
             <p>
-                <?= Html::a('Изменить', ['update', 'bot_code' => $model->bot_code, 'code' => $model->code], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(
+                    'Изменить',
+                    ['update', 'bot_code' => $model->bot_code, 'code' => $model->code],
+                    ['class' => 'btn btn-primary']
+                ) ?>
                 <?=
-                Html::a('Удалить', ['delete', 'bot_code' => $model->bot_code, 'code' => $model->code], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => 'Вы уверены, что хотите удалить этот элемент?',
-                        'method' => 'post',
+                Html::a(
+                    'Удалить',
+                    [
+                        'delete', 'bot_code' => $model->bot_code,
+                        'code' => $model->code
                     ],
-                ])
+                    [
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                            'method' => 'post',
+                        ],
+                    ]
+                )
                 ?>
             </p>
         </div>
         <div class="btn-group" role="group" aria-label="First group">
             <p>
-                <?= Html::a('Установить на портал', ['install', 'bot_code' => $model->bot_code, 'code' => $model->code], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Обновить на портале', ['b24-update', 'bot_code' => $model->bot_code, 'code' => $model->code], ['class' => 'btn btn-primary']) ?>
-                <?= Html::a('Удалить с портала', ['b24-delete', 'bot_code' => $model->bot_code, 'code' => $model->code], ['class' => 'btn btn-danger']) ?>
+                <?= Html::a(
+                    'Установить на портал',
+                    ['install', 'bot_code' => $model->bot_code, 'code' => $model->code],
+                    ['class' => 'btn btn-success']
+                ) ?>
+                <?= Html::a(
+                    'Обновить на портале',
+                    ['b24-update', 'bot_code' => $model->bot_code, 'code' => $model->code],
+                    ['class' => 'btn btn-primary']
+                ) ?>
+                <?= Html::a(
+                    'Удалить с портала',
+                    ['b24-delete', 'bot_code' => $model->bot_code, 'code' => $model->code],
+                    ['class' => 'btn btn-danger']
+                ) ?>
             </p>
         </div>
     </div>

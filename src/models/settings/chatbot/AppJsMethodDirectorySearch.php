@@ -7,7 +7,8 @@ use yii\data\ActiveDataProvider;
 use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 
 /**
- * AppJsMethodDirectorySearch represents the model behind the search form of `wm\admin\models\settings\chatbot\AppJsMethodDirectory`.
+ * AppJsMethodDirectorySearch represents the model behind the search form of
+ * `wm\admin\models\settings\chatbot\AppJsMethodDirectory`.
  */
 class AppJsMethodDirectorySearch extends AppJsMethodDirectory
 {

@@ -8,7 +8,13 @@ use yii\helpers\Html;
 $this->title = 'Добавление';
 $this->params['breadcrumbs'][] = 'Настройки';
 $this->params['breadcrumbs'][] = ['label' => 'Чатботы', 'url' => ['settings/chatbot/chatbot/index']];
-$this->params['breadcrumbs'][] = ['label' => $model->bot_code, 'url' => ['settings/chatbot/chatbot/view', 'code' => $model->bot_code]];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->bot_code,
+    'url' => [
+        'settings/chatbot/chatbot/view',
+        'code' => $model->bot_code
+    ]
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="chatbot-command-create">

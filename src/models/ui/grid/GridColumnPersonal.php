@@ -2,7 +2,6 @@
 
 namespace wm\admin\models\ui\grid;
 
-use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -34,7 +33,13 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
         return [
             [['columnId', 'userId', 'order', 'visible'], 'required'],
             [['columnId', 'userId', 'order', 'visible'], 'integer'],
-            [['columnId'], 'exist', 'skipOnError' => true, 'targetClass' => GridColumn::className(), 'targetAttribute' => ['columnId' => 'id']],
+            [
+                ['columnId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => GridColumn::className(),
+                'targetAttribute' => ['columnId' => 'id']
+            ],
         ];
     }
 

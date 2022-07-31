@@ -2,8 +2,6 @@
 
 namespace wm\admin\models\ui\filter;
 
-use Yii;
-
 /**
  * This is the model class for table "filter_field_options".
  *
@@ -34,7 +32,13 @@ class FilterFieldOptions extends \wm\yii\db\ActiveRecord
             [['fieldId', 'value', 'title', 'order'], 'required'],
             [['fieldId', 'order'], 'integer'],
             [['value', 'title'], 'string', 'max' => 255],
-            [['fieldId'], 'exist', 'skipOnError' => true, 'targetClass' => FilterField::className(), 'targetAttribute' => ['fieldId' => 'id']],
+            [
+                ['fieldId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => FilterField::className(),
+                'targetAttribute' => ['fieldId' => 'id']
+            ],
         ];
     }
 

@@ -21,7 +21,14 @@ class RobotController extends \yii\web\Controller
         $result = [];
         $actionFiles = FileHelper::findFiles('../controllers/handlers/robots');
         foreach ($actionFiles as $actionFile) {
-            $result[Inflector::camel2id(basename($actionFile, "Action.php"))]['class'] = 'app\controllers\handlers\robots\\' . basename($actionFile, ".php");
+            $result[
+                Inflector::camel2id(
+                    basename(
+                        $actionFile,
+                        "Action.php"
+                    )
+                )
+            ]['class'] = 'app\controllers\handlers\robots\\' . basename($actionFile, ".php");
         }
         return $result;
     }

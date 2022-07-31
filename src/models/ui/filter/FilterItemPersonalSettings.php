@@ -2,7 +2,6 @@
 
 namespace wm\admin\models\ui\filter;
 
-use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -28,7 +27,13 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
             [['itemId', 'userId', 'order', 'visible', 'value'], 'required'],
             [['itemId', 'userId', 'order', 'visible'], 'integer'],
             [['value'], 'string'],
-            [['itemId'], 'exist', 'skipOnError' => true, 'targetClass' => FiltersItem::className(), 'targetAttribute' => ['itemId' => 'id']],
+            [
+                ['itemId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => FiltersItem::className(),
+                'targetAttribute' => ['itemId' => 'id']
+            ],
         ];
     }
 

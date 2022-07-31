@@ -53,13 +53,41 @@ class Chatbot extends \yii\db\ActiveRecord
             [['code', 'type_id', 'p_name', 'p_last_name', 'p_color_name', 'p_email'], 'required'],
             [['p_personal_gender', 'bot_id'], 'integer'],
             [['p_personal_birthday'], 'safe'],
-            [['p_name', 'p_last_name', 'p_email', 'p_work_position', 'p_personal_www', 'p_personal_photo_url', 'event_handler', 'event_massege_add', 'event_massege_update', 'event_massege_delete', 'event_welcome_massege', 'event_bot_delete'], 'string', 'max' => 255],
+            [
+                [
+                    'p_name',
+                    'p_last_name',
+                    'p_email',
+                    'p_work_position',
+                    'p_personal_www',
+                    'p_personal_photo_url',
+                    'event_handler',
+                    'event_massege_add',
+                    'event_massege_update',
+                    'event_massege_delete',
+                    'event_welcome_massege',
+                    'event_bot_delete'
+                ],
+                'string', 'max' => 255
+            ],
             [['openline', 'type_id'], 'string', 'max' => 1],
             [['p_color_name'], 'string', 'max' => 20],
             [['code'], 'string', 'max' => 64],
             [['code'], 'unique'],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ChatbotTypeDirectory::className(), 'targetAttribute' => ['type_id' => 'name']],
-            [['p_color_name'], 'exist', 'skipOnError' => true, 'targetClass' => ChatbotColorDirectory::className(), 'targetAttribute' => ['p_color_name' => 'name']],
+            [
+                ['type_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => ChatbotTypeDirectory::className(),
+                'targetAttribute' => ['type_id' => 'name']
+            ],
+            [
+                ['p_color_name'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => ChatbotColorDirectory::className(),
+                'targetAttribute' => ['p_color_name' => 'name']
+            ],
         ];
     }
 

@@ -2,10 +2,8 @@
 
 namespace wm\admin\models\gii;
 
-use wm\admin\models\gii\ColumnSchema;
 use Yii;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
 use yii\db\Schema;
 
 class BaseB24TableGenerator extends Model
@@ -32,7 +30,10 @@ class BaseB24TableGenerator extends Model
     public function validateFields($attribute, $params)
     {
         if (!in_array($this->primaryKeyColumnName, $this->$attribute)) {
-            $this->addError($attribute, 'поле ' . $this->primaryKeyColumnName . ' Должно быть обязательно выбрано');
+            $this->addError(
+                $attribute,
+                'поле ' . $this->primaryKeyColumnName . ' Должно быть обязательно выбрано'
+            );
         }
     }
 
@@ -66,17 +67,40 @@ class BaseB24TableGenerator extends Model
     protected function createTableInternal($primaryKeyColumnName = 'id')
     {
         if ($this->deleteOldTable && Yii::$app->db->getTableSchema($this->tableName)) {
-                Yii::$app->db->createCommand()->dropTable($this->tableName)->execute();
+            Yii::$app->db->createCommand()->dropTable($this->tableName)->execute();
         } elseif (!$this->deleteOldTable && Yii::$app->db->getTableSchema($this->tableName)) {
             return false;
         }
-        Yii::$app->db->createCommand()->createTable($this->tableName, [$primaryKeyColumnName => Schema::TYPE_INTEGER,])->execute();
-        Yii::$app->db->createCommand()->addPrimaryKey($primaryKeyColumnName, $this->tableName, $primaryKeyColumnName)->execute();
+        Yii::$app
+            ->db
+            ->createCommand()
+            ->createTable(
+                $this->tableName,
+                [$primaryKeyColumnName => Schema::TYPE_INTEGER,]
+            )
+            ->execute();
+        Yii::$app
+            ->db
+            ->createCommand()
+            ->addPrimaryKey(
+                $primaryKeyColumnName,
+                $this->tableName,
+                $primaryKeyColumnName
+            )
+            ->execute();
         $fields = $this->getFields();
         $table = Yii::$app->db->getTableSchema($this->tableName);
         foreach ($fields as $fieldName => $field) {
             if (!isset($table->columns[$fieldName]) && in_array($fieldName, $this->tableFields)) {
-                Yii::$app->db->createCommand()->addColumn($table->name, $fieldName, ColumnSchema::getDbType($field))->execute();
+                Yii::$app
+                    ->db
+                    ->createCommand()
+                    ->addColumn(
+                        $table->name,
+                        $fieldName,
+                        ColumnSchema::getDbType($field)
+                    )
+                    ->execute();
             }
         }
         return true;

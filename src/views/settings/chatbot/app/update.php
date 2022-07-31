@@ -8,8 +8,16 @@ use yii\helpers\Html;
 $this->title = 'Update App: ' . $model->bot_code;
 $this->params['breadcrumbs'][] = 'Настройки';
 $this->params['breadcrumbs'][] = ['label' => 'Чатботы', 'url' => ['settings/chatbot/chatbot/index']];
-$this->params['breadcrumbs'][] = ['label' => $model->bot_code, 'url' => ['settings/chatbot/chatbot/view', 'code' => $model->bot_code]];
-$this->params['breadcrumbs'][] = ['label' => $model->bot_code, 'url' => ['view', 'bot_code' => $model->bot_code, 'code' => $model->code]];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->bot_code,
+    'url' => ['settings/chatbot/chatbot/view',
+        'code' => $model->bot_code
+    ]
+];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->bot_code,
+    'url' => ['view', 'bot_code' => $model->bot_code, 'code' => $model->code]
+];
 $this->params['breadcrumbs'][] = 'Изменение';
 ?>
 <div class="app-update">

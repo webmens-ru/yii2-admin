@@ -2,8 +2,6 @@
 
 namespace wm\admin\models\ui\filter;
 
-use Yii;
-
 /**
  * Class FilterPersonalSettings
  * @package wm\admin\models\ui\filter
@@ -25,9 +23,14 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
     {
         return [
             [['filterId', 'name', 'order', 'fixed'], 'required'],
-            [['itemId', 'userId', 'order', 'visible'], 'integer'],[['value'], 'string'],
+            [['itemId', 'userId', 'order', 'visible'], 'integer'], [['value'], 'string'],
             [['name'], 'string', 'max' => 255],
-            [['filterId'], 'exist', 'skipOnError' => true, 'targetClass' => FilterItem::className(), 'targetAttribute' => ['itemId' => 'id']],
+            [
+                ['filterId'],
+                'exist', 'skipOnError' => true,
+                'targetClass' => FilterItem::className(),
+                'targetAttribute' => ['itemId' => 'id']
+            ],
         ];
     }
 

@@ -4,7 +4,6 @@ namespace wm\admin\models\settings\chatbot;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use wm\admin\models\settings\chatbot\Chatbot;
 
 /**
  * ChatbotSearch represents the model behind the search form of `wm\admin\models\settings\chatbot\Chatbot`.
@@ -17,7 +16,27 @@ class ChatbotSearch extends Chatbot
     public function rules()
     {
         return [
-            [['code', 'type_id', 'p_name', 'p_last_name', 'p_color_name', 'p_email', 'p_personal_birthday', 'p_work_position', 'p_personal_www', 'p_personal_photo_url', 'event_handler', 'event_massege_add', 'event_massege_update', 'event_massege_delete', 'event_welcome_massege', 'event_bot_delete'], 'safe'],
+            [
+                [
+                    'code',
+                    'type_id',
+                    'p_name',
+                    'p_last_name',
+                    'p_color_name',
+                    'p_email',
+                    'p_personal_birthday',
+                    'p_work_position',
+                    'p_personal_www',
+                    'p_personal_photo_url',
+                    'event_handler',
+                    'event_massege_add',
+                    'event_massege_update',
+                    'event_massege_delete',
+                    'event_welcome_massege',
+                    'event_bot_delete'
+                ],
+                'safe'
+            ],
             [['openline', 'p_personal_gender'], 'integer'],
         ];
     }

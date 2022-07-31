@@ -40,7 +40,13 @@ class Events extends \yii\db\ActiveRecord
             [['auth_type'], 'integer'],
             [['event_name', 'handler'], 'string', 'max' => 255],
             [['event_type'], 'string', 'max' => 10],
-            [['event_name'], 'exist', 'skipOnError' => true, 'targetClass' => EventsDirectory::className(), 'targetAttribute' => ['event_name' => 'name']],
+            [
+                ['event_name'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => EventsDirectory::className(),
+                'targetAttribute' => ['event_name' => 'name']
+            ],
         ];
     }
 

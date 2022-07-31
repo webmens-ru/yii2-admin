@@ -7,7 +7,8 @@ use yii\data\ActiveDataProvider;
 use wm\admin\models\settings\events\EventsDirectory;
 
 /**
- * EventsDirectorySearch represents the model behind the search form of `wm\admin\models\settings\events\EventsDirectory`.
+ * EventsDirectorySearch represents the model behind the search form of
+ * `wm\admin\models\settings\events\EventsDirectory`.
  */
 class EventsDirectorySearch extends EventsDirectory
 {

@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -45,7 +45,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['view', 'name' => $key], ['class' => 'fas fa-eye']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('', ['delete', 'name' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                        return Html::a(
+                            '',
+                            ['delete', 'name' => $key],
+                            [
+                                'class' => 'fas fa-trash',
+                                'title' => 'Удалить',
+                                'aria-label' => 'Удалить',
+                                'data-pjax' => 0,
+                                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                'data-method' => 'post'
+                            ]
+                        );
                     },
                 ],
             ],

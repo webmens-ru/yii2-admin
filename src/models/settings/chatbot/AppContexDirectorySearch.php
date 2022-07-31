@@ -7,7 +7,8 @@ use yii\data\ActiveDataProvider;
 use wm\admin\models\settings\chatbot\AppContexDirectory;
 
 /**
- * AppContexDirectorySearch represents the model behind the search form of `wm\admin\models\settings\chatbot\AppContexDirectory`.
+ * AppContexDirectorySearch represents the model behind the search form of
+ * `wm\admin\models\settings\chatbot\AppContexDirectory`.
  */
 class AppContexDirectorySearch extends AppContexDirectory
 {

@@ -38,7 +38,13 @@ class Placement extends \yii\db\ActiveRecord
                 [['placement_name', 'handler', 'title'], 'required'],
                 [['placement_name'], 'string', 'max' => 50],
                 [['handler', 'title', 'description', 'group_name'], 'string', 'max' => 255],
-                [['placement_name'], 'exist', 'skipOnError' => true, 'targetClass' => PlacementDirectory::className(), 'targetAttribute' => ['placement_name' => 'name_id']],
+                [
+                    ['placement_name'],
+                    'exist',
+                    'skipOnError' => true,
+                    'targetClass' => PlacementDirectory::className(),
+                    'targetAttribute' => ['placement_name' => 'name_id']
+                ],
         ];
     }
 

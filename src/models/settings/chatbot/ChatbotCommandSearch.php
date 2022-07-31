@@ -4,10 +4,10 @@ namespace wm\admin\models\settings\chatbot;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use wm\admin\models\settings\chatbot\ChatbotCommand;
 
 /**
- * ChatbotCommandSearch represents the model behind the search form of `wm\admin\models\settings\chatbot\ChatbotCommand`.
+ * ChatbotCommandSearch represents the model behind the search form of
+ * `wm\admin\models\settings\chatbot\ChatbotCommand`.
  */
 class ChatbotCommandSearch extends ChatbotCommand
 {
@@ -17,7 +17,21 @@ class ChatbotCommandSearch extends ChatbotCommand
     public function rules()
     {
         return [
-            [['bot_code', 'command', 'common', 'hidden', 'extranet_support', 'title_ru', 'params_ru', 'title_en', 'params_en', 'event_command_add'], 'safe'],
+            [
+                [
+                    'bot_code',
+                    'command',
+                    'common',
+                    'hidden',
+                    'extranet_support',
+                    'title_ru',
+                    'params_ru',
+                    'title_en',
+                    'params_en',
+                    'event_command_add'
+                ],
+                'safe'
+            ],
         ];
     }
 

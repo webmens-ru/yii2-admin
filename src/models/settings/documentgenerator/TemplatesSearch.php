@@ -7,7 +7,8 @@ use yii\data\ActiveDataProvider;
 use wm\admin\models\settings\documentgenerator\Templates;
 
 /**
- * TemplatesSearch represents the model behind the search form of `wm\admin\models\settings\documentgenerator\Templates`.
+ * TemplatesSearch represents the model behind the search form of
+ * `wm\admin\models\settings\documentgenerator\Templates`.
  */
 class TemplatesSearch extends Templates
 {

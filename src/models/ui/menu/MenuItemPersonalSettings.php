@@ -2,7 +2,6 @@
 
 namespace wm\admin\models\ui\menu;
 
-use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -34,7 +33,13 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
         return [
             [['itemId', 'userId', 'order', 'visible'], 'required'],
             [['itemId', 'userId', 'order', 'visible'], 'integer'],
-            [['itemId'], 'exist', 'skipOnError' => true, 'targetClass' => MenuItem::className(), 'targetAttribute' => ['itemId' => 'id']],
+            [
+                ['itemId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => MenuItem::className(),
+                'targetAttribute' => ['itemId' => 'id']
+            ],
         ];
     }
 

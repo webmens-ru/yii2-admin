@@ -2,15 +2,15 @@
 
 namespace wm\admin\controllers\settings\robots;
 
-use Yii;
-use wm\admin\models\settings\robots\RobotsProperties;
-use wm\admin\models\settings\robots\RobotsPropertiesSearch;
 use wm\admin\models\settings\robots\Robots;
 use wm\admin\models\settings\robots\RobotsOptionsSearch;
+use wm\admin\models\settings\robots\RobotsProperties;
+use wm\admin\models\settings\robots\RobotsPropertiesSearch;
 use wm\admin\models\settings\robots\RobotsTypes;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * RobotsPropertiesController implements the CRUD actions for RobotsProperties model.
@@ -51,10 +51,10 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
         $robotsTypesModel = RobotsTypes::find()->all();
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'robotsModel' => $robotsModel,
-                    'robotsTypesModel' => $robotsTypesModel,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'robotsModel' => $robotsModel,
+            'robotsTypesModel' => $robotsTypesModel,
         ]);
     }
 
@@ -97,8 +97,8 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
             $model->robot_code = $robotCode;
         }
         return $this->render('create', [
-                    'model' => $model,
-                    'robotsTypesModel' => $robotsTypesModel,
+            'model' => $model,
+            'robotsTypesModel' => $robotsTypesModel,
         ]);
     }
 
@@ -120,9 +120,9 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
         }
 
         return $this->render('update', [
-                    'model' => $model,
-                    'robotsModel' => $robotsModel,
-                    'robotsTypesModel' => $robotsTypesModel,
+            'model' => $model,
+            'robotsModel' => $robotsModel,
+            'robotsTypesModel' => $robotsTypesModel,
         ]);
     }
 
@@ -149,7 +149,16 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
      */
     protected function findModel($robot_code, $system_name)
     {
-        if (($model = RobotsProperties::findOne(['robot_code' => $robot_code, 'system_name' => $system_name])) !== null) {
+        if (
+            (
+            $model = RobotsProperties::findOne(
+                [
+                    'robot_code' => $robot_code,
+                    'system_name' => $system_name
+                ]
+            )
+            ) !== null
+        ) {
             return $model;
         }
 

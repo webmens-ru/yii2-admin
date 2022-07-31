@@ -1,8 +1,8 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel wm\admin\models\RobotsSearch */
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="robots-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    
+
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
     <p>
@@ -25,30 +25,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             'code',
             'handler',
             'auth_user_id',
             'name',
-                [
+            [
                 'attribute' => 'use_subscription',
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-                    return Html::checkbox('use_subscription[]', $searchModel->use_subscription, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox(
+                        'use_subscription[]',
+                        $searchModel->use_subscription,
+                        ['value' => $index, 'disabled' => true]
+                    );
                 },
-                ],
-                [
+            ],
+            [
                 'attribute' => 'use_placement',
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($searchModel, $index, $widget) {
-                    return Html::checkbox('use_placement[]', $searchModel->use_placement, ['value' => $index, 'disabled' => true]);
+                    return Html::checkbox(
+                        'use_placement[]',
+                        $searchModel->use_placement,
+                        ['value' => $index, 'disabled' => true]
+                    );
                 },
-                ],
+            ],
             //'use_subscription',
             //'use_placement',
-                [
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
                 'headerOptions' => ['width' => '80'],
@@ -61,12 +69,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', ['view', 'code' => $key], ['class' => 'fas fa-eye']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('', ['delete', 'code' => $key], ['class' => 'fas fa-trash', 'title' => 'Удалить', 'aria-label' => 'Удалить', 'data-pjax' => 0, 'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?', 'data-method' => 'post']);
+                        return Html::a(
+                            '',
+                            ['delete', 'code' => $key],
+                            [
+                                'class' => 'fas fa-trash',
+                                'title' => 'Удалить',
+                                'aria-label' => 'Удалить',
+                                'data-pjax' => 0,
+                                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                'data-method' => 'post'
+                            ]
+                        );
                     },
                 ],
-                ],
+            ],
         ],
     ]);
     ?>
-<?php Pjax::end(); ?>
+    <?php Pjax::end(); ?>
 </div>

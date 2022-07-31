@@ -31,8 +31,16 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="btn-group" role="group" aria-label="First group">
             <p>
-                <?= Html::a('Установить на портал', ['b24-install', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Удалить с портала', ['b24-delete', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+                <?= Html::a(
+                    'Установить на портал',
+                    ['b24-install', 'id' => $model->id],
+                    ['class' => 'btn btn-success']
+                ) ?>
+                <?= Html::a(
+                    'Удалить с портала',
+                    ['b24-delete', 'id' => $model->id],
+                    ['class' => 'btn btn-danger']
+                ) ?>
             </p>
         </div>
     </div>

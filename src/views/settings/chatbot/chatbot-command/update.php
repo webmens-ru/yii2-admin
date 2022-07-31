@@ -7,7 +7,10 @@ use yii\helpers\Html;
 
 $this->title = 'Update Chatbot Command: ' . $model->bot_code;
 $this->params['breadcrumbs'][] = ['label' => 'Chatbot Commands', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->bot_code, 'url' => ['view', 'bot_code' => $model->bot_code, 'command' => $model->command]];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->bot_code,
+    'url' => ['view', 'bot_code' => $model->bot_code, 'command' => $model->command]
+];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="chatbot-command-update">
