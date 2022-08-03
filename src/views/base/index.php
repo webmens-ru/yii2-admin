@@ -9,7 +9,7 @@ use yii\bootstrap\Tabs;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 
-$this->title = 'Формы';
+$this->title = 'WM24-CMS Админка';
 ?>
 <div class="py-5 text-center">
     <p class="lead">Вы находитесь на главной странице приложения, разработанного компанией
