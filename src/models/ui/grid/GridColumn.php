@@ -14,6 +14,7 @@ use Yii;
  * @property string $title
  * @property int $visible
  * @property int $order
+ * @property string $type
  *
  * @property Entity $entityCode0
  * @property GridColumnPersonal[] $gridColumnPersonals
@@ -34,9 +35,9 @@ class GridColumn extends \wm\yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['entityCode', 'code', 'title', 'visible', 'order', 'width',], 'required'],
+            [['entityCode', 'code', 'title', 'visible', 'order', 'width', 'type'], 'required'],
             [['visible', 'order', 'width'], 'integer'],
-            [['entityCode', 'code'], 'string', 'max' => 32],
+            [['entityCode', 'code', 'type'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
             [
                 ['entityCode'],
@@ -61,6 +62,7 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             'visible' => 'Visible',
             'order' => 'Order',
             'width' => 'Ширина',
+            'type' => 'Тип'
         ];
     }
 
