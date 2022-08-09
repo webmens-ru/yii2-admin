@@ -36,13 +36,7 @@ class Action extends \wm\yii\db\ActiveRecord
             [['entityCode', 'label', 'handler'], 'required'],
             [['entityCode'], 'string', 'max' => 64],
             [['label', 'handler', 'params'], 'string', 'max' => 255],
-            [
-                ['entityCode'],
-                'exist',
-                'skipOnError' => true,
-                'targetClass' => Entity::className(),
-                'targetAttribute' => ['entityCode' => 'code']
-            ],
+            [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
         ];
     }
 
@@ -57,6 +51,19 @@ class Action extends \wm\yii\db\ActiveRecord
             'label' => 'Title',
             'handler' => 'Handler',
             'params' => 'Params',
+        ];
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'label',
+            'entityCode',
+            'handler',
+            'params' => function () {
+                return json_decode($this->params);
+            }
         ];
     }
 
