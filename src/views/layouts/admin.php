@@ -48,7 +48,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
         NavBar::begin(
             [
                 'brandLabel' => Html::img($assetsUrl->baseUrl . '/img/logo.png', ['class' => 'logo']),
-                'brandUrl' => '/admin/admin-base/index',
+                'brandUrl' => '/admin',
                 'options' => [
                     'class' => 'navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5',
                 ],
