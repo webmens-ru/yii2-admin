@@ -39,6 +39,7 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             [['visible', 'order', 'width'], 'integer'],
             [['entityCode', 'code', 'type'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
+            [['frozen', 'reordering', 'resizeble'], 'boolean'],
             [
                 ['entityCode'],
                 'exist',
@@ -62,7 +63,10 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             'visible' => 'Visible',
             'order' => 'Order',
             'width' => 'Ширина',
-            'type' => 'Тип'
+            'type' => 'Тип',
+            'frozen' => 'Frozen',
+            'reordering' => 'Reordering',
+            'resizeble' => 'Resizeble'
         ];
     }
 

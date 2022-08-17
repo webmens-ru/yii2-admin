@@ -32,4 +32,14 @@ class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestContr
 
         return true;
     }
+
+    public function actionFrozen()
+    {
+        $data = Yii::$app->getRequest()->getBodyParams();
+        $entity = $data['entity'];
+        $columnTitle =  $data['title'];
+        $frozen = $data['frozen'];
+        $userId = Yii::$app->user->id;
+        return GridColumnPersonal::setFrozen($entity, $columnTitle, $frozen, $userId);
+    }
 }

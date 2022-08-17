@@ -33,6 +33,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
         return [
             [['columnId', 'userId', 'order', 'visible'], 'required'],
             [['columnId', 'userId', 'order', 'visible'], 'integer'],
+            [['frozen'], 'boolean'],
             [
                 ['columnId'],
                 'exist',
@@ -55,6 +56,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
             'order' => 'Order',
             'visible' => 'Visible',
             'width' => 'Ширина',
+            'frozen' => 'Frozen'
         ];
     }
 
@@ -102,6 +104,15 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
         if (!$column) {
             $column = new GridColumnPersonal();
         }
+        return $column;
+    }
+
+    public static function setFrozen($entity, $columnTitle, $frozen, $userId)
+    {
+        $model = GridColumn::find()->where(['entity' => $entity, 'title' => $columnTitle])->one();
+        $column = self::getColumnPersonalSettings($model->id, $userId);
+        $column->frozen = $frozen;
+        $column->save();
         return $column;
     }
 }
