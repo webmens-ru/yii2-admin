@@ -87,9 +87,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
                         ],
                         [
                             'label' => 'Синхронизация',
-                            'items' => [
-                                ['label' => 'Пользователи', 'url' => '#'],
-                            ]
+                            'url' => '/admin/synchronization/index'
                         ],
                         [
                             'label' => 'Смарт-процессвы - Генератор таблиц',

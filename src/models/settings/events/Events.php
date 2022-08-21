@@ -2,9 +2,9 @@
 
 namespace wm\admin\models\settings\events;
 
-use Yii;
-use wm\b24tools\b24Tools;
 use wm\admin\models\B24ConnectSettings;
+use wm\b24tools\b24Tools;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /**
@@ -152,11 +152,27 @@ class Events extends \yii\db\ActiveRecord
         $fullResult = $obB24->client->call(
             'event.offline.get',
             array(
-                    'filter' => [
-                        'EVENT_NAME' => $eventName,
-                    ]
-                )
+                'filter' => [
+                    'EVENT_NAME' => $eventName,
+                ]
+            )
         );
         return $fullResult;
+    }
+
+    public function isInstallToB24()
+    {
+        $b24EventsList = ArrayHelper::getValue(self::getB24EventsList(), 'result');
+        $b24EventsFilterList = array_filter($b24EventsList, function ($var) {
+            if (
+                ArrayHelper::getValue($var, 'event') == strtoupper($this->event_name) &&
+                ArrayHelper::getValue($var, 'offline') == ($this->event_type=='offline'?1:0)
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        return (bool) $b24EventsFilterList;
     }
 }
