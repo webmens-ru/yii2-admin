@@ -39,6 +39,12 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             [['visible', 'order', 'width'], 'integer'],
             [['entityCode', 'code', 'type'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
+            [[
+                'frozen',
+                'reordering',
+                'resizeble',
+                'sortable'
+            ], 'boolean'],
             [
                 ['entityCode'],
                 'exist',
@@ -48,6 +54,36 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             ],
         ];
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'entityCode',
+            'code',
+            'title',
+            'visible' => function () {
+                return self::getBooleanValue($this->visible);
+            },
+            'order',
+            'width',
+            'type',
+            'frozen' => function () {
+               return self::getBooleanValue($this->frozen);
+            },
+            'reordering' => function () {
+                return self::getBooleanValue($this->reordering);
+            },
+            'resizeble' => function () {
+                return self::getBooleanValue($this->resizeble);
+            },
+            'sortable' => function () {
+                return self::getBooleanValue($this->sortable);
+            }
+        ];
+    }
+
+
 
     /**
      * {@inheritdoc}
@@ -62,7 +98,10 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             'visible' => 'Visible',
             'order' => 'Order',
             'width' => 'Ширина',
-            'type' => 'Тип'
+            'type' => 'Тип',
+            'frozen' => 'Frozen',
+            'reordering' => 'Reordering',
+            'resizeble' => 'Resizeble'
         ];
     }
 
@@ -105,6 +144,7 @@ class GridColumn extends \wm\yii\db\ActiveRecord
                 $value->order = $settings->order;
                 $value->visible = $settings->visible;
                 $value->width = $settings->width;
+                $value->frozen = $settings->frozen;
             }
             $res[] = $value;
         }
