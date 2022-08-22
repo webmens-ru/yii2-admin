@@ -24,7 +24,7 @@ class m220818_134900_admin_menu_item_type_init extends \yii\db\Migration
             ]
         );
 
-        $this->addForeignKey('admin_menu_item_ibfk_2', 'admin_menu_item', ['type'], 'admin_menu_item_type', ['id'], 'CASCADE', 'CASCADE');
+        $this->addForeignKey('admin_menu_item_ibfk_2', 'admin_menu_item', ['type'], 'admin_menu_item_type', ['code'], 'CASCADE', 'CASCADE');
     }
 
     public function down()
