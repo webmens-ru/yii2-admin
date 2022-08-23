@@ -9,7 +9,6 @@ use wm\admin\models\Synchronization;
  * This is the model class for table "admin_synchronization_field".
  *
  * @property int $id
- * @property int $typeId
  * @property string $name
  * @property int $synchronizationEntityId
  * @property string $title
@@ -48,8 +47,8 @@ class SynchronizationField extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['typeId', 'name', 'synchronizationEntityId', 'title'], 'required'],
-            [['typeId', 'synchronizationEntityId', 'noDelete'], 'integer'],
+            [['name', 'synchronizationEntityId', 'title'], 'required'],
+            [['synchronizationEntityId', 'noDelete'], 'integer'],
             [['name'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 64],
             [['name', 'synchronizationEntityId'], 'unique', 'targetAttribute' => ['name', 'synchronizationEntityId']],
@@ -63,8 +62,7 @@ class SynchronizationField extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'typeId' => 'Тип поля',
+            'id' => 'ID',            
             'name' => 'Системное имя',
             'synchronizationEntityId' => 'Идентификатор сущности',
             'title' => 'Название',

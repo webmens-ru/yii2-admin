@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Добавление поля';
 $this->params['breadcrumbs'][] = ['label' => 'Синхронизация', 'url' => ['/admin/synchronization/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Сущность', 'url' => ['/admin/synchronization/view', 'id' => $model->synchronizationEntityId]];
+$this->params['breadcrumbs'][] = ['label' => $modelSynchronization->title, 'url' => ['/admin/synchronization/view', 'id' => $model->synchronizationEntityId]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="synchronization-create">

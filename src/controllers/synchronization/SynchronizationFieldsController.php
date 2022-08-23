@@ -89,6 +89,7 @@ class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleCo
         return $this->render('create', [
             'model' => $model,
             'b24Fields' => $b24Fields,
+            'modelSynchronization' => $modelSynchronization,
         ]);
     }
 

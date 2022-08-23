@@ -16,7 +16,7 @@ class SynchronizationFieldSearch extends SynchronizationField
     public function rules()
     {
         return [
-            [['id', 'typeId', 'synchronizationEntityId'], 'integer'],
+            [['id', 'synchronizationEntityId'], 'integer'],
             [['name', 'title'], 'safe'],
         ];
     }
@@ -57,8 +57,7 @@ class SynchronizationFieldSearch extends SynchronizationField
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'typeId' => $this->typeId,
+            'id' => $this->id,            
             'synchronizationEntityId' => $this->synchronizationEntityId,
         ]);
 
