@@ -4,6 +4,8 @@
 namespace wm\admin\models\synchronization;
 
 
+use wm\admin\models\settings\Agents;
+
 interface SynchronizationInterface
 {
     public static function getCountB24();
@@ -12,7 +14,7 @@ interface SynchronizationInterface
 
     public static function getB24FieldsList();
 
-    public static function startSynchronization($period);
+    public static function startSynchronization(Agents $modelAgentTimeSettings);
 
     public static function stopSynchronization();
 
