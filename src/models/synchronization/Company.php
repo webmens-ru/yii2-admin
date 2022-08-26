@@ -66,7 +66,7 @@ class Company extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
-    public static function startSynchronization($period)
+    public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = ['onCrmCompanyAdd', 'onCrmCompanyUpdate', 'onCrmCompanyDelete'];
         foreach ($events as $eventName) {
@@ -92,7 +92,7 @@ class Company extends BaseEntity implements SynchronizationInterface
             $agent->params = '-';
             $agent->date_run = '1970-01-01 03:00:00';
         }
-        $agent->period = $period;
+        $agent->load(ArrayHelper::toArray($modelAgentTimeSettings), '');
         $agent->status_id = 1;
         $agent->save();
     }
