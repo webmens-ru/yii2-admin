@@ -27,6 +27,26 @@ use Yii;
  */
 class Agents extends \yii\db\ActiveRecord
 {
+    const SCENARIO_ONLY_TIME_SETTINGS = 'onlyTimeSettings';
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_ONLY_TIME_SETTINGS] = [
+            'minuteTypeId',
+            'hourTypeId',
+            'dayTypeId',
+            'monthTypeId',
+            'finishTypeId',
+            'minuteProps',
+            'hourProps',
+            'dayProps',
+            'monthProps',
+            'finishProps',
+        ];
+        return $scenarios;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -41,12 +61,196 @@ class Agents extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'class', 'method', 'params', 'date_run', 'period', 'status_id'], 'required'],
+            [['name', 'class', 'method', 'params', 'date_run', 'status_id'], 'required'],
             [['params'], 'string'],
             [['date_run'], 'safe'],
             [['period', 'status_id',], 'integer'],
             [['name', 'class',], 'string', 'max' => 255],
             [['method'], 'string', 'max' => 64],
+            [
+                [
+                    'minuteTypeId',
+                    'hourTypeId',
+                    'dayTypeId',
+                    'monthTypeId',
+                    'finishTypeId'
+                ],
+                'required'
+            ],
+
+            //minuteProps
+            [
+                'minuteProps',
+                'required',
+                'when' => function ($model) {
+                    return $model->minuteTypeId > 1;
+                },
+                'whenClient' => "function (attribute, value) {}"
+                ///*function (attribute, value) {
+                //                    console.log($('#minuteTypeId').val());
+                //                    return $('#minuteTypeId').val() > 1;
+                //                }*/
+            ],
+            [
+                'minuteProps',
+                'integer',
+                'min' => 1,
+                'max' => 59,
+                'when' => function ($model) {
+                    return $model->minuteTypeId == 2;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'minuteProps',
+                function ($attribute, $params) {
+                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                        $this->addError($attribute, "в параметре содержатся недопустимые символы");
+                    }
+                    $values = explode(',', $this->$attribute);
+                    foreach ($values as $value) {
+                        if ($value < 0 || $value > 59) {
+                            $this->addError($attribute, "число $value не входит в допустимый диапазон 0-59");
+                        }
+                    }
+                },
+                'when' => function ($model) {
+                    return $model->minuteTypeId == 3;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+
+            //hourProps
+            [
+                'hourProps',
+                'required',
+                'when' => function ($model) {
+                    return $model->hourTypeId > 1;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'hourProps',
+                'integer',
+                'min' => 1,
+                'max' => 23,
+                'when' => function ($model) {
+                    return $model->hourTypeId == 2;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'hourProps',
+                function ($attribute, $params) {
+                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                        $this->addError($attribute, "в параметре содержатся недопустимые символы");
+                    }
+                    $values = explode(',', $this->$attribute);
+                    foreach ($values as $value) {
+                        if ($value < 0 || $value > 23) {
+                            $this->addError($attribute, "число $value не входит в допустимый диапазон 0-23");
+                        }
+                    }
+                },
+                'when' => function ($model) {
+                    return $model->hourTypeId == 3;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+
+            //dayProps
+            [
+                'dayProps',
+                'required',
+                'when' => function ($model) {
+                    return $model->dayTypeId > 1;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'dayProps',
+                'integer',
+                'min' => 1,
+                'max' => 31,
+                'when' => function ($model) {
+                    return $model->dayTypeId == 2;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'dayProps',
+                function ($attribute, $params) {
+                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                        $this->addError($attribute, "в параметре содержатся недопустимые символы");
+                    }
+                    $values = explode(',', $this->$attribute);
+                    foreach ($values as $value) {
+                        if ($value < 1 || $value > 31) {
+                            $this->addError($attribute, "число $value не входит в допустимый диапазон 1-31");
+                        }
+                    }
+                },
+                'when' => function ($model) {
+                    return $model->dayTypeId == 3;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+
+            //monthProps
+            [
+                'monthProps',
+                'required',
+                'when' => function ($model) {
+                    return $model->monthTypeId > 1;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'monthProps',
+                'integer',
+                'min' => 1,
+                'max' => 12,
+                'when' => function ($model) {
+                    return $model->monthTypeId == 2;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'monthProps',
+                function ($attribute, $params) {
+                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                        $this->addError($attribute, "в параметре содержатся недопустимые символы");
+                    }
+                    $values = explode(',', $this->$attribute);
+                    foreach ($values as $value) {
+                        if ($value < 1 || $value > 12) {
+                            $this->addError($attribute, "число $value не входит в допустимый диапазон 1-12");
+                        }
+                    }
+                },
+                'when' => function ($model) {
+                    return $model->monthTypeId == 3;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+
+            //finishProps
+            [
+                'finishProps',
+                'required',
+                'when' => function ($model) {
+                    return $model->finishTypeId > 1;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                'monthProps',
+                'datetime',
+                'when' => function ($model) {
+                    return $model->monthTypeId == 2;
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
         ];
     }
 
