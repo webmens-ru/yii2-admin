@@ -2,6 +2,7 @@
 
 namespace wm\admin\controllers;
 
+use wm\admin\models\settings\Agents;
 use wm\admin\models\Synchronization;
 use wm\admin\models\synchronization\FormFullSync;
 use wm\admin\models\synchronization\FormSync;
@@ -9,6 +10,7 @@ use wm\admin\models\synchronization\SynchronizationFieldSearch;
 use wm\admin\models\SynchronizationSearch;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -166,10 +168,6 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         return $this->render('full', [
             'model' => $model,
         ]);
-
-
-
-
         return $jobId;//TODO подумать про вьюху
     }
 
@@ -177,20 +175,28 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
     {
         $request = yii::$app->request;
         $model = new FormSync();
+        $modelAgentTimeSettings = new Agents();
+        $modelAgentTimeSettings->scenario = Agents::SCENARIO_ONLY_TIME_SETTINGS;
 
-        if ($model->load($request->post()) && $model->validate()) {
+        if (
+            $model->load($request->post())
+            && $model->validate()
+            && $modelAgentTimeSettings->load($request->post())
+            && $modelAgentTimeSettings->validate()
+        ) {
             $modelSync = $this->findModel($model->entityId);
-            $modelSync->activate($model->period);
+            $modelSync->activate($modelAgentTimeSettings);
             return $this->redirect(['view', 'id' => $model->entityId]);
         }
 
         if ($request->post('action') != 'submit') {
-            $model->period = 1;
             $model->entityId = $id;
+            $modelAgentTimeSettings = $model->initAgentTimeSettings();           
         }
 
         return $this->render('activate', [
             'model' => $model,
+            'modelAgentTimeSettings' => $modelAgentTimeSettings,
         ]);
     }
 

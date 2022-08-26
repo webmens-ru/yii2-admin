@@ -1,5 +1,6 @@
 <?php
 
+use wm\admin\widgets\AgentsTimeSettingsWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -22,10 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'entityId')->hiddenInput()->label(false) ?>
 
-        <?= $form->field($model, 'period')->textInput()->label('Периодичность синхронизации в минутах') ?>
+        <?= AgentsTimeSettingsWidget::widget(['model' => $modelAgentTimeSettings, 'form' => $form]) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(
+                'Сохранить',
+                ['class' => 'btn btn-success', 'name'=>'action','value' => 'submit']
+            ) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

@@ -76,19 +76,14 @@ class Synchronization extends \yii\db\ActiveRecord
         return $this->modelClassName::addJobFull($method, $dateTimeStart);
     }
     
-    public function activate($period = 1){
+    public function activate($modelAgentTimeSettings=null){
         if($this->active){
             $this->modelClassName::stopSynchronization();
         }else{
-            $periodSecond = $this->periodToSecond($period);
-            $this->modelClassName::startSynchronization($periodSecond);
+            $this->modelClassName::startSynchronization($modelAgentTimeSettings);
         }
         $this->active = $this->active?0:1;
         $this->save();
-    }
-    
-    public function periodToSecond($minutes){
-        return $minutes*60-self::TIME_DIFF;
     }
 
     public function isTable(){
