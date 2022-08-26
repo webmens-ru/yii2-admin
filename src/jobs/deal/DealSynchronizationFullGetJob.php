@@ -15,13 +15,11 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
 
     public function execute($queue)
     {
-        Yii::warning('DealSynchronizationFullGetJob execute');
         $this->modelClass::deleteAll();
         $arrayId = $this->getIdsBatch();
         if ($arrayId) {
             $this->getB24Get($arrayId);
         }
-        Yii::warning('DealSynchronizationFullGetJob Close');
     }
 
     public function getIdsBatch()
@@ -73,7 +71,6 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
 
     public function getB24Get($arrayId)
     {
-        Yii::warning('getB24Get');
         $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);

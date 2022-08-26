@@ -123,15 +123,14 @@ class Deal extends BaseEntity implements SynchronizationInterface
 
     public function loadData($data)
     {
-//        $this->load($data, '');
         foreach ($data as $key => $val) {
-            if(in_array($key, array_keys($this->attributes))){
+            if (in_array($key, array_keys($this->attributes))) {
                 is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
             }
         }
         $this->save();
         if ($this->errors) {
-            Yii::error($this->errors, 'Deal->loadData()');            
+            Yii::error($this->errors, 'Deal->loadData()');
         }
     }
 }

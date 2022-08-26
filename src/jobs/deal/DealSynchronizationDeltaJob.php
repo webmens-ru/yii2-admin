@@ -15,7 +15,6 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function execute($queue)
     {
-        Yii::warning('execute');
         $isSyncAdd = false;
         while (!$isSyncAdd) {
             $isSyncAdd = $this->synchronAdd();
@@ -34,13 +33,11 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronAdd()
     {
-//        Yii::warning('synchronAdd');
         $answerB24 = Events::getOffline('onCrmDealAdd');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
         if ($arrayId) {
             $B24List = $this->getB24List($arrayId);
-//            Yii::warning($B24List, '$B24List synchronAdd');
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
                 if (!$model) $model = new $this->modelClass();
@@ -52,13 +49,11 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronUpdate()
     {
-//        Yii::warning('synchronUpdate');
         $answerB24 = Events::getOffline('onCrmDealUpdate');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
         if ($arrayId) {
             $B24List = $this->getB24List($arrayId);
-            Yii::warning($B24List, '$B24List synchronUpdate');
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
                 if (!$model) $model = new $this->modelClass();
@@ -70,7 +65,6 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronDelete()
     {
-//        Yii::warning('synchronUpdate');
         $answerB24 = Events::getOffline('onCrmDealDelete');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
@@ -97,7 +91,6 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
                 }
             );
         }
-
         $obB24->client->processBatchCalls();
         return $res;
     }

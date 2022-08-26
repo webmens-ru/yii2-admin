@@ -11,10 +11,11 @@ use yii\helpers\ArrayHelper;
 
 class DealSynchronizationFullListJob extends BaseObject implements \yii\queue\JobInterface
 {
-    public $modelClass;    
+    public $modelClass;
+
     public function execute($queue)
     {
-        
+
         $this->modelClass::deleteAll();
         $modelDeal = Yii::createObject($this->modelClass);
         $fieldsDeal = $modelDeal->attributes();
@@ -31,7 +32,7 @@ class DealSynchronizationFullListJob extends BaseObject implements \yii\queue\Jo
         );
         foreach (ArrayHelper::getValue($request, $listDataSelector) as $oneEntity) {
             $model = Yii::createObject($this->modelClass);
-            $model->loadData($oneEntity);          
+            $model->loadData($oneEntity);
         }
         $countCalls = (int)ceil($request['total'] / $b24Obj->client::MAX_BATCH_CALLS);
         $data = ArrayHelper::getValue($request, $listDataSelector);
