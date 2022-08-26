@@ -5,26 +5,26 @@ namespace wm\admin\models\synchronization;
 use Bitrix24\B24Object;
 use wm\admin\models\settings\Agents;
 use wm\admin\models\settings\events\Events;
-use wm\admin\jobs\deal\DealSynchronizationFullListJob;
-use wm\admin\jobs\deal\DealSynchronizationFullGetJob;
-use wm\admin\jobs\deal\DealSynchronizationDeltaJob;
+use wm\admin\jobs\lead\LeadSynchronizationFullListJob;
+use wm\admin\jobs\lead\LeadSynchronizationFullGetJob;
+use wm\admin\jobs\lead\LeadSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
-class Deal extends BaseEntity implements SynchronizationInterface
+class Lead extends BaseEntity implements SynchronizationInterface
 {
     public static function tableName()
     {
-        return 'sync_deal';
+        return 'sync_lead';
     }
 
-    public static $synchronizationFullListJob = DealSynchronizationFullListJob::class;
+    public static $synchronizationFullListJob = LeadSynchronizationFullListJob::class;
 
-    public static $synchronizationDeltaJob = DealSynchronizationDeltaJob::class;
+    public static $synchronizationDeltaJob = LeadSynchronizationDeltaJob::class;
 
-    public static $synchronizationFullGetJob = DealSynchronizationFullGetJob::class;
+    public static $synchronizationFullGetJob = LeadSynchronizationFullGetJob::class;
 
     public static $primaryKeyColumnName = 'ID';
 
@@ -35,7 +35,7 @@ class Deal extends BaseEntity implements SynchronizationInterface
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $request = $b24Obj->client->call(
-            'crm.deal.list',
+            'crm.lead.list',
             ['select' => ['ID']]
         );
         return $request['total'];
@@ -44,13 +44,13 @@ class Deal extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
-        $key = 'crm.deal.fields';
+        $key = 'crm.lead.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();
             $b24App = $component->connectFromAdmin();
             $b24Obj = new B24Object($b24App);
             $data = ArrayHelper::getValue($b24Obj->client->call(
-                'crm.deal.fields'
+                'crm.lead.fields'
             ), 'result');
             return $data;
         }, 300);
@@ -66,9 +66,9 @@ class Deal extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
-    public static function startSynchronization($modelAgentTimeSettings)
+    public static function startSynchronization($period)
     {
-        $events = ['onCrmDealAdd', 'onCrmDealUpdate', 'onCrmDealDelete'];
+        $events = ['onCrmLeadAdd', 'onCrmLeadUpdate', 'onCrmLeadDelete'];
         foreach ($events as $eventName) {
             $event = Events::find()->where(['event_name' => $eventName, 'event_type' => 'offline'])->one();
             if (!$event) {
@@ -86,20 +86,20 @@ class Deal extends BaseEntity implements SynchronizationInterface
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
         if (!$agent) {
             $agent = new Agents();
-            $agent->name = 'Синхронизация дельты сделки';
+            $agent->name = 'Синхронизация дельты лиды';
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
-            $agent->date_run = '1970-01-01 00:00:00';
+            $agent->date_run = '1970-01-01 03:00:00';
         }
-        $agent->load(ArrayHelper::toArray($modelAgentTimeSettings), '');
+        $agent->period = $period;
         $agent->status_id = 1;
         $agent->save();
     }
 
     public static function stopSynchronization()
     {
-        $events = ['onCrmDealAdd', 'onCrmDealUpdate', 'onCrmDealDelete'];
+        $events = ['onCrmLeadAdd', 'onCrmLeadUpdate', 'onCrmLeadDelete'];
         foreach ($events as $eventName) {
             $event = Events::find()->where(['event_name' => $eventName, 'event_type' => 'offline'])->one();
             if (!$event) {
@@ -130,7 +130,7 @@ class Deal extends BaseEntity implements SynchronizationInterface
         }
         $this->save();
         if ($this->errors) {
-            Yii::error($this->errors, 'Deal->loadData()');
+            Yii::error($this->errors, 'Lead->loadData()');
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\admin\jobs\deal;
+namespace wm\admin\jobs\contact;
 
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;
@@ -9,7 +9,7 @@ use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
 
-class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
+class ContactSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
 
@@ -34,12 +34,11 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
                 '>ID' => 0
             ]
         ];
-        $request = $obB24->client->call('crm.deal.list', $params);
+        $request = $obB24->client->call('crm.contact.list', $params);
         $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
         $countBatchCalls = (int)ceil($countCalls / 50);
         $res = [];
         for ($j = 0; $j < $countBatchCalls; $j++) {
-
             if ($j == 0) {
                 $prevId = 0;
             } else {
@@ -47,7 +46,7 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
             }
             for ($i = 0; $i < 50; $i++) {
                 if ($countCalls > 0) {
-                    $idx = $obB24->client->addBatchCall('crm.deal.list',
+                    $idx = $obB24->client->addBatchCall('crm.contact.list',
                         [
                             'order' => ["ID" => "ASC"],
                             'filter' => [
@@ -76,7 +75,7 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
 //            try{}catch ()//TODO
-            $obB24->client->addBatchCall('crm.deal.get',
+            $obB24->client->addBatchCall('crm.contact.get',
                 ['ID' => $id],
                 function ($result) {
                     $data = ArrayHelper::getValue($result, 'result');

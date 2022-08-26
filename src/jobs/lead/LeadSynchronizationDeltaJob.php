@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\admin\jobs\deal;
+namespace wm\admin\jobs\lead;
 
 use wm\admin\models\settings\events\Events;
 use wm\b24tools\b24Tools;
@@ -9,7 +9,7 @@ use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
 
-class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
+class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
 
@@ -33,7 +33,7 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronAdd()
     {
-        $answerB24 = Events::getOffline('onCrmDealAdd');
+        $answerB24 = Events::getOffline('onCrmLeadAdd');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
         if ($arrayId) {
@@ -49,7 +49,7 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronUpdate()
     {
-        $answerB24 = Events::getOffline('onCrmDealUpdate');
+        $answerB24 = Events::getOffline('onCrmLeadUpdate');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
         if ($arrayId) {
@@ -65,7 +65,7 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronDelete()
     {
-        $answerB24 = Events::getOffline('onCrmDealDelete');
+        $answerB24 = Events::getOffline('onCrmLeadDelete');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
         if ($arrayId) {
@@ -84,7 +84,7 @@ class DealSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
         $obB24 = new \Bitrix24\B24Object($b24App);
         $res = [];
         foreach ($arrayId as $id) {
-            $obB24->client->addBatchCall('crm.deal.get',
+            $obB24->client->addBatchCall('crm.lead.get',
                 ['ID' => $id],
                 function ($result) use (&$res) {
                     $res[] = ArrayHelper::getValue($result, 'result');
