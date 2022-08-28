@@ -244,7 +244,7 @@ class Agents extends \yii\db\ActiveRecord
                 'whenClient' => "function (attribute, value) {}"
             ],
             [
-                'monthProps',
+                'finishProps',
                 'datetime',
                 'when' => function ($model) {
                     return $model->monthTypeId == 2;
