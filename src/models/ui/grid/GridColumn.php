@@ -14,7 +14,12 @@ use Yii;
  * @property string $title
  * @property int $visible
  * @property int $order
+ * @property int $width
  * @property string $type
+ * @property int $frozen
+ * @property int $reordering
+ * @property int $resizeble
+ * @property int $sortable
  *
  * @property Entity $entityCode0
  * @property GridColumnPersonal[] $gridColumnPersonals

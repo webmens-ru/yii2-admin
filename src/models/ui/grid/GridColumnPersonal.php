@@ -2,6 +2,7 @@
 
 namespace wm\admin\models\ui\grid;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -12,6 +13,8 @@ use yii\helpers\ArrayHelper;
  * @property int $userId
  * @property int $order
  * @property int $visible
+ * @property int $width
+ * @property int $frozen
  *
  * @property GridColumn $column
  */
@@ -31,9 +34,9 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['columnId', 'userId', 'order', 'visible'], 'required'],
-            [['columnId', 'userId', 'order', 'visible'], 'integer'],
-            [['frozen'], 'boolean'],
+            [['columnId', 'userId', 'order', 'visible', 'width'], 'required'],
+            [['columnId', 'userId', 'order', 'width'], 'integer'],
+            [['visible', 'frozen'], 'boolean'],
             [
                 ['columnId'],
                 'exist',
@@ -56,7 +59,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
             'order' => 'Order',
             'visible' => 'Visible',
             'width' => 'Ширина',
-            'frozen' => 'Frozen'
+            'frozen' => 'Заморозка'
         ];
     }
 
@@ -70,7 +73,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
                 return self::getBooleanValue($this->visible);
             },
             'frozen' => function () {
-                return  self::getBooleanValue($this->frozen);
+                return self::getBooleanValue($this->frozen);
             }
         ];
     }
@@ -96,14 +99,19 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
         foreach ($columns as $column) {
             $columnId = ArrayHelper::getValue($column, 'id');
             $model = self::getColumnPersonalSettings($columnId, $userId);
+            $model->load($column, '');
             $model->columnId = $columnId;
-            $model->order = ArrayHelper::getValue($column, 'order');
             $model->userId = $userId;
-            $model->visible = ArrayHelper::getValue($column, 'visible');
-            $model->width = ArrayHelper::getValue($column, 'width');
-            \Yii::warning(ArrayHelper::getValue($column, 'frozen'), '89');
-            $model->frozen = ArrayHelper::getValue($column, 'frozen');
             $model->save();
+            if ($model->errors) {
+                Yii::error([
+                    'model' => $model->errors,
+                    'column' => $column,
+                    'userId' => $userId
+                ],
+                    'GridColumnPersonal->saveColumns($columns, $userId)'
+                );
+            }
         }
         return true;
     }
