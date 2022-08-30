@@ -38,40 +38,40 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         $b24Obj = new B24Object($b24App);
         $request = $b24Obj->client->call(
             'voximplant.statistic.get',
-        );
+            );
         return $request['total'];
     }
 
     public static function getB24Fields()
     {
         return [
-            "ID" => 'Идентификатор звонка (для внутренних целей)',
-            "PORTAL_USER_ID" => 'Идентификатор ответившего оператора (если это тип звонка: 2 - Входящий) или идентификатор позвонившего оператора (если это тип звонка: 1 - Исходящий)',
-            "PORTAL_NUMBER" => 'Номер, на который поступил звонок (если это тип звонка: 2 - Входящий) или номер, с которого был совершен звонок (1 - Исходящий)',
-            "PHONE_NUMBER" => 'Номер, с которого звонит абонент (если это тип звонка: 2 - Входящий) или номер, которому звонит оператор (1 - Исходящий)',
-            "CALL_ID" => 'Идентификатор звонка',
-            "EXTERNAL_CALL_ID" => 'EXTERNAL_CALL_ID',
-            "CALL_CATEGORY" => 'CALL_CATEGORY',
-            "CALL_DURATION" => 'Продолжительность звонка в секундах',
-            "CALL_START_DATE" => 'Время инициализации звонка. При сортировке по этому полю нужно указывать дату в формате ISO-8601',
-            "CALL_RECORD_URL" => 'CALL_RECORD_URL',
-            "CALL_VOTE" => 'По умолчанию - 0. Оценка звонка используется только для внутренней телефонии',
-            "COST" => 'Стоимость звонка',
-            "COST_CURRENCY" => 'Валюта звонка (RUR, USD, EUR)',
-            "CALL_FAILED_CODE" => 'Код вызова',
-            "CALL_FAILED_REASON" => 'Текстовое описание кода вызова (латиница)',
-            "CRM_ENTITY_TYPE" => 'Тип объекта CRM, к которому прикреплено дело, например: LEAD',
-            "CRM_ENTITY_ID" => 'Идентификатор объекта CRM, к которому прикреплено дело',
-            "CRM_ACTIVITY_ID" => 'Идентификатор дела CRM, созданного на основании звонка',
-            "REST_APP_ID" => 'Идентификатор приложения интеграции внешней телефонии',
-            "REST_APP_NAME" => 'Название приложения интеграции внешней телефонии',
-            "TRANSCRIPT_ID" => 'Идентификатор расшифровки звонка',
-            "TRANSCRIPT_PENDING" => 'Y\N. Признак того, что расшифровка будет получена позднее',
-            "SESSION_ID" => 'Идентификатор сессии звонка на стороне Voximplant',
-            "REDIAL_ATTEMPT" => 'Номер попытки дозвониться (для обратных звонков)',
-            "COMMENT" => 'Комментарий к звонку',
-            "RECORD_FILE_ID" => 'Идентификатор файла с записью звонка',
-            "CALL_TYPE" => 'Тип вызова'
+            'ID' => ['id' => "ID", 'title' => 'Идентификатор звонка (для внутренних целей)'],
+            'PORTAL_USER_ID' => ['id' => "PORTAL_USER_ID", 'title' => 'Идентификатор ответившего 2 - Вх или позвонившего 1 - Исх'],
+            'PORTAL_NUMBER' => ['id' => "PORTAL_NUMBER", 'title' => 'Номер, на который поступил звонок 2 - Вх или с которого 1 - Исх'],
+            'PHONE_NUMBER' => ['id' => "PHONE_NUMBER", 'title' => 'Номер, с которого звонит абонент 2 - Вх или номер, которому звонит оператор 1 - Исх'],
+            'CALL_ID' => ['id' => "CALL_ID", 'title' => 'Идентификатор звонка'],
+            'EXTERNAL_CALL_ID' => ['id' => "EXTERNAL_CALL_ID", 'title' => 'EXTERNAL_CALL_ID'],
+            'CALL_CATEGORY' => ['id' => "CALL_CATEGORY", 'title' => 'CALL_CATEGORY'],
+            'CALL_DURATION' => ['id' => "CALL_DURATION", 'title' => 'Продолжительность звонка в секундах'],
+            'CALL_START_DATE' => ['id' => "CALL_START_DATE", 'title' => 'Время инициализации звонка'],
+            'CALL_RECORD_URL' => ['id' => "CALL_RECORD_URL", 'title' => 'CALL_RECORD_URL'],
+            'CALL_VOTE' => ['id' => "CALL_VOTE", 'title' => 'Оценка звонка используется только для внутренней телефонии'],
+            'COST' => ['id' => "COST", 'title' => 'Стоимость звонка'],
+            'COST_CURRENCY' => ['id' => "COST_CURRENCY", 'title' => 'Валюта звонка (RUR, USD, EUR)'],
+            'CALL_FAILED_CODE' => ['id' => "CALL_FAILED_CODE", 'title' => 'Код вызова'],
+            'CALL_FAILED_REASON' => ['id' => "CALL_FAILED_REASON", 'title' => 'Текстовое описание кода вызова (латиница)'],
+            'CRM_ENTITY_TYPE' => ['id' => "CRM_ENTITY_TYPE", 'title' => 'Тип объекта CRM, к которому прикреплено дело, например: LEAD'],
+            'CRM_ENTITY_ID' => ['id' => "CRM_ENTITY_ID", 'title' => 'Идентификатор объекта CRM, к которому прикреплено дело'],
+            'CRM_ACTIVITY_ID' => ['id' => "CRM_ACTIVITY_ID", 'title' => 'Идентификатор дела CRM, созданного на основании звонка'],
+            'REST_APP_ID' => ['id' => "REST_APP_ID", 'title' => 'Идентификатор приложения интеграции внешней телефонии'],
+            'REST_APP_NAME' => ['id' => "REST_APP_NAME", 'title' => 'Название приложения интеграции внешней телефонии'],
+            'TRANSCRIPT_ID' => ['id' => "TRANSCRIPT_ID", 'title' => 'Идентификатор расшифровки звонка'],
+            'TRANSCRIPT_PENDING' => ['id' => "TRANSCRIPT_PENDING", 'title' => 'Y\N. Признак того, что расшифровка будет получена позднее'],
+            'SESSION_ID' => ['id' => "SESSION_ID", 'title' => 'Идентификатор сессии звонка на стороне Voximplant'],
+            'REDIAL_ATTEMPT' => ['id' => "REDIAL_ATTEMPT", 'title' => 'Номер попытки дозвониться (для обратных звонков)'],
+            'COMMENT' => ['id' => "COMMENT", 'title' => 'Комментарий к звонку'],
+            'RECORD_FILE_ID' => ['id' => "RECORD_FILE_ID", 'title' => 'Идентификатор файла с записью звонка'],
+            'CALL_TYPE' => ['id' => "CALL_TYPE", 'title' => 'Тип вызова'],
         ];
     }
 
@@ -80,24 +80,54 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         return self::getB24Fields();
     }
 
-    public static function startSynchronization($modelAgentTimeSettings)
+    public static function startSynchronization($period)
     {
+        $events = ['OnVoximplantCallEnd'];
+        foreach ($events as $eventName) {
+            $event = Events::find()->where(['event_name' => $eventName, 'event_type' => 'offline'])->one();
+            if (!$event) {
+                $event = new Events();
+                $event->event_name = $eventName;
+                $event->handler = '_';
+                $event->event_type = 'offline';
+                $event->save();
+            }
+            if (!$event->isInstallToB24()) {
+                $event->toBitrix24();
+            }
+        }
+
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
         if (!$agent) {
             $agent = new Agents();
-            $agent->name = 'Синхронизация дельты пользователи';
+            $agent->name = 'Синхронизация дельты телефония';
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
             $agent->date_run = '1970-01-01 03:00:00';
         }
-        $agent->load(ArrayHelper::toArray($modelAgentTimeSettings), '');
+        $agent->period = $period;
         $agent->status_id = 1;
         $agent->save();
     }
 
     public static function stopSynchronization()
     {
+        $events = ['OnVoximplantCallEnd'];
+        foreach ($events as $eventName) {
+            $event = Events::find()->where(['event_name' => $eventName, 'event_type' => 'offline'])->one();
+            if (!$event) {
+                $event = new Events();
+                $event->event_name = $eventName;
+                $event->handler = '_';
+                $event->event_type = 'offline';
+                $event->save();
+            }
+            if ($event->isInstallToB24()) {
+                $event->removeBitrix24();
+            }
+        }
+
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
         if ($agent) {
             $agent->status_id = 0;
@@ -161,7 +191,7 @@ class Telephony extends BaseEntity implements SynchronizationInterface
                 return Schema::TYPE_INTEGER;
             case 'CALL_DURATION':
                 return Schema::TYPE_INTEGER;
-                
+
             default:
                 return Schema::TYPE_STRING;
         }

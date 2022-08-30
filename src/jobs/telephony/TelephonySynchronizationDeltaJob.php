@@ -16,60 +16,39 @@ class TelephonySynchronizationDeltaJob extends BaseObject implements \yii\queue\
 
     public function execute($queue)
     {
-        $this->modelClass::deleteAll();
-        $arrayId = $this->getIdsBatch();
-        if ($arrayId) {
-            $this->getB24Get($arrayId);
+        $isSyncAdd = false;
+        while (!$isSyncAdd) {
+            $isSyncAdd = $this->synchronAdd();
         }
     }
 
-    public function getIdsBatch()
+    public function synchronAdd()
     {
-        $component = new b24Tools();
-        $b24App = $component->connectFromAdmin();
-        $obB24 = new B24Object($b24App);
-        $request = $obB24->client->call('voximplant.statistic.get');
-        $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
-        $res = $request['result'];
-        for ($i = 1; $i < $countCalls; $i++) {
-            $obB24->client->addBatchCall(
-                'voximplant.statistic.get',
-                [
-                    'start' => $obB24->client::MAX_BATCH_CALLS * $i
-                ],
-                function ($result) use (&$res) {
-                    $res = array_merge($res, $result['result']);
-                }
-            );
+        $answerB24 = Events::getOffline('OnVoximplantCallEnd');
+        $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
+        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.CALL_ID');
+        if ($arrayId) {
+            $B24List = $this->getB24List($arrayId);
+            foreach ($B24List as $oneEntity) {
+                $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
+                if (!$model) $model = new $this->modelClass();
+                $model->loadData($oneEntity);
+            }
         }
-        $obB24->client->processBatchCalls();
-        return ArrayHelper::getColumn($res, 'ID');
+        return count($arrayId) < 50 ? true : false;
     }
 
-    public function getB24Get($arrayId)
+    public function getB24List($arrayId)
     {
         $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
-        foreach ($arrayId as $id) {
-//            try{}catch ()//TODO
-            $obB24->client->addBatchCall('voximplant.statistic.get',
-                [
-                    'SORT' => 'ID',
-                    'FILTER' => [
-                        'ID' => $id
-                    ]
-                ],
-                function ($result) {
-                    $data = ArrayHelper::getValue($result, 'result')[0];
-                    $id = ArrayHelper::getValue($data, 'ID');
-                    $model = $this->modelClass::find()->where(['ID' => $id])->one();
-                    if (!$model) $model = new $this->modelClass();
-                    $model->loadData($data);
-                }
-            );
-        }
-        $obB24->client->processBatchCalls();
-        return true;
+        $answerB24 = $obB24->client->call(
+            'voximplant.statistic.get',
+            [
+                'FILTER' => ["CALL_ID" => $arrayId],
+            ],
+            )['result'];
+        return $answerB24;
     }
 }
