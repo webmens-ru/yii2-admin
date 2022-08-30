@@ -19,8 +19,8 @@ class m220828_080600_add_synchronization_elements extends Migration
                 ['Контакты', 0, '\wm\admin\models\synchronization\Contact'],
                 ['Компании', 0, '\wm\admin\models\synchronization\Company'],
                 ['Пользователи', 0, '\wm\admin\models\synchronization\Employee'],
-                ['Дела', 0, '\wm\admin\models\synchronization\Telephony'],
-                ['Телефония', 0, '\wm\admin\models\synchronization\Activity'],
+                ['Дела', 0, '\wm\admin\models\synchronization\Activity'],
+                ['Телефония', 0, '\wm\admin\models\synchronization\Telephony'],
                 ['Задачи', 0, '\wm\admin\models\synchronization\Task'],
             ]
         );

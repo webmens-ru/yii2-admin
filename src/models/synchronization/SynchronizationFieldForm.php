@@ -27,7 +27,7 @@ class SynchronizationFieldForm extends Model
         return [
             [['name', 'synchronizationEntityId'], 'required'],
             [['synchronizationEntityId'], 'integer'],
-            [['name'], 'string', 'max' => 32],
+            [['name'],'each', 'rule' => ['string', 'max' => 48]],
         ];
     }
 
@@ -45,19 +45,21 @@ class SynchronizationFieldForm extends Model
     }
     
     public function addField(){
-        $model = new SynchronizationField();
-        $model->name = $this->name;
-        $model->synchronizationEntityId = $this->synchronizationEntityId;
+        foreach ($this->name as $name){
+            $model = new SynchronizationField();
+            $model->name = $name;
+            $model->synchronizationEntityId = $this->synchronizationEntityId;
 
-        $modelSync = Synchronization::find()->where(['id' => $this->synchronizationEntityId])->one();
-        $fields = $modelSync->getB24Fields();
-        $field = ArrayHelper::getValue($fields, $this->name);
-        $model->title = ArrayHelper::getValue($field, 'formLabel')?:ArrayHelper::getValue($field, 'title');       
-        $model->save();
-        if($model->errors){
-            Yii::error($model->errors, 'addField $model->errors');
-            $this->addError('name', 'Это поле скорее всего было добавлено ранее');
-            return false;
+            $modelSync = Synchronization::find()->where(['id' => $this->synchronizationEntityId])->one();
+            $fields = $modelSync->getB24Fields();
+            $field = ArrayHelper::getValue($fields, $name);
+            $model->title = ArrayHelper::getValue($field, 'formLabel')?:ArrayHelper::getValue($field, 'title');
+            $model->save();
+            if($model->errors){
+                Yii::error($model->errors, 'addField $model->errors');
+                $this->addError('name', 'Это поле скорее всего было добавлено ранее');
+                return false;
+            }
         }
         return true;
     }

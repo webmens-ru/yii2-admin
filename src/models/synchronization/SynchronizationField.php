@@ -49,8 +49,8 @@ class SynchronizationField extends \yii\db\ActiveRecord
         return [
             [['name', 'synchronizationEntityId', 'title'], 'required'],
             [['synchronizationEntityId', 'noDelete'], 'integer'],
-            [['name'], 'string', 'max' => 32],
-            [['title'], 'string', 'max' => 64],
+            [['name'], 'string', 'max' => 48],
+            [['title'], 'string', 'max' => 128],
             [['name', 'synchronizationEntityId'], 'unique', 'targetAttribute' => ['name', 'synchronizationEntityId']],
             [['synchronizationEntityId'], 'exist', 'skipOnError' => true, 'targetClass' => Synchronization::className(), 'targetAttribute' => ['synchronizationEntityId' => 'id']],
         ];

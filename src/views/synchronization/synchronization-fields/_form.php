@@ -20,6 +20,10 @@ use yii\widgets\ActiveForm;
         'pluginOptions' => [
 //            'allowClear' => true
         ],
+        'options' => [
+//            'placeholder' => 'Select provinces ...',
+            'multiple' => true
+        ],
     ]); ?>
     <?= $form->field($model, 'synchronizationEntityId')->hiddenInput()->label(false) ?>
 

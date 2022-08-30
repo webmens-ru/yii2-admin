@@ -13,9 +13,9 @@ class m220823_073300_init_synchronization extends \yii\db\Migration
 
         $this->createTable('{{%admin_synchronization_field%}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(32)->notNull(),
+            'name' => $this->string(48)->notNull(),
             'synchronizationEntityId' => $this->integer()->notNull(),
-            'title' => $this->string(64)->notNull(),
+            'title' => $this->string(128)->notNull(),
             'noDelete' => $this->tinyInteger(1)->notNull(),
 
         ]);
