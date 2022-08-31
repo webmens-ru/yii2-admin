@@ -77,7 +77,7 @@ class Telephony extends BaseEntity implements SynchronizationInterface
 
     public static function getB24FieldsList()
     {
-        return self::getB24Fields();
+        return ArrayHelper::map(self::getB24Fields(), 'id', 'title');
     }
 
     public static function startSynchronization($period)
