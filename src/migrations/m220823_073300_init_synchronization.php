@@ -42,25 +42,6 @@ class m220823_073300_init_synchronization extends \yii\db\Migration
                 'modelClassName' => '\wm\admin\models\synchronization\Deal',
             ]
         );
-        $this->insert(
-            'admin_synchronization_field',
-            [
-                'name' => 'ID',
-                'synchronizationEntityId' => 1,
-                'title' => 'ID',
-                'noDelete' => 1,
-            ]
-        );
-        $this->insert(
-            'admin_synchronization_field',
-            [
-                'name' => 'ID',
-                'synchronizationEntityId' => 2,
-                'title' => 'ID',
-                'noDelete' => 1,
-            ]
-        );
-
     }
 
     public function down()

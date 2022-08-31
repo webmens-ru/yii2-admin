@@ -22,6 +22,6 @@ interface SynchronizationInterface
 
     public function loadData($data);
 
-    public static function createTable();
+    public static function createTable($synchronizationEntityId);
 
 }

@@ -92,6 +92,6 @@ class Synchronization extends \yii\db\ActiveRecord
     }
 
     public function createTable(){
-        $this->modelClassName::createTable();
+        $this->modelClassName::createTable($this->id);
     }
 }

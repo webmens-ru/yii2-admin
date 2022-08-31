@@ -65,7 +65,7 @@ class BaseEntity extends ActiveRecord
         return static::find()->count();
     }
 
-    public static function createTable()
+    public static function createTable($synchronizationEntityId)
     {
         Yii::$app
             ->db
@@ -82,6 +82,19 @@ class BaseEntity extends ActiveRecord
                 static::$primaryKeyColumnName,
                 static::tableName(),
                 static::$primaryKeyColumnName
+            )
+            ->execute();
+        Yii::$app
+            ->db
+            ->createCommand()
+            ->insert(
+                'admin_synchronization_field',
+                [
+                    'name' => static::$primaryKeyColumnName,
+                    'synchronizationEntityId' => $synchronizationEntityId,
+                    'title' => static::$primaryKeyColumnName,
+                    'noDelete' => 1
+                ]
             )
             ->execute();
     }
