@@ -53,12 +53,16 @@ class Employee extends BaseEntity implements SynchronizationInterface
             ), 'result');
             return $data;
         }, 300);
-        return $fields;
+        $result = [];
+        foreach ($fields as $key => $value) {
+            $result[$key] = ['id' => $key, 'title' => $value];
+        }
+        return $result;
     }
 
     public static function getB24FieldsList()
     {
-        return self::getB24Fields();
+        return ArrayHelper::map(self::getB24Fields(), 'id', 'title');
     }
 
     public static function startSynchronization($modelAgentTimeSettings)
