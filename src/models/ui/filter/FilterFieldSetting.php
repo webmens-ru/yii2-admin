@@ -68,6 +68,20 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    public function fields()
+    {
+        return [
+            'id',
+            'filterId',
+            'filterFieldId',
+            'value',
+            'order',
+            'filtrationType' => function () {
+                return $this->filterField->filtrationType;
+            }
+        ];
+    }
+
     /**
      * Gets query for [[Filter]].
      *
