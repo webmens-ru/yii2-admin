@@ -11,8 +11,6 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
 
 /**
  * PlacementController implements the CRUD actions for Placement model.
