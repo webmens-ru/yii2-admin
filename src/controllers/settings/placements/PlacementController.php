@@ -6,6 +6,8 @@ use Yii;
 use wm\admin\models\settings\placements\Placement;
 use wm\admin\models\settings\placements\PlacementSearch;
 use wm\admin\models\settings\placements\PlacementDirectory;
+use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -125,6 +127,17 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
 
     public function actionB24PlacementsList()
     {
+        $result = Placement::getB24PlacementsList();
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $result,
+            'pagination' => false,
+        ]);
+
+        Yii::warning(ArrayHelper::toArray($dataProvider), '$dataProvider');
+
+        return $this->render('b24-list', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionB24Delete($id)
