@@ -37,6 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_run',
             'period',
             'status_id',
+            'minuteTypeId',
+            'minuteProps',
+            'hourTypeId',
+            'hourProps',
+            'dayTypeId',
+            'dayProps',
+            'monthTypeId',
+            'monthProps',
+            'finishTypeId',
+            'finishProps'
         ],
     ]) ?>
 
