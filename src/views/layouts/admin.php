@@ -47,10 +47,10 @@ $this->registerJs($script, yii\web\View::POS_READY);
         <?php
         NavBar::begin(
             [
-                'brandLabel' => Html::img($assetsUrl->baseUrl . '/img/logo.png', ['class' => 'logo']),
+                'brandLabel' => Html::img($assetsUrl->baseUrl . '/img/WebMens_407-269.png', ['class' => 'logo']),
                 'brandUrl' => '/admin',
                 'options' => [
-                    'class' => 'navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5',
+                    'class' => 'navbar navbar-expand-lg navbar-light bg-dark shadow p-3 mb-5',
                 ],
             ]
         );

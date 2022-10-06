@@ -22,6 +22,9 @@ use yii\helpers\ArrayHelper;
         'options' => ['placeholder' => 'Выберите встройку...'],
     ]);
     ?>
+
+    <?= $form->field($model, 'entityTypeId')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'handler')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>

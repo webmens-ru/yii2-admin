@@ -2,13 +2,13 @@
 
 namespace wm\admin\controllers\settings\placements;
 
-use Yii;
 use wm\admin\models\settings\placements\Placement;
-use wm\admin\models\settings\placements\PlacementSearch;
 use wm\admin\models\settings\placements\PlacementDirectory;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use wm\admin\models\settings\placements\PlacementSearch;
+use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * PlacementController implements the CRUD actions for Placement model.
@@ -48,9 +48,9 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         $placementDirectoryModel = PlacementDirectory::find()->all();
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'placementDirectoryModel' => $placementDirectoryModel,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'placementDirectoryModel' => $placementDirectoryModel,
         ]);
     }
 
@@ -63,7 +63,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
     public function actionView($id)
     {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -76,14 +76,14 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
     {
         $model = new Placement();
         $placementDirectoryModel = PlacementDirectory::find()->all();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-                    'model' => $model,
-                    'placementDirectoryModel' => $placementDirectoryModel,
+            'model' => $model,
+            'placementDirectoryModel' => $placementDirectoryModel,
         ]);
     }
 
@@ -104,8 +104,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         }
 
         return $this->render('update', [
-                    'model' => $model,
-                    'placementDirectoryModel' => $placementDirectoryModel,
+            'model' => $model,
+            'placementDirectoryModel' => $placementDirectoryModel,
         ]);
     }
 
@@ -132,7 +132,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         $model = $this->findModel($id);
         $model->removeBitrix24();
         return $this->render('b24-delete', [
-                    'model' => $model
+            'model' => $model
         ]);
     }
 
@@ -141,7 +141,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         $model = $this->findModel($id);
         $model->toBitrix24();
         return $this->render('b24-install', [
-                    'model' => $model
+            'model' => $model
         ]);
     }
 
