@@ -12,6 +12,7 @@ use yii\helpers\Url;
  *
  * @property int $id
  * @property string $placement_name
+ * @property string $entityTypeId
  * @property string $handler
  * @property string $title
  * @property string|null $description
@@ -36,7 +37,15 @@ class Placement extends \yii\db\ActiveRecord
     {
         return [
                 [['placement_name', 'handler', 'title'], 'required'],
-                [['placement_name'], 'string', 'max' => 50],
+                [
+                    ['entityTypeId'],
+                    'required',
+                    'when' => function () {
+                        return (strpos($this->placement_name, 'CRM_DYNAMIC') !== false);
+                    },
+                    'whenClient' => "function (attribute, value) {}"
+                ],
+                [['placement_name', 'entityTypeId'], 'string', 'max' => 50],
                 [['handler', 'title', 'description', 'group_name'], 'string', 'max' => 255],
                 [
                     ['placement_name'],
@@ -56,6 +65,7 @@ class Placement extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'placement_name' => 'Место встройки',
+            'entityTypeId' => 'Entity Type Id',
             'handler' => 'Handler',
             'title' => 'Надпись на встройке',
             'description' => 'Описание встройки',
@@ -83,6 +93,10 @@ class Placement extends \yii\db\ActiveRecord
         );
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
+
+        $this->checkSmartProcess();
+        Yii::warning($this->placement_name, 'placement_name');
+
         $b24 = $obB24->bind(
             $this->placement_name,
             $handler,
@@ -104,6 +118,9 @@ class Placement extends \yii\db\ActiveRecord
         );
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
+
+        $this->checkSmartProcess();
+
         $b24 = $obB24->unbind(
             $this->placement_name,
             $handler
@@ -124,5 +141,12 @@ class Placement extends \yii\db\ActiveRecord
     {
         $parent = $this->placement_name;
         return $parent ? $parent->name : '';
+    }
+
+    private function checkSmartProcess()
+    {
+        if (strpos($this->placement_name, 'CRM_DYNAMIC') !== false) {
+            $this->placement_name = substr($this->placement_name, 0, 12) . $this->entityTypeId . substr($this->placement_name, 12);
+        }
     }
 }
