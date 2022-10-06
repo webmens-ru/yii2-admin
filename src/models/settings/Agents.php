@@ -104,7 +104,7 @@ class Agents extends \yii\db\ActiveRecord
             [
                 'minuteProps',
                 function ($attribute, $params) {
-                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                    if (!preg_match('/(^(?:\d+\,)+\d+?$)|(^\d+?$)/', $this->$attribute)) {
                         $this->addError($attribute, "в параметре содержатся недопустимые символы");
                     }
                     $values = explode(',', $this->$attribute);
@@ -142,7 +142,7 @@ class Agents extends \yii\db\ActiveRecord
             [
                 'hourProps',
                 function ($attribute, $params) {
-                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                    if (!preg_match('/(^(?:\d+\,)+\d+?$)|(^\d+?$)/', $this->$attribute)) {
                         $this->addError($attribute, "в параметре содержатся недопустимые символы");
                     }
                     $values = explode(',', $this->$attribute);
@@ -180,7 +180,7 @@ class Agents extends \yii\db\ActiveRecord
             [
                 'dayProps',
                 function ($attribute, $params) {
-                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                    if (!preg_match('/(^(?:\d+\,)+\d+?$)|(^\d+?$)/', $this->$attribute)) {
                         $this->addError($attribute, "в параметре содержатся недопустимые символы");
                     }
                     $values = explode(',', $this->$attribute);
@@ -218,7 +218,7 @@ class Agents extends \yii\db\ActiveRecord
             [
                 'monthProps',
                 function ($attribute, $params) {
-                    if (!preg_match('/^(?:\d+\,)+\d+?$/', $this->$attribute)) {
+                    if (!preg_match('/(^(?:\d+\,)+\d+?$)|(^\d+?$)/', $this->$attribute)) {
                         $this->addError($attribute, "в параметре содержатся недопустимые символы");
                     }
                     $values = explode(',', $this->$attribute);
@@ -329,7 +329,6 @@ class Agents extends \yii\db\ActiveRecord
                 $nextHour = date('H', strtotime("+1 hour", $initialDate));
                 break;
         }
-        Yii::warning($nextHour, '$nextHour');
         return ['isNextHour' => $isNextHour, 'date' => date("Y-m-d $nextHour:$nextMinute:00")];
     }
 
@@ -337,7 +336,6 @@ class Agents extends \yii\db\ActiveRecord
     {
         $isNextDay = false;
         $initialDate = strtotime($initialDate);
-        Yii::warning($initialDate, '$initialDate142');
         $nextHour = date('H', $initialDate);
         switch ($hourTypeId) {
             case 1:

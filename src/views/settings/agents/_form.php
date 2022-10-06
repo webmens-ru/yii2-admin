@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
+use wm\admin\widgets\AgentsTimeSettingsWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\baseapp\models\settings\Agents */
@@ -22,9 +23,11 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'date_run')->textInput() ?>
 
-    <?= $form->field($model, 'period')->textInput() ?>
+    <?= AgentsTimeSettingsWidget::widget(['model' => $model, 'form' => $form]) ?>
 
     <?= $form->field($model, 'status_id')->textInput() ?>
+
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

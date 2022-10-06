@@ -73,6 +73,15 @@ class Placement extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getB24PlacementsList()
+    {
+        $component = new b24Tools();
+        $b24App = $component->connectFromAdmin();
+        $obB24 = new \Bitrix24\Placement\Placement($b24App);
+        $b24 = $obB24->getLocations();
+        return $b24;
+    }
+
     public function toBitrix24()
     {
         $component = new b24Tools();
