@@ -6,6 +6,8 @@ use Yii;
 use wm\admin\models\settings\placements\Placement;
 use wm\admin\models\settings\placements\PlacementSearch;
 use wm\admin\models\settings\placements\PlacementDirectory;
+use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -48,9 +50,9 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         $placementDirectoryModel = PlacementDirectory::find()->all();
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'placementDirectoryModel' => $placementDirectoryModel,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'placementDirectoryModel' => $placementDirectoryModel,
         ]);
     }
 
@@ -63,7 +65,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
     public function actionView($id)
     {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -76,14 +78,14 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
     {
         $model = new Placement();
         $placementDirectoryModel = PlacementDirectory::find()->all();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-                    'model' => $model,
-                    'placementDirectoryModel' => $placementDirectoryModel,
+            'model' => $model,
+            'placementDirectoryModel' => $placementDirectoryModel,
         ]);
     }
 
@@ -104,8 +106,8 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         }
 
         return $this->render('update', [
-                    'model' => $model,
-                    'placementDirectoryModel' => $placementDirectoryModel,
+            'model' => $model,
+            'placementDirectoryModel' => $placementDirectoryModel,
         ]);
     }
 
@@ -125,6 +127,17 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
 
     public function actionB24PlacementsList()
     {
+        $result = Placement::getB24PlacementsList();
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $result,
+            'pagination' => false,
+        ]);
+
+        Yii::warning(ArrayHelper::toArray($dataProvider), '$dataProvider');
+
+        return $this->render('b24-list', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionB24Delete($id)
@@ -132,7 +145,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         $model = $this->findModel($id);
         $model->removeBitrix24();
         return $this->render('b24-delete', [
-                    'model' => $model
+            'model' => $model
         ]);
     }
 
@@ -141,7 +154,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         $model = $this->findModel($id);
         $model->toBitrix24();
         return $this->render('b24-install', [
-                    'model' => $model
+            'model' => $model
         ]);
     }
 
