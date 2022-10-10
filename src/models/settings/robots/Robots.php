@@ -2,11 +2,11 @@
 
 namespace wm\admin\models\settings\robots;
 
+use wm\admin\models\User;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use wm\b24tools\b24Tools;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\helpers\Inflector;
@@ -84,12 +84,9 @@ class Robots extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
         $use_subscription = $this->use_subscription > 0 ? true : false;
         $handler = Url::toRoute('/admin/handlers/robot/' . $this->handler, 'https');
@@ -109,12 +106,9 @@ class Robots extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
         $b24 = $obB24->delete($this->code);
     }

@@ -6,7 +6,6 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use wm\b24tools\b24Tools;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\helpers\Inflector;

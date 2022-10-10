@@ -3,7 +3,7 @@
 namespace wm\admin\models\settings\chatbot;
 
 use Bitrix24\Im\Im;
-use wm\admin\models\B24ConnectSettings;
+use wm\admin\models\User;
 use yii\helpers\Url;
 
 /**
@@ -175,12 +175,9 @@ class App extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24Im = new Im($b24App);
         $appParams = [
             'BOT_ID' => $this->botCode->bot_id,
@@ -219,12 +216,9 @@ class App extends \yii\db\ActiveRecord
     public function updateBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24Im = new Im($b24App);
         $appParams = [];
         if ($this->type == 'js') {
