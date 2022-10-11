@@ -69,7 +69,7 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
-    public static function startSynchronization($period)
+    public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = [
             'onCrmDynamicItemAdd_' . static::$entityTypeId,
@@ -93,13 +93,13 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
         if (!$agent) {
             $agent = new Agents();
-            $agent->name = 'Синхронизация дельты сделки';
+            $agent->name = 'Синхронизация дельты смарт-процесса';
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
             $agent->date_run = '1970-01-01 00:00:00';
         }
-        $agent->period = $period;
+        $agent->load(ArrayHelper::toArray($modelAgentTimeSettings), '');
         $agent->status_id = 1;
         $agent->save();
     }
