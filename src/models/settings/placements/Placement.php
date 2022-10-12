@@ -2,9 +2,9 @@
 
 namespace wm\admin\models\settings\placements;
 
+use wm\admin\models\User;
 use Yii;
 use wm\b24tools\b24Tools;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 
 /**
@@ -85,12 +85,9 @@ class Placement extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
 
@@ -110,12 +107,9 @@ class Placement extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
 

@@ -2,9 +2,9 @@
 
 namespace wm\admin\models\settings\documentgenerator;
 
+use wm\admin\models\User;
 use Yii;
 use Bitrix24\B24Object;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
@@ -100,12 +100,9 @@ class Templates extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
@@ -133,12 +130,9 @@ class Templates extends \yii\db\ActiveRecord
     public function fieldsBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
@@ -156,12 +150,9 @@ class Templates extends \yii\db\ActiveRecord
     public function updateBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
@@ -188,12 +179,9 @@ class Templates extends \yii\db\ActiveRecord
     public static function getB24List()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->client->call('documentgenerator.template.list', []);
         return $b24;
@@ -202,12 +190,9 @@ class Templates extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $userId = \Yii::$app->user->id;
+        $portalName = User::getPortalName($userId);
+        $b24App = $component->connectFromAdmin($portalName);
 
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->client->call('documentgenerator.template.delete', ['id' => $this->template_id]);

@@ -4,6 +4,8 @@ namespace wm\admin\models;
 
 use yii\db\ActiveRecord;
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -138,4 +140,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 ////        }
 //        return false;
 //    }
+
+    public static function getPortalName($userId)
+    {
+        $user = self::findOne(['id' => $userId]);
+        $b24AccessParams = Json::decode($user->b24AccessParams);
+
+        return $b24AccessParams['domain'];
+    }
 }
