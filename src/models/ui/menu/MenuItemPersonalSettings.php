@@ -32,7 +32,8 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
     {
         return [
             [['itemId', 'userId', 'order', 'visible'], 'required'],
-            [['itemId', 'userId', 'order', 'visible'], 'integer'],
+            [['itemId', 'userId', 'order'], 'integer'],
+            [['visible'], 'boolean'],
             [
                 ['itemId'],
                 'exist',
