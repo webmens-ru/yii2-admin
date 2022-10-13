@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\admin\jobs\smartproces;
+namespace wm\admin\jobs\smartproces;//
 
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;

@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\admin\jobs\smartproces;
+namespace wm\admin\jobs\smartproces;//
 
 use wm\admin\models\settings\events\Events;
 use wm\b24tools\b24Tools;
