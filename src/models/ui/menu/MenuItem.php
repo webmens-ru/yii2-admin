@@ -76,7 +76,14 @@ class MenuItem extends \wm\yii\db\ActiveRecord
     public function fields()
     {
         return [
-            'id', 'title', 'visible', 'order', 'menuId', 'type',
+            'id',
+            'title',
+            'visible' => function () {
+                return self::getBooleanValue($this->visible);
+            },
+            'order',
+            'menuId',
+            'type',
             'params' => function () {
                 $res = json_decode($this->params);
                 return $res;
