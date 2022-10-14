@@ -26,6 +26,7 @@ use yii\helpers\ArrayHelper;
         ],
     ]);
 ?>
+    <?= $form->field($model, 'entityTypeId')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'handler')->textInput(['maxlength' => true]) ?>
 

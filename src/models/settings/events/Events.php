@@ -36,9 +36,25 @@ class Events extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_name', 'handler', 'event_type'], 'required'],
-            [['auth_type'], 'integer'],
+            [['event_name', 'event_type'], 'required'],
+            [['auth_type' , 'entityTypeId'], 'integer'],
             [['event_name', 'handler'], 'string', 'max' => 255],
+            [
+                ['entityTypeId'],
+                'required',
+                'when' => function () {
+                    return (strpos($this->event_name, 'onCrmDynamicItem') !== false);
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
+            [
+                ['handler'],
+                'required',
+                'when' => function () {
+                    return ($this->event_type !== 'offline');
+                },
+                'whenClient' => "function (attribute, value) {}"
+            ],
             [['event_type'], 'string', 'max' => 10],
             [
                 ['event_name'],
@@ -58,6 +74,7 @@ class Events extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'event_name' => 'Название события',
+            'entityTypeId' => 'Entity Type Id',
             'handler' => 'Ссылка',
             'auth_type' => 'ID пользователя',
             'event_type' => 'Тип события',
@@ -75,6 +92,7 @@ class Events extends \yii\db\ActiveRecord
         );
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $handler = $this->getUrlHandler();
+        $this->checkSmartProcess();
         $b24 = $obB24->bind(
             $this->event_name,
             $handler,
@@ -95,6 +113,7 @@ class Events extends \yii\db\ActiveRecord
         );
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $handler = $this->getUrlHandler();
+        $this->checkSmartProcess();
         $b24 = $obB24->unbind(
             $this->event_name,
             $handler,
@@ -174,5 +193,12 @@ class Events extends \yii\db\ActiveRecord
             }
         });
         return (bool) $b24EventsFilterList;
+    }
+
+    private function checkSmartProcess()
+    {
+        if ($this->event_name == 'onCrmDynamicItemAdd_' || $this->event_name == 'onCrmDynamicItemUpdate_' || $this->event_name == 'onCrmDynamicItemDelete_') {
+            $this->event_name .= $this->entityTypeId;
+        }
     }
 }
