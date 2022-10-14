@@ -14,7 +14,7 @@ class m221014_105400_add_admin_events_directory extends \yii\db\Migration
             [
                 ['onCrmDynamicItemAdd_', 'Добавление элемента смарт-процесса', 'Смарт-процесс'],
                 ['onCrmDynamicItemUpdate_', 'Изменение элемента смарт-процесса', 'Смарт-процесс'],
-                ['onCrmDynamicItemDelete_', 'Удаление элементао смарт-процесса', 'Смарт-процесс']
+                ['onCrmDynamicItemDelete_', 'Удаление элемента смарт-процесса', 'Смарт-процесс']
             ]
         );
     }
