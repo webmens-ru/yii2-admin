@@ -95,7 +95,6 @@ class Placement extends \yii\db\ActiveRecord
         $handler = Url::toRoute($this->handler, 'https');
 
         $this->checkSmartProcess();
-        Yii::warning($this->placement_name, 'placement_name');
 
         $b24 = $obB24->bind(
             $this->placement_name,
