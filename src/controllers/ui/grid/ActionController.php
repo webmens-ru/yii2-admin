@@ -7,6 +7,7 @@ use wm\admin\models\ui\grid\Action;
 use Yii;
 
 /**
+ * @deprecated
  * Class GridColumnController
  * @package wm\admin\controllers\ui\grid
  */

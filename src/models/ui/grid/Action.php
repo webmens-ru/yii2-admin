@@ -6,7 +6,7 @@ use wm\admin\models\ui\Entity;
 
 /**
  * This is the model class for table "grid_column".
- *
+ * @deprecated
  * @property int $id
  * @property string $entityCode
  * @property string $code
