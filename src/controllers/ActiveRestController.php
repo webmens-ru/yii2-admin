@@ -112,4 +112,20 @@ class ActiveRestController extends \yii\rest\ActiveController
         ];
         return $res;
     }
+
+    /**
+     * @return mixed
+     */
+    public function actionGetButtonAdd()
+    {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionGridActions()
+    {
+        return null;
+    }
 }
