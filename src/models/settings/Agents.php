@@ -299,18 +299,18 @@ class Agents extends \yii\db\ActiveRecord
     {
         $isNextHour = false;
         $nextMinute;
-        $nextHour;
+//        $nextHour;
         $initialDate = strtotime($initialDate);
         switch ($minuteTypeId) {
             case 1:
                 $nextMinute = date('i', strtotime('+1 minute', $initialDate));
-                if(date('H', $initialDate) != $nextHour = date('H', strtotime("+1 minute", $initialDate))) {
+                if(date('H', $initialDate) != date('H', strtotime("+1 minute", $initialDate))) {
                     $isNextHour = true;
                 }
                 break;
             case 2:
                 $nextMinute = date('i', strtotime("+$minuteProps minute", $initialDate));
-                if(date('H', $initialDate) != $nextHour = date('H', strtotime("+$minuteProps minute", $initialDate))) {
+                if(date('H', $initialDate) != date('H', strtotime("+$minuteProps minute", $initialDate))) {
                     $isNextHour = true;
                 }
                 break;
@@ -326,10 +326,10 @@ class Agents extends \yii\db\ActiveRecord
                     });
                     $nextMinute = min($arr);
                 }
-                $nextHour = date('H', strtotime("+1 hour", $initialDate));
+//                $nextHour = date('H', strtotime("+1 hour", $initialDate));
                 break;
         }
-        return ['isNextHour' => $isNextHour, 'date' => date("Y-m-d $nextHour:$nextMinute:00")];
+        return ['isNextHour' => $isNextHour, 'date' => date("Y-m-d H:$nextMinute:00")];
     }
 
     private static function getNextHour($initialDate, $isNext, $hourTypeId, $hourProps = null)
