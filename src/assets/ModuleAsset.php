@@ -16,7 +16,7 @@ class ModuleAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset',
+        'yii\bootstrap5\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
