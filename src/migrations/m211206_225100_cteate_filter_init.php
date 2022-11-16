@@ -52,7 +52,7 @@ class m211206_225100_cteate_filter_init extends Migration
             'id' => $this->primaryKey(),
             'filterId' => $this->integer()->notNull(),
             'filterFieldId' => $this->integer()->notNull(),
-            'value' => $this->text()->null(),
+            'value' => $this->json()->null(),
             'title' => $this->string(255)->notNull(),
             'order' => $this->integer()->notNull(),
         ]);

@@ -9,7 +9,7 @@ class m220409_202200_create_admin_form_fields extends \yii\db\Migration
             'name' => $this->string(255)->notNull(),
             'type' => $this->string(20)->notNull(),
             'label' => $this->string(255)->notNull(),
-            'fieldParams' => $this->text(),
+            'fieldParams' => $this->json(),
             'formId' => $this->integer()->notNull()
         ]);
 

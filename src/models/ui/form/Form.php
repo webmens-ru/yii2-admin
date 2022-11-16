@@ -2,8 +2,6 @@
 
 namespace wm\admin\models\ui\form;
 
-use yii\helpers\Json;
-
 /**
  * This is the model class for table "admin_form_fields".
  *
@@ -69,15 +67,9 @@ class Form extends \wm\yii\db\ActiveRecord
             'canToggleMode' => function () {
                 return boolval($this->canToggleMode);
             },
-            'action' => function(){
-                return Json::decode($this->action);
-            },
-            'params' => function(){
-                return Json::decode($this->params);
-            },
-            'buttons' => function(){
-                return Json::decode($this->buttons);
-            },
+            'action',
+            'params',
+            'buttons',
             'fields'
         ];
     }

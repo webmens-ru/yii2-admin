@@ -9,9 +9,9 @@ class m220409_202000_create_admin_form extends \yii\db\Migration
             'title' => $this->string(255)->notNull(),
             'mode' => $this->string(5)->notNull(),
             'canToggleMode' => $this->boolean()->notNull(),
-            'action' => $this->text(),
-            'params' => $this->text(),
-            'buttons' => $this->text(),
+            'action' => $this->json(),
+            'params' => $this->json(),
+            'buttons' => $this->json(),
         ]);
     }
 

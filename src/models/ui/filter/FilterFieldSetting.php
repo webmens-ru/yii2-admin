@@ -4,7 +4,6 @@ namespace wm\admin\models\ui\filter;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
 
 /**
  * This is the model class for table "filter_field_setting".
@@ -75,9 +74,7 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
             'id',
             'filterId',
             'filterFieldId',
-            'value' => function(){
-                return Json::decode($this->value);
-            },
+            'value',
             'order',
             'filtrationType' => function () {
                 return $this->filterField->filtrationType;

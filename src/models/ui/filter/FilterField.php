@@ -3,7 +3,6 @@
 namespace wm\admin\models\ui\filter;
 
 use wm\admin\models\ui\Entity;
-use yii\helpers\Json;
 
 /**
  * This is the model class for table "filter_field".
@@ -128,9 +127,6 @@ class FilterField extends \wm\yii\db\ActiveRecord
             'params' => function () {
                 $res = json_decode($this->params);
                 return $res;
-            },
-            'options' => function () {
-                return Json::decode($this->options);
             },
         ];
     }
