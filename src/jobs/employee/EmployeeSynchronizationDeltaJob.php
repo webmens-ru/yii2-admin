@@ -2,7 +2,7 @@
 
 namespace wm\admin\jobs\employee;
 
-use Bitrix24\Bitrix24Entity;
+use Bitrix24\B24Object;
 use wm\admin\models\settings\events\Events;
 use wm\b24tools\b24Tools;
 use Yii;
