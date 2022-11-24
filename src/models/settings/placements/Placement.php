@@ -85,12 +85,7 @@ class Placement extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
 
@@ -109,12 +104,7 @@ class Placement extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\Placement\Placement($b24App);
         $handler = Url::toRoute($this->handler, 'https');
 

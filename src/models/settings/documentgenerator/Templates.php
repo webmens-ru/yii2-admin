@@ -100,12 +100,7 @@ class Templates extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
@@ -133,12 +128,7 @@ class Templates extends \yii\db\ActiveRecord
     public function fieldsBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
@@ -156,12 +146,7 @@ class Templates extends \yii\db\ActiveRecord
     public function updateBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->
                 client->
@@ -188,12 +173,7 @@ class Templates extends \yii\db\ActiveRecord
     public static function getB24List()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->client->call('documentgenerator.template.list', []);
         return $b24;
@@ -202,12 +182,7 @@ class Templates extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
 
         $obB24 = new \Bitrix24\B24Object($b24App);
         $b24 = $obB24->client->call('documentgenerator.template.delete', ['id' => $this->template_id]);

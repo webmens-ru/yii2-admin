@@ -98,12 +98,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
         }
 
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $regions = Templates::getRegionsList($b24App);
         $numerators = Templates::getNumeratorsList($b24App);
 
@@ -157,12 +152,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
 //        }
 
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $regions = Templates::getRegionsList($b24App);
         $numerators = Templates::getNumeratorsList($b24App);
 
