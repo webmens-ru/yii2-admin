@@ -6,7 +6,6 @@ use wm\b24tools\b24Tools;
 use Yii;
 use app\modules\b24\controllers\B24Controller;
 use app\modules\baseapp\models\settings\placements\Placement;
-use app\modules\baseapp\models\B24ConnectSettings;
 
 /**
  * MaterialsGroupController implements the CRUD actions for MaterialsGroup model.

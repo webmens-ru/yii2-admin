@@ -2,7 +2,6 @@
 
 namespace wm\admin\models\settings\events;
 
-use wm\admin\models\B24ConnectSettings;
 use wm\b24tools\b24Tools;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;

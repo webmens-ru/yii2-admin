@@ -4,7 +4,6 @@ namespace wm\admin\models\settings\documentgenerator;
 
 use Yii;
 use Bitrix24\B24Object;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 

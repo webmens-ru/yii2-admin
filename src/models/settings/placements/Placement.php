@@ -4,7 +4,6 @@ namespace wm\admin\models\settings\placements;
 
 use Yii;
 use wm\b24tools\b24Tools;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 
 /**

@@ -4,7 +4,6 @@ namespace wm\admin\models\settings\chatbot;
 
 use Yii;
 use Bitrix24\Im\Im;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 
 /**
