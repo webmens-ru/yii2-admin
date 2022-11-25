@@ -74,14 +74,6 @@ $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
                             'label' => 'Синхронизация',
                             'url' => '/admin/synchronization/index'
                         ],
-                        [
-                            'label' => 'Смарт-процессвы - Генератор таблиц',
-                            'url' => '/admin/gii/smart-process/table-generator'],
-                        ['label' => 'Сделки - Генератор таблиц', 'url' => '/admin/gii/deal/table-generator'
-                        ],
-                        ['label' => 'Лиды - Генератор таблиц', 'url' => '/admin/gii/lead/table-generator'],
-                        ['label' => 'Контакты - Генератор таблиц', 'url' => '/admin/gii/contact/table-generator'],
-                        ['label' => 'Компании - Генератор таблиц', 'url' => '/admin/gii/company/table-generator'],
                     ],
                 ],
                 Yii::$app->user->isGuest ? (
