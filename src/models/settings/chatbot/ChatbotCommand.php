@@ -206,7 +206,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord
                 ),
             ),
         ]);
-        if (array_key_exists($b24['result'], self::$updateErrors)) {
+        if ($b24['result'] !== true && array_key_exists($b24['result'], self::$updateErrors)) {
             return ['errors' => self::$updateErrors[$b24['result']]];
         }
         return $b24;
