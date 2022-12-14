@@ -19,6 +19,7 @@ class CrmCategorySynchronizationFullGetJob extends BaseObject implements \yii\qu
     public function execute($queue)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $requestEntityTypeIds = $b24Obj->client->call(

@@ -20,6 +20,7 @@ class CrmStatusSynchronizationDeltaJob extends BaseObject implements \yii\queue\
         $modelCrmStatus = Yii::createObject($this->modelClass);
         $fieldsCrmStatus = $modelCrmStatus->attributes();
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $listDataSelector = 'result';

@@ -20,6 +20,7 @@ class CompanySynchronizationFullListJob extends BaseObject implements \yii\queue
         $modelDeal = Yii::createObject($this->modelClass);
         $fieldsDeal = $modelDeal->attributes();
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $listDataSelector = 'result';

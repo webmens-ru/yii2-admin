@@ -19,6 +19,7 @@ class ActivitySynchronizationFullListJob extends BaseObject implements \yii\queu
         $modelActivity = Yii::createObject($this->modelClass);
         $fieldsActivity = $modelActivity->attributes();
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $listDataSelector = 'result';

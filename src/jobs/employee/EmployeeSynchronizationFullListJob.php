@@ -25,6 +25,7 @@ class EmployeeSynchronizationFullListJob extends BaseObject implements \yii\queu
     public function getIdsBatch()
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
         $request = $obB24->client->call('user.get');
@@ -48,6 +49,7 @@ class EmployeeSynchronizationFullListJob extends BaseObject implements \yii\queu
     public function getB24Get($arrayId)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
