@@ -3,7 +3,6 @@
 namespace wm\admin\models\settings\chatbot;
 
 use Bitrix24\Im\Im;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 
 /**
@@ -140,12 +139,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord
     private function connectBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         return $b24App;
     }
 
@@ -212,7 +206,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord
                 ),
             ),
         ]);
-        if (array_key_exists($b24['result'], self::$updateErrors)) {
+        if ($b24['result'] !== true && array_key_exists($b24['result'], self::$updateErrors)) {
             return ['errors' => self::$updateErrors[$b24['result']]];
         }
         return $b24;

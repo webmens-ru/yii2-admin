@@ -4,7 +4,6 @@ namespace wm\admin\models\settings\chatbot;
 
 use Yii;
 use Bitrix24\Im\Im;
-use wm\admin\models\B24ConnectSettings;
 use yii\helpers\Url;
 
 /**
@@ -147,12 +146,7 @@ class Chatbot extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24Im = new Im($b24App);
         $botParams = [
             'CODE' => $this->code,
@@ -184,12 +178,7 @@ class Chatbot extends \yii\db\ActiveRecord
     public function updateBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24Im = new Im($b24App);
         $botParams = [
             'CODE' => $this->code,
@@ -219,12 +208,7 @@ class Chatbot extends \yii\db\ActiveRecord
     public static function getB24List()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24Im = new Im($b24App);
         $b24 = $obB24Im->client->call('imbot.bot.list', []);
         return $b24;
@@ -233,12 +217,7 @@ class Chatbot extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
 //        $obB24 = new \Bitrix24\Bizproc\Robot($b24App);
 //        $b24 = $obB24->delete($this->code);
 

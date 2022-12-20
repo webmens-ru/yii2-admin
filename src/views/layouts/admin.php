@@ -11,20 +11,6 @@ use yii\helpers\Html;
 $assetsUrl = ModuleAsset::register($this);
 AppAsset::register($this);
 $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
-
-$script = <<< JS
-    $(document).ready(function () {
-
-        BX24.init(function(){
-                app.saveFrameWidth();
-
-        });
-        frame = BX24.getScrollSize();
-        BX24.resizeWindow(frame.scrollWidth, frame.scrollHeight);
-    });
-JS;
-//Маркир конца строки, обязательно сразу, без пробелов и табуляции
-$this->registerJs($script, yii\web\View::POS_READY);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -34,7 +20,6 @@ $this->registerJs($script, yii\web\View::POS_READY);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="//api.bitrix24.com/api/v1/"></script>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -47,10 +32,10 @@ $this->registerJs($script, yii\web\View::POS_READY);
         <?php
         NavBar::begin(
             [
-                'brandLabel' => Html::img($assetsUrl->baseUrl . '/img/WebMens_407-269.png', ['class' => 'logo']),
+                'brandLabel' => Html::img($assetsUrl->baseUrl . '/img/logo.png', ['class' => 'logo']),
                 'brandUrl' => '/admin',
                 'options' => [
-                    'class' => 'navbar navbar-expand-lg navbar-light bg-dark shadow p-3 mb-5',
+                    'class' => 'navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5',
                 ],
             ]
         );
@@ -89,14 +74,6 @@ $this->registerJs($script, yii\web\View::POS_READY);
                             'label' => 'Синхронизация',
                             'url' => '/admin/synchronization/index'
                         ],
-                        [
-                            'label' => 'Смарт-процессвы - Генератор таблиц',
-                            'url' => '/admin/gii/smart-process/table-generator'],
-                        ['label' => 'Сделки - Генератор таблиц', 'url' => '/admin/gii/deal/table-generator'
-                        ],
-                        ['label' => 'Лиды - Генератор таблиц', 'url' => '/admin/gii/lead/table-generator'],
-                        ['label' => 'Контакты - Генератор таблиц', 'url' => '/admin/gii/contact/table-generator'],
-                        ['label' => 'Компании - Генератор таблиц', 'url' => '/admin/gii/company/table-generator'],
                     ],
                 ],
                 Yii::$app->user->isGuest ? (

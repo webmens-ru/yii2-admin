@@ -8,9 +8,6 @@ use wm\admin\models\settings\documentgenerator\TemplatesSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-//use Bitrix24\B24Object;
-use wm\admin\models\B24ConnectSettings;
-//use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
@@ -98,12 +95,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
         }
 
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $regions = Templates::getRegionsList($b24App);
         $numerators = Templates::getNumeratorsList($b24App);
 
@@ -157,12 +149,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
 //        }
 
         $component = new \wm\b24tools\b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $regions = Templates::getRegionsList($b24App);
         $numerators = Templates::getNumeratorsList($b24App);
 

@@ -9,7 +9,7 @@ use Yii;
 /* @var $searchModel wm\admin\models\RobotsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Список установленных чатботов';
+$this->title = 'Список установленных шаблонов';
 $this->params['breadcrumbs'][] = 'Настройки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -128,6 +128,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
                 $res = json_decode($this->params);
                 return $res;
             },
+            'options',
         ];
     }
 }

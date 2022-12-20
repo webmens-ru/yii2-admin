@@ -2,7 +2,7 @@
 
 namespace wm\admin\jobs\employee;
 
-use Bitrix24\Bitrix24Entity;
+use Bitrix24\B24Object;
 use wm\admin\models\settings\events\Events;
 use wm\b24tools\b24Tools;
 use Yii;
@@ -26,6 +26,7 @@ class EmployeeSynchronizationDeltaJob extends BaseObject implements \yii\queue\J
     public function getIdsBatch()
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
         $request = $obB24->client->call('user.get');
@@ -49,6 +50,7 @@ class EmployeeSynchronizationDeltaJob extends BaseObject implements \yii\queue\J
     public function getB24Get($arrayId)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {

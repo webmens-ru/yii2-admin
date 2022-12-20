@@ -80,6 +80,7 @@ class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
     public function getB24List($arrayId)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $res = [];

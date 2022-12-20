@@ -4,7 +4,6 @@ namespace wm\admin\controllers\handlers;
 
 use Yii;
 use app\modules\baseapp\models\settings\robots\Robots;
-use app\modules\baseapp\models\B24ConnectSettings;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
 

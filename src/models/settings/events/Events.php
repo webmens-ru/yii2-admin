@@ -2,7 +2,6 @@
 
 namespace wm\admin\models\settings\events;
 
-use wm\admin\models\B24ConnectSettings;
 use wm\b24tools\b24Tools;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -84,12 +83,7 @@ class Events extends \yii\db\ActiveRecord
     public function toBitrix24()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $handler = $this->getUrlHandler();
         $this->checkSmartProcess();
@@ -105,12 +99,7 @@ class Events extends \yii\db\ActiveRecord
     public function removeBitrix24()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $handler = $this->getUrlHandler();
         $this->checkSmartProcess();
@@ -135,12 +124,7 @@ class Events extends \yii\db\ActiveRecord
     public static function getB24EventsList()
     {
         $component = new b24Tools();
-        $b24App = $component->connect(
-            B24ConnectSettings::getParametrByName('applicationId'),
-            B24ConnectSettings::getParametrByName('applicationSecret'),
-            B24ConnectSettings::getParametrByName('b24PortalTable'),
-            B24ConnectSettings::getParametrByName('b24PortalName')
-        );
+        $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\Event\Event($b24App);
         $b24 = $obB24->get();
         return $b24;
