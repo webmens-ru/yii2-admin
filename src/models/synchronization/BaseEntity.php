@@ -12,7 +12,7 @@ class BaseEntity extends ActiveRecord
 {
     public static $primaryKeyColumnName = 'id';
 
-    public static function createColumns(Array $addFieldNames)
+    public static function createColumns(array $addFieldNames)
     {
         $fields = static::getB24Fields();
         $table = Yii::$app->db->getTableSchema(static::tableName());

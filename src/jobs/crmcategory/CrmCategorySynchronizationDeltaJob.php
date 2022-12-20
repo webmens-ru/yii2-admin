@@ -9,13 +9,12 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class CrmCategorySynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
 
-    const DEAL_ENTITY_ID = 2;
-    const DEAL_ENTITY_TITLE = 'Сделка';
+    public const DEAL_ENTITY_ID = 2;
+    public const DEAL_ENTITY_TITLE = 'Сделка';
 
     public function execute($queue)
     {
@@ -35,7 +34,8 @@ class CrmCategorySynchronizationDeltaJob extends BaseObject implements \yii\queu
         $this->modelClass::deleteAll();
         $res = [];
         foreach ($entityTypeIds as $entityTypeId) {
-            $b24Obj->client->addBatchCall('crm.category.list',
+            $b24Obj->client->addBatchCall(
+                'crm.category.list',
                 ['entityTypeId' => $entityTypeId],
                 function ($result) use (&$res, $entityTypeId) {
                     $res[$entityTypeId] = ArrayHelper::getValue($result, 'result.categories');
@@ -44,7 +44,7 @@ class CrmCategorySynchronizationDeltaJob extends BaseObject implements \yii\queu
         }
         $b24Obj->client->processBatchCalls();
         foreach ($res as $entityTypeCategories) {
-            foreach ($entityTypeCategories as $oneEntity){
+            foreach ($entityTypeCategories as $oneEntity) {
                 $oneEntity['entityTypeName'] = $entityTypiesList[$oneEntity['entityTypeId']];
                 $model = Yii::createObject($this->modelClass);
                 $model->loadData($oneEntity);

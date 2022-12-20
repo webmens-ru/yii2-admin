@@ -76,10 +76,9 @@ class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleCo
 
         if ($model->load($this->request->post()) && $model->validate()) {
             $model->addField();
-            if(!$model->errors){
+            if (!$model->errors) {
                 return $this->redirect(['/admin/synchronization/view', 'id' => $model->synchronizationEntityId]);
             }
-            
         }
 
         if ($request->post('action') != 'submit') {
@@ -122,7 +121,7 @@ class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleCo
      */
     public function actionDelete($id)
     {
-        
+
         $model = $this->findModel($id);
         $synchronizationEntityId = $model->synchronizationEntityId;
         $model->delete();

@@ -26,12 +26,13 @@ class SynchronizationField extends \yii\db\ActiveRecord
         return 'admin_synchronization_field';
     }
 
-    public function afterSave($insert, $changedAttributes) {
+    public function afterSave($insert, $changedAttributes)
+    {
         parent::afterSave($insert, $changedAttributes);
-       if($insert){
-           $modelClassName = $this->synchronizationEntity->modelClassName;
-           $modelClassName::createColumns([$this->name]);
-       }
+        if ($insert) {
+            $modelClassName = $this->synchronizationEntity->modelClassName;
+            $modelClassName::createColumns([$this->name]);
+        }
     }
 
     public function beforeDelete()
@@ -52,7 +53,13 @@ class SynchronizationField extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 48],
             [['title'], 'string', 'max' => 128],
             [['name', 'synchronizationEntityId'], 'unique', 'targetAttribute' => ['name', 'synchronizationEntityId']],
-            [['synchronizationEntityId'], 'exist', 'skipOnError' => true, 'targetClass' => Synchronization::className(), 'targetAttribute' => ['synchronizationEntityId' => 'id']],
+            [
+                ['synchronizationEntityId'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Synchronization::className(),
+                'targetAttribute' => ['synchronizationEntityId' => 'id']
+            ],
         ];
     }
 
@@ -62,7 +69,7 @@ class SynchronizationField extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',            
+            'id' => 'ID',
             'name' => 'Системное имя',
             'synchronizationEntityId' => 'Идентификатор сущности',
             'title' => 'Название',

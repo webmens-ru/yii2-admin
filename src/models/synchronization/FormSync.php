@@ -45,12 +45,13 @@ class FormSync extends Model
         ];
     }
 
-    public function initAgentTimeSettings(){
-        if(!$this->entityId){
+    public function initAgentTimeSettings()
+    {
+        if (!$this->entityId) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         $synchronizationModel = Synchronization::find()->where(['id' => $this->entityId])->one();
-        if(!$synchronizationModel){
+        if (!$synchronizationModel) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         $agent = Agents::find()
@@ -63,9 +64,9 @@ class FormSync extends Model
             ->one();
         $modelAgentTimeSettings = new Agents();
         $modelAgentTimeSettings->scenario = Agents::SCENARIO_ONLY_TIME_SETTINGS;
-        if($agent){
+        if ($agent) {
             $modelAgentTimeSettings->load(ArrayHelper::toArray($agent), '');
-        }else{
+        } else {
             $modelAgentTimeSettings->minuteTypeId = 1;
             $modelAgentTimeSettings->hourTypeId = 1;
             $modelAgentTimeSettings->dayTypeId = 1;
@@ -74,5 +75,4 @@ class FormSync extends Model
         }
         return $modelAgentTimeSettings;
     }
-
 }

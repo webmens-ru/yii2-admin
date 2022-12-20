@@ -169,7 +169,7 @@ class Events extends \yii\db\ActiveRecord
         $b24EventsFilterList = array_filter($b24EventsList, function ($var) {
             if (
                 ArrayHelper::getValue($var, 'event') == strtoupper($this->event_name) &&
-                ArrayHelper::getValue($var, 'offline') == ($this->event_type=='offline'?1:0)
+                ArrayHelper::getValue($var, 'offline') == ($this->event_type == 'offline' ? 1 : 0)
             ) {
                 return true;
             } else {
@@ -181,7 +181,11 @@ class Events extends \yii\db\ActiveRecord
 
     private function checkSmartProcess()
     {
-        if ($this->event_name == 'onCrmDynamicItemAdd_' || $this->event_name == 'onCrmDynamicItemUpdate_' || $this->event_name == 'onCrmDynamicItemDelete_') {
+        if (
+            $this->event_name == 'onCrmDynamicItemAdd_'
+            || $this->event_name == 'onCrmDynamicItemUpdate_'
+            || $this->event_name == 'onCrmDynamicItemDelete_'
+        ) {
             $this->event_name .= $this->entityTypeId;
         }
     }

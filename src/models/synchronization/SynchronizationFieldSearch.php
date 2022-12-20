@@ -57,7 +57,7 @@ class SynchronizationFieldSearch extends SynchronizationField
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,            
+            'id' => $this->id,
             'synchronizationEntityId' => $this->synchronizationEntityId,
         ]);
 

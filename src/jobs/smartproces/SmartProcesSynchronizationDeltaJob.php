@@ -1,13 +1,14 @@
 <?php
 
-namespace wm\admin\jobs\smartproces;//
+namespace wm\admin\jobs\smartproces;
+
+//
 
 use wm\admin\models\settings\events\Events;
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
-
 
 class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
@@ -41,7 +42,9 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['id' => $oneEntity['id']])->one();
-                if (!$model) $model = new $this->modelClass();
+                if (!$model) {
+                    $model = new $this->modelClass();
+                }
                 $model->loadData($oneEntity);
             }
         }
@@ -57,7 +60,9 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['id' => $oneEntity['id']])->one();
-                if (!$model) $model = new $this->modelClass();
+                if (!$model) {
+                    $model = new $this->modelClass();
+                }
                 $model->loadData($oneEntity);
             }
         }
@@ -72,7 +77,9 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
         if ($arrayId) {
             foreach ($arrayId as $id) {
                 $model = $this->modelClass::find()->where(['id' => $id])->one();
-                if ($model) $model->delete();
+                if ($model) {
+                    $model->delete();
+                }
             }
         }
         return count($arrayId) < 50 ? true : false;
@@ -86,7 +93,8 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
         $obB24 = new \Bitrix24\B24Object($b24App);
         $res = [];
         foreach ($arrayId as $id) {
-            $obB24->client->addBatchCall('crm.item.get',
+            $obB24->client->addBatchCall(
+                'crm.item.get',
                 [
                     'id' => $id,
                     'entityTypeId' => $this->entityTypeId,

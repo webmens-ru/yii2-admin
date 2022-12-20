@@ -134,7 +134,9 @@ class Placement extends \yii\db\ActiveRecord
     private function checkSmartProcess()
     {
         if (strpos($this->placement_name, 'CRM_DYNAMIC') !== false) {
-            $this->placement_name = substr($this->placement_name, 0, 12) . $this->entityTypeId . substr($this->placement_name, 12);
+            $this->placement_name = substr($this->placement_name, 0, 12)
+                . $this->entityTypeId
+                . substr($this->placement_name, 12);
         }
     }
 }

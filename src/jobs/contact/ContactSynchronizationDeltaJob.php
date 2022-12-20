@@ -8,7 +8,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class ContactSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -40,7 +39,9 @@ class ContactSynchronizationDeltaJob extends BaseObject implements \yii\queue\Jo
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-                if (!$model) $model = new $this->modelClass();
+                if (!$model) {
+                    $model = new $this->modelClass();
+                }
                 $model->loadData($oneEntity);
             }
         }
@@ -56,7 +57,9 @@ class ContactSynchronizationDeltaJob extends BaseObject implements \yii\queue\Jo
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-                if (!$model) $model = new $this->modelClass();
+                if (!$model) {
+                    $model = new $this->modelClass();
+                }
                 $model->loadData($oneEntity);
             }
         }
@@ -71,7 +74,9 @@ class ContactSynchronizationDeltaJob extends BaseObject implements \yii\queue\Jo
         if ($arrayId) {
             foreach ($arrayId as $id) {
                 $model = $this->modelClass::find()->where(['id' => $id])->one();
-                if ($model) $model->delete();
+                if ($model) {
+                    $model->delete();
+                }
             }
         }
         return count($arrayId) < 50 ? true : false;
@@ -85,7 +90,8 @@ class ContactSynchronizationDeltaJob extends BaseObject implements \yii\queue\Jo
         $obB24 = new \Bitrix24\B24Object($b24App);
         $res = [];
         foreach ($arrayId as $id) {
-            $obB24->client->addBatchCall('crm.contact.get',
+            $obB24->client->addBatchCall(
+                'crm.contact.get',
                 ['ID' => $id],
                 function ($result) use (&$res) {
                     $res[] = ArrayHelper::getValue($result, 'result');

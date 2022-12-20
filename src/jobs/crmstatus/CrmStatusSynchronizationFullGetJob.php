@@ -8,7 +8,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class CrmStatusSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;

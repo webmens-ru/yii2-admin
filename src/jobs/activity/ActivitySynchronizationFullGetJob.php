@@ -8,7 +8,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class ActivitySynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -47,7 +46,8 @@ class ActivitySynchronizationFullGetJob extends BaseObject implements \yii\queue
             }
             for ($i = 0; $i < 50; $i++) {
                 if ($countCalls > 0) {
-                    $idx = $obB24->client->addBatchCall('crm.activity.list',
+                    $idx = $obB24->client->addBatchCall(
+                        'crm.activity.list',
                         [
                             'order' => ["ID" => "ASC"],
                             'filter' => [
@@ -77,13 +77,16 @@ class ActivitySynchronizationFullGetJob extends BaseObject implements \yii\queue
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
 //            try{}catch ()//TODO
-            $obB24->client->addBatchCall('crm.activity.get',
+            $obB24->client->addBatchCall(
+                'crm.activity.get',
                 ['ID' => $id],
                 function ($result) {
                     $data = ArrayHelper::getValue($result, 'result');
                     $id = ArrayHelper::getValue($data, 'ID');
                     $model = $this->modelClass::find()->where(['ID' => $id])->one();
-                    if (!$model) $model = new $this->modelClass();
+                    if (!$model) {
+                        $model = new $this->modelClass();
+                    }
                     $model->loadData($data);
                 }
             );

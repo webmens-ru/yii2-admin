@@ -8,7 +8,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class DealSynchronizationFullListJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -39,7 +38,8 @@ class DealSynchronizationFullListJob extends BaseObject implements \yii\queue\Jo
         $data = ArrayHelper::getValue($request, $listDataSelector);
         if (count($data) != $request['total']) {
             for ($i = 1; $i < $countCalls; $i++) {
-                $b24Obj->client->addBatchCall('crm.deal.list',
+                $b24Obj->client->addBatchCall(
+                    'crm.deal.list',
                     array_merge($params, ['start' => $b24Obj->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use ($listDataSelector) {
                         foreach (ArrayHelper::getValue($result, $listDataSelector) as $oneEntity) {

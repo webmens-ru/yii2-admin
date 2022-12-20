@@ -74,7 +74,7 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             'width',
             'type',
             'frozen' => function () {
-               return self::getBooleanValue($this->frozen);
+                return self::getBooleanValue($this->frozen);
             },
             'reordering' => function () {
                 return self::getBooleanValue($this->reordering);

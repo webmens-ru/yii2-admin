@@ -104,11 +104,12 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
             $model->userId = $userId;
             $model->save();
             if ($model->errors) {
-                Yii::error([
+                Yii::error(
+                    [
                     'model' => $model->errors,
                     'column' => $column,
                     'userId' => $userId
-                ],
+                    ],
                     'GridColumnPersonal->saveColumns($columns, $userId)'
                 );
             }

@@ -78,7 +78,7 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
     {
         $model = new Placement();
         $placementDirectoryModel = PlacementDirectory::find()->all();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

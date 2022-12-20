@@ -191,7 +191,7 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
 
         if ($request->post('action') != 'submit') {
             $model->entityId = $id;
-            $modelAgentTimeSettings = $model->initAgentTimeSettings();           
+            $modelAgentTimeSettings = $model->initAgentTimeSettings();
         }
 
         return $this->render('activate', [

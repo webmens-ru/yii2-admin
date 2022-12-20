@@ -9,7 +9,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class EmployeeSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -55,13 +54,16 @@ class EmployeeSynchronizationDeltaJob extends BaseObject implements \yii\queue\J
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
 //            try{}catch ()//TODO
-            $obB24->client->addBatchCall('user.get',
+            $obB24->client->addBatchCall(
+                'user.get',
                 ['ID' => $id],
                 function ($result) {
                     $data = ArrayHelper::getValue($result, 'result')[0];
                     $id = ArrayHelper::getValue($data, 'ID');
                     $model = $this->modelClass::find()->where(['ID' => $id])->one();
-                    if (!$model) $model = new $this->modelClass();
+                    if (!$model) {
+                        $model = new $this->modelClass();
+                    }
                     $model->loadData($data);
                 }
             );

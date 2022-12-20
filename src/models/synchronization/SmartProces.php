@@ -1,6 +1,8 @@
 <?php
 
-namespace wm\admin\models\synchronization;//
+namespace wm\admin\models\synchronization;
+
+//
 
 use Bitrix24\B24Object;
 use wm\admin\models\settings\Agents;
@@ -14,7 +16,6 @@ use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
 class SmartProces extends BaseEntity implements SynchronizationInterface
-
 {
     public static $entityTypeId = 0;
 
