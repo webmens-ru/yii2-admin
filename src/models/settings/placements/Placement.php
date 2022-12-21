@@ -50,7 +50,7 @@ class Placement extends \yii\db\ActiveRecord
                     ['placement_name'],
                     'exist',
                     'skipOnError' => true,
-                    'targetClass' => PlacementDirectory::className(),
+                    'targetClass' => PlacementDirectory::class,
                     'targetAttribute' => ['placement_name' => 'name_id']
                 ],
         ];
@@ -122,7 +122,7 @@ class Placement extends \yii\db\ActiveRecord
      */
     public function getPlacement()
     {
-        return $this->hasOne(PlacementDirectory::className(), ['name_id' => 'placement_name']);
+        return $this->hasOne(PlacementDirectory::class, ['name_id' => 'placement_name']);
     }
 
     public function getPlacementName()

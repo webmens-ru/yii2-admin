@@ -4,13 +4,12 @@ namespace app\modules\baseapp\controllers\handlers;
 
 use wm\b24tools\b24Tools;
 use Yii;
-use app\modules\b24\controllers\B24Controller;
 use app\modules\baseapp\models\settings\events\Events;
 
 /**
  * MaterialsGroupController implements the CRUD actions for MaterialsGroup model.
  */
-class EventController extends B24Controller
+class EventController extends \yii\web\Controller
 {
     public function beforeAction($action)
     {

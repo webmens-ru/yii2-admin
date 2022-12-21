@@ -57,7 +57,7 @@ class SynchronizationField extends \yii\db\ActiveRecord
                 ['synchronizationEntityId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Synchronization::className(),
+                'targetClass' => Synchronization::class,
                 'targetAttribute' => ['synchronizationEntityId' => 'id']
             ],
         ];
@@ -84,6 +84,6 @@ class SynchronizationField extends \yii\db\ActiveRecord
      */
     public function getSynchronizationEntity()
     {
-        return $this->hasOne(Synchronization::className(), ['id' => 'synchronizationEntityId']);
+        return $this->hasOne(Synchronization::class, ['id' => 'synchronizationEntityId']);
     }
 }

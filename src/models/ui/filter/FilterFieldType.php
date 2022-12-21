@@ -51,6 +51,6 @@ class FilterFieldType extends \wm\yii\db\ActiveRecord
      */
     public function getFilterFields()
     {
-        return $this->hasMany(FilterField::className(), ['typeId' => 'id']);
+        return $this->hasMany(FilterField::class, ['typeId' => 'id']);
     }
 }

@@ -59,7 +59,7 @@ class Events extends \yii\db\ActiveRecord
                 ['event_name'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => EventsDirectory::className(),
+                'targetClass' => EventsDirectory::class,
                 'targetAttribute' => ['event_name' => 'name']
             ],
         ];
@@ -118,7 +118,7 @@ class Events extends \yii\db\ActiveRecord
      */
     public function getEvent()
     {
-        return $this->hasOne(EventsDirectory::className(), ['name' => 'event_name']);
+        return $this->hasOne(EventsDirectory::class, ['name' => 'event_name']);
     }
 
     public static function getB24EventsList()

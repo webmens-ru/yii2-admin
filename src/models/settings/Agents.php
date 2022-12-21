@@ -313,7 +313,7 @@ class Agents extends \yii\db\ActiveRecord
     private static function getNextMinute($initialDate, $minuteTypeId, $minuteProps = null)
     {
         $isNextHour = false;
-        $nextMinute;
+        $nextMinute = null;
 //        $nextHour;
         $initialDate = strtotime($initialDate);
         switch ($minuteTypeId) {
@@ -336,7 +336,7 @@ class Agents extends \yii\db\ActiveRecord
                     $isNextHour = true;
                     $nextMinute = min($arrMinutes);
                 } else {
-                    $arr = array_filter($arrMinutes, function ($value) {
+                    $arr = array_filter($arrMinutes, function ($value) use ($initialDate) {//TODO use ($initialDate)
                         return ($value > date('i', $initialDate));
                     });
                     $nextMinute = min($arr);
@@ -412,7 +412,7 @@ class Agents extends \yii\db\ActiveRecord
                 break;
             case 3:
                 $arrDays = explode(',', $dayProps);
-                if ($isNext || !in_array(date('d', $initialDate), $arrHours)) {
+                if ($isNext || !in_array(date('d', $initialDate), $arrDays)) {
                     $nextDay = max($arrDays);
                     if (max($arrDays) < date('d', $initialDate)) {
                         $isNextMonth = true;
@@ -433,7 +433,6 @@ class Agents extends \yii\db\ActiveRecord
     {
         $initialDate = strtotime($initialDate);
         $nextMonth = date('m', $initialDate);
-        ;
         $year = date('Y', $initialDate);
         switch ($monthTypeId) {
             case 1:
@@ -454,7 +453,7 @@ class Agents extends \yii\db\ActiveRecord
                 break;
             case 3:
                 $arrMonth = explode(',', $monthProps);
-                if ($isNext || !in_array(date('m', $initialDate), $arrHours)) {
+                if ($isNext || !in_array(date('m', $initialDate), $arrMonth)) {
                     $nextMonth = max($arrMonth);
                     if (max($arrMonth) < date('m', $initialDate)) {
                         $year = date('Y', strtotime("+1 year", $initialDate));

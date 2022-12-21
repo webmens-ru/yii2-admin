@@ -23,7 +23,7 @@ use kartik\file\FileInput;
 
 
     <?=
-    $form->field($model, 'file')->widget(FileInput::classname(), [
+    $form->field($model, 'file')->widget(FileInput::className(), [
     //'options' => ['accept' => 'image/*'],
     ]);
     ?>

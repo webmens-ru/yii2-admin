@@ -25,9 +25,9 @@ use yii\helpers\Url;
  * @property string $hidden
  * @property string $livechat_support
  *
- * @property AdminChatbotAppContexDirectory $contexCode
- * @property AdminChatbotAppJsMethodDirectory $jsMethodCode
- * @property AdminChatbot $botCode
+ * @property ChatbotAppContexDirectory $contexCode
+ * @property ChatbotAppJsMethodDirectory $jsMethodCode
+ * @property Chatbot $botCode
  */
 class App extends \yii\db\ActiveRecord
 {
@@ -94,21 +94,21 @@ class App extends \yii\db\ActiveRecord
                 ['contex_code'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => AppContexDirectory::className(),
+                'targetClass' => AppContexDirectory::class,
                 'targetAttribute' => ['contex_code' => 'code']
             ],
             [
                 ['js_method_code'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => AppJsMethodDirectory::className(),
+                'targetClass' => AppJsMethodDirectory::class,
                 'targetAttribute' => ['js_method_code' => 'code']
             ],
             [
                 ['bot_code'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Chatbot::className(),
+                'targetClass' => Chatbot::class,
                 'targetAttribute' => ['bot_code' => 'code']
             ],
         ];
@@ -148,7 +148,7 @@ class App extends \yii\db\ActiveRecord
      */
     public function getContexCode()
     {
-        return $this->hasOne(AdminChatbotAppContexDirectory::className(), ['code' => 'contex_code']);
+        return $this->hasOne(AppContexDirectory::class, ['code' => 'contex_code']);
     }
 
     /**
@@ -158,7 +158,7 @@ class App extends \yii\db\ActiveRecord
      */
     public function getJsMethodCode()
     {
-        return $this->hasOne(AdminChatbotAppJsMethodDirectory::className(), ['code' => 'js_method_code']);
+        return $this->hasOne(AppJsMethodDirectory::class, ['code' => 'js_method_code']);
     }
 
     /**
@@ -168,7 +168,7 @@ class App extends \yii\db\ActiveRecord
      */
     public function getBotCode()
     {
-        return $this->hasOne(Chatbot::className(), ['code' => 'bot_code']);
+        return $this->hasOne(Chatbot::class, ['code' => 'bot_code']);
     }
 
     public function toBitrix24()

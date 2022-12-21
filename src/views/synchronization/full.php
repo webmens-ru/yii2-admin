@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ->label('Метод синхронизации')
         ?>
 
-        <?= $form->field($model, 'dateTimeStart')->widget(DateTimePicker::classname(), [
+        <?= $form->field($model, 'dateTimeStart')->widget(DateTimePicker::className(), [
             'type' => DateTimePicker::TYPE_INPUT,
             'pluginOptions' => [
                 'autoclose' => true,

@@ -7,47 +7,13 @@ use wm\admin\models\synchronization\SynchronizationField;
 use wm\admin\models\synchronization\SynchronizationFieldForm;
 use wm\admin\models\synchronization\SynchronizationFieldSearch;
 use Yii;
-use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * SynchronizationController implements the CRUD actions for Synchronization model.
  */
 class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()//TODO права
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
-//    /**
-//     * Lists all Synchronization models.
-//     *
-//     * @return string
-//     */
-//    public function actionIndex()
-//    {
-//        $searchModel = new SynchronizationSearch();
-//        $dataProvider = $searchModel->search($this->request->queryParams);
-//
-//        return $this->render('index', [
-//            'searchModel' => $searchModel,
-//            'dataProvider' => $dataProvider,
-//        ]);
-//    }
-//
     /**
      * Displays a single Synchronization model.
      * @param int $id ID

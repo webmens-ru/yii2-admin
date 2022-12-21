@@ -44,14 +44,14 @@ class FilterField extends \wm\yii\db\ActiveRecord
                 ['entityCode'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Entity::className(),
+                'targetClass' => Entity::class,
                 'targetAttribute' => ['entityCode' => 'code']
             ],
             [
                 ['typeId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => FilterFieldType::className(),
+                'targetClass' => FilterFieldType::class,
                 'targetAttribute' => ['typeId' => 'id']
             ],
         ];
@@ -80,7 +80,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
      */
     public function getEntity()
     {
-        return $this->hasOne(Entity::className(), ['code' => 'entityCode']);
+        return $this->hasOne(Entity::class, ['code' => 'entityCode']);
     }
 
     /**
@@ -90,7 +90,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
      */
     public function getFilterFieldOptions()
     {
-        return $this->hasMany(FilterFieldOptions::className(), ['fieldId' => 'id']);
+        return $this->hasMany(FilterFieldOptions::class, ['fieldId' => 'id']);
     }
 
     /**
@@ -100,7 +100,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
      */
     public function getFilterFieldSettings()
     {
-        return $this->hasMany(FilterFieldSetting::className(), ['filterFieldId' => 'id']);
+        return $this->hasMany(FilterFieldSetting::class, ['filterFieldId' => 'id']);
     }
 
     /**
@@ -110,7 +110,7 @@ class FilterField extends \wm\yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(FilterFieldType::className(), ['id' => 'typeId']);
+        return $this->hasOne(FilterFieldType::class, ['id' => 'typeId']);
     }
 
     public function fields()

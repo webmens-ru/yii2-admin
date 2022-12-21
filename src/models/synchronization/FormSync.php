@@ -37,7 +37,7 @@ class FormSync extends Model
                 ['entityId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Synchronization::className(),
+                'targetClass' => Synchronization::class,
                 'targetAttribute' => ['entityId' => 'id']
             ],
             [['entityId'], 'integer'],

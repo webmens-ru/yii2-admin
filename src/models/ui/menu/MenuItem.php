@@ -38,7 +38,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
             [
                 ['menuId'],
                 'exist', 'skipOnError' => true,
-                'targetClass' => Menu::className(),
+                'targetClass' => Menu::class,
                 'targetAttribute' => ['menuId' => 'id']
             ],
         ];
@@ -67,7 +67,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
      */
     public function getMenu()
     {
-        return $this->hasOne(Menu::className(), ['id' => 'menuId']);
+        return $this->hasOne(Menu::class, ['id' => 'menuId']);
     }
 
     /**
@@ -133,6 +133,6 @@ class MenuItem extends \wm\yii\db\ActiveRecord
      */
     public function getMenuItemPersonalSettings()
     {
-        return $this->hasMany(MenuItemPersonalSettings::className(), ['itemId' => 'id']);
+        return $this->hasMany(MenuItemPersonalSettings::class, ['itemId' => 'id']);
     }
 }

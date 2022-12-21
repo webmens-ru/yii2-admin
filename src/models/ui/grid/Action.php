@@ -40,7 +40,7 @@ class Action extends \wm\yii\db\ActiveRecord
                 ['entityCode'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Entity::className(),
+                'targetClass' => Entity::class,
                 'targetAttribute' => ['entityCode' => 'code']
             ],
         ];
@@ -80,6 +80,6 @@ class Action extends \wm\yii\db\ActiveRecord
      */
     public function getEntity()
     {
-        return $this->hasOne(Entity::className(), ['code' => 'entityCode']);
+        return $this->hasOne(Entity::class, ['code' => 'entityCode']);
     }
 }

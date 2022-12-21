@@ -27,7 +27,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             [['b24_user_id'], 'integer'],
             [['name', 'last_name', 'access_token', 'auth_key'], 'string', 'max' => 255],
             [['date_expired'], 'safe'],
-            ['username', 'unique', 'targetClass' => User::className(), 'message' => 'Этот логин уже занят'],
+            ['username', 'unique', 'targetClass' => User::class, 'message' => 'Этот логин уже занят'],
         ];
     }
 

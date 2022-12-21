@@ -64,11 +64,11 @@ class EventsDirectory extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Events::className(), ['event_name' => 'name']);
+        return $this->hasMany(Events::class, ['event_name' => 'name']);
     }
 
 //    public function getCategory() {
-//        return $this->hasOne(Category::className(), ['category_id' => 'id']);
+//        return $this->hasOne(Category::class(), ['category_id' => 'id']);
 //    }
 
     public function getCategoryName()

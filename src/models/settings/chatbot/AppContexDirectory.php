@@ -53,6 +53,6 @@ class AppContexDirectory extends \yii\db\ActiveRecord
      */
     public function getApps()
     {
-        return $this->hasMany(App::className(), ['contex_code' => 'code']);
+        return $this->hasMany(App::class, ['contex_code' => 'code']);
     }
 }

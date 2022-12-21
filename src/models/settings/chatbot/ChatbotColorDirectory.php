@@ -53,6 +53,6 @@ class ChatbotColorDirectory extends \yii\db\ActiveRecord
      */
     public function getChatbots()
     {
-        return $this->hasMany(Chatbot::className(), ['p_color_name' => 'name']);
+        return $this->hasMany(Chatbot::class, ['p_color_name' => 'name']);
     }
 }

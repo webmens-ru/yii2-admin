@@ -3,6 +3,8 @@
 namespace wm\admin\models\ui;
 
 use Yii;
+use wm\admin\models\ui\filter\FilterField;
+use wm\admin\models\ui\filter\Filter;
 
 /**
  * This is the model class for table "entity".
@@ -54,7 +56,7 @@ class Entity extends \wm\yii\db\ActiveRecord
      */
     public function getFilterFields()
     {
-        return $this->hasMany(FilterField::className(), ['entityCode' => 'code']);
+        return $this->hasMany(FilterField::class, ['entityCode' => 'code']);
     }
 
     /**
@@ -64,6 +66,6 @@ class Entity extends \wm\yii\db\ActiveRecord
      */
     public function getFilters()
     {
-        return $this->hasMany(Filter::className(), ['entityCode' => 'code']);
+        return $this->hasMany(Filter::class, ['entityCode' => 'code']);
     }
 }

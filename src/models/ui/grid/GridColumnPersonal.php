@@ -41,7 +41,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
                 ['columnId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => GridColumn::className(),
+                'targetClass' => GridColumn::class,
                 'targetAttribute' => ['columnId' => 'id']
             ],
         ];
@@ -85,7 +85,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
      */
     public function getColumn()
     {
-        return $this->hasOne(GridColumn::className(), ['id' => 'columnId']);
+        return $this->hasOne(GridColumn::class, ['id' => 'columnId']);
     }
 
     /**

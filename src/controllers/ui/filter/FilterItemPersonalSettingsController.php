@@ -29,7 +29,6 @@ class FilterItemPersonalSettingsController extends \wm\admin\controllers\ActiveR
         $userId = Yii::$app->user->id;
         $items = Yii::$app->getRequest()->getBodyParams();
         FilterItemPersonalSettings::saveItems($items, $userId);
-
         return true;
     }
 }

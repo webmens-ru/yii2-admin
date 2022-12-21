@@ -107,7 +107,7 @@ class ActiveRestController extends \yii\rest\ActiveController
     {
         $dataProvider = $this->prepareDataProvider()->getModels();
         $res = [
-            'header' => $this->modelClass::getHeader($models),
+            'header' => $this->modelClass::getHeader($dataProvider),
             'grid' => $dataProvider,
             'footer' => $this->modelClass::getFooter($dataProvider),
             'options' => (is_callable([$this->modelClass, 'getGridOptions'])) ? $this->modelClass::getGridOptions() : []

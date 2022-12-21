@@ -41,14 +41,14 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
                 ['filterId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Filter::className(),
+                'targetClass' => Filter::class,
                 'targetAttribute' => ['filterId' => 'id']
             ],
             [
                 ['filterFieldId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => FilterField::className(),
+                'targetClass' => FilterField::class,
                 'targetAttribute' => ['filterFieldId' => 'id']
             ],
         ];
@@ -89,7 +89,7 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
      */
     public function getFilter()
     {
-        return $this->hasOne(Filter::className(), ['id' => 'filterId']);
+        return $this->hasOne(Filter::class, ['id' => 'filterId']);
     }
 
     /**
@@ -99,7 +99,7 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
      */
     public function getFilterField()
     {
-        return $this->hasOne(FilterField::className(), ['id' => 'filterFieldId']);
+        return $this->hasOne(FilterField::class, ['id' => 'filterFieldId']);
     }
 
     /**

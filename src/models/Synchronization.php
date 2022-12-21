@@ -61,7 +61,7 @@ class Synchronization extends \yii\db\ActiveRecord
 
     public function getSyncFields()
     {
-        return $this->hasMany(SynchronizationField::className(), ['synchronizationEntityId' => 'id']);
+        return $this->hasMany(SynchronizationField::class, ['synchronizationEntityId' => 'id']);
     }
 
     public function getB24Fieldslist()

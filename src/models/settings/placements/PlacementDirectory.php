@@ -62,6 +62,6 @@ class PlacementDirectory extends \yii\db\ActiveRecord
      */
     public function getPlacements()
     {
-        return $this->hasMany(Placement::className(), ['placement_name' => 'name_id']);
+        return $this->hasMany(Placement::class, ['placement_name' => 'name_id']);
     }
 }

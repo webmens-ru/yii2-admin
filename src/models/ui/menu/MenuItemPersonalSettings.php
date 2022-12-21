@@ -38,7 +38,7 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
                 ['itemId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => MenuItem::className(),
+                'targetClass' => MenuItem::class,
                 'targetAttribute' => ['itemId' => 'id']
             ],
         ];
@@ -65,7 +65,7 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(MenuItem::className(), ['id' => 'itemId']);
+        return $this->hasOne(MenuItem::class, ['id' => 'itemId']);
     }
 
     /**
