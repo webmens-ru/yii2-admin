@@ -47,14 +47,14 @@ class RobotsProperties extends \yii\db\ActiveRecord
                 ['robot_code'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Robots::className(),
+                'targetClass' => Robots::class,
                 'targetAttribute' => ['robot_code' => 'code']
             ],
             [
                 ['type_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => RobotsTypes::className(),
+                'targetClass' => RobotsTypes::class,
                 'targetAttribute' => ['type_id' => 'id']
             ],
         ];
@@ -85,7 +85,7 @@ class RobotsProperties extends \yii\db\ActiveRecord
     public function getOptions()
     {
         return $this->hasMany(
-            RobotsOptions::className(),
+            RobotsOptions::class,
             [
                 'robot_code' => 'robot_code',
                 'property_name' => 'system_name'
@@ -98,7 +98,7 @@ class RobotsProperties extends \yii\db\ActiveRecord
      */
     public function getRobot()
     {
-        return $this->hasOne(Robots::className(), ['code' => 'robot_code']);
+        return $this->hasOne(Robots::class, ['code' => 'robot_code']);
     }
 
     /**
@@ -106,7 +106,7 @@ class RobotsProperties extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(RobotsTypes::className(), ['id' => 'type_id']);
+        return $this->hasOne(RobotsTypes::class, ['id' => 'type_id']);
     }
 
     public function getRobotName()

@@ -38,7 +38,7 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         $b24Obj = new B24Object($b24App);
         $request = $b24Obj->client->call(
             'voximplant.statistic.get',
-            );
+        );
         return $request['total'];
     }
 
@@ -46,29 +46,71 @@ class Telephony extends BaseEntity implements SynchronizationInterface
     {
         return [
             'ID' => ['id' => "ID", 'title' => 'Идентификатор звонка (для внутренних целей)'],
-            'PORTAL_USER_ID' => ['id' => "PORTAL_USER_ID", 'title' => 'Идентификатор ответившего 2 - Вх или позвонившего 1 - Исх'],
-            'PORTAL_NUMBER' => ['id' => "PORTAL_NUMBER", 'title' => 'Номер, на который поступил звонок 2 - Вх или с которого 1 - Исх'],
-            'PHONE_NUMBER' => ['id' => "PHONE_NUMBER", 'title' => 'Номер, с которого звонит абонент 2 - Вх или номер, которому звонит оператор 1 - Исх'],
+            'PORTAL_USER_ID' => [
+                'id' => "PORTAL_USER_ID",
+                'title' => 'Идентификатор ответившего 2 - Вх или позвонившего 1 - Исх'
+            ],
+            'PORTAL_NUMBER' => [
+                'id' => "PORTAL_NUMBER",
+                'title' => 'Номер, на который поступил звонок 2 - Вх или с которого 1 - Исх'
+            ],
+            'PHONE_NUMBER' => [
+                'id' => "PHONE_NUMBER",
+                'title' => 'Номер, с которого звонит абонент 2 - Вх или номер, которому звонит оператор 1 - Исх'
+            ],
             'CALL_ID' => ['id' => "CALL_ID", 'title' => 'Идентификатор звонка'],
             'EXTERNAL_CALL_ID' => ['id' => "EXTERNAL_CALL_ID", 'title' => 'EXTERNAL_CALL_ID'],
             'CALL_CATEGORY' => ['id' => "CALL_CATEGORY", 'title' => 'CALL_CATEGORY'],
             'CALL_DURATION' => ['id' => "CALL_DURATION", 'title' => 'Продолжительность звонка в секундах'],
             'CALL_START_DATE' => ['id' => "CALL_START_DATE", 'title' => 'Время инициализации звонка'],
             'CALL_RECORD_URL' => ['id' => "CALL_RECORD_URL", 'title' => 'CALL_RECORD_URL'],
-            'CALL_VOTE' => ['id' => "CALL_VOTE", 'title' => 'Оценка звонка используется только для внутренней телефонии'],
+            'CALL_VOTE' => [
+                'id' => "CALL_VOTE",
+                'title' => 'Оценка звонка используется только для внутренней телефонии'
+            ],
             'COST' => ['id' => "COST", 'title' => 'Стоимость звонка'],
             'COST_CURRENCY' => ['id' => "COST_CURRENCY", 'title' => 'Валюта звонка (RUR, USD, EUR)'],
             'CALL_FAILED_CODE' => ['id' => "CALL_FAILED_CODE", 'title' => 'Код вызова'],
-            'CALL_FAILED_REASON' => ['id' => "CALL_FAILED_REASON", 'title' => 'Текстовое описание кода вызова (латиница)'],
-            'CRM_ENTITY_TYPE' => ['id' => "CRM_ENTITY_TYPE", 'title' => 'Тип объекта CRM, к которому прикреплено дело, например: LEAD'],
-            'CRM_ENTITY_ID' => ['id' => "CRM_ENTITY_ID", 'title' => 'Идентификатор объекта CRM, к которому прикреплено дело'],
-            'CRM_ACTIVITY_ID' => ['id' => "CRM_ACTIVITY_ID", 'title' => 'Идентификатор дела CRM, созданного на основании звонка'],
-            'REST_APP_ID' => ['id' => "REST_APP_ID", 'title' => 'Идентификатор приложения интеграции внешней телефонии'],
-            'REST_APP_NAME' => ['id' => "REST_APP_NAME", 'title' => 'Название приложения интеграции внешней телефонии'],
-            'TRANSCRIPT_ID' => ['id' => "TRANSCRIPT_ID", 'title' => 'Идентификатор расшифровки звонка'],
-            'TRANSCRIPT_PENDING' => ['id' => "TRANSCRIPT_PENDING", 'title' => 'Y\N. Признак того, что расшифровка будет получена позднее'],
-            'SESSION_ID' => ['id' => "SESSION_ID", 'title' => 'Идентификатор сессии звонка на стороне Voximplant'],
-            'REDIAL_ATTEMPT' => ['id' => "REDIAL_ATTEMPT", 'title' => 'Номер попытки дозвониться (для обратных звонков)'],
+            'CALL_FAILED_REASON' => [
+                'id' => "CALL_FAILED_REASON",
+                'title' => 'Текстовое описание кода вызова (латиница)'
+            ],
+            'CRM_ENTITY_TYPE' => [
+                'id' => "CRM_ENTITY_TYPE",
+                'title' => 'Тип объекта CRM, к которому прикреплено дело, например: LEAD'
+            ],
+            'CRM_ENTITY_ID' => [
+                'id' => "CRM_ENTITY_ID",
+                'title' => 'Идентификатор объекта CRM, к которому прикреплено дело'
+            ],
+            'CRM_ACTIVITY_ID' => [
+                'id' => "CRM_ACTIVITY_ID",
+                'title' => 'Идентификатор дела CRM, созданного на основании звонка'
+            ],
+            'REST_APP_ID' => [
+                'id' => "REST_APP_ID",
+                'title' => 'Идентификатор приложения интеграции внешней телефонии'
+            ],
+            'REST_APP_NAME' => [
+                'id' => "REST_APP_NAME",
+                'title' => 'Название приложения интеграции внешней телефонии'
+            ],
+            'TRANSCRIPT_ID' => [
+                'id' => "TRANSCRIPT_ID",
+                'title' => 'Идентификатор расшифровки звонка'
+            ],
+            'TRANSCRIPT_PENDING' => [
+                'id' => "TRANSCRIPT_PENDING",
+                'title' => 'Y\N. Признак того, что расшифровка будет получена позднее'
+            ],
+            'SESSION_ID' => [
+                'id' => "SESSION_ID",
+                'title' => 'Идентификатор сессии звонка на стороне Voximplant'
+            ],
+            'REDIAL_ATTEMPT' => [
+                'id' => "REDIAL_ATTEMPT",
+                'title' => 'Номер попытки дозвониться (для обратных звонков)'
+            ],
             'COMMENT' => ['id' => "COMMENT", 'title' => 'Комментарий к звонку'],
             'RECORD_FILE_ID' => ['id' => "RECORD_FILE_ID", 'title' => 'Идентификатор файла с записью звонка'],
             'CALL_TYPE' => ['id' => "CALL_TYPE", 'title' => 'Тип вызова'],
@@ -196,5 +238,4 @@ class Telephony extends BaseEntity implements SynchronizationInterface
                 return Schema::TYPE_STRING;
         }
     }
-
 }

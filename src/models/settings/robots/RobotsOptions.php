@@ -43,7 +43,7 @@ class RobotsOptions extends \yii\db\ActiveRecord
                 ['robot_code', 'property_name'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => RobotsProperties::className(),
+                'targetClass' => RobotsProperties::class,
                 'targetAttribute' => ['robot_code' => 'robot_code', 'property_name' => 'system_name']
             ],
         ];
@@ -70,13 +70,13 @@ class RobotsOptions extends \yii\db\ActiveRecord
     {
         return $this
             ->hasOne(
-                RobotsProperties::className(),
+                RobotsProperties::class,
                 ['robot_code' => 'robot_code', 'system_name' => 'property_name']
             );
     }
 
     /*public function getProperty() {
-        return $this->hasOne(RobotsProperties::className(), ['id' => 'property_id']);
+        return $this->hasOne(RobotsProperties::class(), ['id' => 'property_id']);
     }
 
     public function getPropertyName() {

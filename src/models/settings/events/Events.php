@@ -59,7 +59,7 @@ class Events extends \yii\db\ActiveRecord
                 ['event_name'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => EventsDirectory::className(),
+                'targetClass' => EventsDirectory::class,
                 'targetAttribute' => ['event_name' => 'name']
             ],
         ];
@@ -118,7 +118,7 @@ class Events extends \yii\db\ActiveRecord
      */
     public function getEvent()
     {
-        return $this->hasOne(EventsDirectory::className(), ['name' => 'event_name']);
+        return $this->hasOne(EventsDirectory::class, ['name' => 'event_name']);
     }
 
     public static function getB24EventsList()
@@ -169,7 +169,7 @@ class Events extends \yii\db\ActiveRecord
         $b24EventsFilterList = array_filter($b24EventsList, function ($var) {
             if (
                 ArrayHelper::getValue($var, 'event') == strtoupper($this->event_name) &&
-                ArrayHelper::getValue($var, 'offline') == ($this->event_type=='offline'?1:0)
+                ArrayHelper::getValue($var, 'offline') == ($this->event_type == 'offline' ? 1 : 0)
             ) {
                 return true;
             } else {
@@ -181,7 +181,11 @@ class Events extends \yii\db\ActiveRecord
 
     private function checkSmartProcess()
     {
-        if ($this->event_name == 'onCrmDynamicItemAdd_' || $this->event_name == 'onCrmDynamicItemUpdate_' || $this->event_name == 'onCrmDynamicItemDelete_') {
+        if (
+            $this->event_name == 'onCrmDynamicItemAdd_'
+            || $this->event_name == 'onCrmDynamicItemUpdate_'
+            || $this->event_name == 'onCrmDynamicItemDelete_'
+        ) {
             $this->event_name .= $this->entityTypeId;
         }
     }

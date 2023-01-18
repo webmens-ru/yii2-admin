@@ -37,15 +37,16 @@ class SynchronizationFieldForm extends Model
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',           
+            'id' => 'ID',
             'name' => 'Системное имя',
             'synchronizationEntityId' => 'Идентификатор сущности',
             'title' => 'Название',
         ];
     }
-    
-    public function addField(){
-        foreach ($this->name as $name){
+
+    public function addField()
+    {
+        foreach ($this->name as $name) {
             $model = new SynchronizationField();
             $model->name = $name;
             $model->synchronizationEntityId = $this->synchronizationEntityId;
@@ -53,9 +54,9 @@ class SynchronizationFieldForm extends Model
             $modelSync = Synchronization::find()->where(['id' => $this->synchronizationEntityId])->one();
             $fields = $modelSync->getB24Fields();
             $field = ArrayHelper::getValue($fields, $name);
-            $model->title = ArrayHelper::getValue($field, 'formLabel')?:ArrayHelper::getValue($field, 'title');
+            $model->title = ArrayHelper::getValue($field, 'formLabel') ?: ArrayHelper::getValue($field, 'title');
             $model->save();
-            if($model->errors){
+            if ($model->errors) {
                 Yii::error($model->errors, 'addField $model->errors');
                 $this->addError('name', 'Это поле скорее всего было добавлено ранее');
                 return false;
@@ -63,6 +64,4 @@ class SynchronizationFieldForm extends Model
         }
         return true;
     }
-
-    
 }

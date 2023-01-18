@@ -9,7 +9,6 @@ use wm\admin\models\settings\robots\RobotsPropertiesSearch;
 use wm\admin\models\settings\robots\RobotsTypes;
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -17,28 +16,6 @@ use yii\web\NotFoundHttpException;
  */
 class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['about'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['canAdmin'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all RobotsProperties models.
      * @return mixed

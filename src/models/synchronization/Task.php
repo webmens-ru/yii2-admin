@@ -2,35 +2,33 @@
 
 namespace wm\admin\models\synchronization;
 
-//
-
 use Bitrix24\B24Object;
 use wm\admin\models\settings\Agents;
 use wm\admin\models\settings\events\Events;
-use wm\admin\jobs\smartproces\SmartProcesSynchronizationFullListJob;
-use wm\admin\jobs\smartproces\SmartProcesSynchronizationFullGetJob;
-use wm\admin\jobs\smartproces\SmartProcesSynchronizationDeltaJob;
+use wm\admin\jobs\task\TaskSynchronizationFullListJob;
+use wm\admin\jobs\task\TaskSynchronizationFullGetJob;
+use wm\admin\jobs\task\TaskSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
 
-class SmartProces extends BaseEntity implements SynchronizationInterface
+class Task extends BaseEntity implements SynchronizationInterface
 {
-    public static $entityTypeId = 0;
-
     public static function tableName()
     {
-        return 'sync_smartproces_0';
+        return 'sync_task';
     }
 
-    public static $synchronizationFullListJob = SmartProcesSynchronizationFullListJob::class;
+    public static $synchronizationFullListJob = TaskSynchronizationFullListJob::class;
 
-    public static $synchronizationDeltaJob = SmartProcesSynchronizationDeltaJob::class;
+    public static $synchronizationDeltaJob = TaskSynchronizationDeltaJob::class;
 
-    public static $synchronizationFullGetJob = SmartProcesSynchronizationFullGetJob::class;
+    public static $synchronizationFullGetJob = TaskSynchronizationFullGetJob::class;
 
     public static $primaryKeyColumnName = 'id';
+
 
     public static function getCountB24()
     {
@@ -38,45 +36,54 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $request = $b24Obj->client->call(
-            'crm.item.list',
-            ['entityTypeId' => static::$entityTypeId]
+            'tasks.task.list',
+            ['select' => ['ID']]
         );
         return $request['total'];
     }
 
     public static function getB24Fields()
     {
+        $arr = [];
         $cache = Yii::$app->cache;
-        $key = 'crm.item.fields';
+        $key = 'tasks.task.getFields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();
             $b24App = $component->connectFromAdmin();
             $b24Obj = new B24Object($b24App);
             $data = ArrayHelper::getValue($b24Obj->client->call(
-                'crm.item.fields',
-                ['entityTypeId' => static::$entityTypeId]
+                'tasks.task.getFields'
             ), 'result.fields');
             return $data;
         }, 300);
-        return $fields;
+//        Yii::warning($fields, '$fields');
+        foreach($fields as $key => $val){
+            $arr[Inflector::variablize(strtolower($key))] = $val;
+        }
+//        Yii::warning($arr, '$arr');
+        return $arr;
     }
 
     public static function getB24FieldsList()
     {
         $result = [];
         foreach (self::getB24Fields() as $key => $value) {
+//            Yii::warning(Inflector::variablize(strtolower($key)), '$key');
             $result[$key] = ArrayHelper::getValue($value, 'formLabel') ?: ArrayHelper::getValue($value, 'title');
+//            if(ArrayHelper::getValue($value, 'formLabel')){
+//                $result[Inflector::variablize(strtolower($key))] = ArrayHelper::getValue($value, 'formLabel');
+//            }else{
+//                $result[Inflector::variablize(strtolower($key))] = ArrayHelper::getValue($value, 'title');
+//            }
+//            $result[Inflector::variablize(strtolower($key))] = ArrayHelper::getValue($value, 'formLabel') ?: ArrayHelper::getValue($value, 'title');
         }
+//        Yii::warning($result, '$result_getB24FieldsList');
         return $result;
     }
 
     public static function startSynchronization($modelAgentTimeSettings)
     {
-        $events = [
-            'onCrmDynamicItemAdd_' . static::$entityTypeId,
-            'onCrmDynamicItemUpdate_' . static::$entityTypeId,
-            'onCrmDynamicItemDelete_' . static::$entityTypeId
-        ];
+        $events = ['OnTaskAdd', 'OnTaskUpdate', 'OnTaskDelete'];
         foreach ($events as $eventName) {
             $event = Events::find()->where(['event_name' => $eventName, 'event_type' => 'offline'])->one();
             if (!$event) {
@@ -94,7 +101,7 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
         if (!$agent) {
             $agent = new Agents();
-            $agent->name = 'Синхронизация дельты смарт-процесса';
+            $agent->name = 'Синхронизация дельты задачи';
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
@@ -107,11 +114,7 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
 
     public static function stopSynchronization()
     {
-        $events = [
-            'onCrmDynamicItemAdd_' . static::$entityTypeId,
-            'onCrmDynamicItemUpdate_' . static::$entityTypeId,
-            'onCrmDynamicItemDelete_' . static::$entityTypeId
-        ];
+        $events = ['OnTaskAdd', 'OnTaskUpdate', 'OnTaskDelete'];
         foreach ($events as $eventName) {
             $event = Events::find()->where(['event_name' => $eventName, 'event_type' => 'offline'])->one();
             if (!$event) {
@@ -142,66 +145,7 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         }
         $this->save();
         if ($this->errors) {
-            Yii::error($this->errors, 'SmartProces->loadData()');
+            Yii::error($this->errors, 'Task->loadData()');
         }
-    }
-
-    public static function addJobFull($method, $dateTimeStart = null)
-    {
-        $delay = 0;
-        if ($dateTimeStart) {
-            $diff = strtotime($dateTimeStart) - time();
-            if ($diff > 0) {
-                $delay = $diff;
-            }
-        }
-
-        $objFullSync = null;
-
-        switch ($method) {
-            case 'list':
-                $objFullSync = Yii::createObject(
-                    [
-                        'class' => static::$synchronizationFullListJob,
-                        'modelClass' => static::class,
-                        'entityTypeId' => static::$entityTypeId
-                    ]
-                );
-                break;
-            case 'get':
-                $objFullSync = Yii::createObject(
-                    [
-                        'class' => static::$synchronizationFullGetJob,
-                        'modelClass' => static::class,
-                        'entityTypeId' => static::$entityTypeId
-                    ]
-                );
-                break;
-            default:
-                $objFullSync = Yii::createObject(
-                    [
-                        'class' => static::$synchronizationFullListJob,
-                        'modelClass' => static::class,
-                        'entityTypeId' => static::$entityTypeId
-                    ]
-                );
-        }
-
-        $id = Yii::$app->queue->delay($delay)->ttr(3600)->push($objFullSync);
-        return $id;
-    }
-
-    public static function synchronization()
-    {
-        $id = Yii::$app->queue->push(
-            Yii::createObject(
-                [
-                    'class' => static::$synchronizationDeltaJob,
-                    'modelClass' => static::class,
-                    'entityTypeId' => static::$entityTypeId
-                ]
-            )
-        );
-        return $id;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\datetime\DateTimePicker;
 use wm\admin\models\synchronization\FormFullSync;
 use yii\helpers\ArrayHelper;
-use kartik\datetime\DateTimePicker;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Synchronization */
@@ -25,16 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'entityId')->hiddenInput()->label(false) ?>
 
-        <?= $form->field($model, 'method')->dropDownList(ArrayHelper::map(FormFullSync::METHOD_LIST, 'id', 'title'))->label('Метод синхронизации') ?>
+        <?=
+        $form
+            ->field($model, 'method')
+            ->dropDownList(ArrayHelper::map(FormFullSync::METHOD_LIST, 'id', 'title'))
+            ->label('Метод синхронизации')
+        ?>
 
-        <?= $form->field($model, 'dateTimeStart')->widget(DateTimePicker::classname(), [
+        <?= $form->field($model, 'dateTimeStart')->widget(DateTimePicker::className(), [
             'type' => DateTimePicker::TYPE_INPUT,
             'pluginOptions' => [
-                'autoclose'=>true,
+                'autoclose' => true,
                 'format' => 'yyyy-mm-dd hh:ii:00'
             ]
         ])
-        ->label('Дата и время старта полной синхронизации'); ?>
+            ->label('Дата и время старта полной синхронизации'); ?>
 
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

@@ -53,6 +53,6 @@ class ChatbotTypeDirectory extends \yii\db\ActiveRecord
      */
     public function getChatbots()
     {
-        return $this->hasMany(Chatbot::className(), ['type_id' => 'name']);
+        return $this->hasMany(Chatbot::class, ['type_id' => 'name']);
     }
 }

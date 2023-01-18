@@ -41,7 +41,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
                 ['columnId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => GridColumn::className(),
+                'targetClass' => GridColumn::class,
                 'targetAttribute' => ['columnId' => 'id']
             ],
         ];
@@ -85,7 +85,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
      */
     public function getColumn()
     {
-        return $this->hasOne(GridColumn::className(), ['id' => 'columnId']);
+        return $this->hasOne(GridColumn::class, ['id' => 'columnId']);
     }
 
     /**
@@ -104,11 +104,12 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
             $model->userId = $userId;
             $model->save();
             if ($model->errors) {
-                Yii::error([
+                Yii::error(
+                    [
                     'model' => $model->errors,
                     'column' => $column,
                     'userId' => $userId
-                ],
+                    ],
                     'GridColumnPersonal->saveColumns($columns, $userId)'
                 );
             }

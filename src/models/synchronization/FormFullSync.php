@@ -39,15 +39,15 @@ class FormFullSync extends Model
                 ['entityId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Synchronization::className(),
+                'targetClass' => Synchronization::class,
                 'targetAttribute' => ['entityId' => 'id']
             ],
             [['entityId'], 'integer'],
             [['dateTimeStart'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['dateTimeStart'], function ($attribute, $params) {
-                if($this->$attribute){
+                if ($this->$attribute) {
                     $diff = strtotime($this->$attribute) - time();
-                    if($diff<0){
+                    if ($diff < 0) {
                         $this->addError($attribute, 'Вы указали дату и время которые уже прошли');
                     }
                 }
@@ -60,5 +60,4 @@ class FormFullSync extends Model
             }]
         ];
     }
-
 }

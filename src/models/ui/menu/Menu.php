@@ -51,6 +51,6 @@ class Menu extends \wm\yii\db\ActiveRecord
      */
     public function getMenuItems()
     {
-        return $this->hasMany(MenuItem::className(), ['menuId' => 'id']);
+        return $this->hasMany(MenuItem::class, ['menuId' => 'id']);
     }
 }

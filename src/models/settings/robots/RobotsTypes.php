@@ -54,6 +54,6 @@ class RobotsTypes extends \yii\db\ActiveRecord
      */
     public function getProperties()
     {
-        return $this->hasMany(RobotsProperties::className(), ['type_id' => 'id']);
+        return $this->hasMany(RobotsProperties::class, ['type_id' => 'id']);
     }
 }

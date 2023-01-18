@@ -27,7 +27,7 @@ use Yii;
  */
 class Agents extends \yii\db\ActiveRecord
 {
-    const SCENARIO_ONLY_TIME_SETTINGS = 'onlyTimeSettings';
+    public const SCENARIO_ONLY_TIME_SETTINGS = 'onlyTimeSettings';
 
     public function scenarios()
     {
@@ -281,15 +281,30 @@ class Agents extends \yii\db\ActiveRecord
                 call_user_func(array($model->class, $model->method));
             } catch (\Exception $e) {
             }
-            if($model->period) {
+            if ($model->period) {
                 $timestamp = strtotime($dateTimestamp) + $model->period;
                 $model->date_run = date("Y-m-d H:i:s", $timestamp);
                 $model->save();
             } else {
                 $nextMinuteData = self::getNextMinute($dateTimestamp, $model->minuteTypeId, $model->minuteProps);
-                $nextHourData = self::getNextHour($nextMinuteData['date'], $nextMinuteData['isNextHour'], $model->hourTypeId, $model->hourProps);
-                $nextDayData = self::getNextDay($nextHourData['date'], $nextHourData['isNextDay'], $model->dayTypeId, $model->dayProps);
-                $model->date_run = self::getNextMonth($nextDayData['date'], $nextDayData['isNextMonth'], $model->monthTypeId, $model->monthProps);
+                $nextHourData = self::getNextHour(
+                    $nextMinuteData['date'],
+                    $nextMinuteData['isNextHour'],
+                    $model->hourTypeId,
+                    $model->hourProps
+                );
+                $nextDayData = self::getNextDay(
+                    $nextHourData['date'],
+                    $nextHourData['isNextDay'],
+                    $model->dayTypeId,
+                    $model->dayProps
+                );
+                $model->date_run = self::getNextMonth(
+                    $nextDayData['date'],
+                    $nextDayData['isNextMonth'],
+                    $model->monthTypeId,
+                    $model->monthProps
+                );
                 $model->save();
             }
         }
@@ -298,30 +313,30 @@ class Agents extends \yii\db\ActiveRecord
     private static function getNextMinute($initialDate, $minuteTypeId, $minuteProps = null)
     {
         $isNextHour = false;
-        $nextMinute;
+        $nextMinute = null;
 //        $nextHour;
         $initialDate = strtotime($initialDate);
         switch ($minuteTypeId) {
             case 1:
                 $nextMinute = date('i', strtotime('+1 minute', $initialDate));
-                if(date('H', $initialDate) != date('H', strtotime("+1 minute", $initialDate))) {
+                if (date('H', $initialDate) != date('H', strtotime("+1 minute", $initialDate))) {
                     $isNextHour = true;
                 }
                 break;
             case 2:
                 $nextMinute = date('i', strtotime("+$minuteProps minute", $initialDate));
-                if(date('H', $initialDate) != date('H', strtotime("+$minuteProps minute", $initialDate))) {
+                if (date('H', $initialDate) != date('H', strtotime("+$minuteProps minute", $initialDate))) {
                     $isNextHour = true;
                 }
                 break;
             case 3:
                 $arrMinutes = explode(',', $minuteProps);
                 $nextMinute = max($arrMinutes);
-                if(max($arrMinutes) < date('i', $initialDate)) {
+                if (max($arrMinutes) < date('i', $initialDate)) {
                     $isNextHour = true;
                     $nextMinute = min($arrMinutes);
                 } else {
-                    $arr = array_filter($arrMinutes, function ($value) {
+                    $arr = array_filter($arrMinutes, function ($value) use ($initialDate) {//TODO use ($initialDate)
                         return ($value > date('i', $initialDate));
                     });
                     $nextMinute = min($arr);
@@ -339,15 +354,15 @@ class Agents extends \yii\db\ActiveRecord
         $nextHour = date('H', $initialDate);
         switch ($hourTypeId) {
             case 1:
-                if($isNext) {
+                if ($isNext) {
                     $nextHour = date('H', strtotime('+1 hour', $initialDate));
-                    if(date('d', $initialDate) != date('d', strtotime("+1 hour", $initialDate))) {
+                    if (date('d', $initialDate) != date('d', strtotime("+1 hour", $initialDate))) {
                         $isNextDay = true;
                     }
                 }
                 break;
             case 2:
-                if($isNext) {
+                if ($isNext) {
                     $nextHour = date('H', strtotime("+$hourProps hour", $initialDate));
                     if (date('d', $initialDate) != date('d', strtotime("+$hourProps hour", $initialDate))) {
                         $isNextDay = true;
@@ -356,7 +371,7 @@ class Agents extends \yii\db\ActiveRecord
                 break;
             case 3:
                 $arrHours = explode(',', $hourProps);
-                if($isNext || !in_array(date('H', $initialDate), $arrHours)) {
+                if ($isNext || !in_array(date('H', $initialDate), $arrHours)) {
                     $nextHour = max($arrHours);
                     if (max($arrHours) < date('H', $initialDate)) {
                         $isNextDay = true;
@@ -380,7 +395,7 @@ class Agents extends \yii\db\ActiveRecord
         $nextDay = date('d', $initialDate);
         switch ($dayTypeId) {
             case 1:
-                if($isNext) {
+                if ($isNext) {
                     $nextDay = date('d', strtotime('+1 day', $initialDate));
                     if (date('m', $initialDate) != date('m', strtotime("+1 day", $initialDate))) {
                         $isNextMonth = true;
@@ -388,7 +403,7 @@ class Agents extends \yii\db\ActiveRecord
                 }
                 break;
             case 2:
-                if($isNext) {
+                if ($isNext) {
                     $nextDay = date('d', strtotime("+$dayProps day", $initialDate));
                     if (date('m', $initialDate) != date('m', strtotime("+$dayProps day", $initialDate))) {
                         $isNextMonth = true;
@@ -397,7 +412,7 @@ class Agents extends \yii\db\ActiveRecord
                 break;
             case 3:
                 $arrDays = explode(',', $dayProps);
-                if($isNext || !in_array(date('d', $initialDate), $arrHours)) {
+                if ($isNext || !in_array(date('d', $initialDate), $arrDays)) {
                     $nextDay = max($arrDays);
                     if (max($arrDays) < date('d', $initialDate)) {
                         $isNextMonth = true;
@@ -417,19 +432,19 @@ class Agents extends \yii\db\ActiveRecord
     private static function getNextMonth($initialDate, $isNext, $monthTypeId, $monthProps = null)
     {
         $initialDate = strtotime($initialDate);
-        $nextMonth = date('m', $initialDate);;
+        $nextMonth = date('m', $initialDate);
         $year = date('Y', $initialDate);
         switch ($monthTypeId) {
             case 1:
-                if($isNext) {
+                if ($isNext) {
                     $nextMonth = date('m', strtotime('+1 month', $initialDate));
                     if (date('Y', $initialDate) != date('Y', strtotime("+1 month", $initialDate))) {
                         $year = date('Y', strtotime("+1 month", $initialDate));
                     }
                 }
-                    break;
+                break;
             case 2:
-                if($isNext) {
+                if ($isNext) {
                     $nextMonth = date('m', strtotime("+$monthProps month", $initialDate));
                     if (date('Y', $initialDate) != date('Y', strtotime("+$monthProps month", $initialDate))) {
                         $year = date('Y', strtotime("+$monthProps month", $initialDate));
@@ -438,7 +453,7 @@ class Agents extends \yii\db\ActiveRecord
                 break;
             case 3:
                 $arrMonth = explode(',', $monthProps);
-                if($isNext || !in_array(date('m', $initialDate), $arrHours)) {
+                if ($isNext || !in_array(date('m', $initialDate), $arrMonth)) {
                     $nextMonth = max($arrMonth);
                     if (max($arrMonth) < date('m', $initialDate)) {
                         $year = date('Y', strtotime("+1 year", $initialDate));
@@ -454,5 +469,4 @@ class Agents extends \yii\db\ActiveRecord
         }
         return date("$year-$nextMonth-d H:i:00", $initialDate);
     }
-
 }

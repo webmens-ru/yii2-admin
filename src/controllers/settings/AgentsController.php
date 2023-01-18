@@ -14,21 +14,6 @@ use yii\filters\VerbFilter;
 class AgentsController extends \wm\admin\controllers\BaseModuleController
 {
     /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
      * Lists all Agents models.
      * @return mixed
      */

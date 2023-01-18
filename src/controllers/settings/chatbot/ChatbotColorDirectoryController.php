@@ -14,28 +14,6 @@ use yii\filters\AccessControl;
  */
 class ChatbotColorDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['about'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['canAdmin'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all ChatbotColorDirectory models.
      * @return mixed

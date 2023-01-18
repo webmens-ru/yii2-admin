@@ -36,7 +36,7 @@ class FilterFieldOptions extends \wm\yii\db\ActiveRecord
                 ['fieldId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => FilterField::className(),
+                'targetClass' => FilterField::class,
                 'targetAttribute' => ['fieldId' => 'id']
             ],
         ];
@@ -63,6 +63,6 @@ class FilterFieldOptions extends \wm\yii\db\ActiveRecord
      */
     public function getField()
     {
-        return $this->hasOne(FilterField::className(), ['id' => 'fieldId']);
+        return $this->hasOne(FilterField::class, ['id' => 'fieldId']);
     }
 }

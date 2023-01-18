@@ -9,7 +9,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class TelephonySynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -31,7 +30,9 @@ class TelephonySynchronizationDeltaJob extends BaseObject implements \yii\queue\
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
                 $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-                if (!$model) $model = new $this->modelClass();
+                if (!$model) {
+                    $model = new $this->modelClass();
+                }
                 $model->loadData($oneEntity);
             }
         }
@@ -41,6 +42,7 @@ class TelephonySynchronizationDeltaJob extends BaseObject implements \yii\queue\
     public function getB24List($arrayId)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $answerB24 = $obB24->client->call(
@@ -48,7 +50,7 @@ class TelephonySynchronizationDeltaJob extends BaseObject implements \yii\queue\
             [
                 'FILTER' => ["CALL_ID" => $arrayId],
             ],
-            )['result'];
+        )['result'];
         return $answerB24;
     }
 }

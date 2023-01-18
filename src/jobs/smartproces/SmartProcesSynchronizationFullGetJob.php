@@ -1,13 +1,14 @@
 <?php
 
-namespace wm\admin\jobs\smartproces;//
+namespace wm\admin\jobs\smartproces;
+
+//
 
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
-
 
 class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
@@ -28,6 +29,7 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
     public function getIdsBatch()
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
         $params = [
@@ -44,7 +46,6 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
         $res = [];
 //        Yii::warning(900, '900');
         for ($j = 0; $j < $countBatchCalls; $j++) {
-
             if ($j == 0) {
                 $prevId = 0;
             } else {
@@ -52,7 +53,8 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
             }
             for ($i = 0; $i < 50; $i++) {
                 if ($countCalls > 0) {
-                    $idx = $obB24->client->addBatchCall('crm.item.list',
+                    $idx = $obB24->client->addBatchCall(
+                        'crm.item.list',
                         [
                             'entityTypeId' => $this->entityTypeId,
                             'order' => ["id" => "ASC"],
@@ -78,11 +80,13 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
     public function getB24Get($arrayId)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
 //            try{}catch ()//TODO
-            $obB24->client->addBatchCall('crm.item.get',
+            $obB24->client->addBatchCall(
+                'crm.item.get',
                 [
                     'id' => $id,
                     'entityTypeId' => $this->entityTypeId,
@@ -91,7 +95,9 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
                     $data = ArrayHelper::getValue($result, 'result.item');
                     $id = ArrayHelper::getValue($data, 'id');
                     $model = $this->modelClass::find()->where(['id' => $id])->one();
-                    if (!$model) $model = new $this->modelClass();
+                    if (!$model) {
+                        $model = new $this->modelClass();
+                    }
                     $model->loadData($data);
                 }
             );

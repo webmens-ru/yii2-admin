@@ -17,25 +17,7 @@ use yii\web\NotFoundHttpException;
  * SynchronizationController implements the CRUD actions for Synchronization model.
  */
 class SynchronizationController extends \wm\admin\controllers\BaseModuleController
-{
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
+{  
     /**
      * Lists all Synchronization models.
      *
@@ -191,7 +173,7 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
 
         if ($request->post('action') != 'submit') {
             $model->entityId = $id;
-            $modelAgentTimeSettings = $model->initAgentTimeSettings();           
+            $modelAgentTimeSettings = $model->initAgentTimeSettings();
         }
 
         return $this->render('activate', [

@@ -8,7 +8,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class CrmStatusSynchronizationFullListJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -19,6 +18,7 @@ class CrmStatusSynchronizationFullListJob extends BaseObject implements \yii\que
         $modelCrmStatus = Yii::createObject($this->modelClass);
         $fieldsCrmStatus = $modelCrmStatus->attributes();
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $listDataSelector = 'result';
@@ -30,6 +30,6 @@ class CrmStatusSynchronizationFullListJob extends BaseObject implements \yii\que
         foreach (ArrayHelper::getValue($request, $listDataSelector) as $oneEntity) {
             $model = Yii::createObject($this->modelClass);
             $model->loadData($oneEntity);
-        }        
+        }
     }
 }

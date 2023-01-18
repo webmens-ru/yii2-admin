@@ -48,7 +48,7 @@ class Filter extends \wm\yii\db\ActiveRecord
                 ['entityCode'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Entity::className(),
+                'targetClass' => Entity::class,
                 'targetAttribute' => ['entityCode' => 'code']
             ],
         ];
@@ -76,7 +76,7 @@ class Filter extends \wm\yii\db\ActiveRecord
      */
     public function getEntity()
     {
-        return $this->hasOne(Entity::className(), ['code' => 'entityCode']);
+        return $this->hasOne(Entity::class, ['code' => 'entityCode']);
     }
 
     /**
@@ -84,7 +84,7 @@ class Filter extends \wm\yii\db\ActiveRecord
      */
     public function getFilterFieldSettings()
     {
-        return $this->hasMany(FilterFieldSetting::className(), ['filterId' => 'id']);
+        return $this->hasMany(FilterFieldSetting::class, ['filterId' => 'id']);
     }
 
     //первоначальное построение списка элементов фильтра

@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
     <?php $data = ArrayHelper::map($eventsNameModel, 'name', 'description', 'category_name');
     ?>
     
-    <?= $form->field($model, 'event_name')->widget(Select2::classname(), [
+    <?= $form->field($model, 'event_name')->widget(Select2::className(), [
         'data' => $data,
         'options' => ['placeholder' => 'Выберите событие...'],
 //        'theme' => Select2::THEME_MATERIAL,

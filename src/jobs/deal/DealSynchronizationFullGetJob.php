@@ -8,7 +8,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -25,6 +24,7 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
     public function getIdsBatch()
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
         $params = [
@@ -39,7 +39,6 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
         $countBatchCalls = (int)ceil($countCalls / 50);
         $res = [];
         for ($j = 0; $j < $countBatchCalls; $j++) {
-
             if ($j == 0) {
                 $prevId = 0;
             } else {
@@ -47,7 +46,8 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
             }
             for ($i = 0; $i < 50; $i++) {
                 if ($countCalls > 0) {
-                    $idx = $obB24->client->addBatchCall('crm.deal.list',
+                    $idx = $obB24->client->addBatchCall(
+                        'crm.deal.list',
                         [
                             'order' => ["ID" => "ASC"],
                             'filter' => [
@@ -72,17 +72,21 @@ class DealSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
     public function getB24Get($arrayId)
     {
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
 //            try{}catch ()//TODO
-            $obB24->client->addBatchCall('crm.deal.get',
+            $obB24->client->addBatchCall(
+                'crm.deal.get',
                 ['ID' => $id],
                 function ($result) {
                     $data = ArrayHelper::getValue($result, 'result');
                     $id = ArrayHelper::getValue($data, 'ID');
                     $model = $this->modelClass::find()->where(['ID' => $id])->one();
-                    if (!$model) $model = new $this->modelClass();
+                    if (!$model) {
+                        $model = new $this->modelClass();
+                    }
                     $model->loadData($data);
                 }
             );

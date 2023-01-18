@@ -13,32 +13,7 @@ use yii\filters\AccessControl;
  * SettingsController implements the CRUD actions for Settings model.
  */
 class SettingsController extends \wm\admin\controllers\BaseModuleController
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['about'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['canAdmin'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
+{   
     /**
      * Lists all Settings models.
      * @return mixed

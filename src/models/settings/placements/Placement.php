@@ -50,7 +50,7 @@ class Placement extends \yii\db\ActiveRecord
                     ['placement_name'],
                     'exist',
                     'skipOnError' => true,
-                    'targetClass' => PlacementDirectory::className(),
+                    'targetClass' => PlacementDirectory::class,
                     'targetAttribute' => ['placement_name' => 'name_id']
                 ],
         ];
@@ -122,7 +122,7 @@ class Placement extends \yii\db\ActiveRecord
      */
     public function getPlacement()
     {
-        return $this->hasOne(PlacementDirectory::className(), ['name_id' => 'placement_name']);
+        return $this->hasOne(PlacementDirectory::class, ['name_id' => 'placement_name']);
     }
 
     public function getPlacementName()
@@ -134,7 +134,9 @@ class Placement extends \yii\db\ActiveRecord
     private function checkSmartProcess()
     {
         if (strpos($this->placement_name, 'CRM_DYNAMIC') !== false) {
-            $this->placement_name = substr($this->placement_name, 0, 12) . $this->entityTypeId . substr($this->placement_name, 12);
+            $this->placement_name = substr($this->placement_name, 0, 12)
+                . $this->entityTypeId
+                . substr($this->placement_name, 12);
         }
     }
 }

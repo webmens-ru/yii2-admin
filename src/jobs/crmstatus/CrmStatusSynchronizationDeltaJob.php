@@ -9,7 +9,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class CrmStatusSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -20,6 +19,7 @@ class CrmStatusSynchronizationDeltaJob extends BaseObject implements \yii\queue\
         $modelCrmStatus = Yii::createObject($this->modelClass);
         $fieldsCrmStatus = $modelCrmStatus->attributes();
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $listDataSelector = 'result';

@@ -12,7 +12,13 @@ class BaseEntity extends ActiveRecord
 {
     public static $primaryKeyColumnName = 'id';
 
-    public static function createColumns(Array $addFieldNames)
+    public static $synchronizationFullListJob = '';
+
+    public static $synchronizationDeltaJob = '';
+
+    public static $synchronizationFullGetJob = '';
+
+    public static function createColumns(array $addFieldNames)
     {
         $fields = static::getB24Fields();
         $table = Yii::$app->db->getTableSchema(static::tableName());
@@ -154,5 +160,10 @@ class BaseEntity extends ActiveRecord
         );
 
         return $id;
+    }
+
+    public static function getB24Fields()
+    {
+        return [];
     }
 }

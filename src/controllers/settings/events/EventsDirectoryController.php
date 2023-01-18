@@ -15,28 +15,6 @@ use yii\filters\AccessControl;
  */
 class EventsDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['about'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['canAdmin'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all EventsDirectory models.
      * @return mixed

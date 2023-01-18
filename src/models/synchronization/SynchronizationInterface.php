@@ -1,8 +1,6 @@
 <?php
 
-
 namespace wm\admin\models\synchronization;
-
 
 use wm\admin\models\settings\Agents;
 
@@ -23,5 +21,4 @@ interface SynchronizationInterface
     public function loadData($data);
 
     public static function createTable($synchronizationEntityId);
-
 }

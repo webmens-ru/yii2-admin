@@ -2,6 +2,8 @@
 
 namespace wm\admin\models\ui\form;
 
+use wm\admin\models\ui\form\Form;
+
 /**
  * This is the model class for table "admin_form_fields".
  *
@@ -50,6 +52,6 @@ class Fields extends \wm\yii\db\ActiveRecord
      */
     public function getForm()
     {
-        return $this->hasOne(Forms::class, ['id' => 'formId']);
+        return $this->hasOne(Form::class, ['id' => 'formId']);
     }
 }

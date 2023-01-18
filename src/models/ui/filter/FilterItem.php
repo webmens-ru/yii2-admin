@@ -3,6 +3,7 @@
 namespace wm\admin\models\ui\filter;
 
 use Yii;
+use wm\yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "menuitem".
@@ -16,7 +17,7 @@ use Yii;
  * @property int $menuId
  * @property Menu $menu
  */
-class FilterItem extends ActiveRecordExtended
+class FilterItem extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -39,7 +40,7 @@ class FilterItem extends ActiveRecordExtended
                 ['filterId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Filter::className(),
+                'targetClass' => Filter::class,
                 'targetAttribute' => ['filterId' => 'id']
             ],
         ];
@@ -67,7 +68,7 @@ class FilterItem extends ActiveRecordExtended
      */
     public function getFilter()
     {
-        return $this->hasOne(Filter::className(), ['id' => 'filterId']);
+        return $this->hasOne(Filter::class, ['id' => 'filterId']);
     }
 
     /**
@@ -106,7 +107,14 @@ class FilterItem extends ActiveRecordExtended
             Yii::error('$filterId не содержится в Базе данных');
             return [];
         }
-        $models = self::find()->where(['filterId' => $filterId])->all();
+        $models = self::find()
+            ->where(['filterId' => $filterId])
+//            ->joinWith(
+//                ['filterItemPersonalSettings' => function($q) use($userId){
+//                    $q->andWhere(['userId' => $userId]);
+//                }]
+//            )
+            ->all();
         $res = [];
         foreach ($models as $value) {
             $settings = $value->getFilterItemPersonalSettings()->where(['userId' => $userId])->one();
@@ -126,6 +134,6 @@ class FilterItem extends ActiveRecordExtended
      */
     public function getFilterItemPersonalSettings()
     {
-        return $this->hasMany(FilterItemPersonalSettings::className(), ['itemId' => 'id']);
+        return $this->hasMany(FilterItemPersonalSettings::class, ['itemId' => 'id']);
     }
 }

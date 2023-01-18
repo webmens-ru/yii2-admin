@@ -19,28 +19,6 @@ use yii\data\ArrayDataProvider;
  */
 class ChatbotController extends \wm\admin\controllers\BaseModuleController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['about'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['canAdmin'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Chatbot models.
      * @return mixed

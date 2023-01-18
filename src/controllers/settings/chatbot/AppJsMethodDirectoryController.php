@@ -14,28 +14,6 @@ use yii\filters\AccessControl;
  */
 class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['about'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['canAdmin'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all AppJsMethodDirectory models.
      * @return mixed
@@ -111,7 +89,7 @@ class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleCon
      */
     public function actionDelete($code)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($code)->delete();
 
         return $this->redirect(['index']);
     }

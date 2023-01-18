@@ -3,12 +3,13 @@
 namespace wm\admin\models\ui\filter;
 
 use yii\helpers\ArrayHelper;
+use wm\yii\db\ActiveRecord;
 
 /**
  * Class FilterItemPersonalSettings
  * @package wm\admin\models\ui\filter
  */
-class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
+class FilterItemPersonalSettings extends ActiveRecord
 {
     /**
      * @return string
@@ -31,7 +32,7 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
                 ['itemId'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => FiltersItem::className(),
+                'targetClass' => FilterItem::class,
                 'targetAttribute' => ['itemId' => 'id']
             ],
         ];
@@ -57,7 +58,7 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(FilterItem::className(), ['id' => 'itemId']);
+        return $this->hasOne(FilterItem::class, ['id' => 'itemId']);
     }
 
 
@@ -78,8 +79,6 @@ class FilterItemPersonalSettings extends \wm\yii\db\ActiveRecord
             $model->visible = ArrayHelper::getValue($item, 'visible');
             $model->save();
         }
-
-
         return true;
     }
 

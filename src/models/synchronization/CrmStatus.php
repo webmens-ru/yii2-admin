@@ -36,7 +36,7 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         $b24Obj = new B24Object($b24App);
         $request = $b24Obj->client->call(
             'crm.status.list',
-//            ['select' => ['ID']]
+            //            ['select' => ['ID']]
         );
         return $request['total'];
     }

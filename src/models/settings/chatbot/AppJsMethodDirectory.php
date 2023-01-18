@@ -53,6 +53,6 @@ class AppJsMethodDirectory extends \yii\db\ActiveRecord
      */
     public function getApps()
     {
-        return $this->hasMany(App::className(), ['js_method_code' => 'code']);
+        return $this->hasMany(App::class, ['js_method_code' => 'code']);
     }
 }

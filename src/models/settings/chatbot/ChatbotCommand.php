@@ -100,7 +100,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord
                 ['bot_code'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Chatbot::className(),
+                'targetClass' => Chatbot::class,
                 'targetAttribute' => ['bot_code' => 'code']
             ],
         ];
@@ -133,7 +133,7 @@ class ChatbotCommand extends \yii\db\ActiveRecord
      */
     public function getBot()
     {
-        return $this->hasOne(Chatbot::className(), ['code' => 'bot_code']);
+        return $this->hasOne(Chatbot::class, ['code' => 'bot_code']);
     }
 
     private function connectBitrix24()

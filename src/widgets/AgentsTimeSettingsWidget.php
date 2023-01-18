@@ -5,7 +5,6 @@ namespace wm\admin\widgets;
 use yii\base\Widget;
 use yii\jui\DatePicker;
 
-
 /**
  * Class AgentsTimeSettingsWidget
  * @package wm\admin\widgets
@@ -92,7 +91,7 @@ class AgentsTimeSettingsWidget extends Widget
                     [
                         1 => 'Нет даты окончания',
                         2 => 'Дата окончания',
-//                        3 => 'Завершить после "х" повторений'
+                    //                        3 => 'Завершить после "х" повторений'
                     ]
                 )
                 ->label('Окончание')

@@ -36,7 +36,13 @@ class Action extends \wm\yii\db\ActiveRecord
             [['entityCode', 'label', 'handler'], 'required'],
             [['entityCode'], 'string', 'max' => 64],
             [['label', 'handler', 'params'], 'string', 'max' => 255],
-            [['entityCode'], 'exist', 'skipOnError' => true, 'targetClass' => Entity::className(), 'targetAttribute' => ['entityCode' => 'code']],
+            [
+                ['entityCode'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Entity::class,
+                'targetAttribute' => ['entityCode' => 'code']
+            ],
         ];
     }
 
@@ -74,6 +80,6 @@ class Action extends \wm\yii\db\ActiveRecord
      */
     public function getEntity()
     {
-        return $this->hasOne(Entity::className(), ['code' => 'entityCode']);
+        return $this->hasOne(Entity::class, ['code' => 'entityCode']);
     }
 }

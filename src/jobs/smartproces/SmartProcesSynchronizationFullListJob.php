@@ -1,13 +1,14 @@
 <?php
 
-namespace wm\admin\jobs\smartproces;//
+namespace wm\admin\jobs\smartproces;
+
+//
 
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
-
 
 class SmartProcesSynchronizationFullListJob extends BaseObject implements \yii\queue\JobInterface
 {
@@ -21,6 +22,7 @@ class SmartProcesSynchronizationFullListJob extends BaseObject implements \yii\q
         $fieldsSmartProces = $modelSmartProces->attributes();
 //        Yii::warning($fieldsSmartProces, '$fieldsSmartProces');
         $component = new b24Tools();
+        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
         $listDataSelector = 'result.items';
@@ -41,8 +43,8 @@ class SmartProcesSynchronizationFullListJob extends BaseObject implements \yii\q
         $data = ArrayHelper::getValue($request, $listDataSelector);
         if (count($data) != $request['total']) {
             for ($i = 1; $i < $countCalls; $i++) {
-                $b24Obj->client->addBatchCall('crm.item.list',
-
+                $b24Obj->client->addBatchCall(
+                    'crm.item.list',
                     array_merge($params, ['start' => $b24Obj->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use ($listDataSelector) {
                         foreach (ArrayHelper::getValue($result, $listDataSelector) as $oneEntity) {

@@ -77,14 +77,14 @@ class Chatbot extends \yii\db\ActiveRecord
                 ['type_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => ChatbotTypeDirectory::className(),
+                'targetClass' => ChatbotTypeDirectory::class,
                 'targetAttribute' => ['type_id' => 'name']
             ],
             [
                 ['p_color_name'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => ChatbotColorDirectory::className(),
+                'targetClass' => ChatbotColorDirectory::class,
                 'targetAttribute' => ['p_color_name' => 'name']
             ],
         ];
@@ -125,7 +125,7 @@ class Chatbot extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(ChatbotTypeDirectory::className(), ['name' => 'type_id']);
+        return $this->hasOne(ChatbotTypeDirectory::class, ['name' => 'type_id']);
     }
 
     /**
@@ -135,7 +135,7 @@ class Chatbot extends \yii\db\ActiveRecord
      */
     public function getPColorName()
     {
-        return $this->hasOne(ChatbotColorDirectory::className(), ['name' => 'p_color_name']);
+        return $this->hasOne(ChatbotColorDirectory::class, ['name' => 'p_color_name']);
     }
 
     public static function getOpenLineList()
@@ -234,7 +234,7 @@ class Chatbot extends \yii\db\ActiveRecord
      */
     public function getChatbotCommands()
     {
-        return $this->hasMany(ChatbotCommand::className(), ['bot_code' => 'code']);
+        return $this->hasMany(ChatbotCommand::class, ['bot_code' => 'code']);
     }
 
     /**
@@ -244,6 +244,6 @@ class Chatbot extends \yii\db\ActiveRecord
     */
     public function getApps()
     {
-        return $this->hasMany(App::className(), ['bot_code' => 'code']);
+        return $this->hasMany(App::class, ['bot_code' => 'code']);
     }
 }

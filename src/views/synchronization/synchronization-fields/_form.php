@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->widget(Select2::classname(), [
+    <?= $form->field($model, 'name')->widget(Select2::className(), [
         'data' => $b24Fields,
         'options' => ['placeholder' => 'Выберите поле'],
 //        'theme' => Select2::THEME_MATERIAL,

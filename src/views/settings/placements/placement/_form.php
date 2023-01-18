@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
     <?php $data = ArrayHelper::map($placementDirectoryModel, 'name_id', 'description', 'category_name'); ?>
 
     <?=
-    $form->field($model, 'placement_name')->widget(Select2::classname(), [
+    $form->field($model, 'placement_name')->widget(Select2::className(), [
         'data' => $data,
         'options' => ['placeholder' => 'Выберите встройку...'],
     ]);

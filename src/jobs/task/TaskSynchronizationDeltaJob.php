@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\admin\jobs\lead;
+namespace wm\admin\jobs\task;
 
 use wm\admin\models\settings\events\Events;
 use wm\b24tools\b24Tools;
@@ -8,7 +8,8 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
+
+class TaskSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
 
@@ -32,16 +33,14 @@ class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronAdd()
     {
-        $answerB24 = Events::getOffline('onCrmLeadAdd');
+        $answerB24 = Events::getOffline('OnTaskAdd');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
-        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
+        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS_AFTER.ID');
         if ($arrayId) {
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
-                $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-                if (!$model) {
-                    $model = new $this->modelClass();
-                }
+                $model = $this->modelClass::find()->where(['id' => $oneEntity['id']])->one();
+                if (!$model) $model = new $this->modelClass();
                 $model->loadData($oneEntity);
             }
         }
@@ -50,16 +49,14 @@ class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronUpdate()
     {
-        $answerB24 = Events::getOffline('onCrmLeadUpdate');
+        $answerB24 = Events::getOffline('OnTaskUpdate');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
-        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
+        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS_BEFORE.ID');
         if ($arrayId) {
             $B24List = $this->getB24List($arrayId);
             foreach ($B24List as $oneEntity) {
-                $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-                if (!$model) {
-                    $model = new $this->modelClass();
-                }
+                $model = $this->modelClass::find()->where(['id' => $oneEntity['id']])->one();
+                if (!$model) $model = new $this->modelClass();
                 $model->loadData($oneEntity);
             }
         }
@@ -68,15 +65,13 @@ class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
 
     public function synchronDelete()
     {
-        $answerB24 = Events::getOffline('onCrmLeadDelete');
+        $answerB24 = Events::getOffline('OnTaskDelete');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
-        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS.ID');
+        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.FIELDS_BEFORE.ID');
         if ($arrayId) {
             foreach ($arrayId as $id) {
                 $model = $this->modelClass::find()->where(['id' => $id])->one();
-                if ($model) {
-                    $model->delete();
-                }
+                if ($model) $model->delete();
             }
         }
         return count($arrayId) < 50 ? true : false;
@@ -85,16 +80,15 @@ class LeadSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobIn
     public function getB24List($arrayId)
     {
         $component = new b24Tools();
-        \Yii::$app->params['logPath'] = 'log/';
+        $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $res = [];
         foreach ($arrayId as $id) {
-            $obB24->client->addBatchCall(
-                'crm.lead.get',
-                ['ID' => $id],
+            $obB24->client->addBatchCall('tasks.task.get',
+                ['id' => $id],
                 function ($result) use (&$res) {
-                    $res[] = ArrayHelper::getValue($result, 'result');
+                    $res[] = ArrayHelper::getValue($result, 'result.task');
                 }
             );
         }

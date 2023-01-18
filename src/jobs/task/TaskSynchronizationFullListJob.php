@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\admin\jobs\contact;
+namespace wm\admin\jobs\task;
 
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;
@@ -8,25 +8,26 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-class ContactSynchronizationFullListJob extends BaseObject implements \yii\queue\JobInterface
+
+class TaskSynchronizationFullListJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
 
     public function execute($queue)
     {
+
         $this->modelClass::deleteAll();
-        $modelDeal = Yii::createObject($this->modelClass);
-        $fieldsDeal = $modelDeal->attributes();
+        $modelTask = Yii::createObject($this->modelClass);
+        $fieldsTask = $modelTask->attributes();
         $component = new b24Tools();
-        \Yii::$app->params['logPath'] = 'log/';
         $b24App = $component->connectFromAdmin();
         $b24Obj = new B24Object($b24App);
-        $listDataSelector = 'result';
+        $listDataSelector = 'result.tasks';
         $params = [
-            'select' => $fieldsDeal,
+            'select' => $fieldsTask,
         ];
         $request = $b24Obj->client->call(
-            'crm.contact.list',
+            'tasks.task.list',
             $params
         );
         foreach (ArrayHelper::getValue($request, $listDataSelector) as $oneEntity) {
@@ -37,8 +38,7 @@ class ContactSynchronizationFullListJob extends BaseObject implements \yii\queue
         $data = ArrayHelper::getValue($request, $listDataSelector);
         if (count($data) != $request['total']) {
             for ($i = 1; $i < $countCalls; $i++) {
-                $b24Obj->client->addBatchCall(
-                    'crm.contact.list',
+                $b24Obj->client->addBatchCall('tasks.task.list',
                     array_merge($params, ['start' => $b24Obj->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use ($listDataSelector) {
                         foreach (ArrayHelper::getValue($result, $listDataSelector) as $oneEntity) {

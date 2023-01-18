@@ -2,11 +2,12 @@
 
 namespace wm\admin\models\ui\filter;
 
+use wm\yii\db\ActiveRecord;
 /**
  * Class FilterPersonalSettings
  * @package wm\admin\models\ui\filter
  */
-class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExtended
+class FilterPersonalSettings extends ActiveRecord
 {
     /**
      * @return string
@@ -28,7 +29,7 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
             [
                 ['filterId'],
                 'exist', 'skipOnError' => true,
-                'targetClass' => FilterItem::className(),
+                'targetClass' => FilterItem::class,
                 'targetAttribute' => ['itemId' => 'id']
             ],
         ];
@@ -53,6 +54,6 @@ class FilterPersonalSettings extends \wm\admin\models\ui\filter\ActiveRecordExte
      */
     public function getFilters()
     {
-        return $this->hasOne(Filter::className(), ['id' => 'filteId']);
+        return $this->hasOne(Filter::class, ['id' => 'filteId']);
     }
 }
