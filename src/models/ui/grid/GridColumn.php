@@ -20,6 +20,8 @@ use Yii;
  * @property int $reordering
  * @property int $resizeble
  * @property int $sortable
+ * @property int $editable
+ * @property int $editor
  *
  * @property Entity $entityCode0
  * @property GridColumnPersonal[] $gridColumnPersonals
@@ -44,11 +46,13 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             [['visible', 'order', 'width'], 'integer'],
             [['entityCode', 'code', 'type'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
+            [['editor'], 'safe'],
             [[
                 'frozen',
                 'reordering',
                 'resizeble',
-                'sortable'
+                'sortable',
+                'editable'
             ], 'boolean'],
             [
                 ['entityCode'],
@@ -74,7 +78,7 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             'width',
             'type',
             'frozen' => function () {
-               return self::getBooleanValue($this->frozen);
+                return self::getBooleanValue($this->frozen);
             },
             'reordering' => function () {
                 return self::getBooleanValue($this->reordering);
@@ -84,7 +88,11 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             },
             'sortable' => function () {
                 return self::getBooleanValue($this->sortable);
-            }
+            },
+            'editable' => function () {
+                return self::getBooleanValue($this->editable);
+            },
+            'editor',
         ];
     }
 
