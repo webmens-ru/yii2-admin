@@ -7,6 +7,21 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
+/**
+ * This is the model class for table "chatbot_portal".
+ *
+ * @property integer $id
+ * @property string $username
+ * @property string $password
+ * @property integer $b24_user_id
+ * @property string $name
+ * @property string $last_name
+ * @property string $access_token
+ * @property string $date_expired
+ * @property string $auth_key
+ * @property string $b24AccessParams
+ */
+
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
     public static function tableName()
