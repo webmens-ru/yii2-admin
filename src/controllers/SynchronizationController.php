@@ -17,7 +17,7 @@ use yii\web\NotFoundHttpException;
  * SynchronizationController implements the CRUD actions for Synchronization model.
  */
 class SynchronizationController extends \wm\admin\controllers\BaseModuleController
-{  
+{
     /**
      * Lists all Synchronization models.
      *
@@ -150,7 +150,6 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         return $this->render('full', [
             'model' => $model,
         ]);
-        return $jobId;//TODO подумать про вьюху
     }
 
     public function actionActivate($id = null)

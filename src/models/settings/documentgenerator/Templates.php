@@ -13,11 +13,12 @@ use yii\web\UploadedFile;
  * @property string $name
  * @property string $file_path
  * @property int $numerator_id
- * @property int $region_id
+ * @property string $region_id
  * @property string $code
  * @property string $active
  * @property string $with_stamps
  * @property int $sort
+ * @property int|null $template_id
  */
 class Templates extends \yii\db\ActiveRecord
 {

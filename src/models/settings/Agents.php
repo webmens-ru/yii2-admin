@@ -336,7 +336,8 @@ class Agents extends \yii\db\ActiveRecord
                     $isNextHour = true;
                     $nextMinute = min($arrMinutes);
                 } else {
-                    $arr = array_filter($arrMinutes, function ($value) use ($initialDate) {//TODO use ($initialDate)
+                    $arr = array_filter($arrMinutes, function ($value) use ($initialDate) {
+//TODO use ($initialDate)
                         return ($value > date('i', $initialDate));
                     });
                     $nextMinute = min($arr);

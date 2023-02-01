@@ -33,7 +33,9 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
 
     /**
      * Displays a single RobotsOptions model.
-     * @param integer $id
+     * @param string $property_name
+     * @param string $robot_code
+     * @param string $value
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -79,7 +81,9 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Updates an existing RobotsOptions model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $property_name
+     * @param string $robot_code
+     * @param string $value
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -107,7 +111,9 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Deletes an existing RobotsOptions model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $property_name
+     * @param string $robot_code
+     * @param string $value
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -127,13 +133,15 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Finds the RobotsOptions model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param string $property_name
+     * @param string $robot_code
+     * @param string $value
      * @return RobotsOptions the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($property_name, $robot_code, $value)
     {
-        if (($model = RobotsOptions::findOne($property_name, $robot_code, $value)) !== null) {
+        if (($model = RobotsOptions::findOne(compact($property_name, $robot_code, $value))) !== null) {
             return $model;
         }
 

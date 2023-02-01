@@ -13,6 +13,8 @@ use wm\admin\models\ui\Entity;
  * @property string $title
  * @property int $order
  * @property int $params
+ * @property string $filtrationType
+ * @property string $options
  *
  * @property Entity $entityCode0
  * @property FilterFieldOptions[] $filterFieldOptions

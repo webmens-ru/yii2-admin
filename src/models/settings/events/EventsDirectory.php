@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $name
  * @property string $description
+ * @property string $category_name
  *
  * @property AdminEvents[] $adminEvents
  */
@@ -70,10 +71,10 @@ class EventsDirectory extends \yii\db\ActiveRecord
 //    public function getCategory() {
 //        return $this->hasOne(Category::class(), ['category_id' => 'id']);
 //    }
-
-    public function getCategoryName()
-    {
-        $parent = $this->category_name;
-        return $parent ? $parent->name : '';
-    }
+//
+//    public function getCategoryName()
+//    {
+//        $parent = $this->category_name;
+//        return $parent ? $parent->name : '';
+//    }
 }

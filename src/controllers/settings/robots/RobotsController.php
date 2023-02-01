@@ -35,7 +35,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
 
     /**
      * Displays a single Robots model.
-     * @param integer $id
+     * @param integer $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -75,7 +75,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Updates an existing Robots model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -95,7 +95,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Deletes an existing Robots model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -157,7 +157,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Finds the Robots model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param integer $code
      * @return Robots the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

@@ -13,7 +13,7 @@ use yii\filters\AccessControl;
  * SettingsController implements the CRUD actions for Settings model.
  */
 class SettingsController extends \wm\admin\controllers\BaseModuleController
-{   
+{
     /**
      * Lists all Settings models.
      * @return mixed

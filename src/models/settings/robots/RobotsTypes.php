@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property int $is_static
+ * @property bool $is_options
  *
  * @property AdminRobotsProperties[] $adminRobotsProperties
  */

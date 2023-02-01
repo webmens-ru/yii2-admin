@@ -13,6 +13,7 @@ use wm\admin\models\ui\Entity;
  * @property string $title
  * @property int $visible
  * @property int $order
+ * @property string $params
  *
  * @property Entity $entityCode0
  * @property GridColumnPersonal[] $gridColumnPersonals

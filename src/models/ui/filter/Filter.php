@@ -9,6 +9,16 @@ use yii\helpers\ArrayHelper;
 /**
  * Class Filter
  * @package wm\admin\models\ui\filter
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $entityCode
+ * @property int $isName
+ * @property int $order
+ * @property int $isBase
+ * @property int $userId
+ * @property int $parentId
+ * @property FilterFieldSetting[] $filterFieldSettings
  */
 class Filter extends \wm\yii\db\ActiveRecord
 {
@@ -92,7 +102,7 @@ class Filter extends \wm\yii\db\ActiveRecord
     /**
      * @param $entityCode
      * @param $userId
-     * @return string
+     * @return array
      */
     public static function getItems($entityCode, $userId)
     {
@@ -100,7 +110,7 @@ class Filter extends \wm\yii\db\ActiveRecord
         // проверка на наличие в БД запрошенной сущности
         if (!Entity::find()->where(['code' => $entityCode])->one()) {
             Yii::error('$entityCode не содержится в Базе данных');
-            return '$entityCode не содержится в Базе данных';
+            return [];
 //return [];
         }
 
@@ -140,6 +150,7 @@ class Filter extends \wm\yii\db\ActiveRecord
             $model->isBase = 0; // переопределяем т.к. это уже не базовый фильтр
             $model->userId = $userId; //переопределяем т.к. это уже не базовый фильтр
             $model->parentId = $value->id; //переопределяем на id родителя от которого сделан данный фильтр
+            /** @phpstan-ignore-next-line */
             $model->id = null; //переопределяем id для того, чтобы при записи новому фильтру присвоить новый id
             $model->save();
             if ($model->errors) {
@@ -173,7 +184,7 @@ class Filter extends \wm\yii\db\ActiveRecord
         $parentModel = self::find()->where(['id' => $filterParams['parentId'],])->one();
         $model = new Filter();
         $model->load(ArrayHelper::toArray($parentModel));
-        $model->id = null;
+        $model->id = null;/** @phpstan-ignore-line */
         $model->parentId = ArrayHelper::getValue($filterParams, 'parentId');
         $model->order = ArrayHelper::getValue($filterParams, 'order');
         $model->isName = 1;

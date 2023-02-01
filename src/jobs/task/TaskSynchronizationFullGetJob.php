@@ -9,7 +9,6 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
-
 class TaskSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
     public $modelClass;
@@ -97,13 +96,16 @@ class TaskSynchronizationFullGetJob extends BaseObject implements \yii\queue\Job
         $obB24 = new \Bitrix24\B24Object($b24App);
         foreach ($arrayId as $id) {
 //            try{}catch ()//TODO
-            $obB24->client->addBatchCall('tasks.task.get',
+            $obB24->client->addBatchCall(
+                'tasks.task.get',
                 ['id' => $id],
                 function ($result) {
                     $data = ArrayHelper::getValue($result, 'result.task');
                     $id = ArrayHelper::getValue($data, 'id');
                     $model = $this->modelClass::find()->where(['id' => $id])->one();
-                    if (!$model) $model = new $this->modelClass();
+                    if (!$model) {
+                        $model = new $this->modelClass();
+                    }
                     $model->loadData($data);
                 }
             );

@@ -60,9 +60,9 @@ class CompanySynchronizationFullGetJob extends BaseObject implements \yii\queue\
                             $res = array_merge($res, $result['result']);
                         }
                     );
+                    $prevId = '$result[' . $idx . '][49][ID]';
                 }
                 $countCalls--;
-                $prevId = '$result[' . $idx . '][49][ID]';
             }
             $obB24->client->processBatchCalls();
         }

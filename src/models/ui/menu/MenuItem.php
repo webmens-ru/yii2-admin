@@ -15,6 +15,7 @@ use Yii;
  * @property string $url
  * @property int $menuId
  * @property Menu $menu
+ * @property string $params
  */
 class MenuItem extends \wm\yii\db\ActiveRecord
 {
@@ -118,7 +119,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         foreach ($models as $value) {
             $settings = $value->getMenuItemPersonalSettings()->where(['userId' => $userId])->one();
             if ($settings) {
-                $value->order = $settings->order;
+                $value->order = $settings->order;/* @phpstan-ignore-line */
                 $value->visible = $settings->visible;
             }
             $res[] = $value;
@@ -126,11 +127,11 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         return $res;
     }
 
-    /**
-     * Gets query for [[MenuItemPersonals]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+//    /**
+//     * Gets query for [[MenuItemPersonals]].
+//     *
+//     * @return \yii\db\ActiveQuery
+//     */
     public function getMenuItemPersonalSettings()
     {
         return $this->hasMany(MenuItemPersonalSettings::class, ['itemId' => 'id']);

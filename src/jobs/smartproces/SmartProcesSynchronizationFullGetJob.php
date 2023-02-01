@@ -68,9 +68,9 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
                             $res = array_merge($res, $result['result']['items']);
                         }
                     );
+                    $prevId = '$result[' . $idx . '][items][49][id]';
                 }
                 $countCalls--;
-                $prevId = '$result[' . $idx . '][items][49][id]';
             }
             $obB24->client->processBatchCalls();
         }

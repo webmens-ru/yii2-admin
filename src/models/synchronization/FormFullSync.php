@@ -17,20 +17,11 @@ class FormFullSync extends Model
         ['id' => 'list', 'title' => 'list'],
     ];
 
-    /**
-     * @var
-     */
-    public $entityId;
-    /**
-     * @var
-     */
-    public $dateTimeStart;
 
+    public $entityId;
+    public $dateTimeStart;
     public $method;
 
-    /**
-     * @return array
-     */
     public function rules()
     {
         return [

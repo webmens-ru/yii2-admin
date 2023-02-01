@@ -21,9 +21,6 @@ use yii\web\NotFoundHttpException;
  */
 class FormSync extends Model
 {
-    /**
-     * @var
-     */
     public $entityId;
 
     /**

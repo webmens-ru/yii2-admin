@@ -31,7 +31,7 @@ class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleCon
 
     /**
      * Displays a single AppJsMethodDirectory model.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -63,7 +63,7 @@ class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleCon
     /**
      * Updates an existing AppJsMethodDirectory model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -83,7 +83,7 @@ class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleCon
     /**
      * Deletes an existing AppJsMethodDirectory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -97,7 +97,7 @@ class AppJsMethodDirectoryController extends \wm\admin\controllers\BaseModuleCon
     /**
      * Finds the AppJsMethodDirectory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
+     * @param string $code
      * @return AppJsMethodDirectory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

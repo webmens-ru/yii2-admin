@@ -77,6 +77,7 @@ class ActiveRestController extends \yii\rest\ActiveController
      */
     public function prepareDataProvider()
     {
+        /** @phpstan-ignore-next-line */
         $searchModel = new $this->modelClassSearch();
         return $searchModel->search(Yii::$app->request->queryParams);
     }

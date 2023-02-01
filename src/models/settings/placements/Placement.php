@@ -18,6 +18,7 @@ use yii\helpers\Url;
  * @property string|null $group_name
  *
  * @property AdminPlacementDirectory $placementName
+ * @property PlacementDirectory $placement
  */
 class Placement extends \yii\db\ActiveRecord
 {
@@ -127,8 +128,8 @@ class Placement extends \yii\db\ActiveRecord
 
     public function getPlacementName()
     {
-        $parent = $this->placement_name;
-        return $parent ? $parent->name : '';
+        $parent = $this->placement;
+        return $parent ? $parent->description : '';
     }
 
     private function checkSmartProcess()

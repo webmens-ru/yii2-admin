@@ -13,9 +13,11 @@ use yii\helpers\Url;
  * @property string $event_name
  * @property string $handler
  * @property int $auth_type
- * @property int $event_type
+ * @property string $event_type
+ * @property string $entityTypeId
  *
  * @property AdminEventsDirectory $eventName
+ * @property EventsDirectory $event
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -132,7 +134,7 @@ class Events extends \yii\db\ActiveRecord
 
     public function getEventName()
     {
-        $parent = $this->event_type;
+        $parent = $this->event;
         return $parent ? $parent->name : '';
     }
 

@@ -23,6 +23,9 @@ use yii\helpers\Inflector;
  * @property int|null $use_placement
  *
  * @property AdminRobotsProperties[] $adminRobotsProperties
+ * @property RobotsProperties[] $propertiesIn
+ * @property RobotsProperties[] $propertiesNotIn
+ * @property RobotsProperties[] $properties
  */
 class Robots extends \yii\db\ActiveRecord
 {
@@ -118,7 +121,6 @@ class Robots extends \yii\db\ActiveRecord
             unset($propertyArr['robot_code']);
             unset($propertyArr['type_id']);
             if ($property->type->is_options) {
-                $propertyArr['options'];
                 $options = $property->options;
                 foreach ($options as $option) {
                     $propertyArr['options'][] = [

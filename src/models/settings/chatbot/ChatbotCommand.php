@@ -18,8 +18,10 @@ use yii\helpers\Url;
  * @property string $title_en Описание команды англ
  * @property string $params_en Праметры англ
  * @property string $event_command_add Ссылка на обработчик для команд
+ * @property int|null $command_id
  *
  * @property AdminChatbot $botCode
+ * @property Chatbot $bot
  */
 class ChatbotCommand extends \yii\db\ActiveRecord
 {

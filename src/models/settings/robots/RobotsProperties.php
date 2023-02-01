@@ -16,9 +16,10 @@ namespace wm\admin\models\settings\robots;
  * @property string|null $default
  * @property int $sort
  *
- * @property AdminRobotsOptions[] $adminRobotsOptions
- * @property AdminRobots $robotCode
- * @property AdminRobotsTypes $type
+ * @property RobotsOptions[] $options
+ * @property Robots $robotCode
+ * @property RobotsTypes $type
+ * @property Robots $robot
  */
 class RobotsProperties extends \yii\db\ActiveRecord
 {

@@ -12,18 +12,8 @@ use yii\jui\DatePicker;
  */
 class AgentsTimeSettingsWidget extends Widget
 {
-    /**
-     * @var
-     */
     public $model;
-    /**
-     * @var yii\widgets\ActiveForm
-     */
     public $form;
-
-    /**
-     *
-     */
     public function init()
     {
 //        parent::init();
@@ -32,9 +22,6 @@ class AgentsTimeSettingsWidget extends Widget
 //        }
     }
 
-    /**
-     * @return string
-     */
     public function run()
     {
         return

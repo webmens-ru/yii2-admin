@@ -4,18 +4,17 @@ namespace wm\admin\models\ui\form;
 
 use wm\admin\models\ui\form\Form;
 
-/**
- * This is the model class for table "admin_form_fields".
- *
- * @property integer $id
- * @property integer formId
- *
- * @property string $type
- * @property string $name
- * @property string $label
- *
- * @property Forms[] $form
- */
+///**
+// * This is the model class for table "admin_form_fields".
+// *
+// * @property integer $id
+// * @property int formId
+// * @property string $type
+// * @property string $name
+// * @property string $label
+// *
+// * @property Form[] $form
+// */
 class Fields extends \wm\yii\db\ActiveRecord
 {
     /**

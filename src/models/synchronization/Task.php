@@ -57,7 +57,7 @@ class Task extends BaseEntity implements SynchronizationInterface
             return $data;
         }, 300);
 //        Yii::warning($fields, '$fields');
-        foreach($fields as $key => $val){
+        foreach ($fields as $key => $val) {
             $arr[Inflector::variablize(strtolower($key))] = $val;
         }
 //        Yii::warning($arr, '$arr');
@@ -68,16 +68,8 @@ class Task extends BaseEntity implements SynchronizationInterface
     {
         $result = [];
         foreach (self::getB24Fields() as $key => $value) {
-//            Yii::warning(Inflector::variablize(strtolower($key)), '$key');
             $result[$key] = ArrayHelper::getValue($value, 'formLabel') ?: ArrayHelper::getValue($value, 'title');
-//            if(ArrayHelper::getValue($value, 'formLabel')){
-//                $result[Inflector::variablize(strtolower($key))] = ArrayHelper::getValue($value, 'formLabel');
-//            }else{
-//                $result[Inflector::variablize(strtolower($key))] = ArrayHelper::getValue($value, 'title');
-//            }
-//            $result[Inflector::variablize(strtolower($key))] = ArrayHelper::getValue($value, 'formLabel') ?: ArrayHelper::getValue($value, 'title');
         }
-//        Yii::warning($result, '$result_getB24FieldsList');
         return $result;
     }
 

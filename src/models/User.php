@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
- * This is the model class for table "chatbot_portal".
+ * This is the model class for table "admin_users".
  *
  * @property integer $id
  * @property string $username

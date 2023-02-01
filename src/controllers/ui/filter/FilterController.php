@@ -97,8 +97,6 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
             $response->setStatusCode(201);
             $id = implode(',', $model->getPrimaryKey(true));
             $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
-        } elseif (!$model->hasErrors()) {
-            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
         return $model;
     }

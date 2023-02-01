@@ -36,7 +36,7 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
 
     /**
      * Displays a single Chatbot model.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -48,7 +48,9 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->code);
 
         $AppSearchModel = new AppSearch();
-        $AppDataProvider = $AppSearchModel->search(Yii::$app->request->queryParams, $model->code);
+        $AppDataProvider = $AppSearchModel->search(
+            array_merge(Yii::$app->request->queryParams, ['AppCode' => $model->code])
+        );
 
         return $this->render('view', [
             'model' => $model,
@@ -87,7 +89,7 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     /**
      * Updates an existing Chatbot model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -113,7 +115,7 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     /**
      * Deletes an existing Chatbot model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -176,7 +178,7 @@ class ChatbotController extends \wm\admin\controllers\BaseModuleController
     /**
      * Finds the Chatbot model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
+     * @param string $code
      * @return Chatbot the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

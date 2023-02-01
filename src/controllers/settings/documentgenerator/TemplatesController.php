@@ -34,7 +34,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
 
     /**
      * Displays a single Templates model.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -96,7 +96,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
     /**
      * Updates an existing Templates model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -141,7 +141,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
     /**
      * Deletes an existing Templates model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -219,7 +219,7 @@ class TemplatesController extends \wm\admin\controllers\BaseModuleController
     /**
      * Finds the Templates model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
+     * @param string $code
      * @return Templates the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

@@ -120,11 +120,11 @@ class GridColumn extends \wm\yii\db\ActiveRecord
         return $this->hasOne(Entity::class, ['code' => 'entityCode']);
     }
 
-    /**
-     * Gets query for [[GridColumnPersonals]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+//    /**
+//     * Gets query for [[GridColumnPersonals]].
+//     *
+//     * @return \yii\db\ActiveQuery
+//     */
     public function getGridColumnPersonals()
     {
         return $this->hasMany(GridColumnPersonal::class, ['columnId' => 'id']);

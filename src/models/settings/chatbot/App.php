@@ -24,6 +24,8 @@ use yii\helpers\Url;
  * @property string $hash
  * @property string $hidden
  * @property string $livechat_support
+ * @property string $type
+ * @property int $app_id
  *
  * @property ChatbotAppContexDirectory $contexCode
  * @property ChatbotAppJsMethodDirectory $jsMethodCode
