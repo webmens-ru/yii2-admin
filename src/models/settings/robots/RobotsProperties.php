@@ -18,8 +18,8 @@ namespace wm\admin\models\settings\robots;
  *
  * @property RobotsOptions[] $options
  * @property Robots $robotCode
- * @property RobotsTypes $type
- * @property Robots $robot
+ * @property null|RobotsTypes $type
+ * @property null|Robots $robot
  */
 class RobotsProperties extends \yii\db\ActiveRecord
 {

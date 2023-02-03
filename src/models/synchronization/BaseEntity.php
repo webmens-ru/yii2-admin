@@ -41,9 +41,7 @@ class BaseEntity extends ActiveRecord
     public static function deleteColumn($fieldName)
     {
         $table = Yii::$app->db->getTableSchema(static::tableName());
-        Yii::warning(ArrayHelper::toArray($table->columns), 38);
         if (ArrayHelper::getValue($table, 'columns.' . $fieldName)) {
-            Yii::warning(40);
             $res = Yii::$app
                 ->db
                 ->createCommand()
@@ -52,7 +50,6 @@ class BaseEntity extends ActiveRecord
                     $fieldName
                 )
                 ->execute();
-            Yii::warning($res, '$res');
         }
         return true;
     }

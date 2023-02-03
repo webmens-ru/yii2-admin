@@ -12,7 +12,7 @@ use wm\admin\models\ui\Entity;
  * @property int $typeId
  * @property string $title
  * @property int $order
- * @property int $params
+ * @property string $params
  * @property string $filtrationType
  * @property string $options
  *

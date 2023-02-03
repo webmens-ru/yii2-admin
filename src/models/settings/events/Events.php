@@ -17,7 +17,7 @@ use yii\helpers\Url;
  * @property string $entityTypeId
  *
  * @property AdminEventsDirectory $eventName
- * @property EventsDirectory $event
+ * @property null|EventsDirectory $event
  */
 class Events extends \yii\db\ActiveRecord
 {

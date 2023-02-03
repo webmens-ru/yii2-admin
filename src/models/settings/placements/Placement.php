@@ -18,7 +18,7 @@ use yii\helpers\Url;
  * @property string|null $group_name
  *
  * @property AdminPlacementDirectory $placementName
- * @property PlacementDirectory $placement
+ * @property null|PlacementDirectory $placement
  */
 class Placement extends \yii\db\ActiveRecord
 {
