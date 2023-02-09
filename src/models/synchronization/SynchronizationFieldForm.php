@@ -61,7 +61,6 @@ class SynchronizationFieldForm extends Model
             }else{
                 $model->title = $name;
             }
-//            $model->title = ArrayHelper::getValue($field, 'formLabel')?:ArrayHelper::getValue($field, 'title');
             $model->save();
             if ($model->errors) {
                 Yii::error($model->errors, 'addField $model->errors');
