@@ -68,9 +68,20 @@ class Task extends BaseEntity implements SynchronizationInterface
     {
         $result = [];
         foreach (self::getB24Fields() as $key => $value) {
-            $result[$key] = ArrayHelper::getValue($value, 'formLabel') ?: ArrayHelper::getValue($value, 'title');
+            if (ArrayHelper::getValue($value, 'formLabel')) {
+                $result[$key] = ArrayHelper::getValue($value, 'formLabel');
+            } elseif (ArrayHelper::getValue($value, 'title')) {
+                $result[$key] = ArrayHelper::getValue($value, 'title');
+            } else {
+                $result[$key] = $key;
+            }
         }
         return $result;
+//        $result = [];
+//        foreach (self::getB24Fields() as $key => $value) {
+//            $result[$key] = ArrayHelper::getValue($value, 'formLabel') ?: ArrayHelper::getValue($value, 'title');
+//        }
+//        return $result;
     }
 
     public static function startSynchronization($modelAgentTimeSettings)

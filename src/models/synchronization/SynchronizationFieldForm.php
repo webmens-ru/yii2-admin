@@ -54,7 +54,14 @@ class SynchronizationFieldForm extends Model
             $modelSync = Synchronization::find()->where(['id' => $this->synchronizationEntityId])->one();
             $fields = $modelSync->getB24Fields();
             $field = ArrayHelper::getValue($fields, $name);
-            $model->title = ArrayHelper::getValue($field, 'formLabel') ?: ArrayHelper::getValue($field, 'title');
+            if(ArrayHelper::getValue($field, 'formLabel')){
+                $model->title = ArrayHelper::getValue($field, 'formLabel');
+            }elseif(ArrayHelper::getValue($field, 'title')){
+                $model->title = ArrayHelper::getValue($field, 'title');
+            }else{
+                $model->title = $name;
+            }
+//            $model->title = ArrayHelper::getValue($field, 'formLabel')?:ArrayHelper::getValue($field, 'title');
             $model->save();
             if ($model->errors) {
                 Yii::error($model->errors, 'addField $model->errors');
