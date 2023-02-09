@@ -14,7 +14,6 @@ class TaskSynchronizationFullListJob extends BaseObject implements \yii\queue\Jo
 
     public function execute($queue)
     {
-
         $this->modelClass::deleteAll();
         $modelTask = Yii::createObject($this->modelClass);
         $fieldsTask = $modelTask->attributes();
