@@ -2,7 +2,7 @@
 
 namespace wm\admin\models;
 
-use yii\db\ActiveRecord;
+use wm\yii\db\ActiveRecord;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -163,5 +163,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         $b24AccessParams = Json::decode($user->b24AccessParams);
 
         return $b24AccessParams['domain'];
+    }
+
+    public static function getMemberId($userId){
+        $user = self::findOne(['id' => $userId]);
+        $b24AccessParams = Json::decode($user->b24AccessParams);
+
+        return $b24AccessParams['member_id'];
     }
 }
