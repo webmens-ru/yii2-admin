@@ -15,6 +15,7 @@ use wm\admin\models\ui\Entity;
  * @property string $params
  * @property string $filtrationType
  * @property string $options
+ * @property string $code
  *
  * @property Entity $entityCode0
  * @property FilterFieldOptions[] $filterFieldOptions
