@@ -141,7 +141,7 @@ class Events extends \yii\db\ActiveRecord
     private function getUrlHandler()
     {
         $url = '';
-        if (strpos($this->handler, '/')) {
+        if (strpos($this->handler, '/') !== false) {
             $url = Url::toRoute($this->handler, 'https');
         } else {
             $url = Url::toRoute(self::$BASE_URL_HANDLER . $this->handler, 'https');
