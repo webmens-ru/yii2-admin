@@ -184,7 +184,7 @@ class Filter extends \wm\yii\db\ActiveRecord
         $parentModel = self::find()->where(['id' => $filterParams['parentId'],])->one();
         $model = new Filter();
         $model->load(ArrayHelper::toArray($parentModel));
-        $model->id = null;/** @phpstan-ignore-line */
+        $model->id = null;// @phpstan-ignore-line
         $model->parentId = ArrayHelper::getValue($filterParams, 'parentId');
         $model->order = ArrayHelper::getValue($filterParams, 'order');
         $model->isName = 1;
@@ -212,6 +212,31 @@ class Filter extends \wm\yii\db\ActiveRecord
             if ($model->errors) {
                 Yii::error($model->errors, 'Filter editOrder');
             }
+        }
+    }
+
+    public static function addBasic($entityCode, $title = 'Безымянный')
+    {
+        $entity = Entity::find()->where(['code' => $entityCode])->one();
+        $baseFilter = self::find()
+            ->where(
+                [
+                    'entityCode' => $entityCode
+                ]
+            )
+            ->all();
+        if (!$entity || $baseFilter) {
+            return false;
+        }
+        $model = new Filter();
+        $model->title = $title;
+        $model->entityCode = $entityCode;
+        $model->isName = 0;
+        $model->order = 1;
+        $model->isBase = 1;
+        $model->save();
+        if ($model->errors) {
+            Yii::error($model->errors, 'addBasic $model->errors');
         }
     }
 }

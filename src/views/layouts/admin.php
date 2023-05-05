@@ -76,6 +76,13 @@ $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
                         ],
                     ],
                 ],
+                [
+                    'label' => 'Генератор',
+                    'items' => [
+                        ['label' => 'Фильтр', 'url' => '/admin/gii/filter/generate'],
+                        ['label' => 'Колонки', 'url' => '/admin/gii/column/generate'],                        
+                    ],
+                ],
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (
