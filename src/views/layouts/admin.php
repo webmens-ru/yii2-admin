@@ -79,6 +79,7 @@ $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
                 [
                     'label' => 'Генератор',
                     'items' => [
+                        ['label' => 'gii', 'url' => '/gii'],
                         ['label' => 'Фильтр', 'url' => '/admin/gii/filter/generate'],
                         ['label' => 'Колонки', 'url' => '/admin/gii/column/generate'],                        
                     ],
