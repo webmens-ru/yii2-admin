@@ -61,7 +61,7 @@ class Generator extends \yii\gii\Generator
     public $queryNs = 'app\models';
     public $crud = true;
     public $crudController;
-    
+
     /**
      * @var string
      */
@@ -121,7 +121,7 @@ class Generator extends \yii\gii\Generator
                 }
             ],
             [['db', 'ns', 'tableName', 'baseClass', 'queryNs', 'queryBaseClass'], 'required'],
-            ['crudController', 'required', 'when' => function($model) {
+            ['crudController', 'required', 'when' => function ($model) {
                 return $model->crud == true;
             }],
             ['crudController', 'string'],
@@ -313,6 +313,8 @@ class Generator extends \yii\gii\Generator
                 'properties' => $this->generateProperties($tableSchema),
                 'labels' => $this->generateLabels($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
+                'gridFields' => $this->generateGridFields($tableSchema),
+                'formFields' => $this->generateFormFields($tableSchema),
                 'relations' => $tableRelations,
                 'relationsClassHints' => $this->generateRelationsClassHints($tableRelations, $this->generateQuery),
             ];
@@ -371,7 +373,7 @@ class Generator extends \yii\gii\Generator
                 default:
                     $type = $column->phpType;
             }
-            if ($column->allowNull){
+            if ($column->allowNull) {
                 $type .= '|null';
             }
             $properties[$column->name] = [
@@ -409,6 +411,23 @@ class Generator extends \yii\gii\Generator
         return $labels;
     }
 
+    public function generateLabel($column)
+    {
+        $label = '';
+        if ($this->generateLabelsFromComments && !empty($column->comment)) {
+            $label = $column->comment;
+        } elseif (!strcasecmp($column->name, 'id')) {
+            $label = 'ID';
+        } else {
+            $label = Inflector::camel2words($column->name);
+            if (!empty($label) && substr_compare($label, ' id', -3, 3, true) === 0) {
+                $label = substr($label, 0, -3) . ' ID';
+            }
+        }
+
+        return $label;
+    }
+
     /**
      * Generates the relation class hints for the relation methods
      * @param array $relations the relation array for single table
@@ -416,9 +435,10 @@ class Generator extends \yii\gii\Generator
      * @return array
      * @since 2.1.4
      */
-    public function generateRelationsClassHints($relations, $generateQuery){
+    public function generateRelationsClassHints($relations, $generateQuery)
+    {
         $result = [];
-        foreach ($relations as $name => $relation){
+        foreach ($relations as $name => $relation) {
             // The queryNs options available if generateQuery is active
             if ($generateQuery) {
                 $queryClassRealName = '\\' . $this->queryNs . '\\' . $relation[1];
@@ -426,12 +446,12 @@ class Generator extends \yii\gii\Generator
                     /** @var \yii\db\ActiveQuery $activeQuery */
                     $activeQuery = $queryClassRealName::find();
                     $activeQueryClass = $activeQuery::className();
-                    if (strpos($activeQueryClass, $this->ns) === 0){
+                    if (strpos($activeQueryClass, $this->ns) === 0) {
                         $activeQueryClass = StringHelper::basename($activeQueryClass);
                     }
                     $result[$name] = '\yii\db\ActiveQuery|' . $activeQueryClass;
                 } else {
-                    $result[$name] = '\yii\db\ActiveQuery|' . (($this->ns === $this->queryNs) ? $relation[1]: '\\' . $this->queryNs . '\\' . $relation[1]) . 'Query';
+                    $result[$name] = '\yii\db\ActiveQuery|' . (($this->ns === $this->queryNs) ? $relation[1] : '\\' . $this->queryNs . '\\' . $relation[1]) . 'Query';
                 }
             } else {
                 $result[$name] = '\yii\db\ActiveQuery';
@@ -543,6 +563,98 @@ class Generator extends \yii\gii\Generator
         }
 
         return $rules;
+    }
+
+    /**
+     * Generates form fields for the specified table.
+     * @param \yii\db\TableSchema $table the table schema
+     * @return array the generated form fields
+     */
+    public function generateFormFields($table)
+    {
+        $fields = [];
+        foreach ($table->columns as $column) {
+            switch ($column->type) {
+                case Schema::TYPE_DATE:
+                    $fields[] = "['type' => 'date', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
+                    break;
+                case Schema::TYPE_DATETIME:
+                    $fields[] = "['type' => 'date', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
+                    break;
+                case Schema::TYPE_SMALLINT:
+                case Schema::TYPE_INTEGER:
+                case Schema::TYPE_BIGINT:
+                case Schema::TYPE_TINYINT:
+                case Schema::TYPE_BOOLEAN:
+                case Schema::TYPE_FLOAT:
+                case Schema::TYPE_DOUBLE:
+                case Schema::TYPE_DECIMAL:
+                case Schema::TYPE_MONEY:
+                case Schema::TYPE_TIME:
+                case Schema::TYPE_TIMESTAMP:
+                case Schema::TYPE_JSON:
+                    $fields[] = "['type' => 'input', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
+                    break;
+                default:
+                    $fields[] = "['type' => 'input', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Generates grid fields for the specified table.
+     * @param \yii\db\TableSchema $table the table schema
+     * @return array the generated grid fields
+     */
+    public function generateGridFields($table)
+    {
+        $fields = [];
+        foreach ($table->columns as $column) {
+            switch ($column->type) {
+                case Schema::TYPE_DATE:
+                    $fields[] = "'" . $column->name . "' => " . 'function () {
+                        return ($this->' . $column->name . ') ? [
+                            "format" => "DD.MM.YYYY",
+                            "title" => $this->' . $column->name . ',
+                            "type" => "date"
+                        ]
+                            :
+                            null;
+                    }';
+                    break;
+                case Schema::TYPE_DATETIME:
+                    $fields[] = "'" . $column->name . "' => " . 'function () {
+                        return ($this->' . $column->name . ') ? [
+                            "format" => "DD.MM.YYYY hh:mm:ss",
+                            "title" => $this->' . $column->name . ',
+                            "type" => "date"
+                        ]
+                            :
+                            null;
+                    }';
+                    break;
+                case Schema::TYPE_SMALLINT:
+                case Schema::TYPE_INTEGER:
+                case Schema::TYPE_BIGINT:
+                case Schema::TYPE_TINYINT:
+                case Schema::TYPE_BOOLEAN:
+                case Schema::TYPE_FLOAT:
+                case Schema::TYPE_DOUBLE:
+                case Schema::TYPE_DECIMAL:
+                case Schema::TYPE_MONEY:
+                case Schema::TYPE_TIME:
+                case Schema::TYPE_TIMESTAMP:
+                case Schema::TYPE_JSON:
+                    $fields[] = "'" . $column->name . "'";
+                    break;
+                default:
+                    $fields[] = "'" . $column->name . "'";
+            }
+        }
+
+        return $fields;
     }
 
     /**
@@ -731,7 +843,7 @@ class Generator extends \yii\gii\Generator
         }
 
         if ($this->generateRelations === self::RELATIONS_ALL_INVERSE) {
-            $relations =  $this->addInverseRelations($relations);
+            $relations = $this->addInverseRelations($relations);
         }
 
         foreach ($relations as &$relation) {
@@ -780,10 +892,10 @@ class Generator extends \yii\gii\Generator
 
                     $relations[$table->fullName][$leftRelationName][0] =
                         rtrim($relations[$table->fullName][$leftRelationName][0], ';')
-                        . "->inverseOf('".lcfirst($rightRelationName)."');";
+                        . "->inverseOf('" . lcfirst($rightRelationName) . "');";
                     $relations[$refTableSchema->fullName][$rightRelationName][0] =
                         rtrim($relations[$refTableSchema->fullName][$rightRelationName][0], ';')
-                        . "->inverseOf('".lcfirst($leftRelationName)."');";
+                        . "->inverseOf('" . lcfirst($leftRelationName) . "');";
                 }
             }
         }
@@ -899,11 +1011,11 @@ class Generator extends \yii\gii\Generator
             $baseClassReflector = new \ReflectionClass($baseClass);
             if ($baseClassReflector->isAbstract()) {
                 $baseClassWrapper =
-                    'namespace ' . __NAMESPACE__ . ';'.
+                    'namespace ' . __NAMESPACE__ . ';' .
                     'class GiiBaseClassWrapper extends \\' . $baseClass . ' {' .
-                        'public static function tableName(){' .
-                            'return "' . addslashes($table->fullName) . '";' .
-                        '}' .
+                    'public static function tableName(){' .
+                    'return "' . addslashes($table->fullName) . '";' .
+                    '}' .
                     '};' .
                     'return new GiiBaseClassWrapper();';
                 $baseModel = eval($baseClassWrapper);
@@ -1101,9 +1213,9 @@ class Generator extends \yii\gii\Generator
         if ($this->standardizeCapitals) {
             $schemaName = ctype_upper(preg_replace('/[_-]/', '', $schemaName)) ? strtolower($schemaName) : $schemaName;
             $className = ctype_upper(preg_replace('/[_-]/', '', $className)) ? strtolower($className) : $className;
-            $this->classNames[$fullTableName] = Inflector::camelize(Inflector::camel2words($schemaName.$className));
+            $this->classNames[$fullTableName] = Inflector::camelize(Inflector::camel2words($schemaName . $className));
         } else {
-            $this->classNames[$fullTableName] = Inflector::id2camel($schemaName.$className, '_');
+            $this->classNames[$fullTableName] = Inflector::id2camel($schemaName . $className, '_');
         }
 
         if ($this->singularize) {

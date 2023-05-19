@@ -13,6 +13,8 @@
 /** @var string[] $labels list of attribute labels (name => label) */
 /** @var string[] $rules list of validation rules */
 /** @var array $relations list of relations (name => relation declaration) */
+/** @var array $gridFields list of grid fields */
+/** @var array $formFields list of form fields */
 
 echo "<?php\n";
 ?>
@@ -74,8 +76,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                     'actions' => function () {
                         return ['update', 'view', 'delete'];
                     },
-        <?php foreach ($labels as $name => $label): ?>
-            <?= "'$name',\n" ?>
+        <?php foreach ($gridFields as $gridField): ?>
+            <?= $gridField.",\n" ?>
         <?php endforeach; ?>
                 ];
             case self::SCENARIO_FORM:
@@ -92,8 +94,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public function fields()
     {
         return [
-    <?php foreach ($labels as $name => $label): ?>
-        <?= "'$name',\n" ?>
+    <?php foreach ($gridFields as $gridField): ?>
+        <?= $gridField.",\n" ?>
     <?php endforeach; ?>
     ];
     }
@@ -175,6 +177,15 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                 'updateOnCloseSlider' => true,
                 'canToggleMode' => false
             ],
+        ];
+    }
+
+    public static function getFormFields()
+    {
+        return [
+    <?php foreach ($formFields as $formField): ?>
+        <?= $formField.",\n" ?>
+    <?php endforeach; ?>
         ];
     }
 <?php endif; ?>
