@@ -22,6 +22,9 @@ echo "<?php\n";
 namespace <?= $generator->ns ?>;
 
 use Yii;
+<?php if ($generator->crud): ?>
+use yii\helpers\Url;
+<?php endif; ?>
 
 /**
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
@@ -144,11 +147,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                 "id" => "delete",
                 "title" => 'Удалить',
                 "type" => "trigger",
-                "handler" => Url::toRoute('/<?= $generator->crudController ?>', 'https'),
+                "handler" => Url::toRoute('/<?= $generator->crudController ?>/delete', 'https'),
                 "params" => [
                     'updateOnCloseSlider' => true,
                     "popup" => [
                         "title" => "Удаление",
+                        "width" => 400,
+                        "height" => 450,
                         "body" => [
                             "text" => 'Вы действительно хотите удалить данный элемент'
                         ],

@@ -574,6 +574,9 @@ class Generator extends \yii\gii\Generator
     {
         $fields = [];
         foreach ($table->columns as $column) {
+            if ($column->autoIncrement) {
+                continue;
+            }
             switch ($column->type) {
                 case Schema::TYPE_DATE:
                     $fields[] = "['type' => 'date', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
