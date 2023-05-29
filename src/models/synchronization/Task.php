@@ -138,7 +138,11 @@ class Task extends BaseEntity implements SynchronizationInterface
     {
         foreach ($data as $key => $val) {
             if (in_array($key, array_keys($this->attributes))) {
-                is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+                if($val){
+                    is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+                }else{
+                    $this->$key = null;
+                }
             }
         }
         $this->save();
