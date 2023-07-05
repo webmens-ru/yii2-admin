@@ -42,8 +42,6 @@ class DealSynchronizationFullListJob extends BaseObject implements \yii\queue\Jo
                     'crm.deal.list',
                     array_merge($params, ['start' => $b24Obj->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use ($listDataSelector) {
-                        Yii::$app->db->close();
-                        Yii::$app->db->open();
                         foreach (ArrayHelper::getValue($result, $listDataSelector) as $oneEntity) {
                             $model = Yii::createObject($this->modelClass);
                             $model->loadData($oneEntity);
