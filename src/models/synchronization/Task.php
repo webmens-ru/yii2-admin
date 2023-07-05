@@ -143,6 +143,12 @@ class Task extends BaseEntity implements SynchronizationInterface
                 }else{
                     $this->$key = null;
                 }
+            }else{
+                if($val){
+                    $this->$key = $val;
+                }else{
+                    $this->$key = null;
+                }
             }
         }
         $this->save();

@@ -508,7 +508,7 @@ class Generator extends \yii\gii\Generator
     public function getTableSchema()
     {
         $class = $this->modelClass;
-        if (is_subclass_of($class, '\yii\db\BaseActiveRecord')) {
+        if (is_subclass_of($class, '\yii\db\ActiveRecord')) {
             return $class::getTableSchema();
         }
 
@@ -542,7 +542,7 @@ class Generator extends \yii\gii\Generator
         if (is_subclass_of($this->modelClass, '\yii\db\ActiveRecord')) {
             $class = $this->modelClass;
             $db = $class::getDb();
-            return $db instanceof \yii\db\Connection ? $db->driverName : null;
+            return $db instanceof \yii\db\Connection ? $db->driverName : null; //@phpstan-ignore-line
         }
 
         return null;
