@@ -224,9 +224,7 @@ class Generator extends \yii\gii\Generator
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
+
     public function autoCompleteData()
     {
         $db = $this->getDbConnection();
@@ -660,13 +658,13 @@ class Generator extends \yii\gii\Generator
         return $fields;
     }
 
-    /**
-     * Generates relations using a junction table by adding an extra via() or viaTable() depending on $generateViaRelationMode.
-     * @param \yii\db\TableSchema the table being checked
-     * @param array $fks obtained from the checkJunctionTable() method
-     * @param array $relations
-     * @return array modified $relations
-     */
+//    /**
+//     * Generates relations using a junction table by adding an extra via() or viaTable() depending on $generateViaRelationMode.
+//     * @param \yii\db\TableSchema the table being checked
+//     * @param array $fks obtained from the checkJunctionTable() method
+//     * @param array $relations
+//     * @return array modified $relations
+//     */
     private function generateManyManyRelations($table, $fks, $relations)
     {
         $db = $this->getDbConnection();
@@ -944,12 +942,12 @@ class Generator extends \yii\gii\Generator
         return '[' . implode(', ', $pairs) . ']';
     }
 
-    /**
-     * Checks if the given table is a junction table, that is it has at least one pair of unique foreign keys.
-     * @param \yii\db\TableSchema the table being checked
-     * @return array|bool all unique foreign key pairs if the table is a junction table,
-     * or false if the table is not a junction table.
-     */
+//    /**
+//     * Checks if the given table is a junction table, that is it has at least one pair of unique foreign keys.
+//     * @param \yii\db\TableSchema the table being checked
+//     * @return array|bool all unique foreign key pairs if the table is a junction table,
+//     * or false if the table is not a junction table.
+//     */
     protected function checkJunctionTable($table)
     {
         if (count($table->foreignKeys) < 2) {
