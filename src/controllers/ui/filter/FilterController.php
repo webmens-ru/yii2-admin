@@ -187,7 +187,10 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
      */
     public function actionFields($entity)
     {
-        $model = FilterField::find()->where(['entityCode' => $entity])->all();
+        $model = FilterField::find()
+            ->where(['entityCode' => $entity])
+            ->with(['filterFieldOptions'])
+            ->all();
         return $model;
     }
 
