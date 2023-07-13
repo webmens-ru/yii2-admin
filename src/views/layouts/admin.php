@@ -55,6 +55,9 @@ $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
                             'label' => 'Справочник мест встраивания',
                             'url' => '/admin/settings/placements/placement-directory/index'
                         ],
+                        [
+                            'label' => 'Пользоватетельские типы полей',
+                            'url' => '/admin/settings/userfieldtype/user-field-type/index'],
                         ['label' => 'Чатботы', 'url' => '/admin/settings/chatbot/chatbot/index'],
                         ['label' => 'Агенты', 'url' => '/admin/settings/agents/index'],
                         [
@@ -81,7 +84,7 @@ $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
                     'items' => [
                         ['label' => 'gii', 'url' => '/gii'],
                         ['label' => 'Фильтр', 'url' => '/admin/gii/filter/generate'],
-                        ['label' => 'Колонки', 'url' => '/admin/gii/column/generate'],                        
+                        ['label' => 'Колонки', 'url' => '/admin/gii/column/generate'],
                     ],
                 ],
                 Yii::$app->user->isGuest ? (
