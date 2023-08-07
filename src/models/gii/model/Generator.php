@@ -52,7 +52,7 @@ class Generator extends \yii\gii\Generator
     public $generateJunctionRelationMode = self::JUNCTION_RELATION_VIA_TABLE;
     public $useClassConstant = null;
     public $generateRelationsFromCurrentSchema = true;
-    public $generateLabelsFromComments = false;
+    public $generateLabelsFromComments = true;
     public $useTablePrefix = false;
     public $standardizeCapitals = false;
     public $singularize = false;
