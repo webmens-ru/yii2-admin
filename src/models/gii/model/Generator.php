@@ -576,11 +576,19 @@ class Generator extends \yii\gii\Generator
                 continue;
             }
             switch ($column->type) {
-                case Schema::TYPE_DATE:
-                    $fields[] = "['type' => 'date', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
-                    break;
                 case Schema::TYPE_DATETIME:
                     $fields[] = "['type' => 'date', 'name' => '" . $column->name . "', 'label' => '".$this->generateLabel($column)."']";
+                    break;
+                case Schema::TYPE_DATE:
+                    $fields[] = "[
+                        'type' => 'date', 
+                        'name' => '" . $column->name . "', 
+                        'label' => '".$this->generateLabel($column).",
+                        'fieldParams' => [
+                            'format' => 'DD.MM.YYYY',
+                            'withTime' => false
+                        ]'
+                    ]";
                     break;
                 case Schema::TYPE_SMALLINT:
                 case Schema::TYPE_INTEGER:
