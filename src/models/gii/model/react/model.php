@@ -117,7 +117,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                     'type' => 'openApplication',
                     "params" => [
                         'path' => 'mainForm',
-                        'width' => 700,
+                        'bx24_width' => 700,
                         'updateOnCloseSlider' => true,
                         "params" => [
                             'entity' => '<?= $generator->crudController ?>',
@@ -133,7 +133,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                 'type' => 'openApplication',
                 "params" => [
                     'path' => 'mainForm',
-                    'width' => 700,
+                    'bx24_width' => 700,
                     'updateOnCloseSlider' => true,
                     "params" => [
                         'entity' => '<?= $generator->crudController ?>',
