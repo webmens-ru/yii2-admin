@@ -156,7 +156,29 @@ class ExcelController extends Controller
         foreach ($data as $row) {
             $tempRow = [];
             foreach ($row as $key => $value) {
-                $tempRow[$key] = is_array($value) ? ArrayHelper::getValue($value, 'title') : $value;
+                $tempValue = '';
+                if (is_array($value)) {
+                    switch (ArrayHelper::getValue($value, 'type')) {
+                        case 'date':
+                            if (ArrayHelper::getValue($value, 'format') == 'DD.MM.YYYY') {
+                                $date = strtotime(ArrayHelper::getValue($value, 'title'));
+                                $tempValue =date('d.m.Y', $date);
+                            } elseif ('DD.MM.YYYY HH:mm:ss') {
+                                $date = strtotime(ArrayHelper::getValue($value, 'title'));
+                                $tempValue =date('d.m.Y h:i:s', $date);
+                            } else {
+                                $tempValue = ArrayHelper::getValue($value, 'title');
+                            }
+                            break;
+                        default:
+                            $tempValue = ArrayHelper::getValue($value, 'title');
+                    }
+                } else {
+                    $tempValue = $value;
+                }
+
+
+                $tempRow[$key] = $tempValue;
             }
             $result[] = $tempRow;
         }

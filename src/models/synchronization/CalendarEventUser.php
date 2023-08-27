@@ -240,7 +240,6 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
 
     public static function synchronization()
     {
-        Yii::warning('CalendarEventUser->synchronization()');
         $id = Yii::$app->queue->push(
             Yii::createObject(
                 [
