@@ -50,7 +50,9 @@ class Excel extends Model
         $writer->save('php://output');
         $file = ob_get_contents();
         ob_clean();
+        return $file;
     }
+
     /**
      * @param $data
      * @return string
