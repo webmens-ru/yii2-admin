@@ -115,8 +115,19 @@ class MenuItem extends \wm\yii\db\ActiveRecord
             return [];
         }
         $models = self::find()->where(['menuId' => $menuId])->all();
+        $menuItems = [];
+        foreach ($models as $model){
+            if(property_exists($model, 'authItem') && $model->authItem){
+                if(Yii::$app->user->can($model->authItem)){
+                    $menuItems[] = $model;
+                }
+            }else{
+                $menuItems[] = $model;
+            }
+        }
+
         $res = [];
-        foreach ($models as $value) {
+        foreach ($menuItems as $value) {
             $settings = $value->getMenuItemPersonalSettings()->where(['userId' => $userId])->one();
             if ($settings) {
                 $value->order = $settings->order;/* @phpstan-ignore-line */
