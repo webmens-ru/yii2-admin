@@ -8,7 +8,7 @@
     "license": "MIT",
     "require": {
         "rmrevin/yii2-fontawesome": "~3.5",
-        "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-widget-select2": "v2.2.4",
         "kartik-v/yii2-widget-fileinput": "^1.1.1",
         "yiisoft/yii2": "~2.0.14",
         "phpoffice/phpexcel": "v1.8.*",
