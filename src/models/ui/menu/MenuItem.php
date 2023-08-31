@@ -2,6 +2,7 @@
 
 namespace wm\admin\models\ui\menu;
 
+use wm\yii\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -117,7 +118,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         $models = self::find()->where(['menuId' => $menuId])->all();
         $menuItems = [];
         foreach ($models as $model){
-            if(property_exists($model, 'authItem') && $model->authItem){
+            if(ArrayHelper::getValue($model, 'authItem')){
                 if(Yii::$app->user->can($model->authItem)){
                     $menuItems[] = $model;
                 }
