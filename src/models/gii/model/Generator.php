@@ -557,7 +557,13 @@ class Generator extends \yii\gii\Generator
                 $targetAttributes[] = "'$key' => '$value'";
             }
             $targetAttributes = implode(', ', $targetAttributes);
-            $rules[] = "[['$attributes'], 'exist', 'skipOnError' => true, 'targetClass' => $refClassNameResolution, 'targetAttribute' => [$targetAttributes]]";
+            $rules[] = "[
+                ['$attributes'], 
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => $refClassNameResolution, 
+                'targetAttribute' => [$targetAttributes]
+            ]";
         }
 
         return $rules;
