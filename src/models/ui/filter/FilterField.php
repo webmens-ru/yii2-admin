@@ -40,7 +40,8 @@ class FilterField extends \wm\yii\db\ActiveRecord
         return [
             [['entityCode', 'typeId', 'title', 'order', 'code'], 'required'],
             [['typeId', 'order'], 'integer'],
-            [['entityCode', 'code'], 'string', 'max' => 32],
+            [['entityCode'], 'string', 'max' => 64],
+            [['code'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
             [['params'], 'safe'],
             [
