@@ -44,7 +44,8 @@ class GridColumn extends \wm\yii\db\ActiveRecord
         return [
             [['entityCode', 'code', 'title', 'visible', 'order', 'width', 'type'], 'required'],
             [['visible', 'order', 'width'], 'integer'],
-            [['entityCode', 'code', 'type'], 'string', 'max' => 32],
+            [['entityCode'], 'string', 'max' => 64],
+            [['code', 'type'], 'string', 'max' => 32],
             [['title'], 'string', 'max' => 255],
             [['editor'], 'safe'],
             [[
