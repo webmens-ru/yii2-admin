@@ -41,6 +41,11 @@ use yii\helpers\Url;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
+    public const RENDER_MODE_GRID = 'grid';
+    public const RENDER_MODE_FORM = 'form';
+
+    public $renderMode = self::RENDER_MODE_GRID;
+
     /**
      * {@inheritdoc}
      */
@@ -73,8 +78,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php if ($generator->crud): ?>
     public function fields()
     {
-        switch ($this->scenario) {
-            case self::SCENARIO_DEFAULT:
+        switch ($this->renderMode) {
+            case self::RENDER_MODE_GRID:
                 return [
                     'actions' => function () {
                         return ['update', 'view', 'delete'];
@@ -83,7 +88,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
             <?= $gridField.",\n" ?>
         <?php endforeach; ?>
                 ];
-            case self::SCENARIO_FORM:
+            case self::RENDER_MODE_FORM:
                 return [
         <?php foreach ($labels as $name => $label): ?>
             <?= "'$name',\n" ?>
