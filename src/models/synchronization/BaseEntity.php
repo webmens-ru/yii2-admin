@@ -163,4 +163,24 @@ class BaseEntity extends ActiveRecord
     {
         return [];
     }
+
+    public static function deleteUnusedFields($synchronizationEntityId)
+    {
+        $model = Yii::createObject(['class' => static::class]);
+        $b24Fields = static::getB24Fields();
+        $attributes = $model->attributes();
+        foreach ($attributes as $attribute) {
+            if (!ArrayHelper::getValue($b24Fields, $attribute)) {
+                $column = SynchronizationField::find()
+                    ->where(
+                        [
+                            'synchronizationEntityId' => $synchronizationEntityId,
+                            'name' => $attribute
+                        ]
+                    )
+                    ->one();
+                $column->delete();
+            }
+        }
+    }
 }

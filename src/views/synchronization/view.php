@@ -48,6 +48,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     //                    'data-method' => 'post'
                 ]
             );
+
+            echo Html::a(
+                'Удалить неиспользуемые поля',
+                ['delete-unused-fields', 'id' => $model->id],
+                [
+                    'class' => 'btn btn-danger',
+                    //                    'title' => 'Выполнить полную синхронизацию',
+                    //                    'aria-label' => 'Выполнить полную синхронизацию',
+                    //                    'data-pjax' => 0,
+                    //                    'data-confirm' => 'Вы уверены, что хотите выполнить полную синхронизацию?',
+                    //                    'data-method' => 'post'
+                ]
+            );
         } else {
             echo Html::a('Создать таблицу', ['create-table', 'id' => $model->id], ['class' => 'btn btn-success']);
         }

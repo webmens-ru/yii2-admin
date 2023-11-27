@@ -100,4 +100,9 @@ class Synchronization extends \yii\db\ActiveRecord
     {
         $this->modelClassName::createTable($this->id);
     }
+
+    public function deleteUnusedFields()
+    {
+        $this->modelClassName::deleteUnusedFields($this->id);
+    }
 }

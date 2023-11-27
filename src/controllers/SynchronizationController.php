@@ -194,4 +194,11 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         $model->CreateTable();
         return $this->redirect(['view', 'id' => $model->id]);
     }
+
+    public function actionDeleteUnusedFields($id){
+        $model = $this->findModel($id);
+        $model->deleteUnusedFields();
+        Yii::$app->session->setFlash('success', "Неиспользуемые в Б24 поля удалены");
+        return $this->redirect(['view', 'id' => $model->id]);
+    }
 }
