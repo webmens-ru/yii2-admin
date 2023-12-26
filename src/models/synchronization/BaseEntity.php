@@ -24,6 +24,7 @@ class BaseEntity extends ActiveRecord
         $table = Yii::$app->db->getTableSchema(static::tableName());
         foreach ($fields as $fieldName => $field) {
             if (!isset($table->columns[$fieldName]) && in_array($fieldName, $addFieldNames)) {
+                Yii::warning($field, '$field');
                 Yii::$app
                     ->db
                     ->createCommand()
@@ -31,6 +32,15 @@ class BaseEntity extends ActiveRecord
                         $table->name,
                         $fieldName,
                         ColumnSchema::getDbType($field)
+                    )
+                    ->execute();
+                Yii::$app
+                    ->db
+                    ->createCommand()
+                    ->addCommentOnColumn(
+                        $table->name,
+                        $fieldName,
+                        ArrayHelper::getValue($field, 'formLabel') ?: ArrayHelper::getValue($field, 'title')
                     )
                     ->execute();
             }
