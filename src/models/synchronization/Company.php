@@ -90,7 +90,7 @@ class Company extends BaseEntity implements SynchronizationInterface
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
-            $agent->date_run = '1970-01-01 03:00:00';
+            $agent->date_run = date('Y-m-d H:i:s');
         }
         $agent->load(ArrayHelper::toArray($modelAgentTimeSettings), '');
         $agent->status_id = 1;
