@@ -125,9 +125,21 @@ class Company extends BaseEntity implements SynchronizationInterface
     {
         foreach ($data as $key => $val) {
             if (in_array($key, array_keys($this->attributes))) {
-                is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+                $data = '';
+                if(is_array($val)){
+                    $data = json_encode($val);
+                }else{
+                    $data = $val;
+                }
+                if(strlen($data)>255){
+                    $this->$key = substr($data, 0, 255);
+                    Yii::error("$data >255", 'Company->loadData()');
+                }else{
+                    $this->$key = $data;
+                }
             }
         }
+
         $this->save();
         if ($this->errors) {
             Yii::error($this->errors, 'Company->loadData()');
