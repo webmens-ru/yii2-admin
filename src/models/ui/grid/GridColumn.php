@@ -22,6 +22,8 @@ use Yii;
  * @property int $sortable
  * @property int $editable
  * @property int $editor
+ * @property string|null $info
+ * @property string|null $color
  *
  * @property Entity $entityCode0
  * @property GridColumnPersonal[] $gridColumnPersonals
@@ -45,8 +47,8 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             [['entityCode', 'code', 'title', 'visible', 'order', 'width', 'type'], 'required'],
             [['visible', 'order', 'width'], 'integer'],
             [['entityCode'], 'string', 'max' => 64],
-            [['code', 'type'], 'string', 'max' => 32],
-            [['title'], 'string', 'max' => 255],
+            [['code', 'type', 'color'], 'string', 'max' => 32],
+            [['title', 'info'], 'string', 'max' => 255],
             [['editor'], 'safe'],
             [[
                 'frozen',
@@ -94,6 +96,8 @@ class GridColumn extends \wm\yii\db\ActiveRecord
                 return self::getBooleanValue($this->editable);
             },
             'editor',
+            'info',
+            'color',
         ];
     }
 
