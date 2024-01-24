@@ -11,7 +11,7 @@ class m240124_102200_insert_metric_grid_column_type extends \yii\db\Migration
                 'title'
             ],
             [
-                ['metric', 'число с произвольным форамтированием'],
+                ['metric', 'Число с произвольным форматированием'],
             ]
         );
   }
