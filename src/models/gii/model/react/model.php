@@ -41,14 +41,16 @@ use yii\helpers\Url;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
+    /*
     public const RENDER_MODE_GRID = 'grid';
     public const RENDER_MODE_FORM = 'form';
 
     public $renderMode = self::RENDER_MODE_GRID;
+    */
 
     /**
-     * {@inheritdoc}
-     */
+    * @return string
+    */
     public static function tableName()
     {
         return '<?= $generator->generateTableName($tableName) ?>';
@@ -65,15 +67,15 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php endif; ?>
 
     /**
-     * {@inheritdoc}
-     */
+    * @return mixed[]
+    */
     public function rules()
     {
         return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
     }
 
     /**
-    * @return array
+    * @return mixed[]
     */
 <?php if ($generator->crud): ?>
     public function fields()
@@ -110,6 +112,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php endif; ?>
 
 <?php if ($generator->crud): ?>
+    /**
+    * @return mixed[]
+    */
     public static function getGridOptions()
     {
         return [
@@ -173,6 +178,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         ];
     }
 
+    /**
+    * @return mixed[]
+    */
     public static function getButtonAdd()
     {
         return [
@@ -190,6 +198,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         ];
     }
 
+    /**
+    * @return mixed[]
+    */
     public static function getFormFields()
     {
         return [
