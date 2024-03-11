@@ -17,6 +17,7 @@ use Yii;
  * @property int $menuId
  * @property Menu $menu
  * @property string $params
+ * @property string|null $authItem
  */
 class MenuItem extends \wm\yii\db\ActiveRecord
 {
