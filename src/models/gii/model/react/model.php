@@ -218,7 +218,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     /**
      * Gets query for [[<?= $name ?>]].
      *
-     * @return <?= $relationsClassHints[$name] . "\n" ?>
+     * @return <?php //$relationsClassHints[$name] . "\n" ?>
      */
     public function get<?= $name ?>()
     {
