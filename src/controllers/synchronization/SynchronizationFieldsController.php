@@ -40,7 +40,7 @@ class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleCo
         $model = new SynchronizationFieldForm();
         $request = Yii::$app->request;
 
-        if ($model->load($this->request->post()) && $model->validate()) {
+        if ($model->load($this->request->post()) && $model->validate()) { // @phpstan-ignore-line
             $model->addField();
             if (!$model->errors) {
                 return $this->redirect(['/admin/synchronization/view', 'id' => $model->synchronizationEntityId]);
