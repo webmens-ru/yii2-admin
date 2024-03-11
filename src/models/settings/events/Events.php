@@ -102,14 +102,17 @@ class Events extends \yii\db\ActiveRecord
     {
         $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
-        $obB24 = new \Bitrix24\Event\Event($b24App);
+        $obB24 = new \Bitrix24\B24Object($b24App);
         $handler = $this->getUrlHandler();
         $this->checkSmartProcess();
-        $b24 = $obB24->unbind(
-            $this->event_name,
-            $handler,
-            $this->auth_type,
-            $this->event_type
+        $b24 = $obB24->client->call(
+            'event.unbind',
+            [
+                'event' => $this->event_name,
+                'handler' => $handler,
+                'auth_type' => $this->auth_type,
+                'event_type' => $this->event_type
+            ]
         );
     }
 
