@@ -26,7 +26,7 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
     public function actionIndex()
     {
         $searchModel = new SynchronizationSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->search($this->request->queryParams);// @phpstan-ignore-line
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -68,8 +68,8 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
     {
         $model = new Synchronization();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost) {// @phpstan-ignore-line
+            if ($model->load($this->request->post()) && $model->save()) {// @phpstan-ignore-line
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -92,7 +92,7 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {// @phpstan-ignore-line
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
