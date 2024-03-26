@@ -274,38 +274,39 @@ class Agents extends \yii\db\ActiveRecord
     public static function shedulRun()
     {
         $dateTimestamp = date("Y-m-d H:i:s");
-
         $models = self::find()->where(['<=', 'date_run', $dateTimestamp])->andWhere(['status_id' => 1])->all();
-        foreach ($models as $model) {
-            try {
-                call_user_func(array($model->class, $model->method));
-            } catch (\Exception $e) {
-            }
-            if ($model->period) {
-                $timestamp = strtotime($dateTimestamp) + $model->period;
-                $model->date_run = date("Y-m-d H:i:s", $timestamp);
-                $model->save();
-            } else {
-                $nextMinuteData = self::getNextMinute($dateTimestamp, $model->minuteTypeId, $model->minuteProps);
-                $nextHourData = self::getNextHour(
-                    $nextMinuteData['date'],
-                    $nextMinuteData['isNextHour'],
-                    $model->hourTypeId,
-                    $model->hourProps
-                );
-                $nextDayData = self::getNextDay(
-                    $nextHourData['date'],
-                    $nextHourData['isNextDay'],
-                    $model->dayTypeId,
-                    $model->dayProps
-                );
-                $model->date_run = self::getNextMonth(
-                    $nextDayData['date'],
-                    $nextDayData['isNextMonth'],
-                    $model->monthTypeId,
-                    $model->monthProps
-                );
-                $model->save();
+        if(!$models){
+            foreach ($models as $model) {
+                try {
+                    call_user_func(array($model->class, $model->method));
+                } catch (\Exception $e) {
+                }
+                if ($model->period) {
+                    $timestamp = strtotime($dateTimestamp) + $model->period;
+                    $model->date_run = date("Y-m-d H:i:s", $timestamp);
+                    $model->save();
+                } else {
+                    $nextMinuteData = self::getNextMinute($dateTimestamp, $model->minuteTypeId, $model->minuteProps);
+                    $nextHourData = self::getNextHour(
+                        $nextMinuteData['date'],
+                        $nextMinuteData['isNextHour'],
+                        $model->hourTypeId,
+                        $model->hourProps
+                    );
+                    $nextDayData = self::getNextDay(
+                        $nextHourData['date'],
+                        $nextHourData['isNextDay'],
+                        $model->dayTypeId,
+                        $model->dayProps
+                    );
+                    $model->date_run = self::getNextMonth(
+                        $nextDayData['date'],
+                        $nextDayData['isNextMonth'],
+                        $model->monthTypeId,
+                        $model->monthProps
+                    );
+                    $model->save();
+                }
             }
         }
     }
@@ -314,7 +315,6 @@ class Agents extends \yii\db\ActiveRecord
     {
         $isNextHour = false;
         $nextMinute = null;
-//        $nextHour;
         $initialDate = strtotime($initialDate);
         switch ($minuteTypeId) {
             case 1:
@@ -332,17 +332,15 @@ class Agents extends \yii\db\ActiveRecord
             case 3:
                 $arrMinutes = explode(',', $minuteProps);
                 $nextMinute = max($arrMinutes);
-                if (max($arrMinutes) < date('i', $initialDate)) {
+                if (max($arrMinutes) <= date('i', $initialDate)) {
                     $isNextHour = true;
                     $nextMinute = min($arrMinutes);
                 } else {
                     $arr = array_filter($arrMinutes, function ($value) use ($initialDate) {
-//TODO use ($initialDate)
                         return ($value > date('i', $initialDate));
                     });
                     $nextMinute = min($arr);
                 }
-//                $nextHour = date('H', strtotime("+1 hour", $initialDate));
                 break;
         }
         return ['isNextHour' => $isNextHour, 'date' => date("Y-m-d H:$nextMinute:00")];
@@ -374,7 +372,7 @@ class Agents extends \yii\db\ActiveRecord
                 $arrHours = explode(',', $hourProps);
                 if ($isNext || !in_array(date('H', $initialDate), $arrHours)) {
                     $nextHour = max($arrHours);
-                    if (max($arrHours) < date('H', $initialDate)) {
+                    if (max($arrHours) <= date('H', $initialDate)) {
                         $isNextDay = true;
                         $nextHour = min($arrHours);
                     } else {
@@ -415,7 +413,7 @@ class Agents extends \yii\db\ActiveRecord
                 $arrDays = explode(',', $dayProps);
                 if ($isNext || !in_array(date('d', $initialDate), $arrDays)) {
                     $nextDay = max($arrDays);
-                    if (max($arrDays) < date('d', $initialDate)) {
+                    if (max($arrDays) <= date('d', $initialDate)) {
                         $isNextMonth = true;
                         $nextDay = min($arrDays);
                     } else {
@@ -456,7 +454,7 @@ class Agents extends \yii\db\ActiveRecord
                 $arrMonth = explode(',', $monthProps);
                 if ($isNext || !in_array(date('m', $initialDate), $arrMonth)) {
                     $nextMonth = max($arrMonth);
-                    if (max($arrMonth) < date('m', $initialDate)) {
+                    if (max($arrMonth) <= date('m', $initialDate)) {
                         $year = date('Y', strtotime("+1 year", $initialDate));
                         $nextMonth = min($arrMonth);
                     } else {
