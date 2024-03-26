@@ -8,8 +8,11 @@ use wm\admin\models\settings\events\Events;
 use wm\admin\jobs\activity\ActivitySynchronizationFullListJob;
 use wm\admin\jobs\activity\ActivitySynchronizationFullGetJob;
 use wm\admin\jobs\activity\ActivitySynchronizationDeltaJob;
+use wm\admin\jobs\activity\ActivitySynchronizationDiffJob;
+
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\BaseObject;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
@@ -23,6 +26,8 @@ class Activity extends BaseEntity implements SynchronizationInterface
     public static $synchronizationFullListJob = ActivitySynchronizationFullListJob::class;
 
     public static $synchronizationDeltaJob = ActivitySynchronizationDeltaJob::class;
+
+    public static $synchronizationDiffJob = ActivitySynchronizationDiffJob::class;
 
     public static $synchronizationFullGetJob = ActivitySynchronizationFullGetJob::class;
 
@@ -85,7 +90,7 @@ class Activity extends BaseEntity implements SynchronizationInterface
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
         if (!$agent) {
             $agent = new Agents();
-            $agent->name = 'Синхронизация дельты сделки';
+            $agent->name = 'Синхронизация дельты дел';
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
@@ -120,16 +125,26 @@ class Activity extends BaseEntity implements SynchronizationInterface
         }
     }
 
-    public function loadData($data)
+    public function loadData($oneEntity)
     {
-        foreach ($data as $key => $val) {
-            if (in_array($key, array_keys($this->attributes))) {
-                is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+            foreach ($oneEntity as $key => $val) {
+                if (in_array($key, array_keys($this->attributes))) {
+                    $data = '';
+                    if(is_array($val)){
+                        $data = json_encode($val);
+                    }else{
+                        $data = $val;
+                    }
+                    if(strlen($data)>255){
+                        $this->$key = substr($data, 0, 255);
+                    }else{
+                        $this->$key = $data;
+                    }
+                }
             }
-        }
-        $this->save();
-        if ($this->errors) {
-            Yii::error($this->errors, 'Activity->loadData()');
-        }
+            $this->save();
+            if ($this->errors) {
+                Yii::error($this->errors, 'Activity->loadData()');
+            }
     }
 }

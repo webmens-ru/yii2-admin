@@ -3,11 +3,13 @@
 namespace wm\admin\models\synchronization;
 
 use Bitrix24\B24Object;
+
 use wm\admin\models\settings\Agents;
 use wm\admin\models\settings\events\Events;
 use wm\admin\jobs\task\TaskSynchronizationFullListJob;
 use wm\admin\jobs\task\TaskSynchronizationFullGetJob;
 use wm\admin\jobs\task\TaskSynchronizationDeltaJob;
+use wm\admin\jobs\task\TaskSynchronizationDiffJob;
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\db\Schema;
@@ -26,6 +28,8 @@ class Task extends BaseEntity implements SynchronizationInterface
     public static $synchronizationDeltaJob = TaskSynchronizationDeltaJob::class;
 
     public static $synchronizationFullGetJob = TaskSynchronizationFullGetJob::class;
+
+    public static $synchronizationDiffJob = TaskSynchronizationDiffJob::class;
 
     public static $primaryKeyColumnName = 'id';
 
@@ -134,20 +138,21 @@ class Task extends BaseEntity implements SynchronizationInterface
         }
     }
 
-    public function loadData($data)
+    public function loadData($oneEntity)
     {
-        foreach ($data as $key => $val) {
+        $attributes = array_keys($this->attributes);
+        foreach ($oneEntity as $key => $val) {
             if (in_array($key, array_keys($this->attributes))) {
-                if($val){
-                    is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+                $data = '';
+                if(is_array($val)){
+                    $data = json_encode($val);
                 }else{
-                    $this->$key = null;
+                    $data = $val;
                 }
-            }else{
-                if($val){
-                    $this->$key = $val;
+                if(strlen($data)>255){
+                    $this->$key = substr($data, 0, 255);
                 }else{
-                    $this->$key = null;
+                    $this->$key = $data;
                 }
             }
         }
@@ -156,4 +161,5 @@ class Task extends BaseEntity implements SynchronizationInterface
             Yii::error($this->errors, 'Task->loadData()');
         }
     }
+
 }
