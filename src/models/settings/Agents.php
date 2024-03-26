@@ -275,7 +275,7 @@ class Agents extends \yii\db\ActiveRecord
     {
         $dateTimestamp = date("Y-m-d H:i:s");
         $models = self::find()->where(['<=', 'date_run', $dateTimestamp])->andWhere(['status_id' => 1])->all();
-        if(!$models){
+        if(!empty($models)){
             foreach ($models as $model) {
                 try {
                     call_user_func(array($model->class, $model->method));
