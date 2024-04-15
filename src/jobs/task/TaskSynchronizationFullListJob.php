@@ -45,39 +45,26 @@ class TaskSynchronizationFullListJob extends BaseObject implements \yii\queue\Jo
             $params
         );
 
+        foreach (ArrayHelper::getValue($request, $listDataSelector) as $oneEntity) {
+            $model = Yii::createObject($this->modelClass);
+            $model->loadData($oneEntity);
+        }
         $countCalls = (int)ceil($request['total'] / $b24Obj->client::MAX_BATCH_CALLS);
-        $countBatchCalls = (int)ceil($countCalls / 50);
-        $maxId = 0;
-        for ($j = 0; $j < $countBatchCalls; $j++) {
-            if ($j == 0) {
-                $prevId = 0;
-            } else {
-                $prevId = $maxId;
-            }
-            for ($i = 0; $i < 50; $i++) {
-                if ($countCalls > 0) {
-                    $idx = $b24Obj->client->addBatchCall(
-                        'tasks.task.list',
-                        [
-                            'order' => ["id" => "ASC"],
-                            'filter' => [
-                                '>id' => $prevId
-                            ],
-                            'select' => $fieldsTask,
-                            'start' => -1
-                        ],
-                        function ($result) use (&$maxId) {
-                            foreach (ArrayHelper::getValue($result, 'result.tasks') as $oneEntity) {
-                                $maxId = $oneEntity['id'];
-                                $model = Yii::createObject($this->modelClass);
-                                $model->loadData($oneEntity);
-
-                            }
+        $data = ArrayHelper::getValue($request, $listDataSelector);
+        if (count($data) != $request['total']) {
+            for ($i = 1; $i < $countCalls; $i++) {
+                $b24Obj->client->addBatchCall(
+                    'tasks.task.list',
+                    array_merge($params, ['start' => $b24Obj->client::MAX_BATCH_CALLS * $i]),
+                    function ($result) use ($listDataSelector) {
+                        Yii::$app->db->close();
+                        Yii::$app->db->open();
+                        foreach (ArrayHelper::getValue($result, $listDataSelector) as $oneEntity) {
+                            $model = Yii::createObject($this->modelClass);
+                            $model->loadData($oneEntity);
                         }
-                    );
-                    $prevId = '$result[' . $idx . '][tasks][49][id]';
-                }
-                $countCalls--;
+                    }
+                );
             }
             $b24Obj->client->processBatchCalls();
         }
