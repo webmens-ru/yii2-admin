@@ -14,16 +14,18 @@ use Yii;
  */
 class Menu extends \wm\yii\db\ActiveRecord
 {
+
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
         return 'admin_menu';
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -34,7 +36,7 @@ class Menu extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

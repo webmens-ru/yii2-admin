@@ -24,6 +24,9 @@ use yii\helpers\Json;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'admin_users';
@@ -33,7 +36,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 //    }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

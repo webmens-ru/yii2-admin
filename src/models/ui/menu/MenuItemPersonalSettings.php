@@ -18,15 +18,16 @@ use yii\helpers\ArrayHelper;
 class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
         return 'admin_menu_item_personal';
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -44,8 +45,9 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
         ];
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {
@@ -68,10 +70,11 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
         return $this->hasOne(MenuItem::class, ['id' => 'itemId']);
     }
 
+
     /**
-     * @param $items
-     * @param $userId
-     * @return bool
+     * @param mixed[] $items
+     * @param int $userId
+     * @return true
      * @throws \Exception
      */
     public static function saveItems($items, $userId)
@@ -91,16 +94,15 @@ class MenuItemPersonalSettings extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $itemId
-     * @param $userId
-     * @return array|MenuItemPersonalSettings|\yii\db\ActiveRecord|null
+     * @param mixed[] $itemId
+     * @param int $userId
+     * @return MenuItemPersonalSettings
      */
     protected static function getItemPersonalSettings($itemId, $userId)
     {
         $item = self::find()->where(['itemId' => $itemId, 'userId' => $userId])->one();
         if (!$item) {
             $item = new MenuItemPersonalSettings();
-            return $item;
         }
         return $item;
     }

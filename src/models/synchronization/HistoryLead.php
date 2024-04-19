@@ -17,6 +17,9 @@ use yii\helpers\ArrayHelper;
 
 class HistoryLead extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_history_lead';

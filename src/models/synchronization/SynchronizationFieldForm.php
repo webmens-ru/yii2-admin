@@ -21,7 +21,9 @@ class SynchronizationFieldForm extends Model
     public $name;
     public $synchronizationEntityId;
 
-
+    /**
+     * @return mixed[]
+     */
     public function rules()
     {
         return [
@@ -32,7 +34,7 @@ class SynchronizationFieldForm extends Model
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

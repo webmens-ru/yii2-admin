@@ -13,7 +13,7 @@ use wm\admin\models\settings\chatbot\AppContexDirectory;
 class AppContexDirectorySearch extends AppContexDirectory
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

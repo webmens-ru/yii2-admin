@@ -29,7 +29,7 @@ class RobotsImport extends \yii\base\Model
     public $file;
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -40,7 +40,7 @@ class RobotsImport extends \yii\base\Model
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

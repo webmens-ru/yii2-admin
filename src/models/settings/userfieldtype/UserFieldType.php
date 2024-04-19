@@ -21,7 +21,7 @@ use yii\helpers\Url;
 class UserFieldType extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -29,7 +29,7 @@ class UserFieldType extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -41,7 +41,7 @@ class UserFieldType extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

@@ -35,8 +35,8 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
 {
     /**
-     * @return array[]
-     */
+    * @return mixed[]
+    */
     public function rules()
     {
         return [

@@ -24,7 +24,7 @@ namespace wm\admin\models\settings\robots;
 class RobotsProperties extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -32,7 +32,7 @@ class RobotsProperties extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -62,7 +62,7 @@ class RobotsProperties extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

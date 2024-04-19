@@ -18,6 +18,9 @@ use wm\admin\models\gii\ColumnSchema;
 
 class Telephony extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_telephony';

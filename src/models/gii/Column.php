@@ -16,7 +16,7 @@ class Column extends Model
     public $entityCode;
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -107,7 +107,7 @@ class Column extends Model
 
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

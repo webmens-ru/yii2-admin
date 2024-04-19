@@ -18,6 +18,9 @@ use yii\helpers\Inflector;
 
 class Task extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_task';

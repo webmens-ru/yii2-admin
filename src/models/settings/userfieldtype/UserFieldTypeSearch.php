@@ -12,7 +12,7 @@ use wm\admin\models\settings\placements\Placement;
 class UserFieldTypeSearch extends UserFieldType
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

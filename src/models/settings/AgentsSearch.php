@@ -12,7 +12,7 @@ use wm\admin\models\settings\Agents;
 class AgentsSearch extends Agents
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

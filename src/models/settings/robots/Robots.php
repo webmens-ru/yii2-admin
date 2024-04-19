@@ -30,7 +30,7 @@ use yii\helpers\Inflector;
 class Robots extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -38,7 +38,7 @@ class Robots extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -51,7 +51,7 @@ class Robots extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

@@ -13,7 +13,7 @@ use wm\admin\models\settings\documentgenerator\Templates;
 class TemplatesSearch extends Templates
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

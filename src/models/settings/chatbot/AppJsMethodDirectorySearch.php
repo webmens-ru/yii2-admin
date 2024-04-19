@@ -13,7 +13,7 @@ use wm\admin\models\settings\chatbot\AppJsMethodDirectory;
 class AppJsMethodDirectorySearch extends AppJsMethodDirectory
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

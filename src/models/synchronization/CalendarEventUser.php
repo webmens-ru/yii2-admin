@@ -18,6 +18,9 @@ use yii\helpers\ArrayHelper;
 
 class CalendarEventUser extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_calendar_user';

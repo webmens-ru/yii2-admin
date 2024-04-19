@@ -21,7 +21,7 @@ use wm\admin\models\ui\Entity;
 class Action extends \wm\yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -29,7 +29,7 @@ class Action extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -48,7 +48,7 @@ class Action extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

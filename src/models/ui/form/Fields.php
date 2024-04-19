@@ -18,7 +18,7 @@ use wm\admin\models\ui\form\Form;
 class Fields extends \wm\yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -26,7 +26,7 @@ class Fields extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

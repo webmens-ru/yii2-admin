@@ -3,6 +3,7 @@
 namespace wm\admin\models\synchronization;
 
 use Bitrix24\B24Object;
+use wm\admin\jobs\contact\ContactSynchronizationDiffJob;
 use wm\admin\models\settings\Agents;
 use wm\admin\models\settings\events\Events;
 use wm\admin\jobs\contact\ContactSynchronizationFullListJob;
@@ -15,6 +16,9 @@ use yii\helpers\ArrayHelper;
 
 class Contact extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_contact';
@@ -23,6 +27,8 @@ class Contact extends BaseEntity implements SynchronizationInterface
     public static $synchronizationFullListJob = ContactSynchronizationFullListJob::class;
 
     public static $synchronizationDeltaJob = ContactSynchronizationDeltaJob::class;
+
+    public static $synchronizationDiffJob = ContactSynchronizationDiffJob::class;
 
     public static $synchronizationFullGetJob = ContactSynchronizationFullGetJob::class;
 

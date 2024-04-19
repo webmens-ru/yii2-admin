@@ -13,7 +13,7 @@ use wm\admin\models\settings\events\EventsDirectory;
 class EventsDirectorySearch extends EventsDirectory
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

@@ -24,7 +24,7 @@ class FormSync extends Model
     public $entityId;
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function rules()
     {

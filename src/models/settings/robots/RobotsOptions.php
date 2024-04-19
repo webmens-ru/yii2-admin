@@ -18,7 +18,7 @@ namespace wm\admin\models\settings\robots;
 class RobotsOptions extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -26,7 +26,7 @@ class RobotsOptions extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -50,7 +50,7 @@ class RobotsOptions extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

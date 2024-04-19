@@ -11,7 +11,7 @@ use yii\data\ActiveDataProvider;
 class SettingsSearch extends Settings
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

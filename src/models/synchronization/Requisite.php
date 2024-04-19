@@ -15,6 +15,9 @@ use yii\helpers\ArrayHelper;
 
 class Requisite extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_requisite';

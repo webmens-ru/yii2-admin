@@ -11,7 +11,7 @@ use yii\data\ActiveDataProvider;
 class ChatbotSearch extends Chatbot
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

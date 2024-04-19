@@ -19,6 +19,9 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
 {
     public static $entityTypeId = 0;
 
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_smartproces_0';

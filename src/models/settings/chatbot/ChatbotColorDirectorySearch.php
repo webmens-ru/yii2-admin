@@ -13,7 +13,7 @@ use wm\admin\models\settings\chatbot\ChatbotColorDirectory;
 class ChatbotColorDirectorySearch extends ChatbotColorDirectory
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

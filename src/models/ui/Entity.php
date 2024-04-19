@@ -18,7 +18,7 @@ use wm\admin\models\ui\filter\Filter;
 class Entity extends \wm\yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -26,7 +26,7 @@ class Entity extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -39,7 +39,7 @@ class Entity extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

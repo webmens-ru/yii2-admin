@@ -17,7 +17,7 @@ class Filter extends Model
     public $entityCode;
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -108,7 +108,7 @@ class Filter extends Model
 
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

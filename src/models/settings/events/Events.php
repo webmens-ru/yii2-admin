@@ -24,7 +24,7 @@ class Events extends \yii\db\ActiveRecord
     public static $BASE_URL_HANDLER = '/admin/handlers/event/';
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -32,7 +32,7 @@ class Events extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -68,7 +68,7 @@ class Events extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

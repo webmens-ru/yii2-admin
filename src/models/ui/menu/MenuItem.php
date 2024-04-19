@@ -29,8 +29,9 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         return 'admin_menu_item';
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -47,8 +48,9 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         ];
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {
@@ -74,7 +76,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @return array|false
+     * @return mixed[]
      */
     public function fields()
     {
@@ -95,7 +97,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function getSchema()
     {
@@ -106,9 +108,9 @@ class MenuItem extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $menuId
-     * @param $userId
-     * @return array
+     * @param int $menuId
+     * @param int $userId
+     * @return MenuItemPersonalSettings[]
      */
     public static function getItems($menuId, $userId)
     {
@@ -145,7 +147,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
 //     *
 //     * @return \yii\db\ActiveQuery
 //     */
-    public function getMenuItemPersonalSettings()
+    public function getMenuItemPersonalSettings() //@phpstan-ignore-line
     {
         return $this->hasMany(MenuItemPersonalSettings::class, ['itemId' => 'id']);
     }

@@ -12,7 +12,7 @@ use wm\admin\models\settings\robots\RobotsOptions;
 class RobotsOptionsSearch extends RobotsOptions
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

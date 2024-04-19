@@ -11,7 +11,7 @@ use yii\data\ActiveDataProvider;
 class AppSearch extends App
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

@@ -13,7 +13,7 @@ use wm\admin\models\settings\placements\PlacementDirectory;
 class PlacementDirectorySearch extends PlacementDirectory
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

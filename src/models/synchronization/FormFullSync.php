@@ -22,6 +22,9 @@ class FormFullSync extends Model
     public $dateTimeStart;
     public $method;
 
+    /**
+     * @return mixed[]
+     */
     public function rules()
     {
         return [

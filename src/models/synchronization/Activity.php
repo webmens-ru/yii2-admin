@@ -18,6 +18,9 @@ use yii\helpers\ArrayHelper;
 
 class Activity extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_activity';

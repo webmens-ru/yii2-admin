@@ -16,7 +16,7 @@ namespace wm\admin\models\ui\filter;
 class FilterFieldOptions extends \wm\yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -24,7 +24,7 @@ class FilterFieldOptions extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -43,7 +43,7 @@ class FilterFieldOptions extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

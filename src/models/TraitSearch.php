@@ -30,6 +30,9 @@ trait TraitSearch
         return $dataProvider;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function rules()
     {
         return [[array_keys($this->attributes), 'safe']];

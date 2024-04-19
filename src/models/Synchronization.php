@@ -22,7 +22,7 @@ class Synchronization extends \yii\db\ActiveRecord
     public $inDb = 0;
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -36,7 +36,7 @@ class Synchronization extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -48,7 +48,7 @@ class Synchronization extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

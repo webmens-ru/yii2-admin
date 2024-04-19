@@ -12,7 +12,7 @@ use yii\data\ActiveDataProvider;
 class ChatbotCommandSearch extends ChatbotCommand
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

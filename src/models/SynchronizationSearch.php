@@ -11,7 +11,7 @@ use yii\data\ActiveDataProvider;
 class SynchronizationSearch extends Synchronization
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

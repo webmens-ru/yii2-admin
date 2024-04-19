@@ -66,7 +66,9 @@ class BaseEntity extends ActiveRecord
         return true;
     }
 
-
+    /**
+     * @return mixed[]
+     */
     public function rules()
     {
         return [[$this->attributes(), 'safe']];

@@ -12,7 +12,7 @@ use wm\admin\models\settings\events\Events;
 class EventsSearch extends Events
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

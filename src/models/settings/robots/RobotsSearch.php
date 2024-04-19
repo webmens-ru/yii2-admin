@@ -12,7 +12,7 @@ use wm\admin\models\settings\robots\Robots;
 class RobotsSearch extends Robots
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

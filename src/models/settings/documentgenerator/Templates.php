@@ -23,7 +23,7 @@ use yii\web\UploadedFile;
 class Templates extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -44,7 +44,7 @@ class Templates extends \yii\db\ActiveRecord
 
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -61,7 +61,7 @@ class Templates extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

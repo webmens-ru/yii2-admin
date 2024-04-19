@@ -15,7 +15,7 @@ use Yii;
 class ChatbotColorDirectory extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -23,7 +23,7 @@ class ChatbotColorDirectory extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {
@@ -36,7 +36,7 @@ class ChatbotColorDirectory extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function attributeLabels()
     {

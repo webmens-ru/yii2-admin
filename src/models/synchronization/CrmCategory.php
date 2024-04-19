@@ -12,6 +12,9 @@ use yii\helpers\ArrayHelper;
 
 class CrmCategory extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'sync_crm_category';

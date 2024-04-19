@@ -13,7 +13,7 @@ use wm\admin\models\settings\chatbot\ChatbotTypeDirectory;
 class ChatbotTypeDirectorySearch extends ChatbotTypeDirectory
 {
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function rules()
     {

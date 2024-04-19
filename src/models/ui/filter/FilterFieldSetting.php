@@ -28,7 +28,7 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function rules()
     {
@@ -55,7 +55,7 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function attributeLabels()
     {
