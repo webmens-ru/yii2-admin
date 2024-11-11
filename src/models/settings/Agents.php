@@ -277,10 +277,6 @@ class Agents extends \yii\db\ActiveRecord
         $models = self::find()->where(['<=', 'date_run', $dateTimestamp])->andWhere(['status_id' => 1])->all();
         if(!empty($models)){
             foreach ($models as $model) {
-                try {
-                    call_user_func(array($model->class, $model->method));
-                } catch (\Exception $e) {
-                }
                 if ($model->period) {
                     $timestamp = strtotime($dateTimestamp) + $model->period;
                     $model->date_run = date("Y-m-d H:i:s", $timestamp);
@@ -307,6 +303,12 @@ class Agents extends \yii\db\ActiveRecord
                     );
                     $model->save();
                 }
+                try {
+                    call_user_func(array($model->class, $model->method));
+                } catch (\Exception $e) {
+                }
+
+
             }
         }
     }
