@@ -266,7 +266,9 @@ class BaseEntity extends ActiveRecord
                         ]
                     )
                     ->one();
-                $column->delete();
+                if($column){
+                    $column->delete();
+                }
             }
         }
     }

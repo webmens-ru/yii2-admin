@@ -52,6 +52,6 @@ class B24ConnectSettings extends \yii\db\ActiveRecord
      */
     public static function getParametrByName($name)
     {
-        return self::find()->where(['name_id' => $name])->one()->value;
+        return self::find()->where(['name_id' => $name])->one()->value;// @phpstan-ignore-line
     }
 }

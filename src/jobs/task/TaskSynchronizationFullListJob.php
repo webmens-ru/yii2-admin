@@ -48,7 +48,7 @@ class TaskSynchronizationFullListJob extends BaseObject implements \yii\queue\Jo
         foreach ($fields as $field) {
             $str = Inflector::camel2words($field);
             $str = preg_replace("/(\d+)/", " $1", $str);
-            $str = str_replace(" ", "_", strtolower($str));
+            $str = str_replace(" ", "_", strtolower(strval($str)));
             $str = strtoupper($str);
             $fieldsTask[] = $str;
         }

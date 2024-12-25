@@ -15,6 +15,7 @@ use Yii;
 use yii\base\BaseObject;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
+use yii\base\Exception;
 
 /**
  *
@@ -89,6 +90,9 @@ class Activity extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'crm.activity.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

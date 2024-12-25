@@ -12,6 +12,7 @@ use wm\admin\jobs\task\TaskSynchronizationDeltaJob;
 use wm\admin\jobs\task\TaskSynchronizationDiffJob;
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\Exception;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
@@ -91,6 +92,9 @@ class Task extends BaseEntity implements SynchronizationInterface
     {
         $arr = [];
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'tasks.task.getFields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

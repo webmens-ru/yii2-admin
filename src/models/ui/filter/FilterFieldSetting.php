@@ -3,6 +3,7 @@
 namespace wm\admin\models\ui\filter;
 
 use Yii;
+use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -155,6 +156,9 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
     {
         foreach ($params as $param) {
             $model = self::find()->where(['id' => $param['id'],])->one();
+            if(!$model){
+                throw new Exception('Model not found');
+            }
             $model->order = ArrayHelper::getValue($param, 'order');
             $model->save();
             if ($model->errors) {

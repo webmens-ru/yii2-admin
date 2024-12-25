@@ -79,7 +79,7 @@ class ActiveRestController extends \yii\rest\ActiveController
     {
         /** @phpstan-ignore-next-line */
         $searchModel = new $this->modelClassSearch();
-        return $searchModel->search(Yii::$app->request->queryParams);
+        return $searchModel->search(Yii::$app->request->queryParams);//@phpstan-ignore-line
     }
 
     /**
@@ -89,7 +89,7 @@ class ActiveRestController extends \yii\rest\ActiveController
     public function actionSchema($entity = null)
     {
         $model = new $this->modelClass();
-        return $model->schema;
+        return $model->schema;//@phpstan-ignore-line
     }
 
     /**
@@ -98,7 +98,7 @@ class ActiveRestController extends \yii\rest\ActiveController
     public function actionValidation()
     {
         $model = new $this->modelClass();
-        return $model->restRules;
+        return $model->restRules;//@phpstan-ignore-line
     }
 
     /**

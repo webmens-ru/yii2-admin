@@ -3,6 +3,7 @@
 namespace wm\admin\models\ui\grid;
 
 use Yii;
+use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -144,6 +145,9 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     public static function setFrozen($entity, $columnTitle, $frozen, $userId)
     {
         $model = GridColumn::find()->where(['entity' => $entity, 'title' => $columnTitle])->one();
+        if(!$model){
+            throw new Exception('Model not found');
+        }
         $column = self::getColumnPersonalSettings($model->id, $userId);
         $column->frozen = $frozen;
         $column->save();

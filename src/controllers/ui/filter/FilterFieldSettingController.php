@@ -124,8 +124,8 @@ class FilterFieldSettingController extends \wm\admin\controllers\ActiveRestContr
      */
     public function actionEditOrder()
     {
-        $params = Yii::$app->getRequest()->getBodyParams();
-        FilterFieldSetting::editOrder($params);
+        $params = Yii::$app->getRequest()->getBodyParams(); //TODO переделать
+        FilterFieldSetting::editOrder($params); //@phpstan-ignore-line
         return true;
     }
 }

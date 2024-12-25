@@ -26,10 +26,13 @@ class MenuItemPersonalSettingsController extends \wm\admin\controllers\ActiveRes
      */
     public function actionSaveItems()
     {
-        $userId = Yii::$app->user->id;
-        $items = Yii::$app->getRequest()->getBodyParams();
-        MenuItemPersonalSettings::saveItems($items, $userId);
-
-        return true;
+        $userId = intval(Yii::$app->user->id);
+        $items = intval(Yii::$app->getRequest()->getBodyParams());
+        if($items && $userId){
+            MenuItemPersonalSettings::saveItems($items, $userId);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

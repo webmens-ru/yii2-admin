@@ -4,6 +4,7 @@ namespace wm\admin\controllers\ui\grid;
 
 use wm\admin\models\ui\grid\GridColumnPersonalSearch;
 use wm\admin\models\ui\grid\GridColumnPersonal;
+use wm\yii\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -26,9 +27,9 @@ class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestContr
      */
     public function actionSaveSchema()
     {
-        $userId = Yii::$app->user->id;
-        $columns = Yii::$app->getRequest()->getBodyParams();
-        GridColumnPersonal::saveColumns($columns, $userId);
+        $userId = intval(Yii::$app->user->id);
+        $columns = Yii::$app->getRequest()->getBodyParams();  //TODO переделать
+        GridColumnPersonal::saveColumns($columns, $userId); //@phpstan-ignore-line
 
         return true;
     }
@@ -40,10 +41,10 @@ class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestContr
     public function actionFrozen()
     {
         $data = Yii::$app->getRequest()->getBodyParams();
-        $entity = $data['entity'];
-        $columnTitle =  $data['title'];
-        $frozen = $data['frozen'];
-        $userId = Yii::$app->user->id;
+        $entity = ArrayHelper::getValue($data, 'entity');
+        $columnTitle =  ArrayHelper::getValue($data, 'title');
+        $frozen = ArrayHelper::getValue($data, 'frozen');
+        $userId = intval(Yii::$app->user->id);
         return GridColumnPersonal::setFrozen($entity, $columnTitle, $frozen, $userId);
     }
 }

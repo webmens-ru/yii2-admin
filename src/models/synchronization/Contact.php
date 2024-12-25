@@ -11,6 +11,7 @@ use wm\admin\jobs\contact\ContactSynchronizationFullGetJob;
 use wm\admin\jobs\contact\ContactSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\Exception;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
@@ -88,6 +89,9 @@ class Contact extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'crm.contact.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

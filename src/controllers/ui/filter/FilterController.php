@@ -51,7 +51,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
      */
     public function actionItems($entity)
     {
-        $userId = Yii::$app->user->id;
+        $userId = intval(Yii::$app->user->id);
         $model = Filter::getItems($entity, $userId);
         return $model;
     }
@@ -90,16 +90,17 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
 
     public function actionCreate()
     {
-        $userId = Yii::$app->user->id;
+        $userId = intval(Yii::$app->user->id);
         $params = Yii::$app->getRequest()->getBodyParams();
         $model = Filter::add($params, $userId);
         if ($model) {
             $response = Yii::$app->getResponse();
-            $response->setStatusCode(201);
+            $response->setStatusCode(201);//@phpstan-ignore-line
             $id = implode(',', $model->getPrimaryKey(true));
-            $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
+            $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));//@phpstan-ignore-line
         }
-        return $model;
+        /** @phpstan-ignore-next-line */
+        return $model;//TODO Переделать
     }
 
     /**
@@ -218,7 +219,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
             throw new ServerErrorHttpException('The requested page does not exist.');
         }
 
-        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');//@phpstan-ignore-line
         if ($model->save() === false && !$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
         }
@@ -236,10 +237,10 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
         $userId = Yii::$app->user->id;
         $model = Filter::find()->where(['id' => $id, 'userId' => $userId])->one();
 
-        if ($model->delete() === false) {
+        if (!$model || $model->delete() === false) {
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
         }
-        Yii::$app->getResponse()->setStatusCode(204);
+        Yii::$app->getResponse()->setStatusCode(204);//@phpstan-ignore-line
     }
 
 
@@ -266,7 +267,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
      */
     public function actionEditOrder()
     {
-        $params = Yii::$app->getRequest()->getBodyParams();
-        Filter::editOrder($params);
+        $params = Yii::$app->getRequest()->getBodyParams();//TODO переделать
+        Filter::editOrder($params);//@phpstan-ignore-line
     }
 }

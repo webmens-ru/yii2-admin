@@ -158,24 +158,30 @@ class Templates extends \yii\db\ActiveRecord
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
-        $b24 = $obB24->
-                client->
-                call(
-                    'documentgenerator.template.add',
-                    [
-                            'fields' => [
-                                'name' => $this->name,
-                                'file' => base64_encode(file_get_contents($this->file_path)),
-                                'code' => $this->code,
-                                'numeratorId' => $this->numerator_id,
-                                'region' => $this->region_id,
-                                'users' => '',
-                                'active' => $this->active,
-                                'withStamps' => $this->with_stamps,
-                                'sort' => $this->sort
-                            ]
-                        ]
-                );
+        $fileContent = file_get_contents($this->file_path);
+        if($fileContent){
+            $b24 = $obB24->
+            client->
+            call(
+                'documentgenerator.template.add',
+                [
+                    'fields' => [
+                        'name' => $this->name,
+                        'file' => base64_encode($fileContent),
+                        'code' => $this->code,
+                        'numeratorId' => $this->numerator_id,
+                        'region' => $this->region_id,
+                        'users' => '',
+                        'active' => $this->active,
+                        'withStamps' => $this->with_stamps,
+                        'sort' => $this->sort
+                    ]
+                ]
+            );
+        }else{
+            $b24 = [];
+        }
+
         $this->template_id = ArrayHelper::getValue($b24, 'result.template.id');
         $this->save();
         return $b24;
@@ -238,26 +244,32 @@ class Templates extends \yii\db\ActiveRecord
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
-        $b24 = $obB24->
-                client->
-                call(
-                    'documentgenerator.template.update',
-                    [
-                            'id' => $this->template_id,
-                            'fields' => [
-                                'name' => $this->name,
-                                'file' => base64_encode(file_get_contents($this->file_path)),
-                                'code' => $this->code,
-                                'numeratorId' => $this->numerator_id,
-                                'region' => $this->region_id,
-                                'users' => '',
-                                'active' => $this->active,
-                                'withStamps' => $this->with_stamps,
-                                'sort' => $this->sort
-                            ]
-                        ]
-                );
-        return $b24;
+        $fileContent = file_get_contents($this->file_path);
+        if($fileContent){
+            $b24 = $obB24->
+            client->
+            call(
+                'documentgenerator.template.update',
+                [
+                    'id' => $this->template_id,
+                    'fields' => [
+                        'name' => $this->name,
+                        'file' => base64_encode($fileContent),
+                        'code' => $this->code,
+                        'numeratorId' => $this->numerator_id,
+                        'region' => $this->region_id,
+                        'users' => '',
+                        'active' => $this->active,
+                        'withStamps' => $this->with_stamps,
+                        'sort' => $this->sort
+                    ]
+                ]
+            );
+            return $b24;
+        }else{
+            return [];
+        }
+
     }
 
     /**

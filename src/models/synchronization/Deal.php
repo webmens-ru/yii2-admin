@@ -10,6 +10,7 @@ use wm\admin\jobs\deal\DealSynchronizationFullGetJob;
 use wm\admin\jobs\deal\DealSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\Exception;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
@@ -82,6 +83,9 @@ class Deal extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'crm.deal.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

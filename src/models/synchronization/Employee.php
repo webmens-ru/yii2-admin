@@ -10,6 +10,7 @@ use wm\admin\jobs\employee\EmployeeSynchronizationFullGetJob;
 use wm\admin\jobs\employee\EmployeeSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\Exception;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 use wm\admin\models\gii\ColumnSchema;
@@ -81,6 +82,9 @@ class Employee extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'user.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

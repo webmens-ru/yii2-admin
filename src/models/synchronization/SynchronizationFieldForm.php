@@ -3,6 +3,7 @@
 namespace wm\admin\models\synchronization;
 
 use wm\admin\models\Synchronization;
+use yii\base\Exception;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use Yii;
@@ -66,6 +67,9 @@ class SynchronizationFieldForm extends Model
             $model->synchronizationEntityId = $this->synchronizationEntityId;
 
             $modelSync = Synchronization::find()->where(['id' => $this->synchronizationEntityId])->one();
+            if(!$modelSync){
+                throw new Exception('ModelSync not found');
+            }
             $fields = $modelSync->getB24Fields();
             $field = ArrayHelper::getValue($fields, $name);
             if(ArrayHelper::getValue($field, 'formLabel')){

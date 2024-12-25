@@ -10,6 +10,7 @@ use wm\admin\jobs\crmstatus\CrmStatusSynchronizationFullGetJob;
 use wm\admin\jobs\crmstatus\CrmStatusSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\Exception;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
@@ -82,6 +83,9 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'crm.status.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

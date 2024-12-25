@@ -2,6 +2,8 @@
 
 namespace wm\admin\models\settings\robots;
 
+use yii\base\Exception;
+
 /**
  * This is the model class for table "admin_robots_properties".
  *
@@ -133,7 +135,11 @@ class RobotsProperties extends \yii\db\ActiveRecord
      */
     public static function getPropertiesTypeSelectStatic()
     {
-        $typeId = RobotsOptions::find()->where(['name' => 'select_static'])->one()->id;
+        $type = RobotsOptions::find()->where(['name' => 'select_static'])->one();
+        if(!$type){
+            throw new Exception('Cache not found');
+        }
+        $typeId = $type->id;
         $properties = self::find()->where(['type_id' => $typeId])->all();
         return $properties;
     }

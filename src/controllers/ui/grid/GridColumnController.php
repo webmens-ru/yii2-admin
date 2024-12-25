@@ -27,8 +27,8 @@ class GridColumnController extends \wm\admin\controllers\ActiveRestController
      */
     public function actionSchema($entity = null)
     {
-        $userId = Yii::$app->user->id;
-        $model = GridColumn::getColumns($entity, $userId);
+        $userId = intval(Yii::$app->user->id);
+        $model = GridColumn::getColumns($entity?:'', $userId);
         return $model;
     }
 }

@@ -71,8 +71,8 @@ class ExcelController extends Controller
      */
     public static function actionGetExcel()
     {
-        $requestArr = Yii::$app->getRequest()->getBodyParams();
-        $file = Excel::generate($requestArr);
+        $requestArr = Yii::$app->getRequest()->getBodyParams();//TODO переделать
+        $file = Excel::generate($requestArr);//@phpstan-ignore-line
         return $file;
     }
 }

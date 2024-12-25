@@ -3,6 +3,7 @@
 namespace wm\admin\models;
 
 use Yii;
+use yii\base\Exception;
 
 /**
  * This is the model class for table "admin_settings".
@@ -51,6 +52,10 @@ class Settings extends \yii\db\ActiveRecord
      */
     public static function getParametrByName($name)
     {
-        return self::find()->where(['name_id' => $name])->one()->value;
+        $model = self::find()->where(['name_id' => $name])->one();
+        if(!$model){
+            throw new Exception('Model not found');
+        }
+        return $model->value;
     }
 }

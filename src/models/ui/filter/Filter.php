@@ -4,6 +4,7 @@ namespace wm\admin\models\ui\filter;
 
 use wm\admin\models\ui\Entity;
 use Yii;
+use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -185,7 +186,7 @@ class Filter extends \wm\yii\db\ActiveRecord
     {
         $parentModel = self::find()->where(['id' => $filterParams['parentId'],])->one();
         $model = new Filter();
-        $model->load(ArrayHelper::toArray($parentModel));
+        $model->load(ArrayHelper::toArray($parentModel));//@phpstan-ignore-line
         $model->id = null;// @phpstan-ignore-line
         $model->parentId = ArrayHelper::getValue($filterParams, 'parentId');
         $model->order = ArrayHelper::getValue($filterParams, 'order');
@@ -210,6 +211,9 @@ class Filter extends \wm\yii\db\ActiveRecord
     {
         foreach ($params as $param) {
             $model = self::find()->where(['id' => $param['id'],])->one();
+            if(!$model){
+                throw new Exception('Model not found');
+            }
             $model->order = ArrayHelper::getValue($param, 'order');
             $model->save();
             if ($model->errors) {

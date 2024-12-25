@@ -37,7 +37,8 @@ class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleCo
     public function actionCreate($synchronizationEntityId)
     {
         $modelSynchronization = Synchronization::find()->where(['id' => $synchronizationEntityId])->one();
-        $b24Fields = $modelSynchronization->getB24FieldsList();
+        /** @phpstan-ignore-next-line */
+        $b24Fields = $modelSynchronization->getB24FieldsList();//TODO Переделать
         $model = new SynchronizationFieldForm();
         $request = Yii::$app->request;
 

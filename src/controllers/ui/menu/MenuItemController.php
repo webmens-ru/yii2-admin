@@ -27,7 +27,7 @@ class MenuItemController extends \wm\admin\controllers\ActiveRestController
      */
     public function actionItems($menuId)
     {
-        $userId = Yii::$app->user->id;
+        $userId = intval(Yii::$app->user->id);
         $model = MenuItem::getItems($menuId, $userId);
         return $model;
     }

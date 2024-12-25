@@ -12,6 +12,7 @@ use wm\admin\jobs\smartproces\SmartProcesSynchronizationFullGetJob;
 use wm\admin\jobs\smartproces\SmartProcesSynchronizationDeltaJob;
 use wm\b24tools\b24Tools;
 use Yii;
+use yii\base\Exception;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
@@ -88,6 +89,9 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
+        if(!$cache){
+            throw new Exception('Cache not found');
+        }
         $key = 'crm.item.fields';
         $fields = $cache->getOrSet($key, function () {
             $component = new b24Tools();

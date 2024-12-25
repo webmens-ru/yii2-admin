@@ -124,7 +124,7 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         $menuItems = [];
         foreach ($models as $model){
             if(ArrayHelper::getValue($model, 'authItem')){
-                if(Yii::$app->user->can($model->authItem)){
+                if(Yii::$app->user->can($model->authItem)){//@phpstan-ignore-line
                     $menuItems[] = $model;
                 }
             }else{

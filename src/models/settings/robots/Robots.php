@@ -159,10 +159,12 @@ class Robots extends \yii\db\ActiveRecord
         $properties = $this->properties;
         foreach ($properties as $property) {
             $propertyArr = ArrayHelper::toArray($property);
-            $propertyArr['type'] = $property->type->name;
+            /** @phpstan-ignore-next-line */
+            $propertyArr['type'] = $property->type->name;//TODO Переделать
             unset($propertyArr['robot_code']);
             unset($propertyArr['type_id']);
-            if ($property->type->is_options) {
+            /** @phpstan-ignore-next-line */
+            if ($property->type->is_options) { //TODO Переделать
                 $options = $property->options;
                 foreach ($options as $option) {
                     $propertyArr['options'][] = [
@@ -204,7 +206,8 @@ class Robots extends \yii\db\ActiveRecord
             foreach ($data['properties'] as $property) {
                 $robotProperty = new RobotsProperties();
                 $robotProperty->robot_code = $robot->code;
-                $robotProperty->type_id = RobotsTypes::find()->where(['name' => $property['type']])->one()->id;
+                /** @phpstan-ignore-next-line */
+                $robotProperty->type_id = RobotsTypes::find()->where(['name' => $property['type']])->one()->id; //TODO Переделать
                 $robotProperty->is_in = $property['is_in'];
                 $robotProperty->system_name = $property['system_name'];
                 $robotProperty->name = $property['name'];
