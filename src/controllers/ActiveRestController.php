@@ -12,7 +12,7 @@ use yii\filters\auth\CompositeAuth;
 class ActiveRestController extends \yii\rest\ActiveController
 {
     /**
-     * @return array
+     * @return mixed[]
      */
     public function behaviors()
     {
@@ -102,7 +102,7 @@ class ActiveRestController extends \yii\rest\ActiveController
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function actionData()
     {

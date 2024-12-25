@@ -16,6 +16,9 @@ use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 
+/**
+ *
+ */
 class Task extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -26,17 +29,49 @@ class Task extends BaseEntity implements SynchronizationInterface
         return 'sync_task';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = TaskSynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = TaskSynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = TaskSynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDiffJob = TaskSynchronizationDiffJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'id';
 
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getCountB24()
     {
         $component = new b24Tools();
@@ -49,6 +84,9 @@ class Task extends BaseEntity implements SynchronizationInterface
         return $request['total'];
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getB24Fields()
     {
         $arr = [];
@@ -71,6 +109,10 @@ class Task extends BaseEntity implements SynchronizationInterface
         return $arr;
     }
 
+    /**
+     * @return mixed[]
+     * @throws \Exception
+     */
     public static function getB24FieldsList()
     {
         $result = [];
@@ -86,6 +128,10 @@ class Task extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
+    /**
+     * @param mixed $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = ['OnTaskAdd', 'OnTaskUpdate', 'OnTaskDelete'];
@@ -117,6 +163,9 @@ class Task extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $events = ['OnTaskAdd', 'OnTaskUpdate', 'OnTaskDelete'];
@@ -141,6 +190,10 @@ class Task extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param mixed[] $oneEntity
+     * @return void
+     */
     public function loadData($oneEntity)
     {
         $attributes = array_keys($this->attributes);

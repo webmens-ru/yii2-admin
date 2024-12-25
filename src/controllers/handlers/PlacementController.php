@@ -11,12 +11,21 @@ use app\modules\baseapp\models\settings\placements\Placement;
  */
 class PlacementController extends \yii\web\Controller
 {
+    /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
 
+    /**
+     * @return string
+     * @throws \yii\db\Exception
+     */
     public function actionE()
     {
         $request = Yii::$app->request;
@@ -29,6 +38,10 @@ class PlacementController extends \yii\web\Controller
         return '';
     }
 
+    /**
+     * @return string
+     * @throws \yii\db\Exception
+     */
     public function actionA()
     {
         $request = Yii::$app->request;

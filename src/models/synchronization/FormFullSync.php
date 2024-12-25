@@ -12,14 +12,26 @@ use yii\helpers\ArrayHelper;
  */
 class FormFullSync extends Model
 {
+    /**
+     *
+     */
     public const METHOD_LIST = [
         ['id' => 'get', 'title' => 'get'],
         ['id' => 'list', 'title' => 'list'],
     ];
 
 
+    /**
+     * @var int
+     */
     public $entityId;
+    /**
+     * @var string
+     */
     public $dateTimeStart;
+    /**
+     * @var string
+     */
     public $method;
 
     /**

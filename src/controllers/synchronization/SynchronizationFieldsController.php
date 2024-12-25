@@ -29,6 +29,7 @@ class SynchronizationFieldsController extends \wm\admin\controllers\BaseModuleCo
     }
 
     /**
+     * @param int $synchronizationEntityId
      * Creates a new Synchronization model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response

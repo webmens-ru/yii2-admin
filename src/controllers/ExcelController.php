@@ -11,8 +11,14 @@ use yii\filters\auth\CompositeAuth;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
+/**
+ *
+ */
 class ExcelController extends Controller
 {
+    /**
+     * @return mixed[]
+     */
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -46,12 +52,23 @@ class ExcelController extends Controller
         ];
     }
 
+    /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
 
+    /**
+     * @return false|string
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \yii\base\InvalidConfigException
+     */
     public static function actionGetExcel()
     {
         $requestArr = Yii::$app->getRequest()->getBodyParams();

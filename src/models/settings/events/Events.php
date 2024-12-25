@@ -21,6 +21,9 @@ use yii\helpers\Url;
  */
 class Events extends \yii\db\ActiveRecord
 {
+    /**
+     * @var string
+     */
     public static $BASE_URL_HANDLER = '/admin/handlers/event/';
 
     /**
@@ -82,6 +85,11 @@ class Events extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed[]
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function toBitrix24()
     {
         $component = new b24Tools();
@@ -98,6 +106,23 @@ class Events extends \yii\db\ActiveRecord
         return $b24;
     }
 
+    /**
+     * @return void
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function removeBitrix24()
     {
         $component = new b24Tools();
@@ -126,6 +151,11 @@ class Events extends \yii\db\ActiveRecord
         return $this->hasOne(EventsDirectory::class, ['name' => 'event_name']);
     }
 
+    /**
+     * @return mixed[]
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getB24EventsList()
     {
         $component = new b24Tools();
@@ -135,12 +165,18 @@ class Events extends \yii\db\ActiveRecord
         return $b24;
     }
 
+    /**
+     * @return string
+     */
     public function getEventName()
     {
         $parent = $this->event;
         return $parent ? $parent->name : '';
     }
 
+    /**
+     * @return string
+     */
     private function getUrlHandler()
     {
         $url = '';
@@ -152,6 +188,24 @@ class Events extends \yii\db\ActiveRecord
         return $url;
     }
 
+    /**
+     * @param string $eventName
+     * @return mixed[]
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getOffline($eventName)
     {
         $component = new b24Tools();
@@ -168,6 +222,11 @@ class Events extends \yii\db\ActiveRecord
         return $fullResult;
     }
 
+    /**
+     * @return bool
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function isInstallToB24()
     {
         $b24EventsList = ArrayHelper::getValue(self::getB24EventsList(), 'result');
@@ -184,6 +243,9 @@ class Events extends \yii\db\ActiveRecord
         return (bool) $b24EventsFilterList;
     }
 
+    /**
+     * @return void
+     */
     private function checkSmartProcess()
     {
         if (

@@ -63,6 +63,9 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public function fields()
     {
         return [
@@ -89,8 +92,8 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $columns
-     * @param $userId
+     * @param mixed[] $columns
+     * @param int $userId
      * @return bool
      * @throws \Exception
      */
@@ -118,9 +121,9 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $columnId
-     * @param $userId
-     * @return array|GridColumnPersonal|\yii\db\ActiveRecord|null
+     * @param int $columnId
+     * @param int $userId
+     * @return GridColumnPersonal
      */
     protected static function getColumnPersonalSettings($columnId, $userId)
     {
@@ -131,6 +134,13 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
         return $column;
     }
 
+    /**
+     * @param string $entity
+     * @param string $columnTitle
+     * @param int $frozen
+     * @param int $userId
+     * @return GridColumnPersonal
+     */
     public static function setFrozen($entity, $columnTitle, $frozen, $userId)
     {
         $model = GridColumn::find()->where(['entity' => $entity, 'title' => $columnTitle])->one();

@@ -15,12 +15,18 @@ use Yii;
  */
 class EventsDirectory extends \yii\db\ActiveRecord
 {
+    /**
+     * @var mixed[]
+     */
     public static $CATEGORIES = [
             ['name' => 'Компания'],
             ['name' => 'Контакт'],
             ['name' => 'Лид'],
             ['name' => 'Сделка'],
     ];
+    /**
+     * @var mixed[]
+     */
     public static $EVENT_TYPES = [
             ['name' => 'Онлайн', 'value' => 'online'],
             ['name' => 'Офлайн', 'value' => 'offline'],

@@ -22,7 +22,7 @@ class GridColumnController extends \wm\admin\controllers\ActiveRestController
     public $modelClassSearch = GridColumnSearch::class;
 
     /**
-     * @param null $entity
+     * @param string|null $entity
      * @return array|mixed
      */
     public function actionSchema($entity = null)

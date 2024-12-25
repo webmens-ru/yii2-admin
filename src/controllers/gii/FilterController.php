@@ -8,8 +8,14 @@ use wm\yii\helpers\ArrayHelper;
 use Yii;
 
 
+/**
+ *
+ */
 class FilterController extends \wm\admin\controllers\BaseModuleController
 {
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionGenerate()
     {
         $model = new Filter();

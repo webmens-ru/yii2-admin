@@ -49,6 +49,8 @@ class RobotsOptionsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Creates a new RobotsOptions model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param string $robotCode
+     * @param string $propertyName
      * @return mixed
      */
     public function actionCreate($robotCode, $propertyName)

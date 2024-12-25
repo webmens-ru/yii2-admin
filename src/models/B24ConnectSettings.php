@@ -5,6 +5,7 @@ namespace wm\admin\models;
 use Yii;
 
 /**
+ * @deprecated
  * This is the model class for table "windows_settings".
  *
  * @property string $name_id
@@ -45,6 +46,10 @@ class B24ConnectSettings extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @param string $name
+     * @return mixed|null
+     */
     public static function getParametrByName($name)
     {
         return self::find()->where(['name_id' => $name])->one()->value;

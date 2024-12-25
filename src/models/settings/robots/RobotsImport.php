@@ -26,6 +26,9 @@ use yii\base\Model;
  */
 class RobotsImport extends \yii\base\Model
 {
+    /**
+     * @var mixed
+     */
     public $file;
 
     /**
@@ -49,6 +52,10 @@ class RobotsImport extends \yii\base\Model
         ];
     }
 
+    /**
+     * @return void
+     * @throws \Throwable
+     */
     public function import()
     {
         $zip = new \ZipArchive();
@@ -68,10 +75,18 @@ class RobotsImport extends \yii\base\Model
         }
     }
 
+    /**
+     * @param mixed $file
+     * @return void
+     */
     private function addRobotToDb($file)
     {
     }
 
+    /**
+     * @param mixed $file
+     * @return void
+     */
     private function addRobotActionFile($file)
     {
     }

@@ -5,8 +5,15 @@ namespace wm\admin\models;
 use yii\data\ActiveDataProvider;
 use Yii;
 
+/**
+ *
+ */
 trait TraitSearch
 {
+    /**
+     * @param mixed[] $params
+     * @return ActiveDataProvider
+     */
     public function search($params)
     {
         $query = parent::find();

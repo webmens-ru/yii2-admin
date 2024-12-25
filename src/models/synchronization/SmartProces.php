@@ -15,8 +15,14 @@ use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class SmartProces extends BaseEntity implements SynchronizationInterface
 {
+    /**
+     * @var int
+     */
     public static $entityTypeId = 0;
 
     /**
@@ -27,14 +33,43 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         return 'sync_smartproces_0';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = SmartProcesSynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = SmartProcesSynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = SmartProcesSynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'id';
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getCountB24()
     {
         $component = new b24Tools();
@@ -47,6 +82,9 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         return $request['total'];
     }
 
+    /**
+     * @return array|mixed|mixed[]
+     */
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
@@ -64,6 +102,10 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         return $fields;
     }
 
+    /**
+     * @return array|mixed[]
+     * @throws \Exception
+     */
     public static function getB24FieldsList()
     {
         $result = [];
@@ -73,6 +115,10 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
+    /**
+     * @param $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = [
@@ -108,6 +154,9 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $events = [
@@ -136,6 +185,10 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function loadData($data)
     {
         foreach ($data as $key => $val) {
@@ -149,6 +202,12 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $method
+     * @param $dateTimeStart
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
+     */
     public static function addJobFull($method, $dateTimeStart = null)
     {
         $delay = 0;
@@ -194,10 +253,14 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         return $id;
     }
 
+    /**
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
+     */
     public static function synchronization()
     {
         $id = Yii::$app->queue->push(
-            Yii::createObject(
+            Yii::createObject( //
                 [
                     'class' => static::$synchronizationDeltaJob,
                     'modelClass' => static::class,

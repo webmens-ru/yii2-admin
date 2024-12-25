@@ -33,6 +33,10 @@ class GridColumnPersonalController extends \wm\admin\controllers\ActiveRestContr
         return true;
     }
 
+    /**
+     * @return GridColumnPersonal
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionFrozen()
     {
         $data = Yii::$app->getRequest()->getBodyParams();

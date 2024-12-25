@@ -45,6 +45,10 @@ class Settings extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     public static function getParametrByName($name)
     {
         return self::find()->where(['name_id' => $name])->one()->value;

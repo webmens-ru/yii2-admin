@@ -10,11 +10,24 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
+    /**
+     * @var string
+     */
     public $modelClass;
+    /**
+     * @var int
+     */
     public $entityTypeId;
 
+    /**
+     * @param $queue
+     * @return void
+     */
     public function execute($queue)
     {
         $isSyncAdd = false;
@@ -33,6 +46,23 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
         }
     }
 
+    /**
+     * @return bool
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function synchronAdd()
     {
         $answerB24 = Events::getOffline('onCrmDynamicItemAdd_' . $this->entityTypeId);
@@ -51,6 +81,23 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
         return count($arrayId) < 50 ? true : false;
     }
 
+    /**
+     * @return bool
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function synchronUpdate()
     {
         $answerB24 = Events::getOffline('onCrmDynamicItemUpdate_' . $this->entityTypeId);
@@ -69,6 +116,23 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
         return count($arrayId) < 50 ? true : false;
     }
 
+    /**
+     * @return bool
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function synchronDelete()
     {
         $answerB24 = Events::getOffline('onCrmDynamicItemDelete_' . $this->entityTypeId);
@@ -85,6 +149,16 @@ class SmartProcesSynchronizationDeltaJob extends BaseObject implements \yii\queu
         return count($arrayId) < 50 ? true : false;
     }
 
+    /**
+     * @param int[] $arrayId
+     * @return mixed[]
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function getB24List($arrayId)
     {
         $component = new b24Tools();

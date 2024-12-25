@@ -67,6 +67,9 @@ class GridColumn extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public function fields()
     {
         return [
@@ -133,20 +136,15 @@ class GridColumn extends \wm\yii\db\ActiveRecord
         return $this->hasOne(Entity::class, ['code' => 'entityCode']);
     }
 
-//    /**
-//     * Gets query for [[GridColumnPersonals]].
-//     *
-//     * @return \yii\db\ActiveQuery
-//     */
-    public function getGridColumnPersonals()
+    public function getGridColumnPersonals()// @phpstan-ignore-line
     {
         return $this->hasMany(GridColumnPersonal::class, ['columnId' => 'id']);
     }
 
     /**
-     * @param $entityCode
-     * @param $userId
-     * @return array
+     * @param string $entityCode
+     * @param int $userId
+     * @return mixed[]
      */
     public static function getColumns($entityCode, $userId)
     {
@@ -154,10 +152,12 @@ class GridColumn extends \wm\yii\db\ActiveRecord
             Yii::error('$entityCode не содержится в Базе данных');
             return [];
         }
+
         $models = self::find()->where(['entityCode' => $entityCode])->all();
         $res = [];
         foreach ($models as $value) {
-            $settings = $value->getGridColumnPersonals()->where(['userId' => $userId])->one();
+            /** @phpstan-ignore-next-line */
+            $settings = $value->getGridColumnPersonals()->andWhere(['userId' => $userId])->one(); // @phpstan-ignore-line
             if ($settings) {
                 $value->order = $settings->order;
                 $value->visible = $settings->visible;

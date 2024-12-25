@@ -61,6 +61,9 @@ class Action extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public function fields()
     {
         return [

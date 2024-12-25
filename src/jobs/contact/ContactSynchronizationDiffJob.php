@@ -9,6 +9,9 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInterface
 {
 
@@ -17,6 +20,9 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
      */
     public $modelClass;
 
+    /**
+     * @var int[]
+     */
     public $period = [
         60, // 1
 //        300, // 5 минут
@@ -31,6 +37,10 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
         31536000, // 365  дней
     ];
 
+    /**
+     * @param $queue
+     * @return void
+     */
     public function execute($queue)
     {
         $curentDate = strtotime('now') + 10800; // TODO
@@ -39,6 +49,10 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
         $this->syncUpdate($curentDate);
     }
 
+    /**
+     * @param mixed $curentDate
+     * @return void
+     */
     public function syncCount($curentDate){
         for($i = 0; $i < count($this->period); $i++){
             $startDate = $curentDate - $this->period[$i];
@@ -63,6 +77,10 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
         }
     }
 
+    /**
+     * @param mixed $curentDate
+     * @return void
+     */
     public function syncUpdate($curentDate){
         for($i = 0; $i < count($this->period); $i++){
             $startDate = $curentDate - $this->period[$i];
@@ -87,6 +105,24 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
         }
     }
 
+    /**
+     * @param mixed[] $filter
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function getB24Count($filter){
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connectFromAdmin();
@@ -101,12 +137,36 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
 
     }
 
+    /**
+     * @param mixed[] $filter
+     * @return mixed
+     */
     public function getDbCount($filter){
         $count = $this->modelClass::find()->where($filter)->count();
         return $count;
     }
 
-    public function startSync($filterB24 = null,  $filterDb = null){
+    /**
+     * @param mixed[] $filterB24
+     * @param mixed[] $filterDb
+     * @return void
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\Exception
+     */
+    public function startSync($filterB24 = null, $filterDb = null){
         $filter = [];
         if($filterDb){
             $this->modelClass::deleteAll($filterDb);
@@ -159,6 +219,10 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
         }
     }
 
+    /**
+     * @return void
+     * @throws \yii\base\InvalidConfigException
+     */
     public function addTaskToQueue(){
         $id = Yii::$app->queue->push(
             Yii::createObject(

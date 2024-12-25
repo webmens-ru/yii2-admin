@@ -22,6 +22,10 @@ class ActionController extends \wm\admin\controllers\ActiveRestController
      */
     public $modelClassSearch = ActionSearch::class;
 
+    /**
+     * @param string $entity
+     * @return mixed
+     */
     public function actionEntityActions($entity)
     {
         return $this->modelClass::find()->where(['entityCode' => $entity])->all();

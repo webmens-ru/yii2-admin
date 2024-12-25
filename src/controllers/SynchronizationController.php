@@ -131,6 +131,11 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionFull($id/*, $type = 'list', $params = []*/)//TODO Перенести в пост
     {
         $request = yii::$app->request;
@@ -152,6 +157,11 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionActivate($id = null)
     {
         $request = yii::$app->request;
@@ -181,6 +191,11 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionNoActivate($id)
     {
         $model = $this->findModel($id);
@@ -188,6 +203,11 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         return $this->redirect(['view', 'id' => $model->id]);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionCreateTable($id)
     {
         $model = $this->findModel($id);
@@ -195,6 +215,11 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
         return $this->redirect(['view', 'id' => $model->id]);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionDeleteUnusedFields($id){
         $model = $this->findModel($id);
         $model->deleteUnusedFields();

@@ -103,6 +103,11 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @return string
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionB24PlacementsList()
     {
         $result = Placement::getB24PlacementsList();
@@ -118,6 +123,13 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionB24Delete($id)
     {
         $model = $this->findModel($id);
@@ -127,6 +139,13 @@ class PlacementController extends \wm\admin\controllers\BaseModuleController
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionB24Install($id)
     {
         $model = $this->findModel($id);

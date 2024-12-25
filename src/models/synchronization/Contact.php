@@ -14,6 +14,9 @@ use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class Contact extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -24,17 +27,49 @@ class Contact extends BaseEntity implements SynchronizationInterface
         return 'sync_contact';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = ContactSynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = ContactSynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDiffJob = ContactSynchronizationDiffJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = ContactSynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'ID';
 
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getCountB24()
     {
         $component = new b24Tools();
@@ -47,6 +82,9 @@ class Contact extends BaseEntity implements SynchronizationInterface
         return $request['total'];
     }
 
+    /**
+     * @return array|mixed|mixed[]
+     */
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
@@ -63,6 +101,10 @@ class Contact extends BaseEntity implements SynchronizationInterface
         return $fields;
     }
 
+    /**
+     * @return array|mixed[]
+     * @throws \Exception
+     */
     public static function getB24FieldsList()
     {
         $result = [];
@@ -72,6 +114,10 @@ class Contact extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
+    /**
+     * @param $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = ['onCrmContactAdd', 'onCrmContactUpdate', 'onCrmContactDelete'];
@@ -103,6 +149,9 @@ class Contact extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $events = ['onCrmContactAdd', 'onCrmContactUpdate', 'onCrmContactDelete'];
@@ -127,6 +176,10 @@ class Contact extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function loadData($data)
     {
 //        $this->load($data, '');

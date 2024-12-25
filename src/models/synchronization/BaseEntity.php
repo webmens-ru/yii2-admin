@@ -8,18 +8,41 @@ use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class BaseEntity extends ActiveRecord
 {
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'id';
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = '';
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = '';
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = '';
 
+    /**
+     * @var string
+     */
     public static $synchronizationDiffJob = '';
 
+    /**
+     * @param string[] $addFieldNames
+     * @return true
+     * @throws \yii\db\Exception
+     */
     public static function createColumns(array $addFieldNames)
     {
         $fields = static::getB24Fields();
@@ -50,6 +73,11 @@ class BaseEntity extends ActiveRecord
         return true;
     }
 
+    /**
+     * @param string $fieldName
+     * @return true
+     * @throws \yii\db\Exception
+     */
     public static function deleteColumn($fieldName)
     {
         $table = Yii::$app->db->getTableSchema(static::tableName());
@@ -74,6 +102,9 @@ class BaseEntity extends ActiveRecord
         return [[$this->attributes(), 'safe']];
     }
 
+    /**
+     * @return bool|int|string|null
+     */
     public static function getCountDb()
     {
         if (!Yii::$app->db->getTableSchema(static::tableName())) {
@@ -82,6 +113,11 @@ class BaseEntity extends ActiveRecord
         return static::find()->count();
     }
 
+    /**
+     * @param int $synchronizationEntityId
+     * @return void
+     * @throws \yii\db\Exception
+     */
     public static function createTable($synchronizationEntityId)
     {
         Yii::$app
@@ -116,6 +152,12 @@ class BaseEntity extends ActiveRecord
             ->execute();
     }
 
+    /**
+     * @param string $method
+     * @param string $dateTimeStart
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
+     */
     public static function addJobFull($method, $dateTimeStart = null)
     {
         $delay = 0;
@@ -159,6 +201,10 @@ class BaseEntity extends ActiveRecord
         return $id;
     }
 
+    /**
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
+     */
     public static function synchronization()
     {
         $id = Yii::$app->queue->push(
@@ -173,6 +219,10 @@ class BaseEntity extends ActiveRecord
         return $id;
     }
 
+    /**
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
+     */
     public static function synchronizationDiff(){
         $id = Yii::$app->queue->push(
             Yii::createObject(
@@ -186,11 +236,21 @@ class BaseEntity extends ActiveRecord
         return $id;
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getB24Fields()
     {
         return [];
     }
 
+    /**
+     * @param int $synchronizationEntityId
+     * @return void
+     * @throws \Throwable
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\StaleObjectException
+     */
     public static function deleteUnusedFields($synchronizationEntityId)
     {
         $model = Yii::createObject(['class' => static::class]);

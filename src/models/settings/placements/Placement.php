@@ -73,6 +73,11 @@ class Placement extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed[]
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getB24PlacementsList()
     {
         $component = new b24Tools();
@@ -82,6 +87,11 @@ class Placement extends \yii\db\ActiveRecord
         return $b24;
     }
 
+    /**
+     * @return mixed[]
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function toBitrix24()
     {
         $component = new b24Tools();
@@ -101,6 +111,11 @@ class Placement extends \yii\db\ActiveRecord
         return $b24;
     }
 
+    /**
+     * @return void
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function removeBitrix24()
     {
         $component = new b24Tools();
@@ -126,12 +141,18 @@ class Placement extends \yii\db\ActiveRecord
         return $this->hasOne(PlacementDirectory::class, ['name_id' => 'placement_name']);
     }
 
+    /**
+     * @return string
+     */
     public function getPlacementName()
     {
         $parent = $this->placement;
         return $parent ? $parent->description : '';
     }
 
+    /**
+     * @return void
+     */
     private function checkSmartProcess()
     {
         if (strpos($this->placement_name, 'CRM_DYNAMIC') !== false) {

@@ -22,7 +22,7 @@ class SynchronizationFieldSearch extends SynchronizationField
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed[]
      */
     public function scenarios()
     {
@@ -33,7 +33,7 @@ class SynchronizationFieldSearch extends SynchronizationField
     /**
      * Creates data provider instance with search query applied
      *
-     * @param array $params
+     * @param mixed[] $params
      *
      * @return ActiveDataProvider
      */

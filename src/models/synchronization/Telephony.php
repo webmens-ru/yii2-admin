@@ -16,6 +16,9 @@ use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 use wm\admin\models\gii\ColumnSchema;
 
+/**
+ *
+ */
 class Telephony extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -26,14 +29,43 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         return 'sync_telephony';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = TelephonySynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = TelephonySynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = TelephonySynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'ID';
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getCountB24()
     {
         $component = new b24Tools();
@@ -45,6 +77,9 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         return $request['total'];
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getB24Fields()
     {
         return [
@@ -120,11 +155,18 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getB24FieldsList()
     {
         return ArrayHelper::map(self::getB24Fields(), 'id', 'title');
     }
 
+    /**
+     * @param mixed $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = ['OnVoximplantCallEnd'];
@@ -156,6 +198,9 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $events = ['OnVoximplantCallEnd'];
@@ -180,6 +225,10 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param mixed[] $data
+     * @return void
+     */
     public function loadData($data)
     {
         foreach ($data as $key => $val) {
@@ -193,6 +242,11 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param mixed[] $addFieldNames
+     * @return true
+     * @throws \yii\db\Exception
+     */
     public static function createColumns(array $addFieldNames)
     {
         $fields = static::getB24Fields();
@@ -213,6 +267,10 @@ class Telephony extends BaseEntity implements SynchronizationInterface
         return true;
     }
 
+    /**
+     * @param string $lable
+     * @return string
+     */
     public static function getDbType($lable)
     {
         switch ($lable) {

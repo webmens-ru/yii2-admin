@@ -33,6 +33,9 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         return 'admin_chatbot_command';
     }
 
+    /**
+     * @var string[]
+     */
     public static $registerErrors = [
         'EVENT_COMMAND_ADD' => 'Ссылка обработчик события невалидная или не указана.',
         'COMMAND_ERROR' => 'Не указан текст команды, на которую должен откликаться чат-бот.',
@@ -43,6 +46,9 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
 
+    /**
+     * @var string[]
+     */
     public static $unregisterErrors = [
         'COMMAND_ERROR' => 'Команда не найдена.',
         'APP_ID_ERROR' => 'Чат-бот не принадлежит этому приложению, работать можно только с чат-ботами,
@@ -50,6 +56,9 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
 
+    /**
+     * @var string[]
+     */
     public static $updateErrors = [
         'COMMAND_ID_ERROR' => 'Команда не найдена.',
         'APP_ID_ERROR' => 'Чат-бот не принадлежит этому приложению, работать можно только с чат-ботами,
@@ -58,6 +67,9 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         'WRONG_REQUEST' => 'Что-то пошло не так.'
     ];
 
+    /**
+     * @var string[]
+     */
     public static $answerErrors = [
         'COMMAND_ID_ERROR' => 'Команда не найдена.',
         'APP_ID_ERROR' => 'Чат-бот не принадлежит этому приложению, работать можно только с чат-ботами,
@@ -138,6 +150,11 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         return $this->hasOne(Chatbot::class, ['code' => 'bot_code']);
     }
 
+    /**
+     * @return \Bitrix24\Bitrix24
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     private function connectBitrix24()
     {
         $component = new \wm\b24tools\b24Tools();
@@ -145,6 +162,23 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         return $b24App;
     }
 
+    /**
+     * @return array|string[]
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function toBitrix24()
     {
         $b24App = $this->connectBitrix24();
@@ -175,6 +209,23 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         return $b24;
     }
 
+    /**
+     * @return string[]|void
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function removeBitrix24()
     {
         $b24App = $this->connectBitrix24();
@@ -187,6 +238,23 @@ class ChatbotCommand extends \yii\db\ActiveRecord
         $this->save();
     }
 
+    /**
+     * @return array|string[]
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function updateBitrix24()
     {
         $b24App = $this->connectBitrix24();

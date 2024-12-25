@@ -14,6 +14,9 @@ use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 use wm\admin\models\gii\ColumnSchema;
 
+/**
+ *
+ */
 class Employee extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -24,14 +27,43 @@ class Employee extends BaseEntity implements SynchronizationInterface
         return 'sync_employee';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = EmployeeSynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = EmployeeSynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = EmployeeSynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'ID';
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getCountB24()
     {
         $component = new b24Tools();
@@ -43,6 +75,9 @@ class Employee extends BaseEntity implements SynchronizationInterface
         return $request['total'];
     }
 
+    /**
+     * @return array|mixed[]
+     */
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
@@ -63,11 +98,18 @@ class Employee extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
+    /**
+     * @return array|mixed[]
+     */
     public static function getB24FieldsList()
     {
         return ArrayHelper::map(self::getB24Fields(), 'id', 'title');
     }
 
+    /**
+     * @param $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
@@ -84,6 +126,9 @@ class Employee extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
@@ -93,6 +138,10 @@ class Employee extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function loadData($data)
     {
         foreach ($data as $key => $val) {
@@ -106,6 +155,11 @@ class Employee extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param string[] $addFieldNames
+     * @return true
+     * @throws \yii\db\Exception
+     */
     public static function createColumns(array $addFieldNames)
     {
         $fields = static::getB24Fields();
@@ -126,6 +180,10 @@ class Employee extends BaseEntity implements SynchronizationInterface
         return true;
     }
 
+    /**
+     * @param string $lable
+     * @return string
+     */
     public static function getDbType($lable)
     {
         switch ($lable) {

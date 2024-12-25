@@ -23,7 +23,7 @@ class PlacementDirectorySearch extends PlacementDirectory
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function scenarios()
     {
@@ -34,7 +34,7 @@ class PlacementDirectorySearch extends PlacementDirectory
     /**
      * Creates data provider instance with search query applied
      *
-     * @param array $params
+     * @param mixed[] $params
      *
      * @return ActiveDataProvider
      */

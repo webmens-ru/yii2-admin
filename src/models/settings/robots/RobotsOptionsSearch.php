@@ -23,7 +23,7 @@ class RobotsOptionsSearch extends RobotsOptions
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function scenarios()
     {
@@ -34,7 +34,9 @@ class RobotsOptionsSearch extends RobotsOptions
     /**
      * Creates data provider instance with search query applied
      *
-     * @param array $params
+     * @param mixed[] $params
+     * @param string $robotCode
+     * @param string $systemName
      *
      * @return ActiveDataProvider
      */

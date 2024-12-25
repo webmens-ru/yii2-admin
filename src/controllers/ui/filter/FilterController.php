@@ -31,8 +31,8 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
     /**
      * Получение списка фильтров конкретной сущности
      *
-     * @param $entity Название сущности
-     * @return array
+     * @param string $entity Название сущности
+     * @return mixed[]
      *
      * ```php
      * [
@@ -69,6 +69,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
     }
 
     /**
+     * @return Filter
      * Создание фильтра
      *
      * Для создания фильтра в теле запроса необходимо передать следующие данные
@@ -104,8 +105,8 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
     /**
      * Получение параметров полей конкретного фильтра
      *
-     * @param $filterId
-     * @return array
+     * @param int $filterId
+     * @return mixed[]
      *
      * ```php
      * [
@@ -150,8 +151,8 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
     /**
      * Получение списка полей фильтра
      *
-     * @param $entity
-     * @return mixed
+     * @param string $entity
+     * @return FilterField[]|null
      *
      * ```php
      * [
@@ -206,8 +207,8 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
      * }
      * ```
      *
-     * @param $id
-     * @return mixed
+     * @param int $id
+     * @return Filter
      */
     public function actionUpdate($id)
     {
@@ -227,7 +228,8 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
     /**
      * Удаление фильтра
      *
-     * @param $id
+     * @param int $id
+     * @return void
      */
     public function actionDelete($id)
     {
@@ -242,6 +244,7 @@ class FilterController extends \wm\admin\controllers\ActiveRestController
 
 
     /**
+     * @return mixed
      * Изменение сортировки фильтра
      *
      * Тело запроса

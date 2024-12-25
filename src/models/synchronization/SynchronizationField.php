@@ -26,6 +26,11 @@ class SynchronizationField extends \yii\db\ActiveRecord
         return 'admin_synchronization_field';
     }
 
+    /**
+     * @param bool $insert
+     * @param mixed $changedAttributes
+     * @return void
+     */
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
@@ -35,6 +40,9 @@ class SynchronizationField extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * @return bool
+     */
     public function beforeDelete()
     {
         $modelClassName = $this->synchronizationEntity->modelClassName;

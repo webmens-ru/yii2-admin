@@ -10,6 +10,9 @@ use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class CrmCategory extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -20,15 +23,30 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         return 'sync_crm_category';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = CrmCategorySynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = CrmCategorySynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = CrmCategorySynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'id';
 
 
+    /**
+     * @return string
+     */
     public static function getCountB24()
     {
 //        $component = new b24Tools();
@@ -42,6 +60,9 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         return 'Не рассчитывается';
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getB24Fields()
     {
         return [
@@ -54,11 +75,18 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         ];
     }
 
+    /**
+     * @return array|mixed[]
+     */
     public static function getB24FieldsList()
     {
         return ArrayHelper::map(self::getB24Fields(), 'id', 'title');
     }
 
+    /**
+     * @param int $period
+     * @return void
+     */
     public static function startSynchronization($period)
     {
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
@@ -75,6 +103,9 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
@@ -84,6 +115,10 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function loadData($data)
     {
         foreach ($data as $key => $val) {
@@ -97,6 +132,11 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param string[] $addFieldNames
+     * @return true
+     * @throws \yii\db\Exception
+     */
     public static function createColumns(array $addFieldNames)
     {
         $fields = static::getB24Fields();
@@ -117,6 +157,10 @@ class CrmCategory extends BaseEntity implements SynchronizationInterface
         return true;
     }
 
+    /**
+     * @param string $lable
+     * @return string
+     */
     public static function getDbType($lable)
     {
         switch ($lable) {

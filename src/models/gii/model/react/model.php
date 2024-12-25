@@ -16,7 +16,7 @@
 /** @var array $gridFields list of grid fields */
 /** @var array $formFields list of form fields */
 
-echo "<?php\n";
+echo "<?php\n"; // @phpstan-ignore-line
 ?>
 
 namespace <?= $generator->ns ?>;

@@ -49,13 +49,20 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
+    /**
+     * @param $id
+     * @return User|\yii\web\IdentityInterface|null
+     */
     public static function findIdentity($id)
     {
         return self::findOne($id);
     }
 
+
     /**
-     * {@inheritdoc}
+     * @param $token
+     * @param $type
+     * @return User|\yii\web\IdentityInterface|null
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -73,29 +80,37 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return self::findOne(['username' => $username]);
     }
 
+    /**
+     * @param int $id
+     * @return User|null
+     */
     public static function findByBitrixId($id)
     {
         return self::findOne(['b24_user_id' => $id]);
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getAuthKey()
     {
         return $this->auth_key;
     }
 
+
     /**
-     * {@inheritdoc}
+     * @param $authKey
+     * @return bool
      */
     public function validateAuthKey($authKey)
     {
@@ -114,11 +129,19 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return \Yii::$app->security->validatePassword($password, $this->password);
     }
 
+    /**
+     * @return void
+     * @throws \yii\base\Exception
+     */
     public function generateAuthKey()
     {
         $this->auth_key = \Yii::$app->security->generateRandomString();
     }
 
+    /**
+     * @return void
+     * @throws \yii\base\Exception
+     */
     public function generateAccessToken()
     {
         $timestamp = time() + 3600 * (11);
@@ -132,6 +155,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         $this->auth_key = $this->access_token;
     }
 
+    /**
+     * @return string
+     * @throws \yii\base\Exception
+     */
     public function getAccessToken()
     {
         if (!$this->access_token || $this->date_expired < date('Y-m-d h:i:s')) {
@@ -141,6 +168,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->access_token;
     }
 
+    /**
+     * @param int $length
+     * @return false|string
+     */
     public static function generatePassword($length = 10)
     {
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -160,6 +191,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 //    }
 
 
+    /**
+     * @param int $userId
+     * @return mixed
+     */
     public static function getPortalName($userId)
     {
         $user = self::findOne(['id' => $userId]);
@@ -168,6 +203,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $b24AccessParams['domain'];
     }
 
+    /**
+     * @param int $userId
+     * @return mixed
+     */
     public static function getMemberId($userId){
         $user = self::findOne(['id' => $userId]);
         $b24AccessParams = Json::decode($user->b24AccessParams);

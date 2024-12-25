@@ -35,7 +35,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
 
     /**
      * Displays a single Robots model.
-     * @param integer $code
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -75,7 +75,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Updates an existing Robots model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $code
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -95,7 +95,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Deletes an existing Robots model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $code
+     * @param string $code
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -106,6 +106,24 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
         return $this->redirect(['settings/robots/robots/index']);
     }
 
+    /**
+     * @param string $code
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionB24Delete($code)
     {
         $model = $this->findModel($code);
@@ -115,6 +133,25 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
         ]);
     }
 
+    /**
+     * @param string $code
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionInstall($code)
     {
         $model = $this->findModel($code);
@@ -124,6 +161,11 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
         ]);
     }
 
+    /**
+     * @param string $code
+     * @return void
+     * @throws NotFoundHttpException
+     */
     public function actionExport($code)
     {
         $model = $this->findModel($code);
@@ -137,6 +179,10 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
         unlink($fileName);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Throwable
+     */
     public function actionFileImport()
     {
         $model = new RobotsImport();
@@ -157,7 +203,7 @@ class RobotsController extends \wm\admin\controllers\BaseModuleController
     /**
      * Finds the Robots model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $code
+     * @param string $code
      * @return Robots the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

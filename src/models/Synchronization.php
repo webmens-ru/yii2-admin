@@ -17,8 +17,17 @@ use wm\admin\models\synchronization\SynchronizationField;
  */
 class Synchronization extends \yii\db\ActiveRecord
 {
+    /**
+     *
+     */
     public const TIME_DIFF = 5;
+    /**
+     * @var int
+     */
     public $inB24 = 0;
+    /**
+     * @var int
+     */
     public $inDb = 0;
 
     /**
@@ -29,6 +38,9 @@ class Synchronization extends \yii\db\ActiveRecord
         return 'admin_synchronization';
     }
 
+    /**
+     * @return void
+     */
     public function getCount()
     {
         $this->inB24 = $this->modelClassName::getCountB24();
@@ -59,26 +71,44 @@ class Synchronization extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSyncFields()
     {
         return $this->hasMany(SynchronizationField::class, ['synchronizationEntityId' => 'id']);
     }
 
+    /**
+     * @return mixed
+     */
     public function getB24Fieldslist()
     {
         return $this->modelClassName::getB24FieldsList();
     }
 
+    /**
+     * @return mixed
+     */
     public function getB24Fields()
     {
         return $this->modelClassName::getB24Fields();
     }
 
+    /**
+     * @param string $method
+     * @param string $dateTimeStart
+     * @return mixed
+     */
     public function addJobFull($method, $dateTimeStart = null)
     {
         return $this->modelClassName::addJobFull($method, $dateTimeStart);
     }
 
+    /**
+     * @param mixed $modelAgentTimeSettings
+     * @return void
+     */
     public function activate($modelAgentTimeSettings = null)
     {
         if ($this->active) {
@@ -90,17 +120,26 @@ class Synchronization extends \yii\db\ActiveRecord
         $this->save();
     }
 
+    /**
+     * @return bool
+     */
     public function isTable()
     {
         $tableName = $this->modelClassName::tableName();
         return (bool) Yii::$app->db->getTableSchema($tableName);
     }
 
+    /**
+     * @return void
+     */
     public function createTable()
     {
         $this->modelClassName::createTable($this->id);
     }
 
+    /**
+     * @return void
+     */
     public function deleteUnusedFields()
     {
         $this->modelClassName::deleteUnusedFields($this->id);

@@ -48,6 +48,8 @@ class AppController extends \wm\admin\controllers\BaseModuleController
     /**
      * Creates a new App model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param string $chatbotCode
+     * @param string|null $type
      * @return mixed
      */
     public function actionCreate($chatbotCode, $type = null)
@@ -143,6 +145,26 @@ class AppController extends \wm\admin\controllers\BaseModuleController
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * @param string $bot_code
+     * @param string $code
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionInstall($bot_code, $code)
     {
         $model = $this->findModel($bot_code, $code);
@@ -152,6 +174,26 @@ class AppController extends \wm\admin\controllers\BaseModuleController
         ]);
     }
 
+    /**
+     * @param string $bot_code
+     * @param string $code
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionB24Update($bot_code, $code)
     {
         $model = $this->findModel($bot_code, $code);

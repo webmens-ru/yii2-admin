@@ -107,10 +107,12 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         return $this->convertShema($attributeLabels);
     }
 
+
     /**
      * @param int $menuId
      * @param int $userId
-     * @return MenuItemPersonalSettings[]
+     * @return mixed[]
+     * @throws \Exception
      */
     public static function getItems($menuId, $userId)
     {

@@ -31,8 +31,9 @@ class Filter extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $insert
-     * @param $changedAttributes
+     * @param bool $insert
+     * @param mixed[] $changedAttributes
+     * @return void
      */
     public function afterSave($insert, $changedAttributes)
     {
@@ -100,9 +101,9 @@ class Filter extends \wm\yii\db\ActiveRecord
     //первоначальное построение списка элементов фильтра
 
     /**
-     * @param $entityCode
-     * @param $userId
-     * @return array
+     * @param string $entityCode
+     * @param int $userId
+     * @return Filter[]
      */
     public static function getItems($entityCode, $userId)
     {
@@ -134,8 +135,9 @@ class Filter extends \wm\yii\db\ActiveRecord
      */
 
     /**
-     * @param $entityCode
-     * @param $userId
+     * @param string $entityCode
+     * @param int $userId
+     * @return void
      */
     public static function addBaseItems($entityCode, $userId)
     {
@@ -160,8 +162,8 @@ class Filter extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $entityCode
-     * @param $userId
+     * @param string $entityCode
+     * @param int $userId
      * @return Filter
      */
     protected static function getFilter($entityCode, $userId)
@@ -175,8 +177,8 @@ class Filter extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $filterParams
-     * @param $userId
+     * @param mixed $filterParams
+     * @param int $userId
      * @return bool|Filter
      */
     public static function add($filterParams, $userId)
@@ -201,7 +203,8 @@ class Filter extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $params
+     * @param mixed[] $params
+     * @return void
      */
     public static function editOrder($params)
     {
@@ -215,6 +218,11 @@ class Filter extends \wm\yii\db\ActiveRecord
         }
     }
 
+    /**
+     * @param string $entityCode
+     * @param string $title
+     * @return false|void
+     */
     public static function addBasic($entityCode, $title = 'Безымянный')
     {
         $entity = Entity::find()->where(['code' => $entityCode])->one();

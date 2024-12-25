@@ -10,11 +10,24 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\queue\JobInterface
 {
+    /**
+     * @var string
+     */
     public $modelClass;
+    /**
+     * @var int
+     */
     public $entityTypeId;
 
+    /**
+     * @param $queue
+     * @return void
+     */
     public function execute($queue)
     {
 //        Yii::warning(800, '800');
@@ -26,6 +39,23 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
 //        Yii::warning(700, '700');
     }
 
+    /**
+     * @return mixed[]
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function getIdsBatch()
     {
         $component = new b24Tools();
@@ -77,6 +107,16 @@ class SmartProcesSynchronizationFullGetJob extends BaseObject implements \yii\qu
         return ArrayHelper::getColumn($res, 'id');
     }
 
+    /**
+     * @param int[] $arrayId
+     * @return true
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function getB24Get($arrayId)
     {
         $component = new b24Tools();

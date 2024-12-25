@@ -5,8 +5,14 @@ namespace wm\admin\controllers;
 use Yii;
 use yii\filters\auth\CompositeAuth;
 
+/**
+ *
+ */
 class RestController extends \yii\rest\Controller
 {
+    /**
+     * @return mixed[]
+     */
     public function behaviors()
     {
         $behaviors = parent::behaviors();

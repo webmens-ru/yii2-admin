@@ -13,6 +13,9 @@ use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class CrmStatus extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -23,15 +26,44 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         return 'sync_crm_status';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = CrmStatusSynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = CrmStatusSynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = CrmStatusSynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'ID';
 
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public static function getCountB24()
     {
         $component = new b24Tools();
@@ -44,6 +76,9 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         return $request['total'];
     }
 
+    /**
+     * @return array|mixed|mixed[]
+     */
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
@@ -60,6 +95,10 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         return $fields;
     }
 
+    /**
+     * @return array|mixed[]
+     * @throws \Exception
+     */
     public static function getB24FieldsList()
     {
         $result = [];
@@ -69,6 +108,10 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
+    /**
+     * @param $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
@@ -85,6 +128,9 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $agent = Agents::find()->where(['class' => static::class, 'method' => 'synchronization'])->one();
@@ -94,6 +140,10 @@ class CrmStatus extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function loadData($data)
     {
         foreach ($data as $key => $val) {

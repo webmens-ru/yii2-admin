@@ -10,9 +10,18 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class Excel extends Model
 {
 
+    /**
+     * @param mixed[] $arr
+     * @return false|string
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     public static function generate($arr){
         $data = self::prepareDate(ArrayHelper::toArray($arr));
         $spreadsheet = new Spreadsheet();
@@ -54,7 +63,7 @@ class Excel extends Model
     }
 
     /**
-     * @param $data
+     * @param mixed[] $data
      * @return string
      */
     public static function getHeadRange($data)
@@ -68,7 +77,7 @@ class Excel extends Model
     }
 
     /**
-     * @param $data
+     * @param mixed[] $data
      * @return string
      */
     public static function getRange($data)
@@ -83,7 +92,7 @@ class Excel extends Model
     }
 
     /**
-     * @param $num
+     * @param int $num
      * @return string
      */
     public static function getNameFromNumber($num)
@@ -100,8 +109,8 @@ class Excel extends Model
 
 
     /**
-     * @param $data
-     * @return array
+     * @param mixed[] $data
+     * @return mixed[]
      * @throws \Exception
      */
     public static function prepareDate($data)
@@ -145,6 +154,12 @@ class Excel extends Model
         return $result;
     }
 
+    /**
+     * @param mixed[] $data
+     * @param string[] $keys
+     * @return mixed[]
+     * @throws \Exception
+     */
     public static function getValues($data, $keys = ['id'])
     {
         $result = [];
@@ -162,8 +177,9 @@ class Excel extends Model
     /**
      * Устанавливает стили для ячейки (ячеек)
      * @param string $cell Координаты ячейки (ячеек), пример: 'A1:A5'
-     * @param array $styleArray
+     * @param mixed[] $styleArray
      * @param Spreadsheet $spreadsheet
+     * @return void
      */
     public static function setStyleForExcell($cell, $styleArray, Spreadsheet $spreadsheet)
     {
@@ -177,6 +193,7 @@ class Excel extends Model
      * @param string $columnStart
      * @param string $columnEnd
      * @param Spreadsheet $spreadsheet
+     * @return void
      */
     public static function setAutoWidthForColumns($columnStart, $columnEnd, Spreadsheet $spreadsheet)
     {

@@ -20,19 +20,11 @@ class SettingsSearch extends Settings
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
 
     /**
      * Creates data provider instance with search query applied
      *
-     * @param array $params
+     * @param mixed[] $params
      *
      * @return ActiveDataProvider
      */

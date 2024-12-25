@@ -58,6 +58,7 @@ class RobotsPropertiesController extends \wm\admin\controllers\BaseModuleControl
     /**
      * Creates a new RobotsProperties model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param string $robotCode
      * @return mixed
      */
     public function actionCreate($robotCode)

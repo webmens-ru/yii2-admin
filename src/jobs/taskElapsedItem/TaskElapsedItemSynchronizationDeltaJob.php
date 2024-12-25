@@ -2,8 +2,6 @@
 
 namespace wm\admin\jobs\taskElapsedItem;
 
-//
-
 use Bitrix24\B24Object;
 use Bitrix24\Task\Task;
 use wm\admin\models\settings\events\Events;
@@ -13,36 +11,54 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class TaskElapsedItemSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
+
     /**
-     * @var ActiveRecord
+     * @var string
      */
     public $modelClass;
+
+    /**
+     * @var int[]
+     */
     public $userIds;
 
+
+    /**
+     * @param $queue
+     * @return void
+     */
     public function execute($queue)
     {
         Yii::warning('TaskElapsedItemSynchronizationDeltaJob', 'TaskElapsedItemSynchronizationDeltaJob');
-//        $isSyncAdd = false;
-//        while (!$isSyncAdd) {
-        $isSyncAdd = $this->synchronAdd();
-//        }
 
-//        $isSyncUpdate = false;
-//        while (!$isSyncUpdate) {
-//            $isSyncUpdate = self::synchronUpdate();
-//        }
-//
-//        $isSyncDelete = false;
-//        while (!$isSyncDelete) {
-//            $isSyncDelete = self::synchronDelete();
-//        }
     }
 
+
+    /**
+     * @return void
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\Exception
+     */
     public function synchronAdd()
     {
-//        $this->modelClass::deleteAll(/*['>=', 'CREATED_DATE' => date('Y-m-d', strtotime('-30 days'))]*/);
         $lastModel = $this->modelClass::find()->orderBy(['ID' => SORT_DESC])->limit(1)->one();
 
 
@@ -87,85 +103,5 @@ class TaskElapsedItemSynchronizationDeltaJob extends BaseObject implements \yii\
             }
             $b24Obj->client->processBatchCalls();
         }
-
-//
-//
-//
-//
-//
-//        $answerB24 = Events::getOffline('OnCalendarEntryAdd');
-//        $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
-//        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.id');
-//        if ($arrayId) {
-//            $B24List = $this->getB24List($arrayId);
-//            foreach ($B24List as $oneEntity) {
-//                $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-//                if (!$model) {
-//                    $model = new $this->modelClass();
-//                }
-//                $model->loadData($oneEntity);
-//            }
-//        }
-//        return count($arrayId) < 50 ? true : false;
     }
-
-//    public function synchronUpdate()
-//    {
-//        Yii::warning('synchronUpdate');
-//        $answerB24 = Events::getOffline('OnCalendarEntryUpdate');
-//        $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
-//        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.id');
-//        if ($arrayId) {
-//            $B24List = $this->getB24List($arrayId);
-//            foreach ($B24List as $oneEntity) {
-//                $model = $this->modelClass::find()->where(['ID' => $oneEntity['ID']])->one();
-//                if (!$model) {
-//                    $model = new $this->modelClass();
-//                }
-//                $model->loadData($oneEntity);
-//            }
-//        }
-//        return count($arrayId) < 50 ? true : false;
-//    }
-//
-//    public function synchronDelete()
-//    {
-//        Yii::warning('synchronDelete');
-//        $answerB24 = Events::getOffline('OnCalendarEntryDelete');
-//        $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
-//        $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.id');
-//        if ($arrayId) {
-//            foreach ($arrayId as $id) {
-//                $model = $this->modelClass::find()->where(['ID' => $id])->one();
-//                if ($model) {
-//                    $model->delete();
-//                }
-//            }
-//        }
-//        return count($arrayId) < 50 ? true : false;
-//    }
-
-//    public function getB24List($arrayId)
-//    {
-//        $component = new b24Tools();
-//        \Yii::$app->params['logPath'] = 'log/';
-//        $b24App = $component->connectFromAdmin();
-//        $obB24 = new \Bitrix24\B24Object($b24App);
-//        $res = [];
-//        foreach ($arrayId as $id) {
-//            $obB24->client->addBatchCall(
-//                'calendar.event.getbyid',
-//                [
-//                    'id' => $id,
-//                ],
-//                function ($result) use (&$res) {
-//                    if ($data = ArrayHelper::getValue($result, 'result')) {
-//                        $res[] = $data;
-//                    }
-//                }
-//            );
-//        }
-//        $obB24->client->processBatchCalls();
-//        return $res;
-//    }
 }

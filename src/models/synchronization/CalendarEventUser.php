@@ -16,6 +16,9 @@ use Yii;
 use yii\db\Schema;
 use yii\helpers\ArrayHelper;
 
+/**
+ *
+ */
 class CalendarEventUser extends BaseEntity implements SynchronizationInterface
 {
     /**
@@ -26,19 +29,37 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         return 'sync_calendar_user';
     }
 
+    /**
+     * @var string
+     */
     public static $synchronizationDeltaJob = CalendarEventUserSynchronizationDeltaJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullGetJob = CalendarEventUserSynchronizationFullGetJob::class;
 
+    /**
+     * @var string
+     */
     public static $synchronizationFullListJob = CalendarEventUserSynchronizationFullListJob::class;
 
+    /**
+     * @var string
+     */
     public static $primaryKeyColumnName = 'ID';
 
+    /**
+     * @return string
+     */
     public static function getCountB24()
     {
         return 'Не измеряли';
     }
 
+    /**
+     * @return array|mixed[]
+     */
     public static function getB24Fields()
     {
         $fields = [
@@ -90,6 +111,23 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         return $fields;
     }
 
+    /**
+     * @return int[]
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     private static function getEmploeIds()
     {
 
@@ -105,6 +143,10 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         return $ids;
     }
 
+    /**
+     * @return array|mixed[]
+     * @throws \Exception
+     */
     public static function getB24FieldsList()
     {
         $result = [];
@@ -114,6 +156,10 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         return $result;
     }
 
+    /**
+     * @param $modelAgentTimeSettings
+     * @return void
+     */
     public static function startSynchronization($modelAgentTimeSettings)
     {
         $events = [
@@ -149,6 +195,9 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         $agent->save();
     }
 
+    /**
+     * @return void
+     */
     public static function stopSynchronization()
     {
         $events = [
@@ -177,6 +226,10 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function loadData($data)
     {
         foreach ($data as $key => $val) {
@@ -193,6 +246,26 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         }
     }
 
+    /**
+     * @param $method
+     * @param $dateTimeStart
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\Exception
+     */
     public static function addJobFull($method, $dateTimeStart = null)
     {
         $delay = 0;
@@ -241,6 +314,24 @@ class CalendarEventUser extends BaseEntity implements SynchronizationInterface
         return $id;
     }
 
+    /**
+     * @return mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\Exception
+     */
     public static function synchronization()
     {
         $id = Yii::$app->queue->push(

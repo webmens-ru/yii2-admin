@@ -118,6 +118,9 @@ class FilterField extends \wm\yii\db\ActiveRecord
         return $this->hasOne(FilterFieldType::class, ['id' => 'typeId']);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function fields()
     {
         return [

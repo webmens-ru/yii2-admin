@@ -21,6 +21,9 @@ use yii\web\NotFoundHttpException;
  */
 class FormSync extends Model
 {
+    /**
+     * @var int
+     */
     public $entityId;
 
     /**
@@ -42,6 +45,10 @@ class FormSync extends Model
         ];
     }
 
+    /**
+     * @return Agents
+     * @throws NotFoundHttpException
+     */
     public function initAgentTimeSettings()
     {
         if (!$this->entityId) {

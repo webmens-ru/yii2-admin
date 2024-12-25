@@ -68,6 +68,9 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public function fields()
     {
         return [
@@ -103,8 +106,9 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $oldFilterId
-     * @param $newFilterId
+     * @param int $oldFilterId
+     * @param int $newFilterId
+     * @return void
      */
     public static function copyField($oldFilterId, $newFilterId)
     {
@@ -123,8 +127,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $params
-     * @param $filter
+     * @param mixed[] $params
+     * @param Filter $filter
      * @return bool
      */
     public static function add($params, $filter)
@@ -144,8 +148,8 @@ class FilterFieldSetting extends \wm\yii\db\ActiveRecord
     }
 
     /**
-     * @param $params
-     * @throws \Exception
+     * @param mixed[] $params
+     * @return void
      */
     public static function editOrder($params)
     {

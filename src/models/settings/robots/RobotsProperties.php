@@ -110,18 +110,27 @@ class RobotsProperties extends \yii\db\ActiveRecord
         return $this->hasOne(RobotsTypes::class, ['id' => 'type_id']);
     }
 
+    /**
+     * @return string
+     */
     public function getRobotName()
     {
         $parent = $this->robot;
         return $parent ? $parent->name : '';
     }
 
+    /**
+     * @return string
+     */
     public function getTypeName()
     {
         $parent = $this->type;
         return $parent ? $parent->name : '';
     }
 
+    /**
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public static function getPropertiesTypeSelectStatic()
     {
         $typeId = RobotsOptions::find()->where(['name' => 'select_static'])->one()->id;

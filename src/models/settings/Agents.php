@@ -27,8 +27,14 @@ use Yii;
  */
 class Agents extends \yii\db\ActiveRecord
 {
+    /**
+     *
+     */
     public const SCENARIO_ONLY_TIME_SETTINGS = 'onlyTimeSettings';
 
+    /**
+     * @return mixed[]
+     */
     public function scenarios()
     {
         $scenarios = parent::scenarios();
@@ -271,6 +277,9 @@ class Agents extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return void
+     */
     public static function shedulRun()
     {
         $dateTimestamp = date("Y-m-d H:i:s");
@@ -313,6 +322,12 @@ class Agents extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * @param string $initialDate
+     * @param int $minuteTypeId
+     * @param string $minuteProps
+     * @return mixed[]
+     */
     private static function getNextMinute($initialDate, $minuteTypeId, $minuteProps = null)
     {
         $isNextHour = false;
@@ -348,6 +363,13 @@ class Agents extends \yii\db\ActiveRecord
         return ['isNextHour' => $isNextHour, 'date' => date("Y-m-d H:$nextMinute:00")];
     }
 
+    /**
+     * @param string $initialDate
+     * @param bool $isNext
+     * @param int $hourTypeId
+     * @param string $hourProps
+     * @return mixed[]
+     */
     private static function getNextHour($initialDate, $isNext, $hourTypeId, $hourProps = null)
     {
         $isNextDay = false;
@@ -389,6 +411,13 @@ class Agents extends \yii\db\ActiveRecord
         return ['isNextDay' => $isNextDay, 'date' => date("Y-m-d $nextHour:i:00", $initialDate)];
     }
 
+    /**
+     * @param string $initialDate
+     * @param bool $isNext
+     * @param int $dayTypeId
+     * @param string $dayProps
+     * @return mixed[]
+     */
     private static function getNextDay($initialDate, $isNext, $dayTypeId, $dayProps = null)
     {
         $isNextMonth = false;
@@ -430,6 +459,13 @@ class Agents extends \yii\db\ActiveRecord
         return ['isNextMonth' => $isNextMonth, 'date' => date("Y-m-$nextDay H:i:00", $initialDate)];
     }
 
+    /**
+     * @param string $initialDate
+     * @param bool $isNext
+     * @param int $monthTypeId
+     * @param string|null $monthProps
+     * @return string
+     */
     private static function getNextMonth($initialDate, $isNext, $monthTypeId, $monthProps = null)
     {
         $initialDate = strtotime($initialDate);

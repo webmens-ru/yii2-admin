@@ -55,8 +55,9 @@ class Form extends \wm\yii\db\ActiveRecord
         return $this->hasMany(Fields::class, ['formId' => 'id']);
     }
 
+
     /**
-     * @inheritdoc
+     * @return mixed[]
      */
     public function fields()
     {

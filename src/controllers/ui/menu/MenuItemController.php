@@ -22,8 +22,8 @@ class MenuItemController extends \wm\admin\controllers\ActiveRestController
     public $modelClassSearch = MenuItemSearch::class;
 
     /**
-     * @param $menuId
-     * @return array
+     * @param int $menuId
+     * @return mixed[]
      */
     public function actionItems($menuId)
     {

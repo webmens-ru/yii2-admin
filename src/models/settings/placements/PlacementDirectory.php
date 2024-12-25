@@ -14,6 +14,9 @@ use Yii;
  */
 class PlacementDirectory extends \yii\db\ActiveRecord
 {
+    /**
+     * @var mixed[]
+     */
     public static $CATEGORIES = [
             ['name' => 'Компания'],
             ['name' => 'Контакт'],

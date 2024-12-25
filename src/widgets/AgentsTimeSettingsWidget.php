@@ -12,12 +12,14 @@ use yii\jui\DatePicker;
  */
 class AgentsTimeSettingsWidget extends Widget
 {
+
     /**
-     * @var
+     * @var mixed
      */
     public $model;
+
     /**
-     * @var
+     * @var mixed
      */
     public $form;
 

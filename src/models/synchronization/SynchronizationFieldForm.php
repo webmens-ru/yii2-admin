@@ -10,7 +10,7 @@ use Yii;
 /**
  * This is the model class for table "admin_synchronization_field".
  *
- * @property string $name
+ * @property string[] $name
  * @property int $synchronizationEntityId
  * @property string $title
  *
@@ -18,7 +18,15 @@ use Yii;
  */
 class SynchronizationFieldForm extends Model
 {
+
+    /**
+     * @var string[]
+     */
     public $name;
+
+    /**
+     * @var int
+     */
     public $synchronizationEntityId;
 
     /**
@@ -46,6 +54,10 @@ class SynchronizationFieldForm extends Model
         ];
     }
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function addField()
     {
         foreach ($this->name as $name) {
