@@ -34,6 +34,9 @@ class Generator extends \yii\gii\Generator
     const JUNCTION_RELATION_VIA_TABLE = 'table';
     const JUNCTION_RELATION_VIA_MODEL = 'model';
 
+    const RENDER_FORM = 'mainForm';
+    const RENDER_CARD = 'mainCard';
+
     public $db = 'db';
     public $ns = 'app\models';
     /**
@@ -61,6 +64,9 @@ class Generator extends \yii\gii\Generator
     public $queryNs = 'app\models';
     public $crud = true;
     public $crudController;
+    public $isSite = false;
+    public $iframeUrl;
+    public $renderMode = self::RENDER_FORM;
 
     /**
      * @var string
@@ -124,7 +130,7 @@ class Generator extends \yii\gii\Generator
             ['crudController', 'required', 'when' => function ($model) {
                 return $model->crud == true;
             }],
-            ['crudController', 'string'],
+            [['crudController', 'iframeUrl', 'renderMode'], 'string'],
             [['db', 'modelClass', 'queryClass'], 'match', 'pattern' => '/^\w+$/', 'message' => 'Only word characters are allowed.'],
             [['ns', 'baseClass', 'queryNs', 'queryBaseClass'], 'match', 'pattern' => '/^[\w\\\\]+$/', 'message' => 'Only word characters and backslashes are allowed.'],
             [['tableName'], 'match', 'pattern' => '/^([\w ]+\.)?([\w\* ]+)$/', 'message' => 'Only word characters, and optionally spaces, an asterisk and/or a dot are allowed.'],
@@ -135,9 +141,10 @@ class Generator extends \yii\gii\Generator
             [['baseClass'], 'validateClass', 'params' => ['extends' => ActiveRecord::className()]],
             [['queryBaseClass'], 'validateClass', 'params' => ['extends' => ActiveQuery::className()]],
             [['generateRelations'], 'in', 'range' => [self::RELATIONS_NONE, self::RELATIONS_ALL, self::RELATIONS_ALL_INVERSE]],
+            [['renderMode'], 'in', 'range' => [self::RENDER_CARD, self::RENDER_FORM]],
             [['generateJunctionRelationMode'], 'in', 'range' => [self::JUNCTION_RELATION_VIA_TABLE, self::JUNCTION_RELATION_VIA_MODEL]],
             [
-                ['generateLabelsFromComments', 'useTablePrefix', 'useSchemaName', 'generateQuery', 'generateRelationsFromCurrentSchema', 'useClassConstant', 'enableI18N', 'standardizeCapitals', 'singularize', 'crud'],
+                ['isSite','generateLabelsFromComments', 'useTablePrefix', 'useSchemaName', 'generateQuery', 'generateRelationsFromCurrentSchema', 'useClassConstant', 'enableI18N', 'standardizeCapitals', 'singularize', 'crud'],
                 'boolean'
             ],
             [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
@@ -169,6 +176,9 @@ class Generator extends \yii\gii\Generator
             'useSchemaName' => 'Use Schema Name',
             'crud' => 'CRUD Data',
             'crudController' => 'CRUD Controller',
+            'isSite' => 'Как самостоятельный сайт',
+            'iframeUrl' => 'iframeUrl',
+            'renderMode' => 'Тип отрисовки карточки',
         ]);
     }
 

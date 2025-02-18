@@ -121,10 +121,37 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
             "key" => "id",
             "actionColumnName" => "actions",
             "actions" => [
+<?php if ($generator->renderMode == $generator::RENDER_CARD): ?>
                 [
                     "id" => "update",
                     "title" => 'Изменить',
                     'type' => 'openApplication',
+<?php if ($generator->isSite): ?>
+                    'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+<?php endif; ?>
+                    "params" => [
+                        'path' => 'mainCard',
+                        'bx24_width' => 700,
+                        'updateOnCloseSlider' => true,
+                        "params" => [
+                            'menuId' => 1,
+                            'entity' => '<?= $generator->crudController ?>',
+                            'form' => [
+                                'action' => 'update',
+                                'mode' => 'edit',
+                                'canToggleMode' => true,
+                            ]
+                        ]
+                    ]
+                ],
+<?php else: ?>
+                [
+                    "id" => "update",
+                    "title" => 'Изменить',
+                    'type' => 'openApplication',
+<?php if ($generator->isSite): ?>
+                    'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+<?php endif; ?>
                     "params" => [
                         'path' => 'mainForm',
                         'bx24_width' => 700,
@@ -137,22 +164,51 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                         ]
                     ]
                 ],
+<?php endif; ?>
+<?php if ($generator->renderMode == $generator::RENDER_CARD): ?>
                 [
-                "id" => "view",
-                "title" => 'Просмотреть',
-                'type' => 'openApplication',
-                "params" => [
-                    'path' => 'mainForm',
-                    'bx24_width' => 700,
-                    'updateOnCloseSlider' => true,
+                    "id" => "view",
+                    "title" => 'Просмотреть',
+                    'type' => 'openApplication',
+<?php if ($generator->isSite): ?>
+                    'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+<?php endif; ?>
                     "params" => [
-                        'entity' => '<?= $generator->crudController ?>',
-                        'action' => 'update',
-                        'mode' => 'view',
-                        'canToggleMode' => true
+                        'path' => 'mainCard',
+                        'bx24_width' => 700,
+                        'updateOnCloseSlider' => true,
+                        "params" => [
+                            'menuId' => 1,
+                            'entity' => '<?= $generator->crudController ?>',
+                            'form' => [
+                                'action' => 'update',
+                                'mode' => 'view',
+                                'canToggleMode' => true,
+                            ]
                         ]
                     ]
                 ],
+<?php else: ?>
+                [
+                    "id" => "view",
+                    "title" => 'Просмотреть',
+                    'type' => 'openApplication',
+<?php if ($generator->isSite): ?>
+                    'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+<?php endif; ?>
+                    "params" => [
+                        'path' => '<?php $generator->renderMode?>',
+                        'bx24_width' => 700,
+                        'updateOnCloseSlider' => true,
+                        "params" => [
+                            'entity' => '<?= $generator->crudController ?>',
+                            'action' => 'update',
+                            'mode' => 'view',
+                            'canToggleMode' => true
+                        ]
+                    ]
+                ],
+<?php endif; ?>
                 [
                 "id" => "delete",
                 "title" => 'Удалить',
@@ -183,19 +239,47 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     */
     public static function getButtonAdd($defaultValue = [])
     {
+    <?php if ($generator->renderMode == $generator::RENDER_CARD): ?>
         return [
             'title' => 'Добавить',
             'params' => [
-                'type' => 'openApplication',
-                'path' => 'mainForm',
+            'type' => 'openApplication',
+            <?php if ($generator->isSite): ?>
+                'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+            <?php endif; ?>
+            'path' => 'mainCard',
+            'bx24_width' => 700,
+            'updateOnCloseSlider' => true,
+            'params' => [
+                'closeSliderOnSubmit' => false,
                 'entity' => '<?= $generator->crudController ?>',
-                'mode' => 'edit',
-                'action' => 'create',
-                'bx24_width' => 700,
-                'updateOnCloseSlider' => true,
-                'canToggleMode' => false
+                'menuId' => 1,
+                'form' => [
+                    'action' => 'create',
+                    'mode' => 'edit',
+                    'canToggleMode' => false,
+                    'defaultValue' => $defaultValue,
+                ],
             ],
         ];
+    <?php else: ?>
+        return [
+            'title' => 'Добавить',
+            'params' => [
+            'type' => 'openApplication',
+            <?php if ($generator->isSite): ?>
+                'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+            <?php endif; ?>
+            'path' => 'mainForm',
+            'entity' => '<?= $generator->crudController ?>',
+            'mode' => 'edit',
+            'action' => 'create',
+            'bx24_width' => 700,
+            'updateOnCloseSlider' => true,
+            'canToggleMode' => false
+            ],
+        ];
+    <?php endif; ?>
     }
 
     /**

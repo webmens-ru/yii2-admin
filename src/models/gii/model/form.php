@@ -42,3 +42,10 @@ echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'messageCategory');
 echo $form->field($generator, 'crud')->checkbox();
 echo $form->field($generator, 'crudController');
+echo $form->field($generator, 'isSite')->checkbox();
+echo $form->field($generator, 'iframeUrl');
+
+echo $form->field($generator, 'renderMode')->dropDownList([
+    Generator::RENDER_FORM => 'mainForm',
+    Generator::RENDER_CARD => 'mainCard',
+]);
