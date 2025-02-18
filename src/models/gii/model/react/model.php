@@ -181,7 +181,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     /**
     * @return mixed[]
     */
-    public static function getButtonAdd()
+    public static function getButtonAdd($defaultValue = [])
     {
         return [
             'title' => 'Добавить',
