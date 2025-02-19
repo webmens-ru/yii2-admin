@@ -243,22 +243,23 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         return [
             'title' => 'Добавить',
             'params' => [
-            'type' => 'openApplication',
-            <?php if ($generator->isSite): ?>
-                'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-            <?php endif; ?>
-            'path' => 'mainCard',
-            'bx24_width' => 700,
-            'updateOnCloseSlider' => true,
-            'params' => [
-                'closeSliderOnSubmit' => false,
-                'entity' => '<?= $generator->crudController ?>',
-                'menuId' => 1,
-                'form' => [
-                    'action' => 'create',
-                    'mode' => 'edit',
-                    'canToggleMode' => false,
-                    'defaultValue' => $defaultValue,
+                'type' => 'openApplication',
+                <?php if ($generator->isSite): ?>
+                    'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+                <?php endif; ?>
+                'path' => 'mainCard',
+                'bx24_width' => 700,
+                'updateOnCloseSlider' => true,
+                'params' => [
+                    'closeSliderOnSubmit' => false,
+                    'entity' => '<?= $generator->crudController ?>',
+                    'menuId' => 1,
+                    'form' => [
+                        'action' => 'create',
+                        'mode' => 'edit',
+                        'canToggleMode' => false,
+                        'defaultValue' => $defaultValue,
+                    ],
                 ],
             ],
         ];
