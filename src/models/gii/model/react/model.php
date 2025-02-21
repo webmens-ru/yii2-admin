@@ -244,9 +244,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
             'title' => 'Добавить',
             'params' => [
                 'type' => 'openApplication',
-                <?php if ($generator->isSite): ?>
-                    'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-                <?php endif; ?>
+<?php if ($generator->isSite): ?>
+                'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
+<?php endif; ?>
                 'path' => 'mainCard',
                 'bx24_width' => 700,
                 'updateOnCloseSlider' => true,
@@ -263,14 +263,14 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                 ],
             ],
         ];
-    <?php else: ?>
+<?php else: ?>
         return [
             'title' => 'Добавить',
             'params' => [
             'type' => 'openApplication',
-            <?php if ($generator->isSite): ?>
+<?php if ($generator->isSite): ?>
                 'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-            <?php endif; ?>
+<?php endif; ?>
             'path' => 'mainForm',
             'entity' => '<?= $generator->crudController ?>',
             'mode' => 'edit',
@@ -280,7 +280,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
             'canToggleMode' => false
             ],
         ];
-    <?php endif; ?>
+<?php endif; ?>
     }
 
     /**
