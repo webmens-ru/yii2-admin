@@ -111,7 +111,7 @@ class BiconnectorController extends Controller
 
             // Формируем результат
             $result[] = [
-                'code' => $column->name,
+                'code' => strtoupper($column->name),
                 'title' => $column->name, // Если title не задан, используем имя столбца
                 'type' => $mappedType,
             ];
