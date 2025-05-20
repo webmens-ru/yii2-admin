@@ -20,11 +20,12 @@ class BiconnectorController extends Controller
      * @return string
      * @throws HttpException
      */
-    public function actionCheck(){
+    public function actionCheck()
+    {
         $token = ArrayHelper::getValue(Yii::$app->request->post('connection'), 'token');
         if (BiconnectorTokens::isValidToken($token)) {
             return '';
-        }else{
+        } else {
             throw new HttpException(403, 'В доступе отказано');
         }
     }
@@ -33,8 +34,9 @@ class BiconnectorController extends Controller
      * @return mixed
      * @throws HttpException
      */
-    public function actionTableList(){
-
+    public function actionTableList()
+    {
+        Yii::warning('actionTableList');
         $token = ArrayHelper::getValue(Yii::$app->request->post('connection'), 'token');
         if (!BiconnectorTokens::isValidToken($token)) {
             throw new HttpException(403, 'В доступе отказано');
@@ -42,7 +44,7 @@ class BiconnectorController extends Controller
 
         $biconnectorTables = BiconnectorTables::find()->all();
         $data = [];
-        foreach ($biconnectorTables as $table){
+        foreach ($biconnectorTables as $table) {
             $data[] = [
                 'code' => $table->name,
                 'title' => $table->title
@@ -55,7 +57,8 @@ class BiconnectorController extends Controller
      * @return mixed
      * @throws HttpException
      */
-    public function actionTableDescription(){
+    public function actionTableDescription()
+    {
         $token = ArrayHelper::getValue(Yii::$app->request->post('connection'), 'token');
         if (!BiconnectorTokens::isValidToken($token)) {
             throw new HttpException(403, 'В доступе отказано');
@@ -112,7 +115,7 @@ class BiconnectorController extends Controller
             // Формируем результат
             $result[] = [
                 'code' => strtoupper($column->name),
-                'title' => $column->name, // Если title не задан, используем имя столбца
+                'title' => strtoupper($column->name), // Если title не задан, используем имя столбца
                 'type' => $mappedType,
             ];
         }
@@ -124,7 +127,8 @@ class BiconnectorController extends Controller
      * @return mixed
      * @throws HttpException
      */
-    public function actionData(){
+    public function actionData()
+    {
         $token = ArrayHelper::getValue(Yii::$app->request->post('connection'), 'token');
         if (!BiconnectorTokens::isValidToken($token)) {
             throw new HttpException(403, 'В доступе отказано');
@@ -156,13 +160,14 @@ class BiconnectorController extends Controller
 
         // Выполняем запрос и получаем данные
         $rows = $query->all();
+
         // Если данные пустые, возвращаем пустой массив
         if (empty($rows)) {
             return [];
         }
 
         // Формируем структуру ответа
-        $fields = array_keys($rows[0]); // Имена полей
+        $fields = array_map('strtoupper', array_keys($rows[0])); // Имена полей
         $result = [$fields]; // Первый элемент — заголовки полей
 
         // Добавляем строки значений
