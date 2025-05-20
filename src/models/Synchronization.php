@@ -14,6 +14,8 @@ use wm\admin\models\synchronization\SynchronizationField;
  * @property int $active
  * @property string $modelClassName
  *
+ * @property string $table
+ *
  */
 class Synchronization extends \yii\db\ActiveRecord
 {
@@ -68,6 +70,7 @@ class Synchronization extends \yii\db\ActiveRecord
             'id' => 'Ид',
             'title' => 'Название',
             'active' => 'Активность',
+            'table' => 'Название таблицы',
         ];
     }
 
@@ -127,6 +130,13 @@ class Synchronization extends \yii\db\ActiveRecord
     {
         $tableName = $this->modelClassName::tableName();
         return (bool) Yii::$app->db->getTableSchema($tableName);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTable(){
+        return $this->modelClassName::tableName();
     }
 
     /**
