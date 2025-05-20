@@ -77,6 +77,10 @@ $this->registerJsFile($assetsUrl->baseUrl . '/js/application.js');
                             'label' => 'Синхронизация',
                             'url' => '/admin/synchronization/index'
                         ],
+                        [
+                            'label' => 'BI Коннекторы',
+                            'url' => '/admin/settings/biconnectors/biconnector/index'
+                        ],
                     ],
                 ],
                 [
