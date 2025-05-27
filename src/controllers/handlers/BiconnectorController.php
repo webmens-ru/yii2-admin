@@ -86,19 +86,19 @@ class BiconnectorController extends Controller
 
         // Маппинг типов MySQL на требуемые типы
         $typeMapping = [
-            'tinyint' => 'int',
-            'smallint' => 'int',
-            'integer' => 'int',
-            'bigint' => 'int',
-            'float' => 'double',
-            'double' => 'double',
-            'decimal' => 'double',
-            'char' => 'string',
-            'varchar' => 'string',
-            'text' => 'string',
-            'date' => 'date',
-            'datetime' => 'datetime',
-            'timestamp' => 'datetime',
+            'tinyint' => 'INT',
+            'smallint' => 'INT',
+            'integer' => 'INT',
+            'bigint' => 'INT',
+            'float' => 'DOUBLE',
+            'double' => 'DOUBLE',
+            'decimal' => 'DOUBLE',
+            'char' => 'STRING',
+            'varchar' => 'STRING',
+            'text' => 'STRING',
+            'date' => 'DATE',
+            'datetime' => 'DATETIME',
+            'timestamp' => 'DATETIME',
         ];
 
         $result = [];
@@ -110,16 +110,16 @@ class BiconnectorController extends Controller
             $baseType = $column->type;
 
             // Преобразуем тип в требуемый формат
-            $mappedType = $typeMapping[$baseType] ?? 'string'; // По умолчанию string
+            $mappedType = $typeMapping[$baseType] ?? 'STRING'; // По умолчанию string
 
             // Формируем результат
             $result[] = [
                 'code' => strtoupper($column->name),
-                'title' => strtoupper($column->name), // Если title не задан, используем имя столбца
+                'name' => strtoupper($column->name), // Если title не задан, используем имя столбца
                 'type' => $mappedType,
             ];
         }
-
+        Yii::warning($result);
         return $result;
     }
 
