@@ -2,20 +2,31 @@
 
 namespace wm\admin\models;
 
+use Exception;
+use wm\yii\helpers\ArrayHelper;
 use Yii;
 use yii\base\BaseObject;
 use DateTime;
 use DateInterval;
+use yii\base\ErrorException;
 use yii\helpers\FileHelper;
 
 
 class Log extends BaseObject
 {
     /**
+     * @param mixed[] $params
      * @return void
-     * @throws \yii\base\ErrorException
+     * @throws ErrorException
+     * @throws Exception
      */
-    public static function clearOldLogs(){
+    public static function clearOldLogs(array $params = []){
+        $period = 'P14D';
+        if(ArrayHelper::getValue($params, 'period')){
+            $period = ArrayHelper::getValue($params, 'period');
+        }
+
+
         $logPath = \Yii::getAlias('@app') . '/log'; // Путь к папке log
 
         if (!is_dir($logPath)) {
@@ -30,7 +41,7 @@ class Log extends BaseObject
         }
 
         $cutoffDate = new DateTime();
-        $cutoffDate->sub(new DateInterval('P14D')); // 14 дней назад
+        $cutoffDate->sub(new DateInterval($period)); // 14 дней назад
         $format = 'Y_m_d';
 
         foreach ($directories as $dir) {

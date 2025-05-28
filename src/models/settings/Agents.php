@@ -3,6 +3,7 @@
 namespace wm\admin\models\settings;
 
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "baseapp_agents".
@@ -283,6 +284,7 @@ class Agents extends \yii\db\ActiveRecord
     public static function shedulRun()
     {
         $dateTimestamp = date("Y-m-d H:i:s");
+        /** @var Agents[] $models */
         $models = self::find()->where(['<=', 'date_run', $dateTimestamp])->andWhere(['status_id' => 1])->all();
         if(!empty($models)){
             foreach ($models as $model) {
@@ -313,7 +315,12 @@ class Agents extends \yii\db\ActiveRecord
                     $model->save();
                 }
                 try {
-                    call_user_func(array($model->class, $model->method));
+                    if($params = Json::decode($model->params)){
+                        call_user_func(array($model->class, $model->method), $params);
+                    }else{
+                        call_user_func(array($model->class, $model->method));
+                    }
+
                 } catch (\Exception $e) {
                 }
 
