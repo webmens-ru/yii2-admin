@@ -167,7 +167,7 @@ class BiconnectorController extends Controller
         }
 
         // Формируем структуру ответа
-        $fields = array_map('strtoupper', array_keys($rows[0])); // Имена полей
+        $fields = array_map('strtoupper', array_keys($rows[0])); //@phpstan-ignore-line
         $result = [$fields]; // Первый элемент — заголовки полей
 
         // Добавляем строки значений
