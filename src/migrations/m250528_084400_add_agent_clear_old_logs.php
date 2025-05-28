@@ -39,14 +39,12 @@ class m250528_084400_add_agent_clear_old_logs extends Migration
                     1,
                     3,
                     1,
-                    '',
                     1,
                     '',
                     1,
                     '',
                     1,
                     ''
-
                 ],
             ]
         );
