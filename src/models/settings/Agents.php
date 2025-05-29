@@ -315,6 +315,12 @@ class Agents extends \yii\db\ActiveRecord
                     $model->save();
                 }
                 try {
+                    try {
+                        $params = Json::decode($model->params);
+                    } catch (\yii\base\InvalidArgumentException $e) {
+                        $params = null;
+                    }
+
                     if($params = Json::decode($model->params)){
                         call_user_func(array($model->class, $model->method), $params);
                     }else{
