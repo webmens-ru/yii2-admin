@@ -82,7 +82,7 @@ class Employee extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
-        if(!$cache){
+        if (!$cache) {
             throw new Exception('Cache not found');
         }
         $key = 'user.fields';

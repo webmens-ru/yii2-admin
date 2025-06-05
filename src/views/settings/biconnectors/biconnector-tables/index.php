@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, BiconnectorTables $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'name' => $model->name]);
-                 }
+                }
             ],
         ],
     ]); ?>

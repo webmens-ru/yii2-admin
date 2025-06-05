@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pluginOptions' => [
             ],
         ]);
-        ?>
+?>
 
         <?= $form->field($model, 'entityCode')->widget(Select2::className(), [
             'data' => $entities,
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pluginOptions' => [
             ],
         ]);
-        ?>
+?>
 
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

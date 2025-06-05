@@ -3,7 +3,6 @@
 namespace wm\admin\models\synchronization;
 
 use Bitrix24\B24Object;
-
 use wm\admin\models\settings\Agents;
 use wm\admin\models\settings\events\Events;
 use wm\admin\jobs\task\TaskSynchronizationFullListJob;
@@ -92,7 +91,7 @@ class Task extends BaseEntity implements SynchronizationInterface
     {
         $arr = [];
         $cache = Yii::$app->cache;
-        if(!$cache){
+        if (!$cache) {
             throw new Exception('Cache not found');
         }
         $key = 'tasks.task.getFields';
@@ -204,14 +203,14 @@ class Task extends BaseEntity implements SynchronizationInterface
         foreach ($oneEntity as $key => $val) {
             if (in_array($key, array_keys($this->attributes))) {
                 $data = '';
-                if(is_array($val)){
+                if (is_array($val)) {
                     $data = json_encode($val);
-                }else{
+                } else {
                     $data = $val;
                 }
-                if(strlen($data)>255){
+                if (strlen($data) > 255) {
                     $this->$key = substr($data, 0, 255);
-                }else{
+                } else {
                     $this->$key = $data;
                 }
             }
@@ -221,5 +220,4 @@ class Task extends BaseEntity implements SynchronizationInterface
             Yii::error($this->errors, 'Task->loadData()');
         }
     }
-
 }

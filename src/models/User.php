@@ -198,7 +198,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public static function getPortalName($userId)
     {
         $user = self::findOne(['id' => $userId]);
-        if(!$user){
+        if (!$user) {
             return null;
         }
         $b24AccessParams = Json::decode($user->b24AccessParams);
@@ -210,9 +210,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @param int $userId
      * @return mixed
      */
-    public static function getMemberId($userId){
+    public static function getMemberId($userId)
+    {
         $user = self::findOne(['id' => $userId]);
-        if(!$user){
+        if (!$user) {
             return null;
         }
         $b24AccessParams = Json::decode($user->b24AccessParams);

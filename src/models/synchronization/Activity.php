@@ -9,7 +9,6 @@ use wm\admin\jobs\activity\ActivitySynchronizationFullListJob;
 use wm\admin\jobs\activity\ActivitySynchronizationFullGetJob;
 use wm\admin\jobs\activity\ActivitySynchronizationDeltaJob;
 use wm\admin\jobs\activity\ActivitySynchronizationDiffJob;
-
 use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\BaseObject;
@@ -90,7 +89,7 @@ class Activity extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
-        if(!$cache){
+        if (!$cache) {
             throw new Exception('Cache not found');
         }
         $key = 'crm.activity.fields';
@@ -187,24 +186,24 @@ class Activity extends BaseEntity implements SynchronizationInterface
      */
     public function loadData($oneEntity)
     {
-            foreach ($oneEntity as $key => $val) {
-                if (in_array($key, array_keys($this->attributes))) {
-                    $data = '';
-                    if(is_array($val)){
-                        $data = json_encode($val);
-                    }else{
-                        $data = $val;
-                    }
-                    if(strlen($data)>255){
-                        $this->$key = substr($data, 0, 255);
-                    }else{
-                        $this->$key = $data;
-                    }
+        foreach ($oneEntity as $key => $val) {
+            if (in_array($key, array_keys($this->attributes))) {
+                $data = '';
+                if (is_array($val)) {
+                    $data = json_encode($val);
+                } else {
+                    $data = $val;
+                }
+                if (strlen($data) > 255) {
+                    $this->$key = substr($data, 0, 255);
+                } else {
+                    $this->$key = $data;
                 }
             }
+        }
             $this->save();
-            if ($this->errors) {
-                Yii::error($this->errors, 'Activity->loadData()');
-            }
+        if ($this->errors) {
+            Yii::error($this->errors, 'Activity->loadData()');
+        }
     }
 }

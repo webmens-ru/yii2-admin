@@ -11,7 +11,6 @@ use DateInterval;
 use yii\base\ErrorException;
 use yii\helpers\FileHelper;
 
-
 class Log extends BaseObject
 {
     /**
@@ -20,9 +19,10 @@ class Log extends BaseObject
      * @throws ErrorException
      * @throws Exception
      */
-    public static function clearOldLogs(array $params = []){
+    public static function clearOldLogs(array $params = [])
+    {
         $period = 'P14D';
-        if(ArrayHelper::getValue($params, 'period')){
+        if (ArrayHelper::getValue($params, 'period')) {
             $period = ArrayHelper::getValue($params, 'period');
         }
 
@@ -53,5 +53,4 @@ class Log extends BaseObject
             }
         }
     }
-
 }

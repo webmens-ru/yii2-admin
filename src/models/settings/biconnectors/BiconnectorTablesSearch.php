@@ -11,7 +11,6 @@ use wm\admin\models\settings\biconnectors\BiconnectorTables;
  */
 class BiconnectorTablesSearch extends BiconnectorTables
 {
-
     /**
      * @return mixed[]
      */

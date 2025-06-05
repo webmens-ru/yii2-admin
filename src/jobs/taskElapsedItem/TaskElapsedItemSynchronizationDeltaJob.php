@@ -16,7 +16,6 @@ use yii\helpers\ArrayHelper;
  */
 class TaskElapsedItemSynchronizationDeltaJob extends BaseObject implements \yii\queue\JobInterface
 {
-
     /**
      * @var string
      */
@@ -35,7 +34,6 @@ class TaskElapsedItemSynchronizationDeltaJob extends BaseObject implements \yii\
     public function execute($queue)
     {
         Yii::warning('TaskElapsedItemSynchronizationDeltaJob', 'TaskElapsedItemSynchronizationDeltaJob');
-
     }
 
 

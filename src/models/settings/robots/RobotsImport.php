@@ -62,18 +62,16 @@ class RobotsImport extends \yii\base\Model
         $res = $zip->open($this->file->tempName);
         if ($res === true) {
             for ($i = 0; $i < $zip->count(); $i++) {
-                if(is_array($zip->statIndex($i)) && $zipStatIndexIName = ArrayHelper::getValue($zip->statIndex($i), 'name')){
+                if (is_array($zip->statIndex($i)) && $zipStatIndexIName = ArrayHelper::getValue($zip->statIndex($i), 'name')) {
                     if (preg_match('/Action.php$/', $zipStatIndexIName)) {
                         $filePatch = '../controllers/handlers/robots/';
                         $zip->extractTo($filePatch, $zipStatIndexIName);
                     } elseif (is_array($zip->statIndex($i)) && $zipStatIndexIName == 'robot.json') {
-                        if($zip->getFromIndex($i) && json_decode($zip->getFromIndex($i))){
+                        if ($zip->getFromIndex($i) && json_decode($zip->getFromIndex($i))) {
                             Robots::import(ArrayHelper::toArray(json_decode($zip->getFromIndex($i))));
                         }
-
                     }
                 }
-
             }
             $zip->close();
         } else {

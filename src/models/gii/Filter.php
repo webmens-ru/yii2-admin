@@ -12,7 +12,6 @@ use yii\db\Schema;
 
 class Filter extends Model
 {
-
     public $tableName;
     public $entityCode;
 
@@ -103,7 +102,6 @@ class Filter extends Model
         if ($model->errors) {
             Yii::error($model->errors, 'addFilterField $model->errors');
         }
-
     }
 
 

@@ -12,7 +12,6 @@ use yii\jui\DatePicker;
  */
 class AgentsTimeSettingsWidget extends Widget
 {
-
     /**
      * @var mixed
      */

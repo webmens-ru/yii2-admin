@@ -64,7 +64,8 @@ class HistoryLeadSynchronizationDeltaJob extends BaseObject implements \yii\queu
         $data = ArrayHelper::getValue($request, $listDataSelector);
         if (count($data) != $request['total']) {
             for ($i = 1; $i < $countCalls; $i++) {
-                $b24Obj->client->addBatchCall('crm.stagehistory.list',
+                $b24Obj->client->addBatchCall(
+                    'crm.stagehistory.list',
                     array_merge($params, ['start' => $b24Obj->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use ($listDataSelector) {
                         foreach (ArrayHelper::getValue($result, $listDataSelector) as $oneEntity) {

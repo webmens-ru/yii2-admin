@@ -211,7 +211,7 @@ class Filter extends \wm\yii\db\ActiveRecord
     {
         foreach ($params as $param) {
             $model = self::find()->where(['id' => $param['id'],])->one();
-            if(!$model){
+            if (!$model) {
                 throw new Exception('Model not found');
             }
             $model->order = ArrayHelper::getValue($param, 'order');

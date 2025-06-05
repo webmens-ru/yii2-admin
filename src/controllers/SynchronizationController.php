@@ -220,7 +220,8 @@ class SynchronizationController extends \wm\admin\controllers\BaseModuleControll
      * @return \yii\web\Response
      * @throws NotFoundHttpException
      */
-    public function actionDeleteUnusedFields($id){
+    public function actionDeleteUnusedFields($id)
+    {
         $model = $this->findModel($id);
         $model->deleteUnusedFields();
         Yii::$app->session->setFlash('success', "Неиспользуемые в Б24 поля удалены");

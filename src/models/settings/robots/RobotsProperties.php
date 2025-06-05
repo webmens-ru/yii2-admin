@@ -136,7 +136,7 @@ class RobotsProperties extends \yii\db\ActiveRecord
     public static function getPropertiesTypeSelectStatic()
     {
         $type = RobotsOptions::find()->where(['name' => 'select_static'])->one();
-        if(!$type){
+        if (!$type) {
             throw new Exception('Cache not found');
         }
         $typeId = $type->id;

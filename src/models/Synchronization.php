@@ -135,7 +135,8 @@ class Synchronization extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getTable(){
+    public function getTable()
+    {
         return $this->modelClassName::tableName();
     }
 

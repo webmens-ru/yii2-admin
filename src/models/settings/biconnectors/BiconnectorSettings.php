@@ -17,7 +17,6 @@ use Yii;
  */
 class BiconnectorSettings extends \yii\db\ActiveRecord
 {
-
     /**
      * @return string
      */

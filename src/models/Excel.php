@@ -1,8 +1,6 @@
 <?php
 
-
 namespace wm\admin\models;
-
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -15,14 +13,14 @@ use yii\helpers\ArrayHelper;
  */
 class Excel extends Model
 {
-
     /**
      * @param mixed[] $arr
      * @return false|string
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public static function generate($arr){
+    public static function generate($arr)
+    {
         $data = self::prepareDate(ArrayHelper::toArray($arr));
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()
@@ -203,5 +201,4 @@ class Excel extends Model
                 ->setAutoSize(true);
         }
     }
-
 }

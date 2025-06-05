@@ -12,7 +12,6 @@ use Yii;
  */
 class BiconnectorTables extends \yii\db\ActiveRecord
 {
-
     /**
      * @return string
      */

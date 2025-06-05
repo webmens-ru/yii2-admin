@@ -13,7 +13,6 @@ use Yii;
  */
 class BiconnectorTablesController extends \wm\admin\controllers\BaseModuleController
 {
-
     /**
      * @return mixed[]|\string[][]|\string[][][][]
      */

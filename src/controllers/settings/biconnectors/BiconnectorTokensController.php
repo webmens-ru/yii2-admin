@@ -8,13 +8,11 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
 
-
 /**
  *
  */
 class BiconnectorTokensController extends \wm\admin\controllers\BaseModuleController
 {
-
     /**
      * @return mixed[]
      */
@@ -56,7 +54,6 @@ class BiconnectorTokensController extends \wm\admin\controllers\BaseModuleContro
     {
         BiconnectorTokens::generateToken();
         return $this->redirect(['index']);
-
     }
 
     /**

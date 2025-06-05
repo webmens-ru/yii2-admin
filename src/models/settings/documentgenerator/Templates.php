@@ -159,7 +159,7 @@ class Templates extends \yii\db\ActiveRecord
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $fileContent = file_get_contents($this->file_path);
-        if($fileContent){
+        if ($fileContent) {
             $b24 = $obB24->
             client->
             call(
@@ -178,7 +178,7 @@ class Templates extends \yii\db\ActiveRecord
                     ]
                 ]
             );
-        }else{
+        } else {
             $b24 = [];
         }
 
@@ -245,7 +245,7 @@ class Templates extends \yii\db\ActiveRecord
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
         $fileContent = file_get_contents($this->file_path);
-        if($fileContent){
+        if ($fileContent) {
             $b24 = $obB24->
             client->
             call(
@@ -266,10 +266,9 @@ class Templates extends \yii\db\ActiveRecord
                 ]
             );
             return $b24;
-        }else{
+        } else {
             return [];
         }
-
     }
 
     /**

@@ -19,7 +19,7 @@ use kartik\select2\Select2;
         'pluginOptions' => [
         ],
     ]);
-    ?>
+?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

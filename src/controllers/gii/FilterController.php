@@ -7,7 +7,6 @@ use wm\admin\models\ui\Entity;
 use wm\yii\helpers\ArrayHelper;
 use Yii;
 
-
 /**
  *
  */

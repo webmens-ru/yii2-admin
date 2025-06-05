@@ -1,4 +1,5 @@
 <?php
+
 /** @var yii\web\View $this */
 /** @var yii\widgets\ActiveForm $form */
 /** @var wm\admin\models\gii\crud\Generator $generator */

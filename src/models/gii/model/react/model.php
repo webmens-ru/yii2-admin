@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the template for generating the model class of a specified table.
  */
@@ -22,22 +23,30 @@ echo "<?php\n"; // @phpstan-ignore-line
 namespace <?= $generator->ns ?>;
 
 use Yii;
-<?php if ($generator->crud): ?>
+<?php if ($generator->crud) :
+    ?>
 use yii\helpers\Url;
-<?php endif; ?>
+    <?php
+endif; ?>
 
 /**
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
  *
-<?php foreach ($properties as $property => $data): ?>
+<?php foreach ($properties as $property => $data) :
+    ?>
  * @property <?= "{$data['type']} \${$property}"  . ($data['comment'] ? ' ' . strtr($data['comment'], ["\n" => ' ']) : '') . "\n" ?>
-<?php endforeach; ?>
-<?php if (!empty($relations)): ?>
+    <?php
+endforeach; ?>
+<?php if (!empty($relations)) :
+    ?>
  *
-<?php foreach ($relations as $name => $relation): ?>
+    <?php foreach ($relations as $name => $relation) :
+        ?>
  * @property <?= $relation[1] . ($relation[2] ? '[]' : '') . ' $' . lcfirst($name) . "\n" ?>
-<?php endforeach; ?>
-<?php endif; ?>
+        <?php
+    endforeach; ?>
+    <?php
+endif; ?>
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
@@ -55,7 +64,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return '<?= $generator->generateTableName($tableName) ?>';
     }
-<?php if ($generator->db !== 'db'): ?>
+<?php if ($generator->db !== 'db') :
+    ?>
 
     /**
      * @return \yii\db\Connection the database connection used by this AR class.
@@ -64,7 +74,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return Yii::$app->get('<?= $generator->db ?>');
     }
-<?php endif; ?>
+    <?php
+endif; ?>
 
     /**
     * @return mixed[]
@@ -77,7 +88,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     /**
     * @return mixed[]
     */
-<?php if ($generator->crud): ?>
+<?php if ($generator->crud) :
+    ?>
     public function fields()
     {
         switch ($this->renderMode) {
@@ -86,32 +98,42 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                     'actions' => function () {
                         return ['update', 'view', 'delete'];
                     },
-        <?php foreach ($gridFields as $gridField): ?>
-            <?= $gridField.",\n" ?>
-        <?php endforeach; ?>
+        <?php foreach ($gridFields as $gridField) :
+            ?>
+            <?= $gridField . ",\n" ?>
+            <?php
+        endforeach; ?>
                 ];
             case self::RENDER_MODE_FORM:
                 return [
-        <?php foreach ($labels as $name => $label): ?>
+        <?php foreach ($labels as $name => $label) :
+            ?>
             <?= "'$name',\n" ?>
-        <?php endforeach; ?>
+            <?php
+        endforeach; ?>
                 ];
             default:
                 return parent::fields();
         }
     }
-<?php else: ?>
+    <?php
+else :
+    ?>
     public function fields()
     {
         return [
-    <?php foreach ($gridFields as $gridField): ?>
-        <?= $gridField.",\n" ?>
-    <?php endforeach; ?>
+    <?php foreach ($gridFields as $gridField) :
+        ?>
+        <?= $gridField . ",\n" ?>
+        <?php
+    endforeach; ?>
     ];
     }
-<?php endif; ?>
+    <?php
+endif; ?>
 
-<?php if ($generator->crud): ?>
+<?php if ($generator->crud) :
+    ?>
     /**
     * @return mixed[]
     */
@@ -121,14 +143,17 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
             "key" => "id",
             "actionColumnName" => "actions",
             "actions" => [
-<?php if ($generator->renderMode == $generator::RENDER_CARD): ?>
+    <?php if ($generator->renderMode == $generator::RENDER_CARD) :
+        ?>
                 [
                     "id" => "update",
                     "title" => 'Изменить',
                     'type' => 'openApplication',
-<?php if ($generator->isSite): ?>
+        <?php if ($generator->isSite) :
+            ?>
                     'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-<?php endif; ?>
+            <?php
+        endif; ?>
                     "params" => [
                         'path' => 'mainCard',
                         'bx24_width' => 700,
@@ -144,14 +169,18 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                         ]
                     ]
                 ],
-<?php else: ?>
+        <?php
+    else :
+        ?>
                 [
                     "id" => "update",
                     "title" => 'Изменить',
                     'type' => 'openApplication',
-<?php if ($generator->isSite): ?>
+        <?php if ($generator->isSite) :
+            ?>
                     'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-<?php endif; ?>
+            <?php
+        endif; ?>
                     "params" => [
                         'path' => 'mainForm',
                         'bx24_width' => 700,
@@ -164,15 +193,19 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                         ]
                     ]
                 ],
-<?php endif; ?>
-<?php if ($generator->renderMode == $generator::RENDER_CARD): ?>
+        <?php
+    endif; ?>
+    <?php if ($generator->renderMode == $generator::RENDER_CARD) :
+        ?>
                 [
                     "id" => "view",
                     "title" => 'Просмотреть',
                     'type' => 'openApplication',
-<?php if ($generator->isSite): ?>
+        <?php if ($generator->isSite) :
+            ?>
                     'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-<?php endif; ?>
+            <?php
+        endif; ?>
                     "params" => [
                         'path' => 'mainCard',
                         'bx24_width' => 700,
@@ -188,14 +221,18 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                         ]
                     ]
                 ],
-<?php else: ?>
+        <?php
+    else :
+        ?>
                 [
                     "id" => "view",
                     "title" => 'Просмотреть',
                     'type' => 'openApplication',
-<?php if ($generator->isSite): ?>
+        <?php if ($generator->isSite) :
+            ?>
                     'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-<?php endif; ?>
+            <?php
+        endif; ?>
                     "params" => [
                         'path' => '<?php $generator->renderMode?>',
                         'bx24_width' => 700,
@@ -208,7 +245,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                         ]
                     ]
                 ],
-<?php endif; ?>
+        <?php
+    endif; ?>
                 [
                 "id" => "delete",
                 "title" => 'Удалить',
@@ -239,14 +277,17 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     */
     public static function getButtonAdd($defaultValue = [])
     {
-    <?php if ($generator->renderMode == $generator::RENDER_CARD): ?>
+    <?php if ($generator->renderMode == $generator::RENDER_CARD) :
+        ?>
         return [
             'title' => 'Добавить',
             'params' => [
                 'type' => 'openApplication',
-<?php if ($generator->isSite): ?>
+        <?php if ($generator->isSite) :
+            ?>
                 'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-<?php endif; ?>
+            <?php
+        endif; ?>
                 'path' => 'mainCard',
                 'bx24_width' => 700,
                 'updateOnCloseSlider' => true,
@@ -263,14 +304,18 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
                 ],
             ],
         ];
-<?php else: ?>
+        <?php
+    else :
+        ?>
         return [
             'title' => 'Добавить',
             'params' => [
             'type' => 'openApplication',
-<?php if ($generator->isSite): ?>
+        <?php if ($generator->isSite) :
+            ?>
                 'iframeUrl' => Url::to(['<?= $generator->iframeUrl ?>'], 'https'),
-<?php endif; ?>
+            <?php
+        endif; ?>
             'path' => 'mainForm',
             'entity' => '<?= $generator->crudController ?>',
             'mode' => 'edit',
@@ -280,7 +325,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
             'canToggleMode' => false
             ],
         ];
-<?php endif; ?>
+        <?php
+    endif; ?>
     }
 
     /**
@@ -289,16 +335,20 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public static function getFormFields()
     {
         return [
-    <?php foreach ($formFields as $formField): ?>
-        <?= $formField.",\n" ?>
-    <?php endforeach; ?>
+    <?php foreach ($formFields as $formField) :
+        ?>
+        <?= $formField . ",\n" ?>
+        <?php
+    endforeach; ?>
         ];
     }
-<?php endif; ?>
+    <?php
+endif; ?>
 
 
 
-<?php foreach ($relations as $name => $relation): ?>
+<?php foreach ($relations as $name => $relation) :
+    ?>
 
     /**
      * Gets query for [[<?= $name ?>]].
@@ -309,12 +359,14 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         <?= $relation[0] . "\n" ?>
     }
-<?php endforeach; ?>
-<?php if ($queryClassName): ?>
-<?php
+    <?php
+endforeach; ?>
+<?php if ($queryClassName) :
+    ?>
+    <?php
     $queryClassFullName = ($generator->ns === $generator->queryNs) ? $queryClassName : '\\' . $generator->queryNs . '\\' . $queryClassName;
     echo "\n";
-?>
+    ?>
     /**
      * {@inheritdoc}
      * @return <?= $queryClassFullName ?> the active query used by this AR class.
@@ -323,5 +375,6 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return new <?= $queryClassFullName ?>(get_called_class());
     }
-<?php endif; ?>
+    <?php
+endif; ?>
 }

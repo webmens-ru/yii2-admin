@@ -83,7 +83,7 @@ class Deal extends BaseEntity implements SynchronizationInterface
     public static function getB24Fields()
     {
         $cache = Yii::$app->cache;
-        if(!$cache){
+        if (!$cache) {
             throw new Exception('Cache not found');
         }
         $key = 'crm.deal.fields';
@@ -183,15 +183,15 @@ class Deal extends BaseEntity implements SynchronizationInterface
         foreach ($data as $key => $val) {
             if (in_array($key, array_keys($this->attributes))) {
                 $data = '';
-                if(is_array($val)){
+                if (is_array($val)) {
                     $data = json_encode($val);
-                }else{
+                } else {
                     $data = $val;
                 }
-                if(strlen($data)>255){
+                if (strlen($data) > 255) {
                     $this->$key = substr($data, 0, 255);
                     Yii::error("$data >255", 'Deal->loadData()');
-                }else{
+                } else {
                     $this->$key = $data;
                 }
             }

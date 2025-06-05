@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -35,30 +36,28 @@ class Generator extends \yii\gii\Generator
      * @var string
      */
     public $modelClass = 'app\models';
-    /**
+/**
      * @var string
      */
     public $controllerClass = 'app\controllers';
-    /**
+/**
      * @var string
      */
     public $baseControllerClass = 'wm\yii\rest\ActiveRestController';
-    /**
+/**
      * @var string
      */
     public $indexWidgetType = 'grid';
-    /**
+/**
      * @var string
      */
     public $searchModelClass = 'app\models';
-    /**
+/**
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
      * @since 2.0.5
      */
     public $strictInflector = true;
-
-
-    /**
+/**
      * {@inheritdoc}
      */
     public function getName()
@@ -159,11 +158,9 @@ class Generator extends \yii\gii\Generator
     public function generate()
     {
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
-
         $files = [
             new CodeFile($controllerFile, $this->render('controller.php')),
         ];
-
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
@@ -178,7 +175,6 @@ class Generator extends \yii\gii\Generator
     {
         $pos = strrpos($this->controllerClass, '\\');
         $class = substr($this->controllerClass, $pos + 1, -10);
-
         return Inflector::camel2id($class, '-', $this->strictInflector);
     }
 
@@ -195,7 +191,6 @@ class Generator extends \yii\gii\Generator
         /* @var $class \yii\db\ActiveRecord */
         $class = $this->modelClass;
         $pk = $class::primaryKey();
-
         return $pk[0];
     }
 
@@ -235,7 +230,7 @@ class Generator extends \yii\gii\Generator
                 $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
             }
             return "\$form->field(\$model, '$attribute')->dropDownList("
-                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
+                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
         }
 
         if ($column->phpType !== 'string' || $column->size === null) {
@@ -312,15 +307,18 @@ class Generator extends \yii\gii\Generator
                 case Schema::TYPE_INTEGER:
                 case Schema::TYPE_BIGINT:
                     $types['integer'][] = $column->name;
+
                     break;
                 case Schema::TYPE_BOOLEAN:
-                    $types['boolean'][] = $column->name;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $types['boolean'][] = $column->name;
+
                     break;
                 case Schema::TYPE_FLOAT:
                 case Schema::TYPE_DOUBLE:
                 case Schema::TYPE_DECIMAL:
                 case Schema::TYPE_MONEY:
                     $types['number'][] = $column->name;
+
                     break;
                 case Schema::TYPE_DATE:
                 case Schema::TYPE_TIME:
@@ -328,6 +326,7 @@ class Generator extends \yii\gii\Generator
                 case Schema::TYPE_TIMESTAMP:
                 default:
                     $types['safe'][] = $column->name;
+
                     break;
             }
         }
@@ -355,7 +354,7 @@ class Generator extends \yii\gii\Generator
     public function generateSearchLabels()
     {
         $class = $this->modelClass;
-        /* @var $model \yii\db\BaseActiveRecord */
+/* @var $model \yii\db\BaseActiveRecord */
         $model = new $class();
         $attributeLabels = $model->attributeLabels();
         $labels = [];
@@ -387,7 +386,7 @@ class Generator extends \yii\gii\Generator
         $columns = [];
         if (($table = $this->getTableSchema()) === false) {
             $class = $this->modelClass;
-            /* @var $model \yii\db\BaseActiveRecord */
+        /* @var $model \yii\db\BaseActiveRecord */
             $model = new $class();
             foreach ($model->attributes() as $attribute) {
                 $columns[$attribute] = 'unknown';
@@ -416,10 +415,12 @@ class Generator extends \yii\gii\Generator
                 case Schema::TYPE_DATETIME:
                 case Schema::TYPE_TIMESTAMP:
                     $hashConditions[] = "'{$column}' => \$this->{$column},";
+
                     break;
                 default:
-                    $likeKeyword = $this->getClassDbDriverName() === 'pgsql' ? 'ilike' : 'like';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               $likeKeyword = $this->getClassDbDriverName() === 'pgsql' ? 'ilike' : 'like';
                     $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";
+
                     break;
             }
         }
@@ -483,7 +484,6 @@ class Generator extends \yii\gii\Generator
         $model = new $class();
         $labels = $model->attributeLabels();
         $aliasTypes = ['boolean' => 'bool', 'integer' => 'int', 'double' => 'float'];
-
         $comments = [];
         foreach ($pks as $pk) {
             if ($table) {
@@ -526,9 +526,8 @@ class Generator extends \yii\gii\Generator
         }
 
         $class = $this->modelClass;
-        /* @var $model \yii\db\BaseActiveRecord */
+/* @var $model \yii\db\BaseActiveRecord */
         $model = new $class();
-
         return $model->attributes();
     }
 
@@ -542,7 +541,8 @@ class Generator extends \yii\gii\Generator
         if (is_subclass_of($this->modelClass, '\yii\db\ActiveRecord')) {
             $class = $this->modelClass;
             $db = $class::getDb();
-            return $db instanceof \yii\db\Connection ? $db->driverName : null; //@phpstan-ignore-line
+            return $db instanceof \yii\db\Connection ? $db->driverName : null;
+//@phpstan-ignore-line
         }
 
         return null;

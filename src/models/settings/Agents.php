@@ -286,7 +286,7 @@ class Agents extends \yii\db\ActiveRecord
         $dateTimestamp = date("Y-m-d H:i:s");
         /** @var Agents[] $models */
         $models = self::find()->where(['<=', 'date_run', $dateTimestamp])->andWhere(['status_id' => 1])->all();
-        if(!empty($models)){
+        if (!empty($models)) {
             foreach ($models as $model) {
                 if ($model->period) {
                     $timestamp = strtotime($dateTimestamp) + $model->period;
@@ -321,16 +321,13 @@ class Agents extends \yii\db\ActiveRecord
                         $params = null;
                     }
 
-                    if($params = Json::decode($model->params)){
+                    if ($params = Json::decode($model->params)) {
                         call_user_func(array($model->class, $model->method), $params);
-                    }else{
+                    } else {
                         call_user_func(array($model->class, $model->method));
                     }
-
                 } catch (\Exception $e) {
                 }
-
-
             }
         }
     }

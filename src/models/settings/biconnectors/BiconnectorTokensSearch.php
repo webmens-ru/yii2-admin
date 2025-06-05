@@ -10,7 +10,6 @@ use yii\data\ActiveDataProvider;
  */
 class BiconnectorTokensSearch extends BiconnectorTokens
 {
-
     /**
      * @return mixed[]
      */
@@ -49,7 +48,6 @@ class BiconnectorTokensSearch extends BiconnectorTokens
         $this->load($params);
 
         if (!$this->validate()) {
-
             return $dataProvider;
         }
 

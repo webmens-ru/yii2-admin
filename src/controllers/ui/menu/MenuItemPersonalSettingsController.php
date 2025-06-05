@@ -28,10 +28,10 @@ class MenuItemPersonalSettingsController extends \wm\admin\controllers\ActiveRes
     {
         $userId = intval(Yii::$app->user->id);
         $items = intval(Yii::$app->getRequest()->getBodyParams());
-        if($items && $userId){
+        if ($items && $userId) {
             MenuItemPersonalSettings::saveItems($items, $userId);
             return true;
-        }else{
+        } else {
             return false;
         }
     }

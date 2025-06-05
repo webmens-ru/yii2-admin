@@ -145,7 +145,7 @@ class GridColumnPersonal extends \wm\yii\db\ActiveRecord
     public static function setFrozen($entity, $columnTitle, $frozen, $userId)
     {
         $model = GridColumn::find()->where(['entity' => $entity, 'title' => $columnTitle])->one();
-        if(!$model){
+        if (!$model) {
             throw new Exception('Model not found');
         }
         $column = self::getColumnPersonalSettings($model->id, $userId);

@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group" role="group" aria-label="First group">
             <p>
                 <?php
-                if(!$model->isSystem){
+                if (!$model->isSystem) {
                     echo Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
                     echo Html::a('Удалить', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'method' => 'post',
                         ],
                     ]);
-                }else{
+                } else {
                     echo Html::a(
                         'Таблицы',
                         null,
@@ -55,13 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group" role="group" aria-label="First group">
             <p>
                 <?php
-                if($model->bx24Id){
+                if ($model->bx24Id) {
                     echo Html::a(
                         'Удалить с портала',
                         ['b24-delete', 'id' => $model->id],
                         ['class' => 'btn btn-danger']
                     );
-                }else{
+                } else {
                     echo Html::a(
                         'Установить на портал',
                         ['install', 'id' => $model->id],

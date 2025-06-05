@@ -110,10 +110,10 @@ class UserFieldType extends \yii\db\ActiveRecord
             'HANDLER' => Url::toRoute($this->handler, 'https'),
             'TITLE' => $this->title,
         ];
-        if($this->description){
+        if ($this->description) {
             $params['DESCRIPTION'] = $this->description;
         }
-        if($this->optionsHeight){
+        if ($this->optionsHeight) {
             $params['OPTIONS']['height'] = $this->optionsHeight;
         }
         $b24 = $obB24->client->call('userfieldtype.add', $params);
@@ -144,7 +144,7 @@ class UserFieldType extends \yii\db\ActiveRecord
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
 
-        $b24 = $obB24->client->call('userfieldtype.delete', ['USER_TYPE_ID'=>$this->userTypeId]);
+        $b24 = $obB24->client->call('userfieldtype.delete', ['USER_TYPE_ID' => $this->userTypeId]);
         return ArrayHelper::getValue($b24, 'result');
     }
 

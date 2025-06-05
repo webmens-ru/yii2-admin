@@ -1,11 +1,11 @@
 <?php
+
 /**
  * This is the template for generating a CRUD controller class file.
  */
 
 use yii\db\ActiveRecordInterface;
 use yii\helpers\StringHelper;
-
 
 /** @var yii\web\View $this */
 /** @var yii\gii\generators\crud\Generator $generator */
@@ -23,18 +23,21 @@ $pks = $class::primaryKey();
 $urlParams = $generator->generateUrlParams();
 $actionParams = $generator->generateActionParams();
 $actionParamComments = $generator->generateActionParamComments();
-
 echo "<?php\n";
 ?>
 
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
 use <?= ltrim($generator->modelClass, '\\') ?>;
-<?php if (!empty($generator->searchModelClass)): ?>
+<?php if (!empty($generator->searchModelClass)) :
+    ?>
 use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
-<?php else: ?>
+    <?php
+else :
+    ?>
 use yii\data\ActiveDataProvider;
-<?php endif; ?>
+    <?php
+endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 
 /**

@@ -223,7 +223,8 @@ class BaseEntity extends ActiveRecord
      * @return mixed
      * @throws \yii\base\InvalidConfigException
      */
-    public static function synchronizationDiff(){
+    public static function synchronizationDiff()
+    {
         $id = Yii::$app->queue->push(
             Yii::createObject(
                 [
@@ -266,7 +267,7 @@ class BaseEntity extends ActiveRecord
                         ]
                     )
                     ->one();
-                if($column){
+                if ($column) {
                     $column->delete();
                 }
             }

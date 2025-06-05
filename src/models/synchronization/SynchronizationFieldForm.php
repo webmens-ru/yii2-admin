@@ -19,7 +19,6 @@ use Yii;
  */
 class SynchronizationFieldForm extends Model
 {
-
     /**
      * @var string[]
      */
@@ -67,16 +66,16 @@ class SynchronizationFieldForm extends Model
             $model->synchronizationEntityId = $this->synchronizationEntityId;
 
             $modelSync = Synchronization::find()->where(['id' => $this->synchronizationEntityId])->one();
-            if(!$modelSync){
+            if (!$modelSync) {
                 throw new Exception('ModelSync not found');
             }
             $fields = $modelSync->getB24Fields();
             $field = ArrayHelper::getValue($fields, $name);
-            if(ArrayHelper::getValue($field, 'formLabel')){
+            if (ArrayHelper::getValue($field, 'formLabel')) {
                 $model->title = ArrayHelper::getValue($field, 'formLabel');
-            }elseif(ArrayHelper::getValue($field, 'title')){
+            } elseif (ArrayHelper::getValue($field, 'title')) {
                 $model->title = ArrayHelper::getValue($field, 'title');
-            }else{
+            } else {
                 $model->title = $name;
             }
             $model->save();

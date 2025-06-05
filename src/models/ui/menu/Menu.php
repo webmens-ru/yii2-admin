@@ -14,7 +14,6 @@ use Yii;
  */
 class Menu extends \wm\yii\db\ActiveRecord
 {
-
     /**
      * @return string
      */

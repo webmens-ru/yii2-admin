@@ -15,7 +15,6 @@ use yii\db\ActiveRecord;
  */
 class BiconnectorTokens extends ActiveRecord
 {
-
     /**
      * @return string
      */
@@ -80,7 +79,8 @@ class BiconnectorTokens extends ActiveRecord
      * @return string
      * @throws \yii\base\Exception
      */
-    public static function generateTokenString(){
+    public static function generateTokenString()
+    {
         $security = new Security();
         $token = $security->generateRandomString(32);
         return $token;

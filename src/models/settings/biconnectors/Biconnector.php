@@ -26,7 +26,6 @@ use yii\helpers\Url;
  */
 class Biconnector extends \yii\db\ActiveRecord
 {
-
     /**
      * @return string
      */

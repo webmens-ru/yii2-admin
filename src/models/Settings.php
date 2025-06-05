@@ -53,7 +53,7 @@ class Settings extends \yii\db\ActiveRecord
     public static function getParametrByName($name)
     {
         $model = self::find()->where(['name_id' => $name])->one();
-        if(!$model){
+        if (!$model) {
             throw new Exception('Model not found');
         }
         return $model->value;

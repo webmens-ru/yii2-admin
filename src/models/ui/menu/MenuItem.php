@@ -122,12 +122,12 @@ class MenuItem extends \wm\yii\db\ActiveRecord
         }
         $models = self::find()->where(['menuId' => $menuId])->all();
         $menuItems = [];
-        foreach ($models as $model){
-            if(ArrayHelper::getValue($model, 'authItem')){
-                if(Yii::$app->user->can($model->authItem)){//@phpstan-ignore-line
+        foreach ($models as $model) {
+            if (ArrayHelper::getValue($model, 'authItem')) {
+                if (Yii::$app->user->can($model->authItem)) {//@phpstan-ignore-line
                     $menuItems[] = $model;
                 }
-            }else{
+            } else {
                 $menuItems[] = $model;
             }
         }

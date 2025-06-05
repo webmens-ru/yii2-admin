@@ -16,7 +16,7 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
 {
     /**
      * @var string
-     * 
+     *
      */
     public $modelClass;
 
@@ -52,22 +52,23 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
      * @param mixed $curentDate
      * @return void
      */
-    public function syncCount($curentDate){
-        for($i = 0; $i < count($this->period); $i++){
+    public function syncCount($curentDate)
+    {
+        for ($i = 0; $i < count($this->period); $i++) {
             $startDate = $curentDate - $this->period[$i];
             $b24Count = $this->getB24Count(['<CREATED_DATE' => date('Y-m-d H:i:s', $startDate) ]);
             $dbCount = $this->getDbCount(['<', 'CREATED_DATE', date('Y-m-d H:i:s', $startDate)]);
-            if($b24Count == $dbCount && $i == 0){
+            if ($b24Count == $dbCount && $i == 0) {
                 break;
             }
-            if($b24Count == $dbCount){
+            if ($b24Count == $dbCount) {
                 $this->addTaskToQueue();
                 $filterB24 = ['>=CREATED_DATE' => date('Y-m-d H:i:s', $startDate)];
                 $filterDb = ['>=', 'CREATED_DATE', date('Y-m-d H:i:s', $startDate)];
                 $this->startSync($filterB24, $filterDb);
                 break;
             }
-            if($i == count($this->period)-1 && $b24Count != $dbCount){
+            if ($i == count($this->period) - 1 && $b24Count != $dbCount) {
                 $this->addTaskToQueue();
                 $this->startSync();
                 break;
@@ -79,22 +80,23 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
      * @param mixed $curentDate
      * @return void
      */
-    public function syncUpdate($curentDate){
-        for($i = 0; $i < count($this->period); $i++){
+    public function syncUpdate($curentDate)
+    {
+        for ($i = 0; $i < count($this->period); $i++) {
             $startDate = $curentDate - $this->period[$i];
             $b24Count = $this->getB24Count(['<CHANGED_DATE' => date('Y-m-d H:i:s', $startDate)]);
             $dbCount = $this->getDbCount(['<', 'CHANGED_DATE', date('Y-m-d H:i:s', $startDate)]);
-            if($b24Count == $dbCount && $i == 0){
+            if ($b24Count == $dbCount && $i == 0) {
                 break;
             }
-            if($b24Count == $dbCount){
+            if ($b24Count == $dbCount) {
                 $this->addTaskToQueue();
                 $filterB24 = ['>=CHANGED_DATE' => date('Y-m-d H:i:s', $startDate)];
                 $filterDb = ['>=', 'CHANGED_DATE', date('Y-m-d H:i:s', $startDate)];
                 $this->startSync($filterB24, $filterDb);
                 break;
             }
-            if($i == count($this->period)-1 && $b24Count != $dbCount){
+            if ($i == count($this->period) - 1 && $b24Count != $dbCount) {
                 $this->addTaskToQueue();
                 $this->startSync();
                 break;
@@ -120,7 +122,8 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
      * @throws \yii\base\Exception
      * @throws \yii\db\Exception
      */
-    public function getB24Count($filter){
+    public function getB24Count($filter)
+    {
         $component = new \wm\b24tools\b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
@@ -129,16 +132,17 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
             [
                 "select" => ["ID"],
                 "filter" => $filter,
-            ]);
+            ]
+        );
         return $list['total'];
-
     }
 
     /**
      * @param mixed[] $filter
      * @return mixed
      */
-    public function getDbCount($filter){
+    public function getDbCount($filter)
+    {
         $count = $this->modelClass::find()->where($filter)->count();
         return $count;
     }
@@ -163,18 +167,18 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\db\Exception
      */
-    public function startSync($filterB24 = null, $filterDb = null){
+    public function startSync($filterB24 = null, $filterDb = null)
+    {
         $filter = [];
-        if($filterDb){
+        if ($filterDb) {
             $this->modelClass::deleteAll($filterDb);
             $filter = $filterB24;
-        }
-        else{
+        } else {
             $this->modelClass::deleteAll();
         }
         $modelActivity = Yii::createObject($this->modelClass);
         $fieldsActivity = $modelActivity->attributes();
-        if($logPathQueue = ArrayHelper::getValue(Yii::$app->params, 'logPathQueue')){
+        if ($logPathQueue = ArrayHelper::getValue(Yii::$app->params, 'logPathQueue')) {
             Yii::$app->params['logPath'] = $logPathQueue;
         }
         $component = new b24Tools();
@@ -184,7 +188,7 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
         $params = [
             'select' => $fieldsActivity,
             'filter' => $filter,
-            'order' => ["ID"=> "ASC"]
+            'order' => ["ID" => "ASC"]
         ];
         $request = $b24Obj->client->call(
             'crm.activity.list',
@@ -220,7 +224,8 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
      * @return void
      * @throws \yii\base\InvalidConfigException
      */
-    public function addTaskToQueue(){
+    public function addTaskToQueue()
+    {
         $id = Yii::$app->queue->push(
             Yii::createObject(
                 [
@@ -230,6 +235,4 @@ class TaskSynchronizationDiffJob extends BaseObject implements \yii\queue\JobInt
             )
         );
     }
-    
-    
 }

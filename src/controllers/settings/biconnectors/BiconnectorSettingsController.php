@@ -14,7 +14,6 @@ use Yii;
  */
 class BiconnectorSettingsController extends \wm\admin\controllers\BaseModuleController
 {
-
     public function behaviors()
     {
         return array_merge(
