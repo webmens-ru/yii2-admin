@@ -321,7 +321,7 @@ class Agents extends \yii\db\ActiveRecord
                         $params = null;
                     }
 
-                    if ($params = Json::decode($model->params)) {
+                    if ($params) {
                         call_user_func(array($model->class, $model->method), $params);
                     } else {
                         call_user_func(array($model->class, $model->method));
