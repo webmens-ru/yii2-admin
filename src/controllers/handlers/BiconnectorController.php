@@ -139,18 +139,16 @@ class BiconnectorController extends Controller
         $select = $request->post('select', '*'); // Поля для выборки
         $filter = $request->post('filter', []);  // Фильтр
         $limit = $request->post('limit');  // Лимит
-        $table = $request->post('table', '');  // Лимит
+        $table = $request->post('table', '');  // Таблица
 
         // Выполняем запрос к базе данных
         $query = (new Query())
-            ->from($table) // Замените на имя вашей таблицы
+            ->from($table)
             ->select($select);
 
         // Применяем фильтр, если он передан
         if (!empty($filter)) {
-            foreach ($filter as $field => $value) {
-                $query->andWhere([$field => $value]);
-            }
+            $this->applyFilter($query, $filter);
         }
 
         // Применяем лимит, если он передан
@@ -176,5 +174,65 @@ class BiconnectorController extends Controller
         }
 
         return $result;
+    }
+
+    /**
+     * @param Query $query
+     * @param mixed[] $filter
+     * @return void
+     */
+    protected function applyFilter(Query $query, array $filter)
+    {
+        foreach ($filter as $key => $condition) {
+            if (is_numeric($key)) {
+                // Обработка сложных условий с логикой (OR/AND)
+                if (isset($condition['LOGIC'])) {
+                    $logic = $condition['LOGIC'];
+                    unset($condition['LOGIC']);
+
+                    $nestedConditions = [];
+                    foreach ($condition as $nestedCondition) {
+                        $nestedConditions[] = $this->buildCondition($nestedCondition);
+                    }
+
+                    if ($logic === 'OR') {
+                        $query->orWhere(array_merge(['or'], $nestedConditions));
+                    } else {
+                        $query->andWhere(array_merge(['and'], $nestedConditions));
+                    }
+                }
+            } else {
+                // Обработка простых условий
+                $query->andWhere($this->buildCondition([$key => $condition]));
+            }
+        }
+    }
+
+    /**
+     * @param mixed[] $condition
+     * @return mixed
+     */
+    protected function buildCondition(array $condition)
+    {
+        $result = [];
+
+        foreach ($condition as $field => $value) {
+            // Определяем оператор сравнения
+            $operator = '=';
+            $cleanField = $field;
+
+            if (preg_match('/^(>=|<=|>|<|!=|=)(.+)/', $field, $matches)) {
+                $operator = $matches[1];
+                $cleanField = $matches[2];
+            }
+
+            if ($operator === '=' && is_array($value)) {
+                $result[] = ['in', $cleanField, $value];
+            } else {
+                $result[] = [$operator, $cleanField, $value];
+            }
+        }
+
+        return count($result) === 1 ? $result[0] : array_merge(['and'], $result);
     }
 }
