@@ -46,5 +46,9 @@ use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
     public $modelClass = <?= $modelClass ?>::class;
+
+    /**
+    * @var string
+    */
     public $modelClassSearch = <?= $searchModelClass ?>::class;
 }

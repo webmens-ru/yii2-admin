@@ -51,7 +51,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
     /**
     * @param ActiveQuery $query
-    * @param array $requestParams
+    * @param mixed[] $requestParams
     * @return mixed
     * @throws \Exception
     */
