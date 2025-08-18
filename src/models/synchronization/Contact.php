@@ -146,7 +146,7 @@ class Contact extends BaseEntity implements SynchronizationInterface
             $agent->class = static::class;
             $agent->method = 'synchronization';
             $agent->params = '-';
-            $agent->date_run = '1970-01-01 00:00:00';
+            $agent->date_run = '1970-01-01 01:01:01';
         }
         $agent->load(ArrayHelper::toArray($modelAgentTimeSettings), '');
         $agent->status_id = 1;
