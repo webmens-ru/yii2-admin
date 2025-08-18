@@ -309,15 +309,20 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
      */
     public function getDateTimeFields()
     {
-        if ($this->_dateTimeFields === null) {
-            $this->_dateTimeFields = [];
-            foreach ($this->attributes as $field => $value) {
-                // Определяем поля с датами по названию (содержит 'Time' или 'Date')
-                if (preg_match('/(Time|Date|Dt)$/i', $field)) {
-                    $this->_dateTimeFields[] = $field;
-                }
+        if ($this->_dateTimeFields !== null) {
+            return $this->_dateTimeFields;
+        }
+
+        $this->_dateTimeFields = [];
+        $tableSchema = $this->getTableSchema();
+        $dateTimeTypes = ['datetime', 'timestamp', 'timestamptz', 'date'];
+
+        foreach ($tableSchema->columns as $name => $column) {
+            if (in_array($column->type, $dateTimeTypes)) {
+                $this->_dateTimeFields[] = $name;
             }
         }
+
         return $this->_dateTimeFields;
     }
 
