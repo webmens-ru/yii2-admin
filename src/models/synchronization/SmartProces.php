@@ -27,6 +27,11 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
     public static $entityTypeId = 0;
 
     /**
+     * @var array|null Кэш полей с датами
+     */
+    private $_dateTimeFields;
+
+    /**
      * @return string
      */
     public static function tableName()
@@ -189,6 +194,23 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         }
     }
 
+//    /**
+//     * @param $data
+//     * @return void
+//     */
+//    public function loadData($data)
+//    {
+//        foreach ($data as $key => $val) {
+//            if (in_array($key, array_keys($this->attributes))) {
+//                is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+//            }
+//        }
+//        $this->save();
+//        if ($this->errors) {
+//            Yii::error($this->errors, 'SmartProces->loadData()');
+//        }
+//    }
+
     /**
      * @param $data
      * @return void
@@ -196,8 +218,14 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
     public function loadData($data)
     {
         foreach ($data as $key => $val) {
-            if (in_array($key, array_keys($this->attributes))) {
-                is_array($val) ? $this->$key = json_encode($val) : $this->$key = $val;
+            if (array_key_exists($key, $this->attributes)) {
+                if (is_array($val)) {
+                    $this->$key = json_encode($val);
+                } elseif (in_array($key, $this->getDateTimeFields())) {
+                    $this->$key = $this->convertDateTimeFormat($val);
+                } else {
+                    $this->$key = $val;
+                }
             }
         }
         $this->save();
@@ -274,4 +302,57 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         );
         return $id;
     }
+
+    /**
+     * Возвращает список полей, которые содержат даты
+     * @return array
+     */
+    public function getDateTimeFields()
+    {
+        if ($this->_dateTimeFields === null) {
+            $this->_dateTimeFields = [];
+            foreach ($this->attributes as $field => $value) {
+                // Определяем поля с датами по названию (содержит 'Time' или 'Date')
+                if (preg_match('/(Time|Date|Dt)$/i', $field)) {
+                    $this->_dateTimeFields[] = $field;
+                }
+            }
+        }
+        return $this->_dateTimeFields;
+    }
+
+    /**
+     * Конвертирует формат даты в MySQL-совместимый
+     * @param string|null $dateTime
+     * @return string|null
+     */
+    protected function convertDateTimeFormat($dateTime)
+    {
+        if (empty($dateTime) || $dateTime === '0000-00-00 00:00:00') {
+            return null;
+        }
+
+        // Если дата уже в правильном формате
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $dateTime)) {
+            return $dateTime;
+        }
+
+        try {
+            // Пробуем разные форматы дат
+            if (strpos($dateTime, 'T') !== false) {
+                // ISO 8601 формат (2025-06-19T17:44:31+03:00)
+                return (new \DateTime($dateTime))->format('Y-m-d H:i:s');
+            } elseif (is_numeric($dateTime)) {
+                // Unix timestamp
+                return date('Y-m-d H:i:s', $dateTime);
+            } else {
+                // Другие форматы
+                return (new \DateTime($dateTime))->format('Y-m-d H:i:s');
+            }
+        } catch (\Exception $e) {
+            Yii::error("Failed to convert datetime: $dateTime. Error: " . $e->getMessage(), 'SmartProces->convertDateTimeFormat()');
+            return null;
+        }
+    }
+
 }
