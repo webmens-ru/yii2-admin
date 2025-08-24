@@ -122,8 +122,6 @@ class UserFieldTypeController extends \wm\admin\controllers\BaseModuleController
             'pagination' => false,
         ]);
 
-        Yii::warning(ArrayHelper::toArray($dataProvider), '$dataProvider');
-
         return $this->render('b24-list', [
             'dataProvider' => $dataProvider,
         ]);

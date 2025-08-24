@@ -33,7 +33,6 @@ class TaskElapsedItemSynchronizationDeltaJob extends BaseObject implements \yii\
      */
     public function execute($queue)
     {
-        Yii::warning('TaskElapsedItemSynchronizationDeltaJob', 'TaskElapsedItemSynchronizationDeltaJob');
     }
 
 

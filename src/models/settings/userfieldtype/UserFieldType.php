@@ -78,7 +78,6 @@ class UserFieldType extends \yii\db\ActiveRecord
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
         $b24 = $obB24->client->call('userfieldtype.list');
-        Yii::warning($b24, '$b24 64');
         return ArrayHelper::getValue($b24, 'result');
     }
 
@@ -104,10 +103,14 @@ class UserFieldType extends \yii\db\ActiveRecord
         $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new B24Object($b24App);
-//        $handler = Url::toRoute($this->handler, 'https');
+        if (strpos($this->handler, 'https://') === false) {
+            $handler = Url::toRoute($this->handler, 'https');
+        } else {
+            $handler = $this->handler;
+        }
         $params = [
             'USER_TYPE_ID' => $this->userTypeId,
-            'HANDLER' => Url::toRoute($this->handler, 'https'),
+            'HANDLER' => $handler,
             'TITLE' => $this->title,
         ];
         if ($this->description) {

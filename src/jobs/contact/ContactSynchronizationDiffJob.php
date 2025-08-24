@@ -43,7 +43,6 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
     public function execute($queue)
     {
         $curentDate = strtotime('now') + 10800; // TODO
-        Yii::warning(date('Y-m-d H:i:s', $curentDate), '$curentDate_1');
         $this->syncCount($curentDate);
         $this->syncUpdate($curentDate);
     }
@@ -58,7 +57,6 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
             $startDate = $curentDate - $this->period[$i];
             $b24Count = $this->getB24Count(['<DATE_CREATE' => date('Y-m-d H:i:s', $startDate) ]);
             $dbCount = $this->getDbCount(['<', 'DATE_CREATE', date('Y-m-d H:i:s', $startDate)]);
-            Yii::warning([$i, $b24Count, $dbCount, date('Y-m-d H:i:s', $startDate)], 'syncCount_$b24Count');
             if ($b24Count == $dbCount && $i == 0) {
                 break;
             }
@@ -87,7 +85,6 @@ class ContactSynchronizationDiffJob extends BaseObject implements \yii\queue\Job
             $startDate = $curentDate - $this->period[$i];
             $b24Count = $this->getB24Count(['<DATE_MODIFY' => date('Y-m-d H:i:s', $startDate)]);
             $dbCount = $this->getDbCount(['<', 'DATE_MODIFY', date('Y-m-d H:i:s', $startDate)]);
-            Yii::warning([$i, $b24Count, $dbCount, date('Y-m-d H:i:s', $startDate)], 'syncUpdate_$b24Count');
             if ($b24Count == $dbCount && $i == 0) {
                 break;
             }

@@ -100,7 +100,6 @@ class CalendarEventUserSynchronizationDeltaJob extends BaseObject implements \yi
      */
     public function synchronUpdate()
     {
-        Yii::warning('synchronUpdate');
         $answerB24 = Events::getOffline('OnCalendarEntryUpdate');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.id');
@@ -136,7 +135,6 @@ class CalendarEventUserSynchronizationDeltaJob extends BaseObject implements \yi
      */
     public function synchronDelete()
     {
-        Yii::warning('synchronDelete');
         $answerB24 = Events::getOffline('OnCalendarEntryDelete');
         $eventsB24 = ArrayHelper::getValue($answerB24, 'result.events');
         $arrayId = ArrayHelper::getColumn($eventsB24, 'EVENT_DATA.id');

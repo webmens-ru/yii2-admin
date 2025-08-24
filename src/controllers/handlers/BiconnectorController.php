@@ -36,7 +36,6 @@ class BiconnectorController extends Controller
      */
     public function actionTableList()
     {
-        Yii::warning('actionTableList');
         $token = ArrayHelper::getValue(Yii::$app->request->post('connection'), 'token');
         if (!BiconnectorTokens::isValidToken($token)) {
             throw new HttpException(403, 'В доступе отказано');
@@ -119,7 +118,6 @@ class BiconnectorController extends Controller
                 'type' => $mappedType,
             ];
         }
-        Yii::warning($result);
         return $result;
     }
 
