@@ -220,4 +220,16 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
         return $b24AccessParams['member_id'];
     }
+
+    /**
+     * @param $userId
+     * @return int|null
+     */
+    public static function getB24UserId($userId){
+        $user = self::findOne(['id' => $userId]);
+        if (!$user) {
+            return null;
+        }
+        return $user->b24_user_id;
+    }
 }
