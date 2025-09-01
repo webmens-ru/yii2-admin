@@ -27,6 +27,8 @@ class Deal extends BaseEntity implements SynchronizationInterface
         return 'sync_deal';
     }
 
+    private $_dateTimeFields;
+
     /**
      * @var string
      */
