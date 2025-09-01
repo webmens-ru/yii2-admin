@@ -185,6 +185,8 @@ class Deal extends BaseEntity implements SynchronizationInterface
                 $data = '';
                 if (is_array($val)) {
                     $data = json_encode($val);
+                }elseif (in_array($key, $this->getDateTimeFields())) {
+                    $data = $this->convertDateTimeFormat($val);
                 } else {
                     $data = $val;
                 }
@@ -202,4 +204,54 @@ class Deal extends BaseEntity implements SynchronizationInterface
             Yii::error($this->errors, 'Deal->loadData()');
         }
     }
+
+    public function getDateTimeFields()
+    {
+        if ($this->_dateTimeFields !== null) {
+            return $this->_dateTimeFields;
+        }
+
+        $this->_dateTimeFields = [];
+        $tableSchema = $this->getTableSchema();
+        $dateTimeTypes = ['datetime', 'timestamp', 'timestamptz', 'date'];
+
+        foreach ($tableSchema->columns as $name => $column) {
+            if (in_array($column->type, $dateTimeTypes)) {
+                $this->_dateTimeFields[] = $name;
+            }
+        }
+
+        return $this->_dateTimeFields;
+    }
+
+    protected function convertDateTimeFormat($dateTime)
+    {
+        if (empty($dateTime) || $dateTime === '0000-00-00 00:00:00') {
+            return null;
+        }
+
+        // Если дата уже в правильном формате
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $dateTime)) {
+            return $dateTime;
+        }
+
+        try {
+            // Пробуем разные форматы дат
+            if (strpos($dateTime, 'T') !== false) {
+                // ISO 8601 формат (2025-06-19T17:44:31+03:00)
+                return (new \DateTime($dateTime))->format('Y-m-d H:i:s');
+            } elseif (is_numeric($dateTime)) {
+                // Unix timestamp
+                return date('Y-m-d H:i:s', $dateTime);
+            } else {
+                // Другие форматы
+                return (new \DateTime($dateTime))->format('Y-m-d H:i:s');
+            }
+        } catch (\Exception $e) {
+            Yii::error("Failed to convert datetime: $dateTime. Error: " . $e->getMessage(), 'SmartProces->convertDateTimeFormat()');
+            return null;
+        }
+    }
+
+
 }
