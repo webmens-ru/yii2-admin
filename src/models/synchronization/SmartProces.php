@@ -31,6 +31,8 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
      */
     private $_dateTimeFields;
 
+    private $_booleanFields;
+
     /**
      * @return string
      */
@@ -223,6 +225,8 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
                     $this->$key = json_encode($val);
                 } elseif (in_array($key, $this->getDateTimeFields())) {
                     $this->$key = $this->convertDateTimeFormat($val);
+                }elseif (in_array($key, $this->getBooleanFields())) {
+                    $this->$key = $val=='Y'?1:0;
                 } else {
                     $this->$key = $val;
                 }
@@ -324,6 +328,24 @@ class SmartProces extends BaseEntity implements SynchronizationInterface
         }
 
         return $this->_dateTimeFields;
+    }
+
+    public function getBooleanFields()
+    {
+        if ($this->_booleanFields !== null) {
+            return $this->_booleanFields;
+        }
+
+        $this->_booleanFields = [];
+        $tableSchema = $this->getTableSchema();
+
+        foreach ($tableSchema->columns as $name => $column) {
+            if ($column->type === 'tinyint' && $column->size === 1) {
+                $this->_booleanFields[] = $name;
+            }
+        }
+
+        return $this->_booleanFields;
     }
 
     /**
