@@ -99,6 +99,7 @@ class GridColumn extends \wm\yii\db\ActiveRecord
                 return self::getBooleanValue($this->editable);
             },
             'editor',
+            'editorProps',
             'info',
             'color',
         ];
